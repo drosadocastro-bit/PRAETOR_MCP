@@ -66,6 +66,8 @@ export interface EvidenceItem {
   independence_group: string;
   assessment?: 'elevated' | 'stable' | 'normal' | 'uncertain';
   confidence_hint?: number;
+  derived_from_source_id?: string;
+  upstream_assumption?: string;
 }
 
 export type IntegrityVerdict = 'safe' | 'doubtful' | 'unsafe' | 'untrusted';
@@ -78,32 +80,61 @@ export interface GuardrailResult {
     | 'human_review_boundary'
     | 'mission_boundary'
     | 'false_consensus'
-    | 'contradiction_handling';
+    | 'contradiction_handling'
+    | 'schema_validation'
+    | 'evaluator_manipulation'
+    | 'retry_pressure';
+  guardrail: string;
   status: 'pass' | 'flag' | 'block';
   detail: string;
   severity: 'low' | 'medium' | 'high';
+  reason: string;
+  affected_fields: string[];
+  recommended_action: string;
+}
+
+export interface EvidenceIndependence {
+  independent_source_count: number;
+  total_evidence_count: number;
+  shared_source_ids: string[];
+  dependency_risk: 'low' | 'medium' | 'high';
+  notes: string;
 }
 
 export interface AdvisoryPacketDraft {
-  packet_id: string;
+  packet_id?: string;
+  advisory_id?: string;
   finding: string;
   equipment_id: string;
   subsystem?: string;
   component?: string;
+  evidence_summary?: string;
+  source_ids?: string[];
+  provenance?: string;
   supporting_evidence: EvidenceItem[];
   confidence: number;
   uncertainty: string[];
+  contradiction_status?: 'present' | 'not_detected';
+  circular_evidence_status?: 'present' | 'not_detected';
   human_review_required: boolean;
   advisory_only_statement: string;
   guardrail_results?: GuardrailResult[];
+  integrity_verdict?: IntegrityVerdict;
+  evidence_independence?: EvidenceIndependence;
+  retry_count?: number;
 }
 
 export interface AdvisoryPacketRecord extends AdvisoryPacketDraft {
-  source_ids: string[];
+  advisory_id?: string;
+  subsystem?: string;
+  component?: string;
   evidence_summary: string;
+  source_ids: string[];
+  provenance?: string;
   contradiction_status: 'present' | 'not_detected';
   circular_evidence_status: 'present' | 'not_detected';
   integrity_verdict: IntegrityVerdict;
+  evidence_independence?: EvidenceIndependence;
   integrity_summary: string;
   stored_at: string;
   guardrail_results: GuardrailResult[];
@@ -118,6 +149,7 @@ export interface IntegrityDimensionScores {
   mission_drift: number;
   circular_evidence_risk: number;
   reconstructability: number;
+  evidence_independence: number;
 }
 
 export interface IntegrityAssessment {
@@ -127,4 +159,5 @@ export interface IntegrityAssessment {
   summary: string;
   capped_confidence: number;
   human_review_required: boolean;
+  evidence_independence: EvidenceIndependence;
 }

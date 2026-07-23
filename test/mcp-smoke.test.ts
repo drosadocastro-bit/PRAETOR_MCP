@@ -48,10 +48,14 @@ describe('MCP stdio smoke test', () => {
         name: 'submit_review_advisory_packet',
         arguments: {
           packet_id: 'PKT-SMOKE',
+          advisory_id: 'ADV-SMOKE',
           finding: 'Repeated vibration may indicate a recurring hydraulic pattern.',
           equipment_id: 'PRA-401',
           subsystem: 'hydraulic',
           component: 'pump seal',
+          evidence_summary: 'Independent synthetic vibration observations.',
+          source_ids: ['SRC-SMOKE-A', 'SRC-SMOKE-B'],
+          provenance: 'Smoke-test synthetic source set.',
           supporting_evidence: [
             {
               source_id: 'SRC-SMOKE-A',
@@ -76,8 +80,21 @@ describe('MCP stdio smoke test', () => {
           ],
           confidence: 0.7,
           uncertainty: ['Root cause is not established.'],
+          contradiction_status: 'not_detected',
+          circular_evidence_status: 'not_detected',
           human_review_required: true,
-          advisory_only_statement: 'Evidence suggests this should be reviewed; advisory only.'
+          advisory_only_statement: 'Evidence suggests this should be reviewed; advisory only.',
+          guardrail_results: [{
+            check: 'evidence_presence',
+            guardrail: 'evidence_presence',
+            status: 'pass',
+            detail: 'Caller claim; governance recomputes this result.',
+            severity: 'low',
+            reason: 'Caller claim; governance recomputes this result.',
+            affected_fields: ['supporting_evidence'],
+            recommended_action: 'Review authoritative governance output.'
+          }],
+          integrity_verdict: 'doubtful'
         }
       });
 

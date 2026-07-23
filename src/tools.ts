@@ -12,6 +12,8 @@ import {
   sourceMetadata
 } from './data.js';
 import { evaluateAdvisoryPacket } from './governance.js';
+import { analyzeEvidenceIndependence } from './dependencyGraph.js';
+import { AdvisoryPacketSchema, validateAdvisoryPacket } from './schema.js';
 import { appendAdvisoryPacket } from './storage.js';
 import type {
   AdvisoryPacketDraft,
@@ -355,62 +357,33 @@ export function registerPraetorTools(server: McpServer): void {
     'submit_review_advisory_packet',
     {
       description: 'Persist a review-only synthetic advisory packet after deterministic governance checks pass.',
-      inputSchema: z.object({
-        packet_id: z.string(),
-        finding: z.string(),
-        equipment_id: z.string(),
-        subsystem: z.string().optional(),
-        component: z.string().optional(),
-        supporting_evidence: z.array(
-          z.object({
-            source_id: z.string(),
-            source_type: z.string(),
-            timestamp: z.string(),
-            excerpt: z.string(),
-            provenance_metadata: z.string(),
-            uncertainty_notes: z.array(z.string()),
-            independence_group: z.string(),
-            assessment: z.enum(['elevated', 'stable', 'normal', 'uncertain']).optional()
-          })
-        ),
-        confidence: z.number().min(0).max(1),
-        uncertainty: z.array(z.string()),
-        human_review_required: z.boolean(),
-        advisory_only_statement: z.string(),
-        guardrail_results: z.array(
-          z.object({
-            check: z.enum([
-              'evidence_presence',
-              'provenance_required',
-              'confidence_boundary',
-              'human_review_boundary',
-              'mission_boundary',
-              'false_consensus',
-              'contradiction_handling'
-            ]),
-            status: z.enum(['pass', 'flag', 'block']),
-            detail: z.string(),
-            severity: z.enum(['low', 'medium', 'high'])
-          })
-        ).optional()
-      })
+      inputSchema: AdvisoryPacketSchema
     },
     async input => {
-      const assessment = evaluateAdvisoryPacket(input);
+      const validation = validateAdvisoryPacket(input);
+      if (!validation.valid) {
+        return jsonResult({ status: 'schema_rejected', issues: validation.issues });
+      }
+
+      const packet = validation.data as AdvisoryPacketDraft;
+      const assessment = evaluateAdvisoryPacket(packet);
       const contradictionStatus = assessment.guardrail_results.some(result => result.check === 'contradiction_handling' && result.status === 'flag') ? 'present' : 'not_detected';
       const circularEvidenceStatus = assessment.guardrail_results.some(result => result.check === 'false_consensus' && result.status === 'flag') ? 'present' : 'not_detected';
       const record: AdvisoryPacketRecord = {
-        ...input,
-        subsystem: input.subsystem ?? 'unspecified',
-        component: input.component ?? 'unspecified',
-        source_ids: input.supporting_evidence.map(evidence => evidence.source_id),
-        evidence_summary: input.supporting_evidence.map(evidence => `${evidence.source_id}: ${evidence.excerpt}`).join(' | '),
+        ...packet,
+        advisory_id: packet.advisory_id!,
+        subsystem: packet.subsystem!,
+        component: packet.component!,
+        source_ids: packet.source_ids!,
+        evidence_summary: packet.evidence_summary!,
+        provenance: packet.provenance!,
         contradiction_status: contradictionStatus,
         circular_evidence_status: circularEvidenceStatus,
         integrity_verdict: assessment.verdict,
         integrity_summary: assessment.summary,
         stored_at: new Date().toISOString(),
-        guardrail_results: assessment.guardrail_results
+        guardrail_results: assessment.guardrail_results,
+        evidence_independence: analyzeEvidenceIndependence(packet.supporting_evidence)
       };
 
       if (!assessment.accepted) {

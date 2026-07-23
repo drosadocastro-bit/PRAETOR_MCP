@@ -1,4 +1,5 @@
 import type { AdvisoryPacketDraft, EvidenceItem, GuardrailResult, IntegrityAssessment, IntegrityDimensionScores, IntegrityVerdict } from './types.js';
+import { analyzeEvidenceIndependence } from './dependencyGraph.js';
 
 const MISSION_DRIFT_PATTERNS = [
   /must replace/i,
@@ -9,6 +10,17 @@ const MISSION_DRIFT_PATTERNS = [
   /system determines/i,
   /safe to operate/i,
   /unsafe to operate/i
+];
+
+const EVALUATOR_MANIPULATION_PATTERNS = [/ignore guardrails/i, /override integrity verdict/i, /already been reviewed/i, /mark this as safe/i];
+
+const SAFE_LANGUAGE_SUGGESTIONS: Array<[RegExp, string]> = [
+  [/must replace/i, 'should be reviewed for possible replacement'],
+  [/confirmed failure/i, 'evidence may indicate a possible failure pattern'],
+  [/maintenance action required/i, 'maintenance review is recommended'],
+  [/authorized corrective action/i, 'should be reviewed by authorized personnel'],
+  [/safe to operate/i, 'operational status must be determined by authorized personnel'],
+  [/unsafe to operate/i, 'requires review by authorized personnel']
 ];
 
 function clampConfidence(value: number): number {
@@ -28,19 +40,40 @@ function countIndependentGroups(evidence: EvidenceItem[]): number {
   return new Set(evidence.map(item => item.independence_group)).size;
 }
 
-function buildGuardrail(check: GuardrailResult['check'], status: GuardrailResult['status'], detail: string, severity: GuardrailResult['severity']): GuardrailResult {
-  return { check, status, detail, severity };
+function buildGuardrail(
+  check: GuardrailResult['check'],
+  status: GuardrailResult['status'],
+  detail: string,
+  severity: GuardrailResult['severity'],
+  affected_fields: string[],
+  recommended_action: string
+): GuardrailResult {
+  return {
+    check,
+    guardrail: check,
+    status,
+    detail,
+    severity,
+    reason: detail,
+    affected_fields,
+    recommended_action
+  };
+}
+
+export function suggestSafeLanguage(text: string): string[] {
+  return SAFE_LANGUAGE_SUGGESTIONS.filter(([pattern]) => pattern.test(text)).map(([, suggestion]) => suggestion);
 }
 
 export function scoreIntegrity(packet: AdvisoryPacketDraft): IntegrityAssessment {
   const evidence = packet.supporting_evidence;
+  const independence = analyzeEvidenceIndependence(evidence);
   const guardrail_results: GuardrailResult[] = [];
   let verdict: IntegrityVerdict = 'safe';
   let cappedConfidence = clampConfidence(packet.confidence);
   let human_review_required = packet.human_review_required;
 
   if (evidence.length === 0) {
-    guardrail_results.push(buildGuardrail('evidence_presence', 'block', 'No supporting evidence was supplied.', 'high'));
+    guardrail_results.push(buildGuardrail('evidence_presence', 'block', 'No supporting evidence was supplied.', 'high', ['supporting_evidence', 'source_ids'], 'Add traceable synthetic evidence and require human review.'));
     return {
       verdict: 'untrusted',
       dimension_scores: {
@@ -51,61 +84,80 @@ export function scoreIntegrity(packet: AdvisoryPacketDraft): IntegrityAssessment
         human_review_boundary: 0,
         mission_drift: 1,
         circular_evidence_risk: 0,
-        reconstructability: 0
+        reconstructability: 0,
+        evidence_independence: 0
       },
       guardrail_results,
       summary: 'Rejected because the advisory lacks supporting evidence.',
       capped_confidence: 0,
-      human_review_required: true
+      human_review_required: true,
+      evidence_independence: independence
     };
   }
 
   if (evidence.some(item => !isFullyProvenanced(item))) {
-    guardrail_results.push(buildGuardrail('provenance_required', 'block', 'At least one evidence item is missing provenance metadata.', 'high'));
+    guardrail_results.push(buildGuardrail('provenance_required', 'block', 'At least one evidence item is missing provenance metadata.', 'high', ['supporting_evidence', 'provenance'], 'Restore source metadata before submission.'));
     verdict = 'untrusted';
-    cappedConfidence = Math.min(cappedConfidence, 0.25);
+    cappedConfidence = Math.min(cappedConfidence, 0.3);
   } else {
-    guardrail_results.push(buildGuardrail('provenance_required', 'pass', 'Every evidence item includes source metadata.', 'low'));
+    guardrail_results.push(buildGuardrail('provenance_required', 'pass', 'Every evidence item includes source metadata.', 'low', ['supporting_evidence', 'provenance'], 'Retain the provenance records for reconstruction.'));
   }
 
   if (evidence.length < 2) {
-    guardrail_results.push(buildGuardrail('confidence_boundary', 'flag', 'Single-source evidence is capped to a cautious confidence band.', 'medium'));
-    cappedConfidence = Math.min(cappedConfidence, 0.45);
+    guardrail_results.push(buildGuardrail('confidence_boundary', 'flag', 'Single-source evidence is capped to a cautious confidence band.', 'medium', ['confidence', 'supporting_evidence'], 'Add independent evidence or keep human review required.'));
+    cappedConfidence = Math.min(cappedConfidence, 0.5);
     human_review_required = true;
   } else {
-    guardrail_results.push(buildGuardrail('confidence_boundary', 'pass', 'Evidence is sufficiently multi-item to support a review-only advisory.', 'low'));
+    guardrail_results.push(buildGuardrail('confidence_boundary', 'pass', 'Evidence is sufficiently multi-item to support a review-only advisory.', 'low', ['confidence'], 'Keep the value explicitly synthetic and non-calibrated.'));
   }
 
   const driftMatch = [packet.finding, packet.advisory_only_statement].find(text => MISSION_DRIFT_PATTERNS.some(pattern => pattern.test(text)));
   if (driftMatch) {
-    guardrail_results.push(buildGuardrail('mission_boundary', 'block', 'Advisory language implies operational authority.', 'high'));
+    guardrail_results.push(buildGuardrail('mission_boundary', 'block', `Advisory language implies operational authority. Suggested alternatives: ${suggestSafeLanguage(driftMatch) .join('; ') || 'rewrite for review-only language'}.`, 'high', ['finding', 'advisory_only_statement'], 'Rewrite the advisory and require human review; do not silently rewrite it.'));
     verdict = 'unsafe';
-    cappedConfidence = Math.min(cappedConfidence, 0.2);
+    cappedConfidence = Math.min(cappedConfidence, 0.25);
   } else {
-    guardrail_results.push(buildGuardrail('mission_boundary', 'pass', 'Advisory language stays bounded and review-only.', 'low'));
+    guardrail_results.push(buildGuardrail('mission_boundary', 'pass', 'Advisory language stays bounded and review-only.', 'low', ['finding', 'advisory_only_statement'], 'Continue human review.'));
   }
 
   if (hasContradiction(evidence)) {
-    guardrail_results.push(buildGuardrail('contradiction_handling', 'flag', 'Conflicting elevated and normal assessments are present.', 'high'));
+    guardrail_results.push(buildGuardrail('contradiction_handling', 'flag', 'Conflicting elevated and normal assessments are present.', 'high', ['supporting_evidence', 'confidence'], 'Resolve or preserve the contradiction and require human review.'));
     verdict = verdict === 'unsafe' ? verdict : 'doubtful';
-    cappedConfidence = Math.min(cappedConfidence, 0.5);
+    cappedConfidence = Math.min(cappedConfidence, 0.55);
     human_review_required = true;
   } else {
-    guardrail_results.push(buildGuardrail('contradiction_handling', 'pass', 'No contradiction was detected in the evidence set.', 'low'));
+    guardrail_results.push(buildGuardrail('contradiction_handling', 'pass', 'No contradiction was detected in the evidence set.', 'low', ['supporting_evidence'], 'Continue monitoring for conflicting follow-up evidence.'));
   }
 
   const uniqueSources = new Set(evidence.map(item => item.source_id));
   const uniqueGroups = countIndependentGroups(evidence);
-  const circularEvidence = uniqueSources.size < evidence.length || uniqueGroups < Math.min(2, evidence.length);
+  const circularEvidence = independence.circular_evidence_risk || uniqueSources.size < evidence.length || uniqueGroups < Math.min(2, evidence.length);
   if (circularEvidence) {
-    guardrail_results.push(buildGuardrail('false_consensus', 'flag', 'Evidence reuses the same source or upstream assumption.', 'high'));
+    guardrail_results.push(buildGuardrail('false_consensus', 'flag', `${independence.notes} Independent source count: ${independence.independent_source_count}.`, 'high', ['supporting_evidence', 'source_ids', 'evidence_independence'], 'Separate source lineages or keep the packet on the human-review path.'));
     if (verdict !== 'unsafe') {
       verdict = 'untrusted';
     }
-    cappedConfidence = Math.min(cappedConfidence, 0.35);
+    cappedConfidence = Math.min(cappedConfidence, 0.5);
     human_review_required = true;
   } else {
-    guardrail_results.push(buildGuardrail('false_consensus', 'pass', 'Evidence sources are independent enough for review-only use.', 'low'));
+    guardrail_results.push(buildGuardrail('false_consensus', 'pass', 'Evidence sources are independent enough for review-only use.', 'low', ['evidence_independence'], 'Retain the source lineage.'));
+  }
+
+  const manipulationMatch = [packet.finding, packet.advisory_only_statement, ...packet.uncertainty].find(text => EVALUATOR_MANIPULATION_PATTERNS.some(pattern => pattern.test(text)));
+  if (manipulationMatch) {
+    guardrail_results.push(buildGuardrail('evaluator_manipulation', 'block', 'The packet attempts to direct or override the evaluator.', 'high', ['finding', 'advisory_only_statement', 'uncertainty'], 'Remove evaluator-directed language; packet claims cannot self-clear safety.'));
+    verdict = verdict === 'unsafe' ? verdict : 'untrusted';
+    cappedConfidence = Math.min(cappedConfidence, 0.25);
+    human_review_required = true;
+  } else {
+    guardrail_results.push(buildGuardrail('evaluator_manipulation', 'pass', 'No evaluator-directed instruction was detected.', 'low', ['finding', 'advisory_only_statement'], 'Keep evaluator decisions outside packet self-attestation.'));
+  }
+
+  if ((packet.retry_count ?? 0) > 0) {
+    guardrail_results.push(buildGuardrail('retry_pressure', 'flag', `Packet was submitted after ${packet.retry_count} prior attempt(s).`, 'medium', ['retry_count'], 'Log the attempts and require human review before any further submission.'));
+    human_review_required = true;
+  } else {
+    guardrail_results.push(buildGuardrail('retry_pressure', 'pass', 'No prior denied submission was recorded.', 'low', ['retry_count'], 'Record future retry pressure if it occurs.'));
   }
 
   const supportScore = evidence.length >= 3 ? 1 : evidence.length === 2 ? 0.8 : 0.35;
@@ -115,7 +167,8 @@ export function scoreIntegrity(packet: AdvisoryPacketDraft): IntegrityAssessment
   const humanReviewScore = packet.human_review_required || human_review_required ? 1 : 0.5;
   const missionScore = driftMatch ? 0 : 1;
   const circularScore = circularEvidence ? 0.1 : 1;
-  const reconstructabilityScore = evidence.every(item => Boolean(item.excerpt)) ? 1 : 0.4;
+  const reconstructabilityScore = evidence.every(item => Boolean(item.excerpt && item.source_id && item.provenance_metadata)) ? 1 : 0.4;
+  const independenceScore = independence.dependency_risk === 'low' ? 1 : independence.dependency_risk === 'medium' ? 0.5 : 0.1;
 
   if (verdict === 'safe' && cappedConfidence < 0.55) {
     verdict = 'doubtful';
@@ -128,12 +181,12 @@ export function scoreIntegrity(packet: AdvisoryPacketDraft): IntegrityAssessment
   }
 
   if (driftMatch) {
-    guardrail_results.push(buildGuardrail('human_review_boundary', 'block', 'Mission-drift violations always require human review.', 'high'));
+    guardrail_results.push(buildGuardrail('human_review_boundary', 'block', 'Mission-drift violations always require human review.', 'high', ['human_review_required'], 'Keep the packet blocked until the language is rewritten and reviewed.'));
     human_review_required = true;
   } else if (packet.human_review_required || human_review_required) {
-    guardrail_results.push(buildGuardrail('human_review_boundary', 'flag', 'The packet must remain on the human-review path.', 'medium'));
+    guardrail_results.push(buildGuardrail('human_review_boundary', 'flag', 'The packet must remain on the human-review path.', 'medium', ['human_review_required'], 'Route the packet to a human reviewer.'));
   } else {
-    guardrail_results.push(buildGuardrail('human_review_boundary', 'pass', 'No human-review override was needed beyond the review-only posture.', 'low'));
+    guardrail_results.push(buildGuardrail('human_review_boundary', 'pass', 'No human-review override was needed beyond the review-only posture.', 'low', ['human_review_required'], 'Review remains authoritative.'));
   }
 
   const dimension_scores: IntegrityDimensionScores = {
@@ -144,7 +197,8 @@ export function scoreIntegrity(packet: AdvisoryPacketDraft): IntegrityAssessment
     human_review_boundary: humanReviewScore,
     mission_drift: missionScore,
     circular_evidence_risk: circularScore,
-    reconstructability: reconstructabilityScore
+    reconstructability: reconstructabilityScore,
+    evidence_independence: independenceScore
   };
 
   const summary =
@@ -162,6 +216,7 @@ export function scoreIntegrity(packet: AdvisoryPacketDraft): IntegrityAssessment
     guardrail_results,
     summary,
     capped_confidence: cappedConfidence,
-    human_review_required
+    human_review_required,
+    evidence_independence: independence
   };
 }

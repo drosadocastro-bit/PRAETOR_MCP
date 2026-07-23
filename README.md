@@ -58,7 +58,7 @@ Read responses carry source ID, source type, timestamp, excerpts or record refer
 
 - `submit_review_advisory_packet`
 
-This tool accepts only a draft advisory packet. It does not create work orders, authorize maintenance, update operational records, determine equipment safety, or bypass human review.
+This tool accepts only a schema-valid advisory packet. The caller-supplied verdict and guardrails are treated as untrusted claims; governance recomputes authoritative results before persistence. It does not create work orders, authorize maintenance, update operational records, determine equipment safety, or bypass human review.
 
 ## Synthetic Dataset
 
@@ -66,9 +66,11 @@ The fixed dataset contains equipment IDs, subsystems, components, event dates, e
 
 ## Deterministic Governance
 
-Every submission is evaluated without an LLM call. The checks cover evidence presence, required provenance, confidence boundaries, human-review routing, mission drift, contradiction handling, and false consensus/circular evidence. Weak or contradictory evidence caps confidence and routes the packet to review. Missing provenance is untrusted. Mission-drift language is unsafe and rejected.
+Every submission is evaluated without an LLM call. The checks cover evidence presence, required provenance, confidence boundaries, human-review routing, mission drift, contradiction handling, false consensus/circular evidence, evaluator manipulation, and retry pressure. Weak or contradictory evidence caps confidence and routes the packet to review. Missing provenance is untrusted. Mission-drift or evaluator-directed language is unsafe or untrusted and rejected.
 
-The integrity scorer evaluates structural safety, not predictive truth. Its dimensions are `evidence_support`, `provenance_integrity`, `confidence_discipline`, `contradiction_handling`, `human_review_boundary`, `mission_drift`, `circular_evidence_risk`, and `reconstructability`. Verdicts are `safe`, `doubtful`, `unsafe`, and `untrusted`.
+The integrity scorer evaluates structural safety, not predictive truth. Its dimensions are `evidence_support`, `provenance_integrity`, `confidence_discipline`, `contradiction_handling`, `human_review_boundary`, `mission_drift`, `circular_evidence_risk`, `reconstructability`, and `evidence_independence`. A dependency graph records source reuse, derived evidence, and shared lineage. Verdicts are `safe`, `doubtful`, `unsafe`, and `untrusted`.
+
+The v0.2 packet schema requires an advisory identifier, equipment and component context, evidence summary, source IDs, provenance, uncertainty, contradiction and circular-evidence status, human-review boundary, advisory-only language, guardrail results, and an integrity verdict. Malformed submissions return a structured `schema_rejected` result and are never stored. Guardrail failures include affected fields and a recommended reviewer action; unsafe language receives deterministic rewrite suggestions without silently changing the submitted text.
 
 ## Run It
 
@@ -110,4 +112,4 @@ Reviewer-facing packet reports are in [reports/advisory_packets](reports/advisor
 
 ## Future Work
 
-Potential v0.2 work includes richer synthetic histories, trend detection, anomaly clustering, calibration-style tests, a local client demo, JSON Schema validation, a source-lineage graph, and additional objective-pressure and false-consensus tests. Real systems, internal data, operational writes, and learned scoring remain out of scope.
+Future work may include richer synthetic histories, trend detection, anomaly clustering, calibration-style tests, and a local client demo. Real systems, internal data, operational writes, and learned scoring remain out of scope.
