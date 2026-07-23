@@ -2,10 +2,10 @@
 
 ## Status
 
-This report records the v0.1 validation battery for the local synthetic prototype. The checkpoint commit hash is filled after the stabilization commit is created.
+This report records the v0.1 validation battery for the local synthetic prototype.
 
 - Date: 2026-07-23
-- Checkpoint commit: `pending stabilization commit`
+- Checkpoint commit: `630eedc` (`Initial PRAETOR-MCP synthetic prototype`)
 - Scope: local synthetic data and review-only advisory packets
 
 ## Commands
@@ -15,7 +15,7 @@ npm run check
 npm test
 ```
 
-Expected result after the checkpoint: both commands pass.
+Observed result: both commands pass; `npm test` reports 4 test files and 32 tests passed.
 
 ## MCP Smoke Coverage
 
