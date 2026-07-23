@@ -14,7 +14,7 @@ PRAETOR-MCP is:
 - advisory-only and review-gated;
 - deterministic in its governance and integrity evaluation paths.
 
-It is not a production FAA system, a maintenance decision-maker, a safety-status authority, an operational work-order system, or a substitute for certified maintenance judgment.
+It is not a production system, a maintenance decision-maker, a safety-status authority, an operational work-order system, or a substitute for certified maintenance judgment.
 
 ## Why MCP
 
