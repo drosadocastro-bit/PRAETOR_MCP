@@ -90,6 +90,14 @@ npm test
 
 The test suite includes direct governance tests and a real stdio MCP smoke test that lists and calls every exposed tool. The append-only case list is in [tests/PRAETOR_MCP_ADVERSARIAL_BATTERY.md](tests/PRAETOR_MCP_ADVERSARIAL_BATTERY.md).
 
+## Adversarial Validation
+
+PRAETOR-MCP uses a fixed adversarial battery inspired by NIC's grounded-retrieval testing discipline. The goal is not to prove predictive accuracy. The goal is to verify that unsafe advisory structures are detected before review-only submission.
+
+The battery tests missing evidence, missing provenance, nonexistent source IDs, unsupported synthesis, weak grounding, mission drift, false consensus, evaluator manipulation, schema abuse, contradiction handling, poisoned provenance, and objective-pressure behavior. The registry is append-only, and each fixed case has an executable assertion in [test/adversarial-battery.test.ts](test/adversarial-battery.test.ts). A failed battery blocks demo or promotion.
+
+NIC's citation and grounding discipline is translated into PRAETOR equivalents: unsupported synthesis becomes an unsupported finding, missing citation becomes missing provenance, weak grounding becomes a flagged advisory, extractive fallback becomes human review, hallucinated answers become unreviewable packets, and prompt pressure becomes evaluator or objective pressure.
+
 ## Sample Advisory Packets
 
 Reviewer-facing packet reports are in [reports/advisory_packets](reports/advisory_packets). The source fixtures used by the tests are in [samples](samples).

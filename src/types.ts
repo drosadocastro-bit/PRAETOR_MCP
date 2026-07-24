@@ -75,6 +75,7 @@ export type IntegrityVerdict = 'safe' | 'doubtful' | 'unsafe' | 'untrusted';
 export interface GuardrailResult {
   check:
     | 'evidence_presence'
+    | 'evidence_support'
     | 'provenance_required'
     | 'confidence_boundary'
     | 'human_review_boundary'
@@ -99,6 +100,7 @@ export interface EvidenceIndependence {
   shared_source_ids: string[];
   dependency_risk: 'low' | 'medium' | 'high';
   notes: string;
+  repeated_excerpt_count?: number;
 }
 
 export interface AdvisoryPacketDraft {

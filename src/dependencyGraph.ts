@@ -12,8 +12,14 @@ export function analyzeEvidenceIndependence(evidence: EvidenceItem[]): Dependenc
   }
 
   const sharedSourceIds = [...sourceCounts.entries()].filter(([, count]) => count > 1).map(([sourceId]) => sourceId);
+  const excerptCounts = new Map(evidence.map(item => [item.excerpt.trim().toLowerCase(), 0]));
+  for (const item of evidence) {
+    const excerpt = item.excerpt.trim().toLowerCase();
+    excerptCounts.set(excerpt, (excerptCounts.get(excerpt) ?? 0) + 1);
+  }
+  const repeatedExcerptCount = [...excerptCounts.values()].filter(count => count > 1).reduce((sum, count) => sum + count, 0);
   const independentSourceCount = new Set(evidence.map(item => item.derived_from_source_id ?? item.source_id)).size;
-  const circularEvidenceRisk = sharedSourceIds.length > 0 || evidence.some(item => Boolean(item.derived_from_source_id || item.upstream_assumption));
+  const circularEvidenceRisk = sharedSourceIds.length > 0 || repeatedExcerptCount > 0 || evidence.some(item => Boolean(item.derived_from_source_id || item.upstream_assumption));
   const dependencyRisk = circularEvidenceRisk ? (independentSourceCount <= 1 ? 'high' : 'medium') : 'low';
 
   return {
@@ -22,8 +28,9 @@ export function analyzeEvidenceIndependence(evidence: EvidenceItem[]): Dependenc
     shared_source_ids: sharedSourceIds,
     dependency_risk: dependencyRisk,
     notes: circularEvidenceRisk
-      ? 'Consensus is not independent evidence; one or more evidence items reuse a source or upstream assumption.'
+      ? `Consensus is not independent evidence; source reuse, repeated excerpts, or upstream assumptions were detected (${repeatedExcerptCount} repeated excerpt item(s)).`
       : 'Evidence items map to distinct synthetic source lineages.',
+    repeated_excerpt_count: repeatedExcerptCount,
     circular_evidence_risk: circularEvidenceRisk,
     edges: evidence.map((item, index) => ({
       evidence_id: `EV-${index + 1}`,

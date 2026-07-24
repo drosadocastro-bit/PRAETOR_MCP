@@ -54,27 +54,27 @@ describe('MCP stdio smoke test', () => {
           subsystem: 'hydraulic',
           component: 'pump seal',
           evidence_summary: 'Independent synthetic vibration observations.',
-          source_ids: ['SRC-SMOKE-A', 'SRC-SMOKE-B'],
+          source_ids: ['SRC-401-A', 'SRC-401-B'],
           provenance: 'Smoke-test synthetic source set.',
           supporting_evidence: [
             {
-              source_id: 'SRC-SMOKE-A',
+              source_id: 'SRC-401-A',
               source_type: 'synthetic_inspection_log',
               timestamp: '2026-07-01T00:00:00.000Z',
               excerpt: 'Synthetic vibration observation.',
               provenance_metadata: 'Smoke-test synthetic source.',
               uncertainty_notes: ['Synthetic test data only.'],
-              independence_group: 'SRC-SMOKE-A',
+              independence_group: 'SRC-401-A',
               assessment: 'elevated'
             },
             {
-              source_id: 'SRC-SMOKE-B',
+              source_id: 'SRC-401-B',
               source_type: 'synthetic_followup_report',
               timestamp: '2026-07-02T00:00:00.000Z',
               excerpt: 'Independent synthetic follow-up observation.',
               provenance_metadata: 'Smoke-test synthetic source.',
               uncertainty_notes: ['Synthetic test data only.'],
-              independence_group: 'SRC-SMOKE-B',
+              independence_group: 'SRC-401-B',
               assessment: 'elevated'
             }
           ],
@@ -103,6 +103,19 @@ describe('MCP stdio smoke test', () => {
       const text = submission.content[0]?.type === 'text' ? submission.content[0].text : '';
       expect(text).toContain('integrity_verdict');
       expect(text).toContain('human_review_required');
+
+      const rejectedWrite = await client.callTool({
+        name: 'submit_review_advisory_packet',
+        arguments: {
+          advisory_id: 'ADV-UNSAFE-WRITE',
+          equipment_id: 'PRA-401',
+          subsystem: 'hydraulic',
+          component: 'pump seal',
+          finding: 'Attempt to bypass review.',
+          human_review_required: false
+        }
+      });
+      expect(rejectedWrite.isError).toBe(true);
     } finally {
       await client.close();
     }

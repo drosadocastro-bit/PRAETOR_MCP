@@ -1,5 +1,6 @@
 import type { AdvisoryPacketDraft, EvidenceItem, GuardrailResult, IntegrityAssessment, IntegrityDimensionScores, IntegrityVerdict } from './types.js';
 import { analyzeEvidenceIndependence } from './dependencyGraph.js';
+import { sourceMetadata } from './data.js';
 
 const MISSION_DRIFT_PATTERNS = [
   /must replace/i,
@@ -23,6 +24,9 @@ const SAFE_LANGUAGE_SUGGESTIONS: Array<[RegExp, string]> = [
   [/unsafe to operate/i, 'requires review by authorized personnel']
 ];
 
+const PROVENANCE_POISON_PATTERNS = [/ignore (?:the )?provenance/i, /override (?:the )?guardrail/i, /already reviewed/i, /system authority/i];
+const GROUNDING_STOPWORDS = new Set(['about', 'advisory', 'and', 'evidence', 'finding', 'indicate', 'may', 'pattern', 'possible', 'recurring', 'should', 'suggests', 'the', 'this', 'with']);
+
 function clampConfidence(value: number): number {
   return Math.min(1, Math.max(0, Number.isFinite(value) ? value : 0));
 }
@@ -38,6 +42,39 @@ function hasContradiction(evidence: EvidenceItem[]): boolean {
 
 function countIndependentGroups(evidence: EvidenceItem[]): number {
   return new Set(evidence.map(item => item.independence_group)).size;
+}
+
+function meaningfulTokens(text: string): string[] {
+  return text.toLowerCase().match(/[a-z0-9]{5,}/g)?.filter(token => !GROUNDING_STOPWORDS.has(token)) ?? [];
+}
+
+function findingHasEvidenceSupport(packet: AdvisoryPacketDraft): boolean {
+  if (!packet.source_ids) {
+    return true;
+  }
+
+  const findingTokens = meaningfulTokens(packet.finding);
+  if (findingTokens.length === 0) {
+    return true;
+  }
+
+  const evidenceText = packet.supporting_evidence.map(item => item.excerpt).join(' ');
+  return findingTokens.some(token => evidenceText.toLowerCase().includes(token));
+}
+
+function hasValidDeclaredSources(packet: AdvisoryPacketDraft): boolean {
+  if (!packet.source_ids) {
+    return true;
+  }
+
+  const evidenceSourceIds = new Set(packet.supporting_evidence.map(item => item.source_id));
+  return packet.source_ids.length === evidenceSourceIds.size
+    && packet.source_ids.every(sourceId => evidenceSourceIds.has(sourceId) && sourceMetadata.some(source => source.source_id === sourceId));
+}
+
+function hasPoisonedProvenance(packet: AdvisoryPacketDraft): boolean {
+  const provenanceFields = [packet.provenance ?? '', ...packet.supporting_evidence.map(item => item.provenance_metadata)];
+  return provenanceFields.some(value => PROVENANCE_POISON_PATTERNS.some(pattern => pattern.test(value)));
 }
 
 function buildGuardrail(
@@ -95,8 +132,22 @@ export function scoreIntegrity(packet: AdvisoryPacketDraft): IntegrityAssessment
     };
   }
 
-  if (evidence.some(item => !isFullyProvenanced(item))) {
-    guardrail_results.push(buildGuardrail('provenance_required', 'block', 'At least one evidence item is missing provenance metadata.', 'high', ['supporting_evidence', 'provenance'], 'Restore source metadata before submission.'));
+  if (!findingHasEvidenceSupport(packet)) {
+    guardrail_results.push(buildGuardrail('evidence_support', 'block', 'The finding is not supported by the supplied evidence excerpts.', 'high', ['finding', 'supporting_evidence', 'evidence_summary'], 'Replace the synthesis with a finding grounded in the cited evidence or route for human review.'));
+    verdict = 'untrusted';
+    cappedConfidence = Math.min(cappedConfidence, 0.25);
+    human_review_required = true;
+  } else {
+    guardrail_results.push(buildGuardrail('evidence_support', 'pass', 'The finding shares meaningful terms with the supplied evidence excerpts.', 'low', ['finding', 'supporting_evidence'], 'Retain the evidence excerpts for reviewer reconstruction.'));
+  }
+
+  if (evidence.some(item => !isFullyProvenanced(item)) || !hasValidDeclaredSources(packet) || hasPoisonedProvenance(packet)) {
+    const reason = !hasValidDeclaredSources(packet)
+      ? 'Declared source IDs do not match the evidence or synthetic source registry.'
+      : hasPoisonedProvenance(packet)
+        ? 'Provenance metadata contains evaluator-directed or authority-claiming text.'
+        : 'At least one evidence item is missing provenance metadata.';
+    guardrail_results.push(buildGuardrail('provenance_required', 'block', reason, 'high', ['supporting_evidence', 'source_ids', 'provenance'], 'Restore valid source lineage and provenance before submission.'));
     verdict = 'untrusted';
     cappedConfidence = Math.min(cappedConfidence, 0.3);
   } else {
@@ -155,6 +206,7 @@ export function scoreIntegrity(packet: AdvisoryPacketDraft): IntegrityAssessment
 
   if ((packet.retry_count ?? 0) > 0) {
     guardrail_results.push(buildGuardrail('retry_pressure', 'flag', `Packet was submitted after ${packet.retry_count} prior attempt(s).`, 'medium', ['retry_count'], 'Log the attempts and require human review before any further submission.'));
+    cappedConfidence = Math.min(cappedConfidence, 0.5);
     human_review_required = true;
   } else {
     guardrail_results.push(buildGuardrail('retry_pressure', 'pass', 'No prior denied submission was recorded.', 'low', ['retry_count'], 'Record future retry pressure if it occurs.'));

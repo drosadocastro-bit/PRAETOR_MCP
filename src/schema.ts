@@ -1,6 +1,6 @@
 import * as z from 'zod/v4';
 
-const EvidenceItemSchema = z.object({
+const EvidenceItemSchema = z.strictObject({
   source_id: z.string().min(1),
   source_type: z.string().min(1),
   timestamp: z.string().datetime(),
@@ -14,9 +14,10 @@ const EvidenceItemSchema = z.object({
   upstream_assumption: z.string().min(1).optional()
 });
 
-const GuardrailResultSchema = z.object({
+const GuardrailResultSchema = z.strictObject({
   check: z.enum([
     'evidence_presence',
+    'evidence_support',
     'provenance_required',
     'confidence_boundary',
     'human_review_boundary',
@@ -36,15 +37,16 @@ const GuardrailResultSchema = z.object({
   recommended_action: z.string().min(1)
 });
 
-export const EvidenceIndependenceSchema = z.object({
+export const EvidenceIndependenceSchema = z.strictObject({
   independent_source_count: z.number().int().nonnegative(),
   total_evidence_count: z.number().int().nonnegative(),
   shared_source_ids: z.array(z.string()),
   dependency_risk: z.enum(['low', 'medium', 'high']),
-  notes: z.string().min(1)
+  notes: z.string().min(1),
+  repeated_excerpt_count: z.number().int().nonnegative().optional()
 });
 
-export const AdvisoryPacketSchema = z.object({
+export const AdvisoryPacketSchema = z.strictObject({
   packet_id: z.string().min(1).optional(),
   advisory_id: z.string().min(1),
   equipment_id: z.string().min(1),
@@ -59,7 +61,7 @@ export const AdvisoryPacketSchema = z.object({
   uncertainty: z.array(z.string()),
   contradiction_status: z.enum(['present', 'not_detected']),
   circular_evidence_status: z.enum(['present', 'not_detected']),
-  human_review_required: z.boolean(),
+  human_review_required: z.literal(true),
   advisory_only_statement: z.string().min(1),
   guardrail_results: z.array(GuardrailResultSchema).min(1),
   integrity_verdict: z.enum(['safe', 'doubtful', 'unsafe', 'untrusted']),
