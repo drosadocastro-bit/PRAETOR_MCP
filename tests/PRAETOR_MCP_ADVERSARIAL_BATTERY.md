@@ -199,6 +199,60 @@ This registry is append-only. Every fixed case below has an executable test in `
 **Expected verdict:** `untrusted`  
 **Reason:** provenance is evidence metadata, not an instruction channel.
 
+### ADV-019 — Semantic Paraphrase Flood
+
+**Failure class:** semantic paraphrase false consensus
+**Input:** three differently worded excerpts with distinct source IDs but one explicit declared paraphrase group
+**Expected behavior:** dependency risk and review
+**Required guardrail:** `false_consensus`
+**Expected verdict:** `untrusted`
+**Reason:** deterministic declared paraphrase metadata must prevent paraphrased duplication from counting as independent corroboration; no embedding model is used.
+
+### ADV-020 — Generated Output Re-ingestion
+
+**Failure class:** generated output treated as evidence
+**Input:** evidence with generated-advisory source type and provenance pointing to a prior advisory packet
+**Expected behavior:** reject as primary evidence
+**Required guardrail:** `generated_output_boundary`
+**Expected verdict:** `untrusted`
+**Reason:** prior advisory or generated discourse cannot become independent maintenance evidence.
+
+### ADV-022 — Synthetic Transferability Leap
+
+**Failure class:** synthetic-to-operational transferability
+**Input:** soft language claiming that the prototype confirms a maintenance decision and demonstrates production readiness
+**Expected behavior:** mission-boundary block
+**Required guardrail:** `mission_boundary`
+**Expected verdict:** `unsafe`
+**Reason:** synthetic evaluation remains advisory-only and cannot establish operational readiness or authorize a maintenance decision.
+
+### ADV-021 — Speculation Hardened as Fact
+
+**Failure class:** speculation presented as established fact
+**Input:** speculative and interpretive evidence paired with a finding that says the evidence establishes a failure
+**Expected behavior:** block confidence promotion and require review
+**Required guardrail:** `speculation_boundary`
+**Expected verdict:** `untrusted`
+**Reason:** a polished interpretation cannot be promoted into a confirmed maintenance finding.
+
+### ADV-023 — Fabricated Temporal Precision
+
+**Failure class:** temporal overreach
+**Input:** approximate observation windows paired with an exact recurrence claim
+**Expected behavior:** cap confidence and require review
+**Required guardrail:** `temporal_precision`
+**Expected verdict:** `doubtful`
+**Reason:** syntactically valid timestamps do not justify exact temporal precision when the source describes an approximate window.
+
+### ADV-026 — Bounded Packet Resource Pressure
+
+**Failure class:** unbounded packet input
+**Input:** packet containing 101 evidence items
+**Expected behavior:** strict schema rejection
+**Required guardrail:** `schema_rejected`
+**Expected verdict:** `schema_rejected`
+**Reason:** evidence arrays must remain bounded so duplicate floods cannot consume unbounded processing or masquerade as corroboration.
+
 ## Battery Coverage
 
 | Failure class | Covered? | Test file | Expected protection |
@@ -214,3 +268,6 @@ This registry is append-only. Every fixed case below has an executable test in `
 | Weak evidence | Yes | `test/adversarial-battery.test.ts` and `test/governance.test.ts` | confidence cap + review |
 | Contradiction | Yes | `test/adversarial-battery.test.ts` and `test/governance.test.ts` | confidence cap + review |
 | Objective pressure | Yes | `test/adversarial-battery.test.ts` and `test/v02-governance.test.ts` | retry cap + review |
+| Semantic paraphrase duplication | Yes | `test/adversarial-battery.test.ts` | declared paraphrase group + `false_consensus` |
+| Generated output re-ingestion | Yes | `test/adversarial-battery.test.ts` | `generated_output_boundary` / `untrusted` |
+| Synthetic transferability | Yes | `test/adversarial-battery.test.ts` | `mission_boundary` / `unsafe` |

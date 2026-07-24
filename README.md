@@ -106,6 +106,10 @@ npm run test:adversarial:report
 
 The latest report is written to [reports/adversarial_battery/LATEST.md](reports/adversarial_battery/LATEST.md). The machine-readable Vitest result is kept beside it as `latest.json`.
 
+Protocol 66 uses two explicit escalation tiers: hard triggers fire immediately, while soft triggers accumulate only within bounded time or interaction windows. Its policy and calibration boundary are documented in [docs/PROTOCOL_66.md](docs/PROTOCOL_66.md), with executable coverage in [test/protocol66.test.ts](test/protocol66.test.ts).
+
+The consolidated implementation record is [docs/PRAETOR_MCP_LATEST_IMPLEMENTATION.md](docs/PRAETOR_MCP_LATEST_IMPLEMENTATION.md). It documents the current MCP surface, deterministic governance, adversarial battery, Protocol 66 boundaries, calibration cases, validation commands, and deliberate limitations.
+
 ## Sample Advisory Packets
 
 Reviewer-facing packet reports are in [reports/advisory_packets](reports/advisory_packets). The source fixtures used by the tests are in [samples](samples).

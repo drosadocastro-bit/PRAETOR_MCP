@@ -10,7 +10,11 @@ const MISSION_DRIFT_PATTERNS = [
   /authorized corrective action/i,
   /system determines/i,
   /safe to operate/i,
-  /unsafe to operate/i
+  /unsafe to operate/i,
+  /prototype confirms the maintenance decision/i,
+  /synthetic evaluation demonstrates production readiness/i,
+  /synthetic evaluation demonstrates operational readiness/i,
+  /prototype validates the maintenance decision/i
 ];
 
 const EVALUATOR_MANIPULATION_PATTERNS = [/ignore guardrails/i, /override integrity verdict/i, /already been reviewed/i, /mark this as safe/i];
@@ -25,6 +29,12 @@ const SAFE_LANGUAGE_SUGGESTIONS: Array<[RegExp, string]> = [
 ];
 
 const PROVENANCE_POISON_PATTERNS = [/ignore (?:the )?provenance/i, /override (?:the )?guardrail/i, /already reviewed/i, /system authority/i];
+const GENERATED_OUTPUT_SOURCE_PATTERNS = [/generated/i, /assistant/i, /advisory/i, /model_output/i, /model-output/i, /discourse/i];
+const GENERATED_OUTPUT_PROVENANCE_PATTERNS = [/prior advisory packet/i, /generated output/i, /assistant output/i, /model output/i];
+const SPECULATIVE_SOURCE_PATTERNS = [/speculat/i, /hypothes/i, /interpret/i];
+const SPECULATIVE_CERTAINTY_PATTERNS = [/establishes/i, /proves/i, /confirmed/i, /demonstrates/i, /is true/i];
+const IMPRECISE_DATE_PATTERNS = [/approx/i, /unknown/i, /undated/i];
+const FABRICATED_TEMPORAL_PRECISION_PATTERNS = [/exactly every/i, /precisely every/i, /exact interval/i, /precise interval/i, /exact recurrence/i];
 const GROUNDING_STOPWORDS = new Set(['about', 'advisory', 'and', 'evidence', 'finding', 'indicate', 'may', 'pattern', 'possible', 'recurring', 'should', 'suggests', 'the', 'this', 'with']);
 
 function clampConfidence(value: number): number {
@@ -75,6 +85,24 @@ function hasValidDeclaredSources(packet: AdvisoryPacketDraft): boolean {
 function hasPoisonedProvenance(packet: AdvisoryPacketDraft): boolean {
   const provenanceFields = [packet.provenance ?? '', ...packet.supporting_evidence.map(item => item.provenance_metadata)];
   return provenanceFields.some(value => PROVENANCE_POISON_PATTERNS.some(pattern => pattern.test(value)));
+}
+
+function hasGeneratedOutputEvidence(packet: AdvisoryPacketDraft): boolean {
+  return packet.supporting_evidence.some(item =>
+    GENERATED_OUTPUT_SOURCE_PATTERNS.some(pattern => pattern.test(item.source_type))
+    || GENERATED_OUTPUT_PROVENANCE_PATTERNS.some(pattern => pattern.test(item.provenance_metadata))
+  );
+}
+
+function hasSpeculationHardenedAsFact(packet: AdvisoryPacketDraft): boolean {
+  return packet.supporting_evidence.some(item =>
+    SPECULATIVE_SOURCE_PATTERNS.some(pattern => pattern.test(item.source_type) || pattern.test(item.provenance_metadata))
+  ) && SPECULATIVE_CERTAINTY_PATTERNS.some(pattern => pattern.test(packet.finding));
+}
+
+function hasFabricatedTemporalPrecision(packet: AdvisoryPacketDraft): boolean {
+  return packet.supporting_evidence.some(item => IMPRECISE_DATE_PATTERNS.some(pattern => pattern.test(item.uncertainty_notes.join(' '))))
+    && FABRICATED_TEMPORAL_PRECISION_PATTERNS.some(pattern => pattern.test(packet.finding));
 }
 
 function buildGuardrail(
@@ -152,6 +180,37 @@ export function scoreIntegrity(packet: AdvisoryPacketDraft): IntegrityAssessment
     cappedConfidence = Math.min(cappedConfidence, 0.3);
   } else {
     guardrail_results.push(buildGuardrail('provenance_required', 'pass', 'Every evidence item includes source metadata.', 'low', ['supporting_evidence', 'provenance'], 'Retain the provenance records for reconstruction.'));
+  }
+
+  if (hasGeneratedOutputEvidence(packet)) {
+    guardrail_results.push(buildGuardrail('generated_output_boundary', 'block', 'Generated or prior advisory output cannot be treated as primary maintenance evidence.', 'high', ['supporting_evidence', 'provenance'], 'Replace generated output with traceable synthetic source evidence and require human review.'));
+    verdict = 'untrusted';
+    cappedConfidence = Math.min(cappedConfidence, 0.2);
+    human_review_required = true;
+  } else {
+    guardrail_results.push(buildGuardrail('generated_output_boundary', 'pass', 'Evidence is not identified as generated or prior advisory output.', 'low', ['supporting_evidence'], 'Keep generated discourse outside the evidence set.'));
+  }
+
+  if (hasSpeculationHardenedAsFact(packet)) {
+    guardrail_results.push(buildGuardrail('speculation_boundary', 'block', 'Speculative or interpretive evidence is presented as established fact.', 'high', ['finding', 'supporting_evidence'], 'Preserve the speculative status and route the finding for human review.'));
+    if (verdict === 'safe') {
+      verdict = 'untrusted';
+    }
+    cappedConfidence = Math.min(cappedConfidence, 0.25);
+    human_review_required = true;
+  } else {
+    guardrail_results.push(buildGuardrail('speculation_boundary', 'pass', 'No speculative evidence was promoted to fact.', 'low', ['finding', 'supporting_evidence'], 'Keep interpretation and speculation explicitly labeled.'));
+  }
+
+  if (hasFabricatedTemporalPrecision(packet)) {
+    guardrail_results.push(buildGuardrail('temporal_precision', 'flag', 'The finding claims exact timing from approximate or unknown evidence dates.', 'high', ['finding', 'supporting_evidence'], 'Preserve date uncertainty and require human review before making temporal claims.'));
+    if (verdict === 'safe') {
+      verdict = 'doubtful';
+    }
+    cappedConfidence = Math.min(cappedConfidence, 0.45);
+    human_review_required = true;
+  } else {
+    guardrail_results.push(buildGuardrail('temporal_precision', 'pass', 'Temporal wording does not exceed the supplied date precision.', 'low', ['finding', 'supporting_evidence'], 'Retain the source date precision.'));
   }
 
   if (evidence.length < 2) {

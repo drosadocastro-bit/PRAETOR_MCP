@@ -68,6 +68,7 @@ export interface EvidenceItem {
   confidence_hint?: number;
   derived_from_source_id?: string;
   upstream_assumption?: string;
+  declared_paraphrase_group?: string;
 }
 
 export type IntegrityVerdict = 'safe' | 'doubtful' | 'unsafe' | 'untrusted';
@@ -77,6 +78,9 @@ export interface GuardrailResult {
     | 'evidence_presence'
     | 'evidence_support'
     | 'provenance_required'
+    | 'generated_output_boundary'
+    | 'speculation_boundary'
+    | 'temporal_precision'
     | 'confidence_boundary'
     | 'human_review_boundary'
     | 'mission_boundary'

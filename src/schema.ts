@@ -1,17 +1,21 @@
 import * as z from 'zod/v4';
 
+const MAX_EVIDENCE_ITEMS = 100;
+const MAX_TEXT_LENGTH = 5000;
+
 const EvidenceItemSchema = z.strictObject({
   source_id: z.string().min(1),
   source_type: z.string().min(1),
   timestamp: z.string().datetime(),
-  excerpt: z.string().min(1),
-  provenance_metadata: z.string().min(1),
+  excerpt: z.string().min(1).max(MAX_TEXT_LENGTH),
+  provenance_metadata: z.string().min(1).max(MAX_TEXT_LENGTH),
   uncertainty_notes: z.array(z.string()),
   independence_group: z.string().min(1),
   assessment: z.enum(['elevated', 'stable', 'normal', 'uncertain']).optional(),
   confidence_hint: z.number().min(0).max(1).optional(),
   derived_from_source_id: z.string().min(1).optional(),
-  upstream_assumption: z.string().min(1).optional()
+  upstream_assumption: z.string().min(1).optional(),
+  declared_paraphrase_group: z.string().min(1).optional()
 });
 
 const GuardrailResultSchema = z.strictObject({
@@ -19,6 +23,9 @@ const GuardrailResultSchema = z.strictObject({
     'evidence_presence',
     'evidence_support',
     'provenance_required',
+    'generated_output_boundary',
+    'speculation_boundary',
+    'temporal_precision',
     'confidence_boundary',
     'human_review_boundary',
     'mission_boundary',
@@ -52,11 +59,11 @@ export const AdvisoryPacketSchema = z.strictObject({
   equipment_id: z.string().min(1),
   subsystem: z.string().min(1),
   component: z.string().min(1),
-  finding: z.string().min(1),
-  evidence_summary: z.string().min(1),
+  finding: z.string().min(1).max(MAX_TEXT_LENGTH),
+  evidence_summary: z.string().min(1).max(MAX_TEXT_LENGTH),
   source_ids: z.array(z.string().min(1)).min(1),
-  provenance: z.string().min(1),
-  supporting_evidence: z.array(EvidenceItemSchema).min(1),
+  provenance: z.string().min(1).max(MAX_TEXT_LENGTH),
+  supporting_evidence: z.array(EvidenceItemSchema).min(1).max(MAX_EVIDENCE_ITEMS),
   confidence: z.number().min(0).max(1),
   uncertainty: z.array(z.string()),
   contradiction_status: z.enum(['present', 'not_detected']),
