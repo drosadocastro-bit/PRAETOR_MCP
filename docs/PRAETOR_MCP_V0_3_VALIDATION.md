@@ -38,7 +38,7 @@ npm run check
 npm test
 ```
 
-Release results at implementation checkpoint `4bdd12f`:
+Release results at implementation checkpoint `32e2d1c`:
 
 - TypeScript check passes.
 - The complete Vitest suite passes: 6 test files, 54 tests.
@@ -46,7 +46,7 @@ Release results at implementation checkpoint `4bdd12f`:
 - The permanent adversarial battery passes.
 - The worktree is clean before publication.
 
-Commit hash: `4bdd12f` (`Expand PRAETOR-MCP adversarial battery`).
+Commit hash: `32e2d1c` (`Expand PRAETOR-MCP adversarial battery`).
 
 ## Failures Intentionally Blocked
 
