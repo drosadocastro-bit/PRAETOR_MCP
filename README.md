@@ -2,7 +2,7 @@
 
 PRAETOR-MCP means **Predictive Reliability Assessment and Evidence Traceability for Operational Readiness**. It is a local synthetic prototype showing how an AI agent can query maintenance evidence, prepare a bounded advisory packet, and preserve the evidence and uncertainty needed for human review.
 
-> **PRAETOR-MCP is a local synthetic prototype only. It does not use FAA internal data. It does not connect to operational systems. It does not create work orders. It does not authorize maintenance action. It preserves human review authority.**
+> **PRAETOR-MCP is a local synthetic prototype only. It does not use internal data. It does not connect to operational systems. It does not create work orders. It does not authorize maintenance action. It preserves human review authority.**
 
 ## What It Is and Is Not
 
