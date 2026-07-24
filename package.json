@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "tsx src/index.ts",
     "test": "vitest run",
+    "test:adversarial:report": "tsx scripts/generate-adversarial-report.ts",
     "check": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

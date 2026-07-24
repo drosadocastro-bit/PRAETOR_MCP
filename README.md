@@ -98,6 +98,14 @@ The battery tests missing evidence, missing provenance, nonexistent source IDs, 
 
 NIC's citation and grounding discipline is translated into PRAETOR equivalents: unsupported synthesis becomes an unsupported finding, missing citation becomes missing provenance, weak grounding becomes a flagged advisory, extractive fallback becomes human review, hallucinated answers become unreviewable packets, and prompt pressure becomes evaluator or objective pressure.
 
+To generate a durable Markdown report with per-case results, run:
+
+```sh
+npm run test:adversarial:report
+```
+
+The latest report is written to [reports/adversarial_battery/LATEST.md](reports/adversarial_battery/LATEST.md). The machine-readable Vitest result is kept beside it as `latest.json`.
+
 ## Sample Advisory Packets
 
 Reviewer-facing packet reports are in [reports/advisory_packets](reports/advisory_packets). The source fixtures used by the tests are in [samples](samples).
