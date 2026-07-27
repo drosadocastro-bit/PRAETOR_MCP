@@ -6,6 +6,10 @@ PRAETOR-MCP is a local, offline-first, synthetic predictive-maintenance advisory
 
 All governance decisions in the current implementation are deterministic and do not require an LLM call.
 
+## Project Thesis
+
+PRAETOR-MCP is not an AI that decides what happened. It is a local MCP prototype that helps organize evidence, surface uncertainty, detect unsafe advisory structure, and preserve human review. The goal is not to replace expert judgment. The goal is to prevent AI-generated advisory output from outrunning the evidence.
+
 ## Runtime and MCP Surface
 
 - TypeScript ESM project targeting Node.js 20 or newer.
