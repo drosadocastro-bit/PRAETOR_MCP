@@ -92,11 +92,11 @@ The test suite includes direct governance tests and a real stdio MCP smoke test 
 
 ## Adversarial Validation
 
-PRAETOR-MCP uses a fixed adversarial battery inspired by NIC's grounded-retrieval testing discipline. The goal is not to prove predictive accuracy. The goal is to verify that unsafe advisory structures are detected before review-only submission.
+PRAETOR-MCP uses a fixed adversarial battery based on grounded-retrieval testing discipline. The goal is not to prove predictive accuracy. The goal is to verify that unsafe advisory structures are detected before review-only submission.
 
 The battery tests missing evidence, missing provenance, nonexistent source IDs, unsupported synthesis, weak grounding, mission drift, false consensus, evaluator manipulation, schema abuse, contradiction handling, poisoned provenance, and objective-pressure behavior. The registry is append-only, and each fixed case has an executable assertion in [test/adversarial-battery.test.ts](test/adversarial-battery.test.ts). A failed battery blocks demo or promotion.
 
-NIC's citation and grounding discipline is translated into PRAETOR equivalents: unsupported synthesis becomes an unsupported finding, missing citation becomes missing provenance, weak grounding becomes a flagged advisory, extractive fallback becomes human review, hallucinated answers become unreviewable packets, and prompt pressure becomes evaluator or objective pressure.
+The validation discipline is expressed through PRAETOR equivalents: unsupported synthesis becomes an unsupported finding, missing citation becomes missing provenance, weak grounding becomes a flagged advisory, extractive fallback becomes human review, and prompt pressure becomes evaluator or objective pressure.
 
 To generate a durable Markdown report with per-case results, run:
 
@@ -114,17 +114,19 @@ The consolidated implementation record is [docs/PRAETOR_MCP_LATEST_IMPLEMENTATIO
 
 Reviewer-facing packet reports are in [reports/advisory_packets](reports/advisory_packets). The source fixtures used by the tests are in [samples](samples).
 
-## Hackathon Track Framing
+## Adapter-Ready Architecture
 
-- **Dataset Access Server:** the synthetic maintenance dataset is queryable through structured MCP tools.
-- **Service Read Integration:** evidence, excerpts, prior cases, and anomaly context are retrievable with provenance.
-- **Service Write Integration:** advisory packet submission is review-only and gated by deterministic governance.
+The MCP read surface depends on a narrow `DatasetAdapter` contract. The default registry selects `SyntheticDatasetAdapter`, which wraps the fixed local fixtures without changing tool behavior. An adapter can provide records, source metadata, excerpts, prior cases, and supporting evidence; it cannot submit packets, mark packets reviewed, provide trusted verdicts, or provide authoritative guardrails.
+
+The registry is selected with `PRAETOR_DATASET_ADAPTER=synthetic`. `external` and unknown values return an explicit unavailable error; they do not fall back silently and do not select an implemented external source. No external adapter is bundled, and no network or live data dependency is implied by the boundary.
+
+The governance, schema, Protocol 66 classification, append-only storage, and review-only write path remain adapter-independent. This keeps the synthetic mode as the default proving ground while making the read boundary replaceable under explicit human review.
 
 ## Known Limitations
 
 - synthetic dataset only;
 - simple deterministic rules rather than a calibrated predictive model;
-- no live system integration or agency data;
+- no live system integration or external operational data;
 - no production security model or user authentication/authorization;
 - no operational write path;
 - confidence hints are synthetic metadata, not calibrated probabilities;
@@ -132,4 +134,4 @@ Reviewer-facing packet reports are in [reports/advisory_packets](reports/advisor
 
 ## Future Work
 
-Future work may include richer synthetic histories, trend detection, anomaly clustering, calibration-style tests, and a local client demo. Real systems, internal data, operational writes, and learned scoring remain out of scope.
+Future work may include richer synthetic histories, trend detection, anomaly clustering, calibration-style tests, and a local client demo. Live systems, private data, operational writes, and learned scoring remain out of scope.

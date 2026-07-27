@@ -118,10 +118,12 @@ npm run test:adversarial:report
 The expected current results are:
 
 - TypeScript check passes;
-- 7 Vitest files pass;
-- 75 tests pass, including the 15 Protocol 66 tests;
+- 9 Vitest files pass;
+- 106 tests pass, including the 27 Protocol 66 tests, adapter/storage fault-injection coverage, and the MCP error-envelope smoke test;
 - the MCP stdio smoke test exercises the exposed tools;
 - the adversarial report records 25 passing assertions.
+
+The v0.5 integrity-boundary remediation record is [docs/PRAETOR_MCP_V0_5_VALIDATION.md](PRAETOR_MCP_V0_5_VALIDATION.md). It records stable MCP error envelopes, adapter output validation, storage corruption handling, explicit unavailable adapter semantics, malicious adapter tests, and the future Protocol 66 ingestion design boundary.
 
 ## Deliberate Limitations
 

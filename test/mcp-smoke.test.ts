@@ -107,15 +107,63 @@ describe('MCP stdio smoke test', () => {
       const rejectedWrite = await client.callTool({
         name: 'submit_review_advisory_packet',
         arguments: {
-          advisory_id: 'ADV-UNSAFE-WRITE',
+          advisory_id: 'ADV-GOVERNANCE-REJECTED',
           equipment_id: 'PRA-401',
           subsystem: 'hydraulic',
           component: 'pump seal',
-          finding: 'Attempt to bypass review.',
-          human_review_required: false
+          finding: 'Maintenance action required; confirmed failure.',
+          evidence_summary: 'Synthetic evidence supplied for governance rejection.',
+          source_ids: ['SRC-401-A', 'SRC-401-B'],
+          provenance: 'Smoke-test synthetic source set.',
+          supporting_evidence: [
+            {
+              source_id: 'SRC-401-A',
+              source_type: 'synthetic_inspection_log',
+              timestamp: '2026-07-01T00:00:00.000Z',
+              excerpt: 'Synthetic vibration observation.',
+              provenance_metadata: 'Smoke-test synthetic source.',
+              uncertainty_notes: ['Synthetic test data only.'],
+              independence_group: 'SRC-401-A',
+              assessment: 'elevated'
+            },
+            {
+              source_id: 'SRC-401-B',
+              source_type: 'synthetic_followup_report',
+              timestamp: '2026-07-02T00:00:00.000Z',
+              excerpt: 'Independent synthetic follow-up observation.',
+              provenance_metadata: 'Smoke-test synthetic source.',
+              uncertainty_notes: ['Synthetic test data only.'],
+              independence_group: 'SRC-401-B',
+              assessment: 'elevated'
+            }
+          ],
+          confidence: 0.7,
+          uncertainty: ['Root cause is not established.'],
+          contradiction_status: 'not_detected',
+          circular_evidence_status: 'not_detected',
+          human_review_required: true,
+          advisory_only_statement: 'Evidence suggests this should be reviewed; advisory only.',
+          guardrail_results: [{
+            check: 'evidence_presence',
+            guardrail: 'evidence_presence',
+            status: 'pass',
+            detail: 'Caller claim; governance recomputes this result.',
+            severity: 'low',
+            reason: 'Caller claim; governance recomputes this result.',
+            affected_fields: ['supporting_evidence'],
+            recommended_action: 'Review authoritative governance output.'
+          }],
+          integrity_verdict: 'safe'
         }
       });
       expect(rejectedWrite.isError).toBe(true);
+      const rejectedWriteText = rejectedWrite.content[0]?.type === 'text' ? rejectedWrite.content[0].text : '';
+      expect(JSON.parse(rejectedWriteText)).toEqual({
+        error: {
+          code: 'governance_rejected',
+          detail: 'The packet violates a mission boundary and cannot be treated as a safe advisory.'
+        }
+      });
     } finally {
       await client.close();
     }

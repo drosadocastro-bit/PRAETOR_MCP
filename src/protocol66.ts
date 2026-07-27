@@ -46,6 +46,18 @@ export interface Protocol66Decision {
   };
 }
 
+export class Protocol66InputError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'Protocol66InputError';
+  }
+}
+
+const ISO_TIMESTAMP_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/;
+const MAX_SOFT_THRESHOLD = 1000;
+const MAX_WINDOW_MINUTES = 24 * 60;
+const MAX_WINDOW_INTERACTIONS = 100_000;
+
 const HARD_TRIGGERS = new Set<Protocol66HardTrigger>([
   'log_modification_attempt',
   'scoring_artifact_access_attempt',
@@ -80,8 +92,55 @@ function isSoftTrigger(kind: Protocol66TriggerKind): kind is Protocol66SoftTrigg
 }
 
 function eventTime(event: Protocol66Event): number {
-  const timestamp = Date.parse(event.occurred_at);
-  return Number.isNaN(timestamp) ? 0 : timestamp;
+  return Date.parse(event.occurred_at);
+}
+
+function validateEvents(events: Protocol66Event[]): void {
+  if (!Array.isArray(events)) {
+    throw new Protocol66InputError('Protocol 66 events must be an array.');
+  }
+
+  for (const [index, event] of events.entries()) {
+    if (!event || typeof event !== 'object') {
+      throw new Protocol66InputError(`Protocol 66 event ${index} must be an object.`);
+    }
+    if (!isHardTrigger(event.kind) && !isSoftTrigger(event.kind)) {
+      throw new Protocol66InputError(`Protocol 66 event ${index} has an unsupported trigger kind.`);
+    }
+    if (typeof event.occurred_at !== 'string' || !ISO_TIMESTAMP_PATTERN.test(event.occurred_at) || !Number.isFinite(eventTime(event))) {
+      throw new Protocol66InputError(`Protocol 66 event ${index} has an invalid ISO timestamp.`);
+    }
+    if (!Number.isSafeInteger(event.interaction_index) || event.interaction_index < 0) {
+      throw new Protocol66InputError(`Protocol 66 event ${index} has an invalid interaction index.`);
+    }
+    if (event.detail !== undefined && typeof event.detail !== 'string') {
+      throw new Protocol66InputError(`Protocol 66 event ${index} has an invalid detail field.`);
+    }
+  }
+}
+
+function resolvePolicy(policy: Protocol66Policy): Required<Protocol66Policy> {
+  if (!policy || typeof policy !== 'object') {
+    throw new Protocol66InputError('Protocol 66 policy must be an object.');
+  }
+
+  const resolvedPolicy: Required<Protocol66Policy> = {
+    softThreshold: policy.softThreshold ?? PROTOCOL_66_DEFAULTS.softThreshold,
+    windowMinutes: policy.windowMinutes ?? PROTOCOL_66_DEFAULTS.windowMinutes,
+    windowInteractions: policy.windowInteractions ?? PROTOCOL_66_DEFAULTS.windowInteractions
+  };
+
+  if (!Number.isSafeInteger(resolvedPolicy.softThreshold) || resolvedPolicy.softThreshold < 1 || resolvedPolicy.softThreshold > MAX_SOFT_THRESHOLD) {
+    throw new Protocol66InputError(`Protocol 66 softThreshold must be an integer from 1 to ${MAX_SOFT_THRESHOLD}.`);
+  }
+  if (!Number.isFinite(resolvedPolicy.windowMinutes) || resolvedPolicy.windowMinutes <= 0 || resolvedPolicy.windowMinutes > MAX_WINDOW_MINUTES) {
+    throw new Protocol66InputError(`Protocol 66 windowMinutes must be finite and between 0 and ${MAX_WINDOW_MINUTES} minutes.`);
+  }
+  if (!Number.isSafeInteger(resolvedPolicy.windowInteractions) || resolvedPolicy.windowInteractions < 1 || resolvedPolicy.windowInteractions > MAX_WINDOW_INTERACTIONS) {
+    throw new Protocol66InputError(`Protocol 66 windowInteractions must be an integer from 1 to ${MAX_WINDOW_INTERACTIONS}.`);
+  }
+
+  return resolvedPolicy;
 }
 
 function eventsInWindow(events: Protocol66Event[], policy: Required<Protocol66Policy>): Protocol66Event[] {
@@ -108,11 +167,8 @@ function eventsInWindow(events: Protocol66Event[], policy: Required<Protocol66Po
 }
 
 export function classifyProtocol66(events: Protocol66Event[], policy: Protocol66Policy = {}): Protocol66Decision {
-  const resolvedPolicy: Required<Protocol66Policy> = {
-    softThreshold: policy.softThreshold ?? PROTOCOL_66_DEFAULTS.softThreshold,
-    windowMinutes: policy.windowMinutes ?? PROTOCOL_66_DEFAULTS.windowMinutes,
-    windowInteractions: policy.windowInteractions ?? PROTOCOL_66_DEFAULTS.windowInteractions
-  };
+  validateEvents(events);
+  const resolvedPolicy = resolvePolicy(policy);
   const hardTriggers = events.filter(event => isHardTrigger(event.kind));
   const softTriggers = events.filter(event => isSoftTrigger(event.kind));
 

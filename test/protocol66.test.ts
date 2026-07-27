@@ -3,7 +3,9 @@ import { describe, expect, it } from 'vitest';
 import {
   classifyProtocol66,
   classifyProtocol66Text,
-  type Protocol66Event
+  Protocol66InputError,
+  type Protocol66Event,
+  type Protocol66Policy
 } from '../src/protocol66.js';
 
 const baseTime = '2026-07-24T12:00:00.000Z';
@@ -107,5 +109,34 @@ describe('Protocol 66 calibration cases', () => {
 
     expect(events).toHaveLength(0);
     expect(classifyProtocol66(events).status).toBe('NORMAL');
+  });
+});
+
+describe('Protocol 66 fault injection', () => {
+  it('rejects malformed timestamps before interaction-window counting', () => {
+    const malformedEvents = [
+      { kind: 'repeated_retry', occurred_at: 'not-a-date', interaction_index: 1 },
+      { kind: 'repeated_retry', occurred_at: '2026/07/24 12:01:00', interaction_index: 2 },
+      { kind: 'repeated_retry', occurred_at: '2026-07-24T12:02:00', interaction_index: 3 }
+    ] as Protocol66Event[];
+
+    expect(() => classifyProtocol66(malformedEvents)).toThrow(Protocol66InputError);
+    expect(() => classifyProtocol66(malformedEvents)).toThrow('invalid ISO timestamp');
+  });
+
+  it.each([
+    { softThreshold: 0 },
+    { softThreshold: -1 },
+    { softThreshold: 1.5 },
+    { softThreshold: Number.NaN },
+    null,
+    { windowMinutes: 0 },
+    { windowMinutes: -1 },
+    { windowMinutes: Number.POSITIVE_INFINITY },
+    { windowInteractions: 0 },
+    { windowInteractions: -1 },
+    { windowInteractions: 1.5 }
+  ])('rejects invalid policy configuration without escalating an empty event set: %o', policy => {
+    expect(() => classifyProtocol66([], policy as Protocol66Policy)).toThrow(Protocol66InputError);
   });
 });

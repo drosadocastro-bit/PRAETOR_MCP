@@ -15,6 +15,10 @@ import { evaluateAdvisoryPacket } from './governance.js';
 import { analyzeEvidenceIndependence } from './dependencyGraph.js';
 import { AdvisoryPacketSchema, validateAdvisoryPacket } from './schema.js';
 import { appendAdvisoryPacket } from './storage.js';
+import type { DatasetAdapter } from './adapters/DatasetAdapter.js';
+import { getActiveDatasetAdapter } from './adapters/adapterRegistry.js';
+import { adapterCall, validateEvidence, validateExcerpt, validatePatterns, validatePriorCases, validateRecord, validateRecords, validateRecentAnomalies, validateSource } from './adapters/adapterValidation.js';
+import { PraetorError, safeTool } from './errors.js';
 import type {
   AdvisoryPacketDraft,
   AdvisoryPacketRecord,
@@ -232,7 +236,7 @@ export function buildAnomalyContext(args: { record_id?: string; equipment_id?: s
   };
 }
 
-export function registerPraetorTools(server: McpServer): void {
+export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter = getActiveDatasetAdapter()): void {
   server.registerTool(
     'search_maintenance_records',
     {
@@ -247,12 +251,10 @@ export function registerPraetorTools(server: McpServer): void {
         limit: z.number().int().positive().max(25).optional()
       })
     },
-    async input =>
-      jsonResult({
-        query: input,
-        count: searchMaintenanceRecordsData(input).length,
-        records: searchMaintenanceRecordsData(input)
-      })
+    async input => safeTool(async () => {
+      const records = await adapterCall('searchRecords', () => adapter.searchRecords(input), validateRecords);
+      return jsonResult({ query: input, count: records.length, records });
+    })
   );
 
   server.registerTool(
@@ -261,11 +263,10 @@ export function registerPraetorTools(server: McpServer): void {
       description: 'Return the synthetic history for one equipment identifier.',
       inputSchema: z.object({ equipment_id: z.string() })
     },
-    async ({ equipment_id }) =>
-      jsonResult({
-        equipment_id,
-        history: buildEquipmentHistory(equipment_id)
-      })
+    async ({ equipment_id }) => safeTool(async () => {
+      const history = (await adapterCall('searchRecords', () => adapter.searchRecords({ equipment_id, limit: 100 }), validateRecords)).sort((left, right) => left.event_date.localeCompare(right.event_date)).slice(0, 100);
+      return jsonResult({ equipment_id, history });
+    })
   );
 
   server.registerTool(
@@ -278,9 +279,7 @@ export function registerPraetorTools(server: McpServer): void {
         days: z.number().int().positive().max(180).default(30)
       })
     },
-    async ({ equipment_id, subsystem, days }) => {
-      return jsonResult(buildRecentAnomalies({ equipment_id, subsystem, days }));
-    }
+    async ({ equipment_id, subsystem, days }) => safeTool(async () => jsonResult(await adapterCall('getRecentAnomalies', () => adapter.getRecentAnomalies({ equipment_id, subsystem, days }), validateRecentAnomalies)))
   );
 
   server.registerTool(
@@ -289,9 +288,7 @@ export function registerPraetorTools(server: McpServer): void {
       description: 'Summarize recurring synthetic patterns for an equipment or component.',
       inputSchema: z.object({ equipment_id: z.string().optional(), component: z.string().optional() })
     },
-    async ({ equipment_id, component }) => {
-      return jsonResult({ equipment_id, component, patterns: buildRecurringPatterns({ equipment_id, component }) });
-    }
+    async ({ equipment_id, component }) => safeTool(async () => jsonResult({ equipment_id, component, patterns: await adapterCall('getRecurringPatterns', () => adapter.getRecurringPatterns({ equipment_id, component }), validatePatterns) }))
   );
 
   server.registerTool(
@@ -300,7 +297,7 @@ export function registerPraetorTools(server: McpServer): void {
       description: 'Return the synthetic source metadata for one source identifier.',
       inputSchema: z.object({ source_id: z.string() })
     },
-    async ({ source_id }) => jsonResult({ source: buildSourceMetadata(source_id) })
+    async ({ source_id }) => safeTool(async () => jsonResult({ source: await adapterCall('getSourceMetadata', () => adapter.getSourceMetadata(source_id), validateSource) }))
   );
 
   server.registerTool(
@@ -313,11 +310,7 @@ export function registerPraetorTools(server: McpServer): void {
         finding: z.string().optional()
       })
     },
-    async input =>
-      jsonResult({
-        criteria: input,
-        evidence: collectSupportingEvidence(input)
-      })
+    async input => safeTool(async () => jsonResult({ criteria: input, evidence: await adapterCall('getSupportingEvidence', () => adapter.getSupportingEvidence(input), validateEvidence) }))
   );
 
   server.registerTool(
@@ -326,9 +319,7 @@ export function registerPraetorTools(server: McpServer): void {
       description: 'Return one synthetic document excerpt by source identifier or excerpt identifier.',
       inputSchema: z.object({ source_id: z.string().optional(), excerpt_id: z.string().optional() })
     },
-    async ({ source_id, excerpt_id }) => {
-      return jsonResult({ excerpt: buildDocumentExcerpt(source_id, excerpt_id) });
-    }
+    async ({ source_id, excerpt_id }) => safeTool(async () => jsonResult({ excerpt: await adapterCall('getDocumentExcerpt', () => adapter.getDocumentExcerpt(source_id, excerpt_id), validateExcerpt) }))
   );
 
   server.registerTool(
@@ -337,9 +328,7 @@ export function registerPraetorTools(server: McpServer): void {
       description: 'Return prior synthetic cases that support the current advisory review.',
       inputSchema: z.object({ equipment_id: z.string().optional(), anomaly_code: z.string().optional() })
     },
-    async ({ equipment_id, anomaly_code }) => {
-      return jsonResult({ cases: buildPriorCases({ equipment_id, anomaly_code }) });
-    }
+    async ({ equipment_id, anomaly_code }) => safeTool(async () => jsonResult({ cases: await adapterCall('getPriorCases', () => adapter.getPriorCases({ equipment_id, anomaly_code }), validatePriorCases) }))
   );
 
   server.registerTool(
@@ -348,9 +337,22 @@ export function registerPraetorTools(server: McpServer): void {
       description: 'Return synthetic anomaly context for a record or equipment identifier.',
       inputSchema: z.object({ record_id: z.string().optional(), equipment_id: z.string().optional(), anomaly_code: z.string().optional() })
     },
-    async input => {
-      return jsonResult(buildAnomalyContext(input));
-    }
+    async input => safeTool(async () => {
+      const record = input.record_id
+        ? await adapterCall('getRecordById', () => adapter.getRecordById(input.record_id!), validateRecord)
+        : (await adapterCall('searchRecords', () => adapter.searchRecords({ equipment_id: input.equipment_id, anomaly_code: input.anomaly_code, limit: 1 }), validateRecords))[0] ?? null;
+      const evidence = await adapterCall('getSupportingEvidence', () => adapter.getSupportingEvidence({
+        equipment_id: input.equipment_id ?? record?.equipment_id,
+        anomaly_code: input.anomaly_code ?? record?.anomaly_code,
+        finding: record?.technician_note
+      }), validateEvidence);
+      const source = record ? await adapterCall('getSourceMetadata', () => adapter.getSourceMetadata(record.source_id), validateSource) : null;
+      const priorCases = await adapterCall('getPriorCases', () => adapter.getPriorCases({
+        equipment_id: record?.equipment_id,
+        anomaly_code: record?.anomaly_code
+      }), validatePriorCases);
+      return jsonResult({ record, source, evidence, prior_cases: priorCases });
+    })
   );
 
   server.registerTool(
@@ -359,10 +361,10 @@ export function registerPraetorTools(server: McpServer): void {
       description: 'Persist a review-only synthetic advisory packet after deterministic governance checks pass.',
       inputSchema: AdvisoryPacketSchema
     },
-    async input => {
+    async input => safeTool(async () => {
       const validation = validateAdvisoryPacket(input);
       if (!validation.valid) {
-        return jsonResult({ status: 'schema_rejected', issues: validation.issues });
+        throw new PraetorError('schema_rejected', 'The advisory packet failed schema validation.');
       }
 
       const packet = validation.data as AdvisoryPacketDraft;
@@ -387,23 +389,7 @@ export function registerPraetorTools(server: McpServer): void {
       };
 
       if (!assessment.accepted) {
-        return {
-          isError: true,
-          content: [
-            {
-              type: 'text',
-              text: JSON.stringify(
-                {
-                  status: 'rejected',
-                  assessment,
-                  packet: record
-                },
-                null,
-                2
-              )
-            }
-          ]
-        } satisfies CallToolResult;
+        throw new PraetorError('governance_rejected', assessment.summary);
       }
 
       await appendAdvisoryPacket(record);
@@ -413,6 +399,6 @@ export function registerPraetorTools(server: McpServer): void {
         assessment,
         packet: record
       });
-    }
+    })
   );
 }
