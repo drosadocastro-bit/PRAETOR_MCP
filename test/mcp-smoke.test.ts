@@ -3,6 +3,7 @@ import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
 import { describe, expect, it } from 'vitest';
 
 const expectedTools = [
+  'evaluate_evidence_boundary',
   'search_maintenance_records',
   'get_equipment_history',
   'get_recent_anomalies',

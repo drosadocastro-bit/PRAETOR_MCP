@@ -19,6 +19,8 @@ import type { DatasetAdapter } from './adapters/DatasetAdapter.js';
 import { getActiveDatasetAdapter } from './adapters/adapterRegistry.js';
 import { adapterCall, validateEvidence, validateExcerpt, validatePatterns, validatePriorCases, validateRecord, validateRecords, validateRecentAnomalies, validateSource } from './adapters/adapterValidation.js';
 import { PraetorError, safeTool } from './errors.js';
+import { CortexEvidenceGate, SourceType } from './cortex/evidenceGate.js';
+import { FileAuditEventSink, type AuditEventSink } from './audit.js';
 import type {
   AdvisoryPacketDraft,
   AdvisoryPacketRecord,
@@ -236,7 +238,9 @@ export function buildAnomalyContext(args: { record_id?: string; equipment_id?: s
   };
 }
 
-export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter = getActiveDatasetAdapter()): void {
+export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter = getActiveDatasetAdapter(), auditSink: AuditEventSink = new FileAuditEventSink()): void {
+  const evidenceGate = new CortexEvidenceGate(auditSink);
+
   server.registerTool(
     'search_maintenance_records',
     {
@@ -353,6 +357,44 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
       }), validatePriorCases);
       return jsonResult({ record, source, evidence, prior_cases: priorCases });
     })
+  );
+
+  server.registerTool(
+    'evaluate_evidence_boundary',
+    {
+      description: 'Review whether a proposed answer separates chat claims, retrieved evidence, model inference, and actual audit events. The MCP host must supply the prompt and retrieved context explicitly; this tool does not inspect chat implicitly.',
+      inputSchema: z.object({
+        session_id: z.string().min(1).max(256),
+        user_prompt: z.string().min(1).max(8000),
+        draft_answer: z.string().max(8000).optional(),
+        domain: z.string().max(120).optional(),
+        retrieved_evidence: z.array(z.object({
+          id: z.string().min(1).max(120),
+          text: z.string().min(1).max(4000),
+          source_type: z.enum([SourceType.MCP_RETRIEVED, SourceType.TOOL_RETRIEVED, SourceType.CHAT_CLAIM, SourceType.MODEL_INFERENCE, SourceType.UNKNOWN]),
+          source_id: z.string().max(120).optional(),
+          source_domain: z.string().max(120).optional(),
+          provenance: z.string().max(1000).optional()
+        })).max(50).default([])
+      })
+    },
+    async input => safeTool(async () => jsonResult(await evidenceGate.evaluateAndAudit({
+      sessionId: input.session_id,
+      userPrompt: input.user_prompt,
+      draftAnswer: input.draft_answer,
+      domain: input.domain,
+      retrievedEvidence: input.retrieved_evidence.map(item => ({
+        id: item.id,
+        text: item.text,
+        sourceType: item.source_type,
+        sourceId: item.source_id,
+        sourceDomain: item.source_domain,
+        provenance: item.provenance
+      })),
+      toolCallsUsed: input.retrieved_evidence
+        .map(item => item.source_type)
+        .filter((sourceType, index, sourceTypes) => sourceTypes.indexOf(sourceType) === index)
+    })))
   );
 
   server.registerTool(

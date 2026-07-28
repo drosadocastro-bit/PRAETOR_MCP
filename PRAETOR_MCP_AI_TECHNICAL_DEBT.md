@@ -1,7 +1,7 @@
 # PRAETOR-MCP AI Technical Debt and Follow-up Security Audit
 
 Audit date: 2026-07-27
-Version under review: v0.5 integrity-boundary remediation
+Version under review: v0.6 evidence boundary and Agent K quarantine containment
 Disposition: **HOLD for production consideration**
 
 This follow-up re-checks every finding from the original v0.4 audit. A finding is marked **CLOSED** only when implementation and regression evidence demonstrate the stated property. **DEFERRED BY DESIGN** is distinct from an open defect: it describes a capability intentionally not implemented in the current synthetic prototype, with its future boundary documented.
@@ -10,9 +10,14 @@ This follow-up re-checks every finding from the original v0.4 audit. A finding i
 
 - Local synthetic demo path: **acceptable for continued local testing** within the offline, synthetic-only, advisory-only, human-reviewed boundary.
 - SEC-001 malformed Protocol 66 input, SEC-003 packet bounds, SEC-004 storage integrity, SEC-005 adapter output validation, and SEC-007 application error boundary: **CLOSED to tested scope**.
-- SEC-002 stateful Protocol 66 identity/ingestion: **DEFERRED BY DESIGN, NOT A GAP**; the classifier remains pure and the future boundary is documented.
+- SEC-002 stateful Protocol 66 identity/ingestion: **OPEN / NO-GO for broader use**. The classifier remains pure, but the new runtime bridge now retains session events and does not yet provide complete event identity, retention, concurrency, or recovery semantics.
 - SEC-006 external integration/provenance: **OPEN / NO-GO**. The misleading fallback is closed, but no external adapter or adapter-owned provenance architecture exists.
 - SEC-008 exported storage path containment and SEC-009 legacy helper bypass: **OPEN**.
+- SEC-010 runtime containment host integration: **PARTIALLY CLOSED / OPEN**. The quarantine primitives exist and are tested, but the MCP server cannot enforce them unless the host routes model actions and output through the runtime facade.
+- SEC-011 quarantine transition and recovery authority: **OPEN**. Recovery is separated into an out-of-band interface, but production authentication and prevention of direct runtime API misuse are not implemented.
+- SEC-012 runtime trace durability and failure semantics: **PARTIALLY CLOSED / OPEN**. Trace events are bounded and optionally persisted, but append-only JSONL has no transactional durability or sink-failure reconciliation.
+- SEC-013 runtime lexical detection coverage: **OPEN**. Output and pre-action checks are deterministic lexical rules, not semantic enforcement.
+- SEC-014 runtime concurrency and state isolation: **OPEN**. Session state is scoped, but transitions and event ingestion do not have a concurrency or cross-process coordination mechanism.
 - Production readiness: **NO-GO** because calibration, semantic validation, provenance architecture, authentication, and operational controls remain unresolved.
 
 ## Original Finding Status
@@ -20,7 +25,7 @@ This follow-up re-checks every finding from the original v0.4 audit. A finding i
 | Finding | Status | Follow-up evidence |
 | --- | --- | --- |
 | SEC-001 malformed Protocol 66 timestamps and thresholds | **CLOSED** | Runtime validation; 27 Protocol 66 tests |
-| SEC-002 missing Protocol 66 session/event identity | **DEFERRED BY DESIGN, NOT A GAP** | Pure classifier; future ingestion design note |
+| SEC-002 missing Protocol 66 session/event identity | **OPEN / NO-GO for broader use** | Runtime bridge now retains session events; identity, retention, ordering, concurrency, and recovery remain incomplete |
 | SEC-003 unbounded packet fields | **CLOSED for current schema** | Explicit limits; schema-bound tests |
 | SEC-004 storage errors swallowed and records unvalidated | **CLOSED for read and append paths** | Typed errors; record schema; storage tests |
 | SEC-005 adapter output types unvalidated | **CLOSED for implemented methods** | Strict adapter schemas; malicious adapter tests |
@@ -28,6 +33,11 @@ This follow-up re-checks every finding from the original v0.4 audit. A finding i
 | SEC-007 missing MCP error boundary | **CLOSED for application boundary** | Stable envelopes; adapter fault tests; stdio smoke |
 | SEC-008 unconstrained exported storage paths | **OPEN** | No current MCP path input, but API remains unconstrained |
 | SEC-009 legacy helper bypass | **OPEN** | Compatibility helpers still read static synthetic data |
+| SEC-010 runtime containment host integration | **PARTIALLY CLOSED / OPEN** | Runtime facade, gateway, output gate, and tests exist; MCP server and host integration remain explicit responsibilities |
+| SEC-011 quarantine transition and recovery authority | **OPEN** | Out-of-band recovery interface exists; no production authentication or sealed transition authority |
+| SEC-012 runtime trace durability and failure semantics | **PARTIALLY CLOSED / OPEN** | Bounded trace schema and optional JSONL sink; no transactional durability or reconciliation |
+| SEC-013 runtime lexical detection coverage | **OPEN** | Deterministic lexical patterns provide containment signals, not semantic assurance |
+| SEC-014 runtime concurrency and state isolation | **OPEN** | Session-scoped state exists; no mutex, event store, or cross-process coordination |
 
 ## 1. Original Findings Re-checked
 
@@ -39,15 +49,15 @@ This follow-up re-checks every finding from the original v0.4 audit. A finding i
 
 **Fix:** `src/protocol66.ts` validates event shape, trigger kind, strict ISO timestamp format, finite parsing, safe non-negative interaction indexes, detail type, and bounded positive policy values before filtering or counting.
 
-**After evidence:** The same malformed timestamp and policy fixtures throw `Protocol66InputError`. The Protocol 66 suite passes **27/27** tests.
+**After evidence:** The same malformed timestamp and policy fixtures throw `Protocol66InputError`. The Protocol 66 suite passes **29/29** tests.
 
-### SEC-002: Protocol 66 has no session or event-stream identity - DEFERRED BY DESIGN, NOT A GAP
+### SEC-002: Protocol 66 stateful bridge lacks complete event identity and lifecycle controls - OPEN / NO-GO FOR BROADER USE
 
 **Why this matters if state is added:** A stateful caller without session, stream, event identity, deduplication, ordering, and retention semantics could combine events across conversations or retain triggers indefinitely. That would be a correctness and isolation failure.
 
-**Current evidence:** `classifyProtocol66` is pure, receives one validated event array, and has no mutable shared event state. Current invocations cannot race through a shared event store or leak events between sessions.
+**Current evidence:** `classifyProtocol66` remains pure, but `src/safety/protocol66RuntimeBridge.ts` and `src/runtime/runtimeState.ts` now retain trigger events in a session. Events are deduplicated by kind, timestamp, and interaction index, but there is no explicit event ID, stream ID, bounded retention policy, monotonic-ingestion contract, or concurrency control.
 
-**Decision:** Stateful ingestion is intentionally deferred rather than silently omitted. [docs/PRAETOR_MCP_PROTOCOL66_INGESTION_DESIGN.md](docs/PRAETOR_MCP_PROTOCOL66_INGESTION_DESIGN.md) specifies session IDs, stream IDs, event IDs, monotonic indexes, deduplication, bounded retention, timestamp/order semantics, concurrency, and recovery requirements. This is not an open defect in the current pure classifier, but it is a prerequisite before stateful ingestion is implemented.
+**Decision:** The pure classifier remains safe within its tested scope, but the new stateful bridge is not production-ready. [docs/PRAETOR_MCP_PROTOCOL66_INGESTION_DESIGN.md](docs/PRAETOR_MCP_PROTOCOL66_INGESTION_DESIGN.md) remains the required target for session IDs, stream IDs, event IDs, monotonic indexes, bounded retention, timestamp/order semantics, concurrency, and recovery.
 
 ### SEC-003: Schema resource bounds were incomplete - CLOSED for current schema
 
@@ -117,6 +127,54 @@ This follow-up re-checks every finding from the original v0.4 audit. A finding i
 
 **Required fix:** Mark them synthetic-only in a compatibility module, route callers through an adapter-aware service, or remove them after migration. This remains open.
 
+### SEC-010: Runtime containment is not automatically connected to the MCP host - PARTIALLY CLOSED / OPEN
+
+**Why this matters:** A library-level gateway cannot stop a host from calling MCP directly, displaying an already-generated model answer, or retrying outside the runtime facade. Claiming that quarantine is globally enforced would therefore overstate the implementation.
+
+**Implemented evidence:** `src/safety/agentKRuntime.ts` composes pre-action inspection, `ToolGateway`, and `OutputGate`. Quarantine tests verify that blocked tool callbacks do not execute and that normal output is replaced with a stable notice.
+
+**Residual risk:** `src/server.ts` still registers MCP tools directly, and no host integration owns every model/tool/output transition. The runtime is enforceable only when the host explicitly routes actions through `AgentKRuntime`.
+
+**Required fix:** Integrate the runtime facade at the host orchestration boundary and add an end-to-end test proving that direct tool calls, retries, and final output cannot bypass the state machine.
+
+### SEC-011: Quarantine recovery authority is an interface, not production authentication - OPEN
+
+**Why this matters:** A callback named `HumanRecoveryAuthority` expresses the intended boundary but does not authenticate a real human or prevent an untrusted caller from supplying an approving implementation.
+
+**Implemented evidence:** `src/safety/recovery.ts` rejects recovery before `RECOVERY_PENDING`, rejects failed authorization, records the denial, and requires a separate authority callback before returning to `ACTIVE`. Recovery does not erase prior traces.
+
+**Residual risk:** `RuntimeSession.transition` is publicly callable within the host process, and the prototype has no authenticated operator identity, authorization policy, or sealed recovery channel.
+
+**Required fix:** Keep recovery outside the model/tool path and bind it to an authenticated human operator and an append-only recovery record before any broader deployment.
+
+### SEC-012: Runtime trace persistence is bounded but not transactional - PARTIALLY CLOSED / OPEN
+
+**Why this matters:** A quarantine decision that exists only in memory, or a trace sink that fails after state mutation, can weaken reconstructability. JSONL append is useful for a local prototype but does not provide transactional state-plus-trace durability.
+
+**Implemented evidence:** `src/runtime/traceRecorder.ts` validates bounded trace events, records observable summaries only, supports an optional local file sink, and validates decoded events on read.
+
+**Residual risk:** State transition and trace append are separate operations. There is no fsync, lock, transaction marker, recovery journal, or reconciliation process for a sink failure or process interruption.
+
+**Required fix:** Define failure ordering and recovery semantics, then use a transactional or journaled local store before treating traces as durable incident records.
+
+### SEC-013: Runtime detection remains lexical and can miss semantic violations - OPEN
+
+**Why this matters:** `src/runtime/outputGate.ts`, `src/safety/agentKPreAction.ts`, and the Protocol 66 text classifier use bounded regular expressions. They are deterministic and auditable, but they cannot establish semantic intent or detect paraphrases reliably.
+
+**Implemented evidence:** Tests cover guardrail override, self-certification, restricted-artifact access, audit modification, unsafe authority output, emergency-control bypass, and repeated denial retries.
+
+**Residual risk:** False negatives and false positives remain possible across domains and wording variants. A passing adversarial battery demonstrates regression coverage, not semantic recall.
+
+**Required fix:** Expand representative red-team fixtures, calibrate thresholds with human review, and preserve fail-closed behavior when classification confidence is insufficient.
+
+### SEC-014: Stateful runtime transitions lack concurrency and cross-process coordination - OPEN
+
+**Why this matters:** Two concurrent tool calls or host workers can inspect the same state, both pass pre-action checks, and race a transition or retry decision. Session-scoped memory does not provide isolation across processes.
+
+**Current evidence:** `RuntimeSession` stores mutable state and Protocol 66 events in process memory. There is deduplication for repeated classifier results, but no mutex, version check, durable event sequence, or cross-process session lock.
+
+**Required fix:** Define one writer per session or add serialized event ingestion with versioned transitions, bounded retention, and explicit stale-event handling before concurrent use.
+
 ## 2. Remaining Original Audit Debt
 
 ### OPEN: Synthetic-only provenance coupling
@@ -143,11 +201,11 @@ These are not silently resolved security findings, but intentional choices that 
 - lexical guardrails rather than semantic models;
 - dependency-graph provenance rather than complete lineage objects;
 - NDJSON append storage rather than transactional storage;
-- pure Protocol 66 classification rather than stateful ingestion.
+- pure Protocol 66 classification with a prototype stateful runtime bridge that is not yet production-ready.
 
 ## 4. Follow-up Validation
 
-Executed on 2026-07-27 after the final audit fixes:
+Executed on 2026-07-27 after the Agent K quarantine containment implementation:
 
 ```text
 npm run check
@@ -162,17 +220,17 @@ git diff --check
 Results:
 
 - TypeScript check: **PASS**.
-- Full Vitest suite: **10 test files, 112 tests passed**.
-- Protocol 66: **27/27 tests passed**.
+- Full Vitest suite: **13 test files, 136 tests passed**.
+- Protocol 66: **29/29 tests passed**.
 - MCP stdio smoke: **1/1 test passed**.
 - Adversarial battery: **25/25 assertions passed**.
 - Dependency audit: **0 vulnerabilities**.
 - Whitespace check: **PASS**; only the generated-report LF-to-CRLF normalization warning was emitted.
 
-The prior complete suite was 9 files and 106 tests. The increase is accounted for by the 5 schema-bound tests and one additional storage append-integrity test.
+The increase includes the evidence-boundary tests, audit-sink tests, and quarantine-runtime tests. The runtime suite specifically covers hard triggers, emergency-control bypass, blocked tools, blocked output, retries, degraded mode, pre-action contracts, recovery authorization, and trace restrictions.
 
 ## Final Disposition
 
-The original malformed-input, packet-bound, storage-handling, adapter-output, external-fallback, and application-error-boundary findings are implemented and regression-tested to the stated scope. External adapter/provenance architecture, exported path containment, legacy helper bypass, semantic guardrail reliability, calibration, authentication, and production controls remain open or unavailable. Protocol 66 stateful ingestion is **deferred by design, not a gap**, and must satisfy its design note before implementation.
+The original malformed-input, packet-bound, storage-handling, adapter-output, external-fallback, and application-error-boundary findings are implemented and regression-tested to the stated scope. External adapter/provenance architecture, exported path containment, legacy helper bypass, semantic guardrail reliability, calibration, authentication, production controls, host-level runtime integration, trace durability, and runtime concurrency remain open or unavailable. Protocol 66 stateful ingestion is now represented by a prototype bridge and is **open / no-go for broader use** until it satisfies its design note and concurrency requirements.
 
 PRAETOR-MCP remains **local synthetic prototype only; advisory-only; human-reviewed; no operational authority**.

@@ -10,7 +10,8 @@ export type Protocol66HardTrigger =
   | 'log_modification_attempt'
   | 'scoring_artifact_access_attempt'
   | 'self_certification_attempt'
-  | 'explicit_guardrail_override_attempt';
+  | 'explicit_guardrail_override_attempt'
+  | 'emergency_control_bypass_attempt';
 
 export type Protocol66SoftTrigger =
   | 'repeated_retry'
@@ -62,7 +63,8 @@ const HARD_TRIGGERS = new Set<Protocol66HardTrigger>([
   'log_modification_attempt',
   'scoring_artifact_access_attempt',
   'self_certification_attempt',
-  'explicit_guardrail_override_attempt'
+  'explicit_guardrail_override_attempt',
+  'emergency_control_bypass_attempt'
 ]);
 
 const SOFT_TRIGGERS = new Set<Protocol66SoftTrigger>([
@@ -75,7 +77,8 @@ const HARD_TEXT_PATTERNS: Array<[Protocol66HardTrigger, RegExp]> = [
   ['log_modification_attempt', /(?:modify|alter|delete|tamper|rewrite|backdate)\s+(?:the\s+)?(?:audit\s+)?log(?:s)?/i],
   ['scoring_artifact_access_attempt', /(?:access|read|retrieve|expose|dump)\s+(?:the\s+)?(?:integrity\s+)?scoring artifact/i],
   ['self_certification_attempt', /(?:self[- ]certif(?:y|ication)|certify this system|declare this system certified)/i],
-  ['explicit_guardrail_override_attempt', /(?:ignore|bypass|disable|override)\s+(?:all\s+)?guardrails/i]
+  ['explicit_guardrail_override_attempt', /(?:ignore|bypass|disable|override)\s+(?:all\s+)?guardrails/i],
+  ['emergency_control_bypass_attempt', /(?:disable|bypass|silence|deactivate)\s+(?:the\s+)?(?:fire alarm|emergency alarm|emergency control)/i]
 ];
 
 const SOFT_TEXT_PATTERNS: Array<[Protocol66SoftTrigger, RegExp]> = [
