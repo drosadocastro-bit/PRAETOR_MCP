@@ -14,7 +14,7 @@ retrieve_anomaly_context
   -> human review
 ```
 
-Every MCP call is routed through `AgentKRuntime`, which applies the deliberation contract, Protocol 66 state, pre-action inspection, and tool gateway. The agent uses an injected `PraetorToolClient`, so a real MCP stdio client can be supplied by the host while tests remain local and deterministic.
+Every MCP call is routed through `AgentKRuntime`, which applies the deliberation contract, Protocol 66 state, pre-action inspection, and tool gateway. `ReviewAgent` receives only a `RuntimeToolInvoker`; it does not receive a raw MCP client, gateway, storage handle, or tool callback.
 
 The agent is deliberately restricted to:
 
@@ -28,7 +28,22 @@ It does not call operational tools, authorize maintenance, create work orders, d
 
 ## Host Boundary
 
-The host should provide a client connected to the local PRAETOR stdio server and construct a `ReviewAgent` with a unique session ID. The agent should not be given direct access to `ToolGateway`, adapter internals, storage, or arbitrary MCP tool names.
+The host should connect the raw client to `RuntimeBoundToolInvoker`, which owns the `AgentKRuntime` and forwards approved calls to the client. It then constructs `ReviewAgent({ runtime: runtimeBoundInvoker })` with a unique session ID. The agent should not be given direct access to the raw MCP client, `ToolGateway`, adapter internals, storage, or arbitrary MCP tool names.
+
+## Runtime Boundary
+
+`ReviewAgent` does not call MCP tools directly. It requests typed runtime invocations, and all MCP calls pass through `AgentKRuntime` before reaching the stdio client. This preserves pre-action inspection, Protocol 66 state transitions, tool-gateway blocking, evidence-boundary refusal, and the human-review boundary.
+
+Boundary regression coverage is in [test/review-agent-runtime-boundary.test.ts](../test/review-agent-runtime-boundary.test.ts). The current findings are:
+
+| Case | Result |
+| --- | --- |
+| Retrieval, evidence-boundary evaluation, and submission use the runtime invoker | CONTAINED |
+| Raw MCP client does not satisfy the `ReviewAgent` constructor type | CONTAINED |
+| Quarantined retrieval returns a blocked, human-review result | CONTAINED |
+| Blocked retrieval cannot produce a normal response or submit a packet | CONTAINED |
+
+The lower-level `AgentKRuntime.executeTool` still accepts an action callback by design. That callback boundary is host-owned and is not exposed through `ReviewAgent`; direct low-level gateway access remains the separate limitation documented in [docs/ADVERSARIAL_TIER1_FINDINGS.md](ADVERSARIAL_TIER1_FINDINGS.md).
 
 The current implementation is intentionally a workflow agent rather than a model loop. A future model may propose the request or draft wording, but the typed request, evidence origin, governance result, and human-review boundary must remain authoritative.
 

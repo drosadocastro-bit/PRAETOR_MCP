@@ -1,8 +1,11 @@
 import { Client } from '@modelcontextprotocol/client';
 import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
 
-import { ReviewAgent, type ReviewRequest, type ReviewResult } from './reviewAgent.js';
+import { ReviewAgent, type ReviewRequest, type ReviewResult, type ReviewBlockedResult, type RuntimeToolInvocation, type RuntimeToolInvoker } from './reviewAgent.js';
 import { RuntimeSession } from '../runtime/runtimeState.js';
+import { AgentKRuntime } from '../safety/agentKRuntime.js';
+import type { DeliberationContract } from '../safety/deliberationContract.js';
+import type { ToolRequest } from '../runtime/toolGateway.js';
 
 interface TextContent {
   type: 'text';
@@ -40,11 +43,54 @@ export class StdioPraetorToolClient {
   }
 }
 
+export class RuntimeBoundToolInvoker implements RuntimeToolInvoker {
+  constructor(
+    private readonly runtime: AgentKRuntime,
+    private readonly client: StdioPraetorToolClient
+  ) {}
+
+  callTool(request: RuntimeToolInvocation): Promise<unknown> {
+    if (request.sessionId !== this.runtime.session.sessionId) {
+      return Promise.resolve({
+        status: 'blocked',
+        code: 'session_identity_mismatch',
+        reason: 'The request session does not match the runtime-bound session.',
+        tool_name: request.toolName,
+        trace_id: request.traceId
+      });
+    }
+    const contract: DeliberationContract = {
+      trace_id: request.traceId,
+      session_id: request.sessionId,
+      intended_action: request.argumentSummary,
+      requested_tool: request.toolName,
+      action_type: request.actionType,
+      reason_summary: 'Build a synthetic advisory packet for human review.',
+      expected_output_type: request.actionType === 'submit' ? 'review-only advisory packet' : 'synthetic anomaly context',
+      touches_restricted_resource: false,
+      requires_human_review: true,
+      retry_of_denied_action: false
+    };
+    const toolRequest: ToolRequest = {
+      traceId: request.traceId,
+      toolName: request.toolName,
+      actionType: request.actionType,
+      sensitive: false,
+      argumentSummary: request.argumentSummary
+    };
+    return this.runtime.executeTool(contract, toolRequest, () => this.client.callTool({
+      name: request.toolName,
+      arguments: request.arguments
+    }));
+  }
+}
+
 export interface ConnectedReviewAgent {
   agent: ReviewAgent;
+  session: RuntimeSession;
   client: Client;
   transport: StdioClientTransport;
-  run(request: ReviewRequest): Promise<ReviewResult>;
+  run(request: ReviewRequest): Promise<ReviewResult | ReviewBlockedResult>;
   close(): Promise<void>;
 }
 
@@ -62,9 +108,12 @@ export async function connectStdioReviewAgent(options: {
   await client.connect(transport);
 
   const toolClient = new StdioPraetorToolClient(client);
-  const agent = new ReviewAgent(toolClient, new RuntimeSession(options.sessionId ?? 'review-agent-stdio'));
+  const session = new RuntimeSession(options.sessionId ?? 'review-agent-stdio');
+  const runtime = new AgentKRuntime(session);
+  const agent = new ReviewAgent(new RuntimeBoundToolInvoker(runtime, toolClient));
   return {
     agent,
+    session,
     client,
     transport,
     run: request => agent.buildAndSubmit(request),

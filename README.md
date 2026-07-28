@@ -141,7 +141,7 @@ Tier 2 deterministic, state, trace, and concurrency findings are recorded in [do
 
 Tier 3 lifecycle findings, including late-result and in-memory resume limitations, are recorded in [docs/ADVERSARIAL_TIER3_FINDINGS.md](docs/ADVERSARIAL_TIER3_FINDINGS.md) and exercised by [test/adversarial-tier3.test.ts](test/adversarial-tier3.test.ts).
 
-The first bounded review agent is documented in [docs/REVIEW_AGENT.md](docs/REVIEW_AGENT.md) and implemented in [src/agent/reviewAgent.ts](src/agent/reviewAgent.ts). It retrieves synthetic context, invokes the evidence boundary, and submits only review-only packets through the host runtime.
+The first bounded review agent is documented in [docs/REVIEW_AGENT.md](docs/REVIEW_AGENT.md) and implemented in [src/agent/reviewAgent.ts](src/agent/reviewAgent.ts). It retrieves synthetic context, invokes the evidence boundary, and submits only review-only packets through the host runtime. Runtime-only MCP access is enforced by [test/review-agent-runtime-boundary.test.ts](test/review-agent-runtime-boundary.test.ts).
 
 Protocol 66 uses two explicit escalation tiers: hard triggers fire immediately, while soft triggers accumulate only within bounded time or interaction windows. Its policy and calibration boundary are documented in [docs/PROTOCOL_66.md](docs/PROTOCOL_66.md), with executable coverage in [test/protocol66.test.ts](test/protocol66.test.ts).
 

@@ -1,12 +1,17 @@
 import { analyzeEvidenceIndependence } from '../dependencyGraph.js';
-import { RuntimeSession } from '../runtime/runtimeState.js';
-import { AgentKRuntime } from '../safety/agentKRuntime.js';
-import type { DeliberationContract } from '../safety/deliberationContract.js';
-import type { ToolActionType, ToolRequest } from '../runtime/toolGateway.js';
 import type { AdvisoryPacketDraft, EvidenceItem, SyntheticMaintenanceRecord } from '../types.js';
 
-export interface PraetorToolClient {
-  callTool(request: { name: string; arguments: Record<string, unknown> }): Promise<unknown>;
+export interface RuntimeToolInvocation {
+  sessionId: string;
+  traceId: string;
+  toolName: string;
+  actionType: 'retrieve' | 'submit';
+  argumentSummary: string;
+  arguments: Record<string, unknown>;
+}
+
+export interface RuntimeToolInvoker {
+  callTool(request: RuntimeToolInvocation): Promise<unknown>;
 }
 
 interface AnomalyContext {
@@ -24,6 +29,15 @@ export interface ReviewRequest {
 export interface ReviewResult {
   packet: AdvisoryPacketDraft;
   submitted: unknown;
+}
+
+export interface ReviewBlockedResult {
+  status: 'blocked';
+  code: string;
+  reason: string;
+  submitted: false;
+  humanReviewRequired: true;
+  outputMode: 'blocked';
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -54,31 +68,6 @@ function readContext(value: unknown): AnomalyContext {
   return {
     record: record as SyntheticMaintenanceRecord | null,
     evidence: evidence as unknown as EvidenceItem[]
-  };
-}
-
-function toolRequest(traceId: string, toolName: string, actionType: ToolActionType, argumentSummary: string): ToolRequest {
-  return {
-    traceId,
-    toolName,
-    actionType,
-    sensitive: false,
-    argumentSummary
-  };
-}
-
-function deliberation(sessionId: string, traceId: string, toolName: string, actionType: DeliberationContract['action_type'], intendedAction: string): DeliberationContract {
-  return {
-    trace_id: traceId,
-    session_id: sessionId,
-    intended_action: intendedAction,
-    requested_tool: toolName,
-    action_type: actionType,
-    reason_summary: 'Build a synthetic advisory packet for human review.',
-    expected_output_type: actionType === 'submit' ? 'review-only advisory packet' : 'synthetic anomaly context',
-    touches_restricted_resource: false,
-    requires_human_review: true,
-    retry_of_denied_action: false
   };
 }
 
@@ -156,54 +145,72 @@ function evidenceBoundaryArguments(request: ReviewRequest, packet: AdvisoryPacke
 }
 
 export class ReviewAgent {
-  private readonly runtime: AgentKRuntime;
+  constructor(readonly runtime: RuntimeToolInvoker) {}
 
-  constructor(
-    readonly client: PraetorToolClient,
-    readonly session = new RuntimeSession('review-agent-session')
-  ) {
-    this.runtime = new AgentKRuntime(session);
-  }
-
-  async buildAndSubmit(request: ReviewRequest): Promise<ReviewResult> {
+  async buildAndSubmit(request: ReviewRequest): Promise<ReviewResult | ReviewBlockedResult> {
     const contextTraceId = `${request.sessionId}-context`;
-    const contextResult = await this.runtime.executeTool(
-      deliberation(request.sessionId, contextTraceId, 'retrieve_anomaly_context', 'retrieve', 'retrieve synthetic anomaly context'),
-      toolRequest(contextTraceId, 'retrieve_anomaly_context', 'retrieve', `context for ${request.equipmentId}`),
-      () => this.client.callTool({
-        name: 'retrieve_anomaly_context',
-        arguments: { equipment_id: request.equipmentId, anomaly_code: request.anomalyCode }
-      })
-    );
+    const contextResult = await this.runtime.callTool({
+      sessionId: request.sessionId,
+      traceId: contextTraceId,
+      toolName: 'retrieve_anomaly_context',
+      actionType: 'retrieve',
+      argumentSummary: `context for ${request.equipmentId}`,
+      arguments: { equipment_id: request.equipmentId, anomaly_code: request.anomalyCode }
+    });
     if (isBlockedResult(contextResult)) {
-      throw new Error('PRAETOR context retrieval was blocked by the host runtime.');
+      return blockedResult(contextResult);
     }
 
     const packet = buildPacket(request, readContext(contextResult));
     const boundaryTraceId = `${request.sessionId}-evidence-boundary`;
-    const boundaryResult = await this.runtime.executeTool(
-      deliberation(request.sessionId, boundaryTraceId, 'evaluate_evidence_boundary', 'retrieve', 'validate retrieved evidence before packet submission'),
-      toolRequest(boundaryTraceId, 'evaluate_evidence_boundary', 'retrieve', 'validate evidence provenance and claim boundary'),
-      () => this.client.callTool({ name: 'evaluate_evidence_boundary', arguments: evidenceBoundaryArguments(request, packet) })
-    );
+    const boundaryResult = await this.runtime.callTool({
+      sessionId: request.sessionId,
+      traceId: boundaryTraceId,
+      toolName: 'evaluate_evidence_boundary',
+      actionType: 'retrieve',
+      argumentSummary: 'validate evidence provenance and claim boundary',
+      arguments: evidenceBoundaryArguments(request, packet)
+    });
     if (isBlockedResult(boundaryResult)) {
-      throw new Error('PRAETOR evidence boundary was blocked by the host runtime.');
+      return blockedResult(boundaryResult);
     }
     const boundaryPayload = readToolPayload(boundaryResult);
     if (boundaryPayload.decision !== 'allow' && boundaryPayload.decision !== 'revise_with_boundary') {
-      throw new Error(`PRAETOR evidence boundary rejected packet preparation: ${String(boundaryPayload.decision ?? 'unknown')}.`);
+      return {
+        status: 'blocked',
+        code: 'evidence_boundary_refused',
+        reason: `PRAETOR evidence boundary rejected packet preparation: ${String(boundaryPayload.decision ?? 'unknown')}.`,
+        submitted: false,
+        humanReviewRequired: true,
+        outputMode: 'blocked'
+      };
     }
 
     const submitTraceId = `${request.sessionId}-submit`;
-    const submitted = await this.runtime.executeTool(
-      deliberation(request.sessionId, submitTraceId, 'submit_review_advisory_packet', 'submit', 'submit a review-only synthetic advisory packet'),
-      toolRequest(submitTraceId, 'submit_review_advisory_packet', 'submit', 'review-only advisory packet'),
-      () => this.client.callTool({ name: 'submit_review_advisory_packet', arguments: packet as unknown as Record<string, unknown> })
-    );
+    const submitted = await this.runtime.callTool({
+      sessionId: request.sessionId,
+      traceId: submitTraceId,
+      toolName: 'submit_review_advisory_packet',
+      actionType: 'submit',
+      argumentSummary: 'review-only advisory packet',
+      arguments: packet as unknown as Record<string, unknown>
+    });
     if (isBlockedResult(submitted)) {
-      throw new Error('PRAETOR packet submission was blocked by the host runtime.');
+      return blockedResult(submitted);
     }
 
     return { packet, submitted };
   }
+}
+
+function blockedResult(value: unknown): ReviewBlockedResult {
+  const record = isRecord(value) ? value : {};
+  return {
+    status: 'blocked',
+    code: String(record.code ?? 'protocol_66_quarantine'),
+    reason: String(record.reason ?? 'Review-agent execution was blocked by the host runtime.'),
+    submitted: false,
+    humanReviewRequired: true,
+    outputMode: 'blocked'
+  };
 }

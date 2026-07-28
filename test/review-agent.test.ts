@@ -1,15 +1,18 @@
 import { describe, expect, it } from 'vitest';
 
-import { ReviewAgent, type PraetorToolClient } from '../src/agent/reviewAgent.js';
-import { RuntimeSession } from '../src/runtime/runtimeState.js';
+import { ReviewAgent, type RuntimeToolInvocation, type RuntimeToolInvoker } from '../src/agent/reviewAgent.js';
 
-class FakePraetorClient implements PraetorToolClient {
-  readonly calls: Array<{ name: string; arguments: Record<string, unknown> }> = [];
+class FakeRuntime implements RuntimeToolInvoker {
+  readonly calls: RuntimeToolInvocation[] = [];
   boundaryDecision = 'allow';
+  blockedCall?: string;
 
-  async callTool(request: { name: string; arguments: Record<string, unknown> }): Promise<unknown> {
+  async callTool(request: RuntimeToolInvocation): Promise<unknown> {
     this.calls.push(request);
-    if (request.name === 'retrieve_anomaly_context') {
+    if (request.toolName === this.blockedCall) {
+      return { status: 'blocked', code: 'protocol_66_quarantine', reason: 'Quarantine is active.' };
+    }
+    if (request.toolName === 'retrieve_anomaly_context') {
       return {
         record: {
           record_id: 'REC-401-A',
@@ -41,21 +44,20 @@ class FakePraetorClient implements PraetorToolClient {
         }]
       };
     }
-    if (request.name === 'submit_review_advisory_packet') {
+    if (request.toolName === 'submit_review_advisory_packet') {
       return { integrity_verdict: 'doubtful', human_review_required: true };
     }
-    if (request.name === 'evaluate_evidence_boundary') {
+    if (request.toolName === 'evaluate_evidence_boundary') {
       return { decision: this.boundaryDecision };
     }
-    throw new Error(`Unexpected tool: ${request.name}`);
+    throw new Error(`Unexpected tool: ${request.toolName}`);
   }
 }
 
 describe('ReviewAgent', () => {
   it('builds a bounded review packet through the host runtime', async () => {
-    const client = new FakePraetorClient();
-    const session = new RuntimeSession('review-agent-test');
-    const agent = new ReviewAgent(client, session);
+    const runtime = new FakeRuntime();
+    const agent = new ReviewAgent(runtime);
 
     const result = await agent.buildAndSubmit({
       sessionId: 'review-agent-test',
@@ -64,36 +66,47 @@ describe('ReviewAgent', () => {
       question: 'What does this synthetic pattern suggest?'
     });
 
-    expect(client.calls.map(call => call.name)).toEqual([
+    if (!('packet' in result)) {
+      throw new Error(`ReviewAgent was blocked: ${result.reason}`);
+    }
+    expect(runtime.calls.map(call => call.toolName)).toEqual([
       'retrieve_anomaly_context',
       'evaluate_evidence_boundary',
       'submit_review_advisory_packet'
     ]);
+    expect(runtime.calls.every(call => call.sessionId === 'review-agent-test' && call.traceId.length > 0)).toBe(true);
     expect(result.packet.human_review_required).toBe(true);
     expect(result.packet.finding).toContain('should be reviewed by a human');
     expect(result.packet.finding).not.toMatch(/must replace|confirmed failure|safe to operate/i);
     expect(result.packet.advisory_only_statement).toContain('no maintenance action is authorized');
     expect(result.submitted).toEqual({ integrity_verdict: 'doubtful', human_review_required: true });
-    expect(session.trace().map(event => event.event_type)).toEqual([
-      'pre_action_inspection',
-      'pre_action_inspection',
-      'pre_action_inspection'
-    ]);
   });
 
   it('does not submit when the evidence boundary refuses preparation', async () => {
-    const client = new FakePraetorClient();
-    client.boundaryDecision = 'refuse_evidence_based_answer';
-    const agent = new ReviewAgent(client, new RuntimeSession('review-agent-refused'));
+    const runtime = new FakeRuntime();
+    runtime.boundaryDecision = 'refuse_evidence_based_answer';
+    const agent = new ReviewAgent(runtime);
 
-    await expect(agent.buildAndSubmit({
+    const result = await agent.buildAndSubmit({
       sessionId: 'review-agent-refused',
       equipmentId: 'PRA-401',
       anomalyCode: 'VIB-14'
-    })).rejects.toThrow('evidence boundary rejected');
-    expect(client.calls.map(call => call.name)).toEqual([
+    });
+    expect(result).toMatchObject({ status: 'blocked', submitted: false, humanReviewRequired: true });
+    expect(runtime.calls.map(call => call.toolName)).toEqual([
       'retrieve_anomaly_context',
       'evaluate_evidence_boundary'
     ]);
+  });
+
+  it('stops without fake evidence when runtime blocks retrieval', async () => {
+    const runtime = new FakeRuntime();
+    runtime.blockedCall = 'retrieve_anomaly_context';
+    const agent = new ReviewAgent(runtime);
+
+    const result = await agent.buildAndSubmit({ sessionId: 'review-agent-blocked', equipmentId: 'PRA-401' });
+
+    expect(result).toMatchObject({ status: 'blocked', submitted: false, outputMode: 'blocked' });
+    expect(runtime.calls.map(call => call.toolName)).toEqual(['retrieve_anomaly_context']);
   });
 });
