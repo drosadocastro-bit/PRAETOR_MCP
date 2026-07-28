@@ -135,6 +135,12 @@ npm run test:adversarial:report
 
 The latest report is written to [reports/adversarial_battery/LATEST.md](reports/adversarial_battery/LATEST.md). The machine-readable Vitest result is kept beside it as `latest.json`.
 
+Tier 1 host-boundary findings, including contained attacks and the confirmed direct-gateway limitation, are recorded in [docs/ADVERSARIAL_TIER1_FINDINGS.md](docs/ADVERSARIAL_TIER1_FINDINGS.md) and exercised by [test/host-adversarial-tier1.test.ts](test/host-adversarial-tier1.test.ts).
+
+Tier 2 deterministic, state, trace, and concurrency findings are recorded in [docs/ADVERSARIAL_TIER2_FINDINGS.md](docs/ADVERSARIAL_TIER2_FINDINGS.md) and exercised by [test/adversarial-tier2.test.ts](test/adversarial-tier2.test.ts).
+
+Tier 3 lifecycle findings, including late-result and in-memory resume limitations, are recorded in [docs/ADVERSARIAL_TIER3_FINDINGS.md](docs/ADVERSARIAL_TIER3_FINDINGS.md) and exercised by [test/adversarial-tier3.test.ts](test/adversarial-tier3.test.ts).
+
 Protocol 66 uses two explicit escalation tiers: hard triggers fire immediately, while soft triggers accumulate only within bounded time or interaction windows. Its policy and calibration boundary are documented in [docs/PROTOCOL_66.md](docs/PROTOCOL_66.md), with executable coverage in [test/protocol66.test.ts](test/protocol66.test.ts).
 
 The consolidated implementation record is [docs/PRAETOR_MCP_LATEST_IMPLEMENTATION.md](docs/PRAETOR_MCP_LATEST_IMPLEMENTATION.md). It documents the current MCP surface, deterministic governance, adversarial battery, Protocol 66 boundaries, calibration cases, validation commands, and deliberate limitations.
@@ -165,4 +171,4 @@ The governance, schema, Protocol 66 classification, append-only storage, and rev
 
 ## Future Work
 
-Future work may include richer synthetic histories, trend detection, anomaly clustering, calibration-style tests, and a local client demo. Live systems, private data, operational writes, and learned scoring remain out of scope.
+Future work may include richer synthetic histories, trend detection, anomaly clustering, calibration-style tests, and a local client demo. It may also include a compatibility review against the MCP 2026-07-28 specification, including stateless runtime assumptions, task-style long-running operations, and host-side containment boundaries. This is a review item, not a claim of current support. See the [VentureBeat reference](https://venturebeat.com/infrastructure/mcp-just-got-its-biggest-update-ever-heres-what-changes-for-ai-agents) for the reported protocol changes. Live systems, private data, operational writes, and learned scoring remain out of scope.

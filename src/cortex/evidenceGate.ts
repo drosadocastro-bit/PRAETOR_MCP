@@ -131,7 +131,8 @@ function extractChatClaims(prompt: string, retrievedEvidence: EvidenceItem[]): C
     .filter(sentence => meaningfulTokens(sentence).length >= 3)
     .map((sentence, index) => {
       const supportingIds = retrievedEvidence
-        .filter(item => overlapScore(sentence, item.text) >= 2)
+        .filter(item => (item.sourceType === SourceType.MCP_RETRIEVED || item.sourceType === SourceType.TOOL_RETRIEVED)
+          && overlapScore(sentence, item.text) >= 2)
         .map(item => item.id);
       return {
         id: `chat-claim-${index + 1}`,
