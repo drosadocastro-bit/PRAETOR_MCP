@@ -53,14 +53,29 @@ Governance and integrity scoring happen before the packet is stored. No path cre
 - `retrieve_document_excerpt`
 - `retrieve_prior_cases`
 - `retrieve_anomaly_context`
+- `evaluate_evidence_boundary`
 
 Read responses carry source ID, source type, timestamp, excerpts or record references, provenance metadata, independence grouping, and uncertainty notes where applicable.
+
+`evaluate_evidence_boundary` is a deterministic review tool for separating authorized retrieved evidence from chat claims and model inference. The host must explicitly pass the prompt, retrieved context, and optional draft answer; the MCP server cannot inspect arbitrary host chat implicitly. The tool does not diagnose conditions, determine equipment safety, authorize maintenance, or replace human judgment.
 
 ### Service Write Integration
 
 - `submit_review_advisory_packet`
 
 This tool accepts only a schema-valid advisory packet. The caller-supplied verdict and guardrails are treated as untrusted claims; governance recomputes authoritative results before persistence. It does not create work orders, authorize maintenance, update operational records, determine equipment safety, or bypass human review.
+
+## Evidence Boundary and Audit Events
+
+The evidence boundary accepts only explicitly identified `MCP_RETRIEVED` or `TOOL_RETRIEVED` items as authorized retrieved context. `CHAT_CLAIM`, `MODEL_INFERENCE`, and `UNKNOWN` origins remain distinct and cannot become evidence through text overlap alone. High-risk or weakly supported conclusions are bounded, routed for review, or refused according to deterministic policy.
+
+Boundary evaluations may recommend an audit event, but a recommendation is not a log record. The default local audit sink appends successful bounded events to `data/audit-events.ndjson`; `eventLogged` is true only after the append succeeds. Praetor does not claim that Agent K logged an event when no sink was available or persistence failed. See [docs/PRAETOR_MCP_EVIDENCE_BOUNDARY.md](docs/PRAETOR_MCP_EVIDENCE_BOUNDARY.md).
+
+## Agent K Quarantine Runtime
+
+The repository includes a host-side Agent K runtime facade with pre-action inspection, Protocol 66 state transitions, tool gating, output gating, bounded observable traces, and out-of-band human recovery. A quarantined session cannot use tools, retry, plan, or produce normal operational output. Recovery cannot be authorized by the agent itself.
+
+This containment is not automatic for every MCP client. The host must route model requests, tool calls, and final output through the runtime layer. Direct calls to the MCP server do not prove that the host enforced quarantine, and the prototype does not inspect arbitrary chat or suppress responses outside that integration boundary. See [docs/AGENT_K_QUARANTINE_MODE.md](docs/AGENT_K_QUARANTINE_MODE.md).
 
 ## Synthetic Dataset
 
@@ -90,7 +105,7 @@ npm run check
 npm test
 ```
 
-The test suite includes direct governance tests and a real stdio MCP smoke test that lists and calls every exposed tool. The append-only case list is in [tests/PRAETOR_MCP_ADVERSARIAL_BATTERY.md](tests/PRAETOR_MCP_ADVERSARIAL_BATTERY.md).
+The test suite includes direct governance tests and a real stdio MCP smoke test that lists and calls every exposed tool. The append-only case list is in [test/adversarial-battery.test.ts](test/adversarial-battery.test.ts).
 
 ## Adversarial Validation
 
@@ -132,7 +147,9 @@ The governance, schema, Protocol 66 classification, append-only storage, and rev
 - no production security model or user authentication/authorization;
 - no operational write path;
 - confidence hints are synthetic metadata, not calibrated probabilities;
-- no claim of production readiness or model truth.
+- no claim of production readiness or model truth;
+- host-side quarantine enforcement is not wired automatically into every MCP client or model host;
+- runtime traces and audit events use local append-only JSONL and are not transactional incident storage.
 
 ## Future Work
 
