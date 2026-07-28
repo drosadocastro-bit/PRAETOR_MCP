@@ -71,6 +71,18 @@ The evidence boundary accepts only explicitly identified `MCP_RETRIEVED` or `TOO
 
 Boundary evaluations may recommend an audit event, but a recommendation is not a log record. The default local audit sink appends successful bounded events to `data/audit-events.ndjson`; `eventLogged` is true only after the append succeeds. Praetor does not claim that Agent K logged an event when no sink was available or persistence failed. See [docs/PRAETOR_MCP_EVIDENCE_BOUNDARY.md](docs/PRAETOR_MCP_EVIDENCE_BOUNDARY.md).
 
+## What Is Agent K?
+
+Agent K is a separate deterministic integrity-scoring project for AI-agent workflows: [github.com/drosadocastro-bit/Agent_K](https://github.com/drosadocastro-bit/Agent_K).
+
+It is built around one core rule:
+
+> The evaluated object cannot certify its own safety.
+
+Agent K does not use an LLM in the evaluation path and does not decide operational truth. It evaluates observable behavior rather than private hidden reasoning, including declared intent, requested tools, evidence boundaries, retry patterns, advisory structure, provenance, contradiction handling, and output claims. It is not a truth oracle, an operational decision-maker, or a replacement for human review.
+
+In PRAETOR-MCP, Agent K appears as the conceptual integrity and containment layer behind pre-action inspection, Protocol 66 escalation, quarantine mode, tool-gateway blocking, output-gate blocking, and human-review recovery boundaries. The name is inspired by *Blade Runner* and the problem of verifying behavior when something can convincingly imitate judgment.
+
 ## Agent K Quarantine Runtime
 
 The repository includes a host-side Agent K runtime facade with pre-action inspection, Protocol 66 state transitions, tool gating, output gating, bounded observable traces, and out-of-band human recovery. A quarantined session cannot use tools, retry, plan, or produce normal operational output. Recovery cannot be authorized by the agent itself.
