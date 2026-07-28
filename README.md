@@ -4,8 +4,6 @@ PRAETOR-MCP means **Predictive Reliability Assessment and Evidence Traceability 
 
 > **PRAETOR-MCP is a local synthetic prototype only. It does not use internal data. It does not connect to operational systems. It does not create work orders. It does not authorize maintenance action. It preserves human review authority.**
 
-> **PRAETOR-MCP is not an AI that decides what happened. It is a local MCP prototype that helps organize evidence, surface uncertainty, detect unsafe advisory structure, and preserve human review. The goal is not to replace expert judgment. The goal is to prevent AI-generated advisory output from outrunning the evidence.**
-
 ## What It Is and Is Not
 
 PRAETOR-MCP is:
