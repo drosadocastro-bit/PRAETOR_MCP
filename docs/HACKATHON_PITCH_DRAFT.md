@@ -73,6 +73,12 @@ This separation keeps retrieval, evidence preparation, governance, containment, 
 
 Synthetic mode is the default proving ground. `SyntheticDatasetAdapter` currently wraps the fixed local fixtures behind a retrieval-only interface. The boundary is swappable later for another read-side implementation without weakening the safety contract.
 
+The dataset server is also designed to support an explicit open-data adapter. In a future deployment, that adapter could retrieve approved public datasets through a documented API, normalize the response into the same evidence contract, and preserve source identifiers, timestamps, provenance, uncertainty, and independence metadata. The API would remain a data source, not a governance authority: it could provide records and evidence, but it could not provide trusted verdicts, authorize maintenance, determine equipment safety, or submit packets.
+
+That future API path is not part of the current demo claim. The current implementation uses only local synthetic fixtures, has no live network dependency, and does not silently fall back between adapters. Any open-data integration would require an explicit adapter selection, bounded request and response validation, source-availability handling, provenance checks, privacy and licensing review, and a new adversarial test pass before presentation as a supported capability.
+
+The pre-adapter threat contract is already exercised offline in [test/open-data-adapter-adversarial.test.ts](../test/open-data-adapter-adversarial.test.ts). It establishes payload, provenance, bounds, provider-error, and authority-field requirements before an HTTP client is introduced. SSRF, redirect, timeout, rate-limit, TLS, and credential-handling tests remain an explicit acceptance gate for that future adapter.
+
 An adapter may provide:
 
 - maintenance record search and lookup;
@@ -169,6 +175,8 @@ The separate Evaluation Documentation deliverable should draw directly from the 
 - [PRAETOR_MCP_AI_TECHNICAL_DEBT.md](../PRAETOR_MCP_AI_TECHNICAL_DEBT.md), including security findings, known test gaps, design shortcuts, documentation verification debt, and thresholds that need real calibration data before production consideration.
 
 That evaluation document should cover testing methodology, security considerations, lessons learned, residual limitations, and the explicit HOLD/NO-GO boundary for live or operational use.
+
+The agent experiment gate is documented in [docs/AGENT_EXPERIMENT_GO_NO_GO.md](AGENT_EXPERIMENT_GO_NO_GO.md). The bounded ReviewAgent is GO for the demonstration; additional agents remain NO-GO until their role, runtime, evidence, handoff, adversarial, and lifecycle contracts are independently proven.
 
 ## Refinement Checklist After Kickoff
 

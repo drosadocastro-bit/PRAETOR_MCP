@@ -141,9 +141,13 @@ Tier 3 lifecycle findings, including late-result and in-memory resume limitation
 
 The first bounded review agent is documented in [docs/REVIEW_AGENT.md](docs/REVIEW_AGENT.md) and implemented in [src/agent/reviewAgent.ts](src/agent/reviewAgent.ts). It retrieves synthetic context, invokes the evidence boundary, and submits only review-only packets through the host runtime. Runtime-only MCP access is enforced by [test/review-agent-runtime-boundary.test.ts](test/review-agent-runtime-boundary.test.ts).
 
+The agent experiment decision is recorded in [docs/AGENT_EXPERIMENT_GO_NO_GO.md](docs/AGENT_EXPERIMENT_GO_NO_GO.md): the bounded ReviewAgent is GO for continued local demonstration, while a second Evidence Comparison Agent and any swarm coordination remain NO-GO until their contracts and adversarial gates are satisfied.
+
 Protocol 66 uses two explicit escalation tiers: hard triggers fire immediately, while soft triggers accumulate only within bounded time or interaction windows. Its policy and calibration boundary are documented in [docs/PROTOCOL_66.md](docs/PROTOCOL_66.md), with executable coverage in [test/protocol66.test.ts](test/protocol66.test.ts).
 
 The consolidated implementation record is [docs/PRAETOR_MCP_LATEST_IMPLEMENTATION.md](docs/PRAETOR_MCP_LATEST_IMPLEMENTATION.md). It documents the current MCP surface, deterministic governance, adversarial battery, Protocol 66 boundaries, calibration cases, validation commands, and deliberate limitations.
+
+The cross-cutting adversarial summary is [docs/PRAETOR_IMPLEMENTATION_ADVERSARIAL_FINDINGS.md](docs/PRAETOR_IMPLEMENTATION_ADVERSARIAL_FINDINGS.md). It links the Protocol 66, host-runtime, evidence, adapter, ReviewAgent, stdio, and pre-adapter open-data findings while keeping confirmed limitations visible.
 
 ## Sample Advisory Packets
 
@@ -154,6 +158,8 @@ Reviewer-facing packet reports are in [reports/advisory_packets](reports/advisor
 The MCP read surface depends on a narrow `DatasetAdapter` contract. The default registry selects `SyntheticDatasetAdapter`, which wraps the fixed local fixtures without changing tool behavior. An adapter can provide records, source metadata, excerpts, prior cases, and supporting evidence; it cannot submit packets, mark packets reviewed, provide trusted verdicts, or provide authoritative guardrails.
 
 The registry is selected with `PRAETOR_DATASET_ADAPTER=synthetic`. `external` and unknown values return an explicit unavailable error; they do not fall back silently and do not select an implemented external source. No external adapter is bundled, and no network or live data dependency is implied by the boundary.
+
+The pre-adapter open-data threat contract is recorded in [docs/OPEN_DATA_API_ADVERSARIAL_FINDINGS.md](docs/OPEN_DATA_API_ADVERSARIAL_FINDINGS.md) and exercised by [test/open-data-adapter-adversarial.test.ts](test/open-data-adapter-adversarial.test.ts). The suite is offline and establishes payload, provenance, bounds, error, and authority-field requirements before any HTTP adapter is implemented.
 
 The governance, schema, Protocol 66 classification, append-only storage, and review-only write path remain adapter-independent. This keeps the synthetic mode as the default proving ground while making the read boundary replaceable under explicit human review.
 

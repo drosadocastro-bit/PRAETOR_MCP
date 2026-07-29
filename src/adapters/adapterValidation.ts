@@ -157,7 +157,7 @@ export async function adapterCall<T>(operation: string, action: () => Promise<un
     if (error instanceof PraetorError) {
       throw error;
     }
-    console.error(`[adapter_error:${operation}]`, error);
+    console.error(`[adapter_error:${operation}] provider failure`);
     throw new PraetorError('adapter_error', 'The dataset adapter failed to provide a valid result.', { cause: error });
   }
 }
