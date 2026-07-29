@@ -18,6 +18,7 @@ This follow-up re-checks every finding from the original v0.4 audit. A finding i
 - SEC-012 runtime trace durability and failure semantics: **PARTIALLY CLOSED / OPEN**. Trace events are bounded and optionally persisted, but append-only JSONL has no transactional durability or sink-failure reconciliation.
 - SEC-013 runtime lexical detection coverage: **OPEN**. Output and pre-action checks are deterministic lexical rules, not semantic enforcement.
 - SEC-014 runtime concurrency and state isolation: **OPEN**. Session state is scoped, but transitions and event ingestion do not have a concurrency or cross-process coordination mechanism.
+- SEC-015 bounded-attempt contract coverage and attempt counting: **CLOSED for `AgentKRuntime`**. Runtime construction now requires a `BoundedAttemptContract`, and each runtime counts tool requests against `retryPolicy.maxAttempts` before invoking the callback. ReviewAgent retains `retryAfterDenial: false`; direct `ToolGateway` calls remain covered by the existing host-integration limitation.
 - Production readiness: **NO-GO** because calibration, semantic validation, provenance architecture, authentication, and operational controls remain unresolved.
 
 ## Original Finding Status
@@ -38,6 +39,7 @@ This follow-up re-checks every finding from the original v0.4 audit. A finding i
 | SEC-012 runtime trace durability and failure semantics | **PARTIALLY CLOSED / OPEN** | Bounded trace schema and optional JSONL sink; no transactional durability or reconciliation |
 | SEC-013 runtime lexical detection coverage | **OPEN** | Deterministic lexical patterns provide containment signals, not semantic assurance |
 | SEC-014 runtime concurrency and state isolation | **OPEN** | Session-scoped state exists; no mutex, event store, or cross-process coordination |
+| SEC-015 bounded-attempt contract coverage and attempt counting | **CLOSED for `AgentKRuntime`** | Required contracts, per-runtime attempt counting, callback prevention, and ReviewAgent integration are tested; direct low-level gateway bypass remains a separate limitation |
 
 ## 1. Original Findings Re-checked
 

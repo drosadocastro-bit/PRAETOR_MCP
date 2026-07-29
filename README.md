@@ -143,6 +143,8 @@ The first bounded review agent is documented in [docs/REVIEW_AGENT.md](docs/REVI
 
 The agent experiment decision is recorded in [docs/AGENT_EXPERIMENT_GO_NO_GO.md](docs/AGENT_EXPERIMENT_GO_NO_GO.md): the bounded ReviewAgent is GO for continued local demonstration, while a second Evidence Comparison Agent and any swarm coordination remain NO-GO until their contracts and adversarial gates are satisfied.
 
+All governed agent attempts follow the [Bounded Attempt Principle](docs/BOUNDED_ATTEMPT_PRINCIPLE.md): capability is not permission, and blocked actions stop, preserve context, and escalate rather than route around the boundary.
+
 Protocol 66 uses two explicit escalation tiers: hard triggers fire immediately, while soft triggers accumulate only within bounded time or interaction windows. Its policy and calibration boundary are documented in [docs/PROTOCOL_66.md](docs/PROTOCOL_66.md), with executable coverage in [test/protocol66.test.ts](test/protocol66.test.ts).
 
 The consolidated implementation record is [docs/PRAETOR_MCP_LATEST_IMPLEMENTATION.md](docs/PRAETOR_MCP_LATEST_IMPLEMENTATION.md). It documents the current MCP surface, deterministic governance, adversarial battery, Protocol 66 boundaries, calibration cases, validation commands, and deliberate limitations.

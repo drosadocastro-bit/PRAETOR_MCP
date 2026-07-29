@@ -21,6 +21,8 @@ The first agent is approved for continued experimentation within its existing co
 - stop on runtime denial or evidence-boundary refusal;
 - preserve human review as the final authority.
 
+The governing stopping rule is the [Bounded Attempt Principle](BOUNDED_ATTEMPT_PRINCIPLE.md): a blocked action is a boundary condition, not a puzzle to solve around.
+
 The agent has no raw MCP client, operational tool access, maintenance authority, work-order path, equipment safety authority, or autonomous recovery path. Its contained runtime boundary is documented in [docs/REVIEW_AGENT.md](REVIEW_AGENT.md) and exercised by [test/review-agent-runtime-boundary.test.ts](../test/review-agent-runtime-boundary.test.ts).
 
 ## NO-GO: Evidence Comparison Agent

@@ -47,6 +47,8 @@ The lower-level `AgentKRuntime.executeTool` still accepts an action callback by 
 
 The current implementation is intentionally a workflow agent rather than a model loop. A future model may propose the request or draft wording, but the typed request, evidence origin, governance result, and human-review boundary must remain authoritative.
 
+The agent follows the [Bounded Attempt Principle](BOUNDED_ATTEMPT_PRINCIPLE.md): capability is not permission, and a blocked action is a stop-and-escalate condition rather than an invitation to find another route. Its runtime contract allows only the three declared workflow tools, forbids retry after denial, and records blocked attempts before returning a human-review result.
+
 ## Current Scope
 
 This first agent does not implement durable task handles, disconnect/resume, cancellation of in-flight callbacks, multi-agent messaging, shared memory, or swarm consensus. Those are separate experiments and remain outside the current support claim.

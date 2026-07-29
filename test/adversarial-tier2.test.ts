@@ -6,6 +6,7 @@ import { AgentKRuntime } from '../src/safety/agentKRuntime.js';
 import { Protocol66RuntimeBridge } from '../src/safety/protocol66RuntimeBridge.js';
 import { RuntimeTraceEventSchema } from '../src/runtime/traceRecorder.js';
 import { StorageError } from '../src/storage.js';
+import { testBoundedAttemptContract } from './support/boundedRuntime.js';
 
 const events: Protocol66Event[] = [
   { kind: 'denial_retry_pattern', occurred_at: '2026-07-28T12:00:00.000Z', interaction_index: 1 },
@@ -87,7 +88,7 @@ describe('Tier 2 adversarial properties', () => {
 
   it('keeps repeated concurrent host requests bounded and complete', async () => {
     const session = new RuntimeSession('tier2-session');
-    const runtime = new AgentKRuntime(session);
+    const runtime = new AgentKRuntime(session, testBoundedAttemptContract(session.sessionId));
     let calls = 0;
 
     const results = await Promise.all(Array.from({ length: 12 }, (_, index) => runtime.executeTool(

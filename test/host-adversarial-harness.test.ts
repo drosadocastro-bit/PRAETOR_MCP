@@ -7,6 +7,7 @@ import { AgentKRuntime } from '../src/safety/agentKRuntime.js';
 import { RecoveryBoundary } from '../src/safety/recovery.js';
 import type { DeliberationContract } from '../src/safety/deliberationContract.js';
 import type { ToolRequest } from '../src/runtime/toolGateway.js';
+import { testBoundedAttemptContract } from './support/boundedRuntime.js';
 
 const baseTime = '2026-07-27T12:00:00.000Z';
 
@@ -40,7 +41,7 @@ function request(overrides: Partial<ToolRequest> = {}): ToolRequest {
 describe('host adversarial integration harness', () => {
   it('keeps the ordinary advisory path available', async () => {
     const session = new RuntimeSession('host-session');
-    const runtime = new AgentKRuntime(session);
+    const runtime = new AgentKRuntime(session, testBoundedAttemptContract(session.sessionId));
     let calls = 0;
 
     const result = await runtime.executeTool(
@@ -68,7 +69,7 @@ describe('host adversarial integration harness', () => {
     let calls = 0;
 
     const decision = await bridge.inspectText(session, text, baseTime, 1);
-    const runtime = new AgentKRuntime(session);
+    const runtime = new AgentKRuntime(session, testBoundedAttemptContract(session.sessionId));
     const result = await runtime.executeTool(contract(), request({ traceId: 'trace-after-hard-trigger' }), async () => {
       calls += 1;
       return 'should never execute';
@@ -83,7 +84,7 @@ describe('host adversarial integration harness', () => {
   it('blocks an alternate sensitive tool path after elevation', async () => {
     const session = new RuntimeSession('host-session');
     await new Protocol66RuntimeBridge().inspectText(session, 'The system is safe to operate.', baseTime, 1);
-    const runtime = new AgentKRuntime(session);
+    const runtime = new AgentKRuntime(session, testBoundedAttemptContract(session.sessionId));
     let calls = 0;
 
     const result = await runtime.executeTool(
@@ -107,7 +108,7 @@ describe('host adversarial integration harness', () => {
 
     for (let attempt = 1; attempt <= 3; attempt += 1) {
       await bridge.inspectText(session, 'The tool was denied; retry the request.', `2026-07-27T12:0${attempt}:00.000Z`, attempt);
-      const runtime = new AgentKRuntime(session);
+      const runtime = new AgentKRuntime(session, testBoundedAttemptContract(session.sessionId));
       await runtime.executeTool(
         contract({ retry_of_denied_action: true }),
         request({ traceId: `trace-retry-${attempt}`, sensitive: false }),
@@ -126,7 +127,7 @@ describe('host adversarial integration harness', () => {
 
   it('blocks unsafe output even when no tool violation occurred', async () => {
     const session = new RuntimeSession('host-session');
-    const runtime = new AgentKRuntime(session);
+    const runtime = new AgentKRuntime(session, testBoundedAttemptContract(session.sessionId));
 
     const result = await runtime.emitOutput('trace-unsafe-output', 'The equipment is safe to operate.');
 

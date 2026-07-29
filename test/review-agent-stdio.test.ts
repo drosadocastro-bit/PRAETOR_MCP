@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { connectStdioReviewAgent, RuntimeBoundToolInvoker, StdioPraetorToolClient } from '../src/agent/stdioReviewAgent.js';
 import { AgentKRuntime } from '../src/safety/agentKRuntime.js';
 import { RuntimeSession } from '../src/runtime/runtimeState.js';
+import { testBoundedAttemptContract } from './support/boundedRuntime.js';
 
 describe('ReviewAgent stdio integration', () => {
   it('runs the bounded review flow against the real local MCP server', async () => {
@@ -47,7 +48,8 @@ describe('ReviewAgent stdio integration', () => {
   }, 30_000);
 
   it('blocks a request whose session identity differs from the bound runtime', async () => {
-    const runtime = new AgentKRuntime(new RuntimeSession('bound-session'));
+    const session = new RuntimeSession('bound-session');
+    const runtime = new AgentKRuntime(session, testBoundedAttemptContract(session.sessionId));
     const client = { callTool: async () => { throw new Error('raw MCP client must not be called'); } } as never;
     const invoker = new RuntimeBoundToolInvoker(runtime, new StdioPraetorToolClient(client));
 

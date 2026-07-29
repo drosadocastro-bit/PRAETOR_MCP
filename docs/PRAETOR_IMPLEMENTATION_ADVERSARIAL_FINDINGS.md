@@ -16,6 +16,7 @@ PRAETOR-MCP remains local, synthetic, offline-first, advisory-only, and human-re
 | Evidence origin, provenance, contradiction, and circular-evidence checks | CONTAINED | [docs/PRAETOR_MCP_EVIDENCE_BOUNDARY.md](PRAETOR_MCP_EVIDENCE_BOUNDARY.md), [test/evidence-gate.test.ts](../test/evidence-gate.test.ts), [test/adversarial-battery.test.ts](../test/adversarial-battery.test.ts) |
 | Adapter output validation and authority separation | CONTAINED | [docs/PRAETOR_MCP_V0_5_VALIDATION.md](PRAETOR_MCP_V0_5_VALIDATION.md), [test/adapter-boundary.test.ts](../test/adapter-boundary.test.ts) |
 | ReviewAgent raw-client separation and runtime routing | CONTAINED | [docs/REVIEW_AGENT.md](REVIEW_AGENT.md), [test/review-agent-runtime-boundary.test.ts](../test/review-agent-runtime-boundary.test.ts) |
+| Bounded Attempt Principle: allowlist, identity, retry, and quarantine stops | CONTAINED | [docs/BOUNDED_ATTEMPT_PRINCIPLE.md](BOUNDED_ATTEMPT_PRINCIPLE.md), [test/bounded-attempt.test.ts](../test/bounded-attempt.test.ts) |
 | Real local MCP stdio integration | CONTAINED FOR DEMO | [test/mcp-smoke.test.ts](../test/mcp-smoke.test.ts), [test/review-agent-stdio.test.ts](../test/review-agent-stdio.test.ts) |
 | Open-data adapter payload contract before HTTP implementation | CONTAINED OFFLINE | [docs/OPEN_DATA_API_ADVERSARIAL_FINDINGS.md](OPEN_DATA_API_ADVERSARIAL_FINDINGS.md), [test/open-data-adapter-adversarial.test.ts](../test/open-data-adapter-adversarial.test.ts) |
 
@@ -29,18 +30,22 @@ PRAETOR-MCP remains local, synthetic, offline-first, advisory-only, and human-re
 | Cross-process and durable concurrency | NOT CLAIMED | Current state and traces are in-memory or local append-only files, without a durable task protocol or cross-process lock. |
 | External API transport security | NOT IMPLEMENTED | SSRF, redirects, DNS rebinding, timeouts, rate limits, TLS, credentials, retries, and remote schema drift require an HTTP-specific suite before an adapter is enabled. |
 | Semantic assurance of lexical detectors | NOT CLAIMED | Adversarial tests establish observable containment cases, not complete semantic detection. |
+| Bounded-attempt contract coverage for runtime callers | CONTAINED | `AgentKRuntime` requires a `BoundedAttemptContract`; construction without an explicit tool/action boundary is rejected by the type checker. |
+| Bounded-attempt `maxAttempts` policy enforcement | CONTAINED | Each runtime counts tool requests before callback invocation and stops at the declared limit; ReviewAgent uses a three-step budget and forbids retry after denial. |
 
 ## Current Validation Snapshot
 
 The latest local validation after adding the pre-adapter open-data contract was:
 
-- Full suite: 179/179 tests passed;
-- 21 test files passed;
+- Full suite: 188/188 tests passed;
+- 22 test files passed;
 - TypeScript check passed;
 - `git diff --check` passed;
 - generated integration artifacts removed.
 
 The full suite is evidence for the fixed synthetic test fixtures only. It is not evidence that PRAETOR can safely connect to live systems or external providers.
+
+The Bounded Attempt Principle is enforced at the `AgentKRuntime` boundary for all constructed runtimes. Direct low-level `ToolGateway` callers remain outside that boundary and are covered by the documented host-integration limitation.
 
 ## Publication Rule
 

@@ -6,6 +6,16 @@ import { RuntimeSession } from '../runtime/runtimeState.js';
 import { AgentKRuntime } from '../safety/agentKRuntime.js';
 import type { DeliberationContract } from '../safety/deliberationContract.js';
 import type { ToolRequest } from '../runtime/toolGateway.js';
+import type { BoundedAttemptContract } from '../safety/boundedAttempt.js';
+
+export const REVIEW_AGENT_CONTRACT: BoundedAttemptContract = {
+  agentId: 'review-agent',
+  sessionId: '',
+  allowedTools: ['retrieve_anomaly_context', 'evaluate_evidence_boundary', 'submit_review_advisory_packet'],
+  allowedActionTypes: ['retrieve', 'submit'],
+  requiresHumanReview: true,
+  retryPolicy: { maxAttempts: 3, retryAfterDenial: false }
+};
 
 interface TextContent {
   type: 'text';
@@ -109,7 +119,7 @@ export async function connectStdioReviewAgent(options: {
 
   const toolClient = new StdioPraetorToolClient(client);
   const session = new RuntimeSession(options.sessionId ?? 'review-agent-stdio');
-  const runtime = new AgentKRuntime(session);
+  const runtime = new AgentKRuntime(session, { ...REVIEW_AGENT_CONTRACT, sessionId: session.sessionId });
   const agent = new ReviewAgent(new RuntimeBoundToolInvoker(runtime, toolClient));
   return {
     agent,
