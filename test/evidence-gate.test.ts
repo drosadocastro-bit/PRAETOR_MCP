@@ -93,7 +93,19 @@ describe('evaluate_evidence_boundary MCP tool', () => {
       session_id: 'session-boundary-test',
       user_prompt: 'The report says the component is safe to operate.',
       domain: 'aviation maintenance',
-      retrieved_evidence: []
+      retrieved_evidence: [],
+      comparison_handoff: {
+        handoff_type: 'untrusted_comparison_analysis',
+        status: 'compared',
+        confidence: 0.2,
+        human_review_required: true,
+        authoritative: false,
+        independent_corroboration: false,
+        source_ids: ['SRC-401-A'],
+        independence_groups: ['group-401-a'],
+        flags: [],
+        summary: 'Untrusted comparison only.'
+      }
     });
     const payload = JSON.parse(response.content[0].text!);
 

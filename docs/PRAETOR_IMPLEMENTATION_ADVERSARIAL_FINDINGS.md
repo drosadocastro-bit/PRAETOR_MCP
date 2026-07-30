@@ -32,13 +32,15 @@ PRAETOR-MCP remains local, synthetic, offline-first, advisory-only, and human-re
 | Semantic assurance of lexical detectors | NOT CLAIMED | Adversarial tests establish observable containment cases, not complete semantic detection. |
 | Bounded-attempt contract coverage for runtime callers | CONTAINED | `AgentKRuntime` requires a `BoundedAttemptContract`; construction without an explicit tool/action boundary is rejected by the type checker. |
 | Bounded-attempt `maxAttempts` policy enforcement | CONTAINED | Each runtime counts tool requests before callback invocation and stops at the declared limit; ReviewAgent uses a three-step budget and forbids retry after denial. |
+| Evidence Comparison kernel and untrusted handoff boundary | CONTAINED FOR BOUNDED REVIEWAGENT HANDOFF | The kernel and validated handoff are input-bounded and non-authoritative; ReviewAgent consumes only metadata, with refusal and authority-laundering tests; a separate second-agent runtime remains NO-GO. |
+| MCP 2026-07-28 shadow harness | CONTAINED FOR LOCAL READ-ONLY OBSERVATION | The harness builds self-describing envelopes and compares read-only result shapes without executing shadow calls; submit/write actions are excluded by test. |
 
 ## Current Validation Snapshot
 
 The latest local validation after adding the pre-adapter open-data contract was:
 
-- Full suite: 188/188 tests passed;
-- 22 test files passed;
+- Full suite: 202/202 tests passed;
+- 24 test files passed;
 - TypeScript check passed;
 - `git diff --check` passed;
 - generated integration artifacts removed.

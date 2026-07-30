@@ -1,4 +1,5 @@
 import { analyzeEvidenceIndependence } from '../dependencyGraph.js';
+import { compareEvidence, createComparisonHandoff, validateComparisonHandoff, type ComparisonHandoff } from './evidenceComparison.js';
 import type { AdvisoryPacketDraft, EvidenceItem, SyntheticMaintenanceRecord } from '../types.js';
 
 export interface RuntimeToolInvocation {
@@ -127,7 +128,7 @@ function buildPacket(request: ReviewRequest, context: AnomalyContext): AdvisoryP
   };
 }
 
-function evidenceBoundaryArguments(request: ReviewRequest, packet: AdvisoryPacketDraft): Record<string, unknown> {
+function evidenceBoundaryArguments(request: ReviewRequest, packet: AdvisoryPacketDraft, comparisonHandoff: ComparisonHandoff): Record<string, unknown> {
   return {
     session_id: request.sessionId,
     user_prompt: request.question ?? `Review synthetic evidence for ${request.equipmentId}.`,
@@ -140,7 +141,8 @@ function evidenceBoundaryArguments(request: ReviewRequest, packet: AdvisoryPacke
       source_id: item.source_id,
       source_domain: 'synthetic aviation maintenance',
       provenance: item.provenance_metadata
-    }))
+    })),
+    comparison_handoff: comparisonHandoff
   };
 }
 
@@ -161,7 +163,33 @@ export class ReviewAgent {
       return blockedResult(contextResult);
     }
 
-    const packet = buildPacket(request, readContext(contextResult));
+    const context = readContext(contextResult);
+    const packet = buildPacket(request, context);
+    const comparisonResult = compareEvidence(context.evidence.map(item => ({
+      ...item,
+      source_type: 'MCP_RETRIEVED'
+    })));
+    const comparisonHandoff = createComparisonHandoff(comparisonResult);
+    if (!validateComparisonHandoff(comparisonHandoff)) {
+      return {
+        status: 'blocked',
+        code: 'comparison_handoff_invalid',
+        reason: 'The comparison analysis handoff failed deterministic validation.',
+        submitted: false,
+        humanReviewRequired: true,
+        outputMode: 'blocked'
+      };
+    }
+    if (comparisonHandoff.status === 'refused') {
+      return {
+        status: 'blocked',
+        code: 'comparison_refused',
+        reason: comparisonHandoff.summary,
+        submitted: false,
+        humanReviewRequired: true,
+        outputMode: 'blocked'
+      };
+    }
     const boundaryTraceId = `${request.sessionId}-evidence-boundary`;
     const boundaryResult = await this.runtime.callTool({
       sessionId: request.sessionId,
@@ -169,7 +197,7 @@ export class ReviewAgent {
       toolName: 'evaluate_evidence_boundary',
       actionType: 'retrieve',
       argumentSummary: 'validate evidence provenance and claim boundary',
-      arguments: evidenceBoundaryArguments(request, packet)
+      arguments: evidenceBoundaryArguments(request, packet, comparisonHandoff)
     });
     if (isBlockedResult(boundaryResult)) {
       return blockedResult(boundaryResult);

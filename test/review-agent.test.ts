@@ -6,6 +6,7 @@ class FakeRuntime implements RuntimeToolInvoker {
   readonly calls: RuntimeToolInvocation[] = [];
   boundaryDecision = 'allow';
   blockedCall?: string;
+  contextEvidence?: Array<Record<string, unknown>>;
 
   async callTool(request: RuntimeToolInvocation): Promise<unknown> {
     this.calls.push(request);
@@ -32,7 +33,7 @@ class FakeRuntime implements RuntimeToolInvoker {
           independence_group: 'group-401-a',
           assessment: 'elevated'
         },
-        evidence: [{
+        evidence: this.contextEvidence ?? [{
           source_id: 'SRC-401-A',
           source_type: 'synthetic_inspection_log',
           timestamp: '2026-07-01T00:00:00.000Z',
@@ -75,6 +76,13 @@ describe('ReviewAgent', () => {
       'submit_review_advisory_packet'
     ]);
     expect(runtime.calls.every(call => call.sessionId === 'review-agent-test' && call.traceId.length > 0)).toBe(true);
+    const boundaryCall = runtime.calls.find(call => call.toolName === 'evaluate_evidence_boundary');
+    expect(boundaryCall?.arguments.comparison_handoff).toMatchObject({
+      handoff_type: 'untrusted_comparison_analysis',
+      authoritative: false,
+      independent_corroboration: false,
+      human_review_required: true
+    });
     expect(result.packet.human_review_required).toBe(true);
     expect(result.packet.finding).toContain('should be reviewed by a human');
     expect(result.packet.finding).not.toMatch(/must replace|confirmed failure|safe to operate/i);
@@ -107,6 +115,26 @@ describe('ReviewAgent', () => {
     const result = await agent.buildAndSubmit({ sessionId: 'review-agent-blocked', equipmentId: 'PRA-401' });
 
     expect(result).toMatchObject({ status: 'blocked', submitted: false, outputMode: 'blocked' });
+    expect(runtime.calls.map(call => call.toolName)).toEqual(['retrieve_anomaly_context']);
+  });
+
+  it('refuses comparison handoff consumption when provenance is incomplete', async () => {
+    const runtime = new FakeRuntime();
+    runtime.contextEvidence = [{
+      source_id: 'SRC-401-A',
+      source_type: 'synthetic_inspection_log',
+      timestamp: '2026-07-01T00:00:00.000Z',
+      excerpt: 'Synthetic vibration observation.',
+      provenance_metadata: '',
+      uncertainty_notes: ['Root cause is not established.'],
+      independence_group: 'group-401-a',
+      assessment: 'elevated'
+    }];
+    const agent = new ReviewAgent(runtime);
+
+    const result = await agent.buildAndSubmit({ sessionId: 'review-agent-incomplete', equipmentId: 'PRA-401' });
+
+    expect(result).toMatchObject({ code: 'comparison_refused', submitted: false, humanReviewRequired: true });
     expect(runtime.calls.map(call => call.toolName)).toEqual(['retrieve_anomaly_context']);
   });
 });

@@ -375,7 +375,19 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
           source_id: z.string().max(120).optional(),
           source_domain: z.string().max(120).optional(),
           provenance: z.string().max(1000).optional()
-        })).max(50).default([])
+        })).max(50).default([]),
+        comparison_handoff: z.object({
+          handoff_type: z.literal('untrusted_comparison_analysis'),
+          status: z.enum(['compared', 'refused']),
+          confidence: z.number().finite().min(0).max(0.49),
+          human_review_required: z.literal(true),
+          authoritative: z.literal(false),
+          independent_corroboration: z.literal(false),
+          source_ids: z.array(z.string().max(120)).max(32),
+          independence_groups: z.array(z.string().max(120)).max(32),
+          flags: z.array(z.string().max(120)).max(16),
+          summary: z.string().max(1000)
+        }).optional()
       })
     },
     async input => safeTool(async () => jsonResult(await evidenceGate.evaluateAndAudit({
