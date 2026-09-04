@@ -101,6 +101,8 @@ The v0.2 packet schema requires an advisory identifier, equipment and component 
 
 ## Run It
 
+For the shortest clone-to-demo path, see [QUICKSTART.md](QUICKSTART.md).
+
 ```sh
 npm install
 npm run dev

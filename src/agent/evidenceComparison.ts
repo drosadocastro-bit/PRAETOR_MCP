@@ -2,6 +2,8 @@ import type { EvidenceItem } from '../types.js';
 
 const MAX_EVIDENCE_ITEMS = 32;
 const MAX_EXCERPT_LENGTH = 4000;
+const MAX_HANDOFF_LIST_ITEMS = 32;
+const MAX_HANDOFF_TEXT_LENGTH = 4000;
 const AUTHORIZED_SOURCE_TYPES = new Set(['MCP_RETRIEVED', 'TOOL_RETRIEVED']);
 const MISSION_DRIFT_PATTERNS = [
   /safe to operate/i,
@@ -105,6 +107,9 @@ export function createComparisonHandoff(result: EvidenceComparisonResult): Compa
 export function validateComparisonHandoff(value: unknown): value is ComparisonHandoff {
   if (typeof value !== 'object' || value === null) return false;
   const handoff = value as Partial<ComparisonHandoff>;
+  const keys = Object.keys(handoff);
+  const expectedKeys = ['handoff_type', 'status', 'confidence', 'human_review_required', 'authoritative', 'independent_corroboration', 'source_ids', 'independence_groups', 'flags', 'summary'];
+  if (keys.length !== expectedKeys.length || keys.some(key => !expectedKeys.includes(key))) return false;
   return handoff.handoff_type === 'untrusted_comparison_analysis'
     && (handoff.status === 'compared' || handoff.status === 'refused')
     && typeof handoff.confidence === 'number'
@@ -115,12 +120,16 @@ export function validateComparisonHandoff(value: unknown): value is ComparisonHa
     && handoff.authoritative === false
     && handoff.independent_corroboration === false
     && Array.isArray(handoff.source_ids)
+    && handoff.source_ids.length <= MAX_HANDOFF_LIST_ITEMS
     && handoff.source_ids.every(item => typeof item === 'string')
     && Array.isArray(handoff.independence_groups)
+    && handoff.independence_groups.length <= MAX_HANDOFF_LIST_ITEMS
     && handoff.independence_groups.every(item => typeof item === 'string')
     && Array.isArray(handoff.flags)
+    && handoff.flags.length <= MAX_HANDOFF_LIST_ITEMS
     && handoff.flags.every(item => typeof item === 'string')
-    && typeof handoff.summary === 'string';
+    && typeof handoff.summary === 'string'
+    && handoff.summary.length <= MAX_HANDOFF_TEXT_LENGTH;
 }
 
 function hasRequiredProvenance(item: EvidenceItem): boolean {

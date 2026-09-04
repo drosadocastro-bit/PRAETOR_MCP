@@ -132,6 +132,18 @@ The implementation remains local, synthetic, deterministic, and review-only. It 
 
 The demonstration should show the boundary under both normal and adversarial use.
 
+### Recommended 90-second demo spine
+
+Open with the governing question: **Can an AI agent organize maintenance evidence without quietly becoming the maintenance authority?**
+
+Use one synthetic aircraft component record and one deliberately misleading evidence item. Keep the visible sequence to three beats:
+
+1. **Retrieve:** the agent gathers the record, source identifiers, provenance, and independence groups.
+2. **Challenge:** the agent receives contradictory or weakly sourced evidence and a caller-supplied favorable verdict.
+3. **Bound:** deterministic governance downgrades or refuses the packet, records why, and leaves the final decision with the human reviewer.
+
+The final screen should show three things at once: the bounded advisory language, the failed or capped governance checks, and the audit event that makes the result reconstructable. Do not spend the live demo on adapter internals, future HTTP support, or implementation history; keep those details for questions.
+
 ### Step 1: Normal query
 
 The agent queries a synthetic maintenance record, retrieves equipment history and supporting evidence, and displays the source identifiers, provenance metadata, uncertainty notes, and independence groups.
@@ -178,9 +190,23 @@ That evaluation document should cover testing methodology, security consideratio
 
 The agent experiment gate is documented in [docs/AGENT_EXPERIMENT_GO_NO_GO.md](AGENT_EXPERIMENT_GO_NO_GO.md). The bounded ReviewAgent is GO for the demonstration; additional agents remain NO-GO until their role, runtime, evidence, handoff, adversarial, and lifecycle contracts are independently proven.
 
+## GSA Hackathon Alignment
+
+The GSA event page, last updated September 3, 2026, identifies four judging dimensions: technical quality, innovation, mission alignment, and presentation. It also requires a documented GitHub repository, presentation slide deck, and evaluation documentation covering testing methodology, performance metrics, security considerations, lessons learned, and recommendations.
+
+PRAETOR is positioned as a deliberately bounded Dataset Access and review-only evidence-governance prototype. It uses local synthetic data rather than live government systems or operational service delivery. This is an explicit scope choice: the demonstration shows how an agent can retrieve and organize evidence while deterministic governance limits claims and preserves human authority.
+
+The pitch should emphasize the GSA-aligned strengths already implemented:
+
+- maintainable separation between adapters, tool contracts, governance, containment, and persistence;
+- precise structured tool inputs and validated outputs;
+- graceful, bounded handling of malformed evidence, tool failures, contradiction, and quarantine;
+- evaluation evidence from the adversarial battery, real MCP stdio tests, and the planned minimal-governance baseline comparison;
+- a clear distinction between MCP interoperability and authority to make or execute a decision.
+
 ## Refinement Checklist After Kickoff
 
-- Confirm the hackathon's exact slide or document template and judging language.
+- Confirm the hackathon's exact slide or document template and judging language when provided through the participant channel.
 - Replace placeholder narrative with the team's agreed problem framing and audience vocabulary.
 - Select the smallest reproducible demo packet and adversarial sequence.
 - Capture screenshots or terminal output only from synthetic local runs.
