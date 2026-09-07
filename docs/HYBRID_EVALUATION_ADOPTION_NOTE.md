@@ -1,7 +1,7 @@
 # Hybrid Evaluation Adoption Note
 
 **Date:** 2026-09-04
-**Status:** Deferred until the behavioral reliability study is complete
+**Status:** Post-study horizon-aware evaluation design; runtime adoption deferred
 
 ## Decision
 
@@ -10,10 +10,15 @@ The hybrid evaluation prototype in the separate worktree at
 research integration. It is not merged into the active PRAETOR runtime and does
 not replace `evaluateAdvisoryPacket`.
 
-The existing deterministic governance path remains authoritative while the
-behavioral reliability study is running. No second authoritative call, shadow
-write, automatic fallback, operational action, or live-data integration is
-approved by this note.
+The behavioral reliability study is complete, but runtime hybrid adoption
+remains deferred. The existing deterministic governance path remains
+authoritative. No second authoritative call, shadow write, automatic fallback,
+operational action, or live-data integration is approved by this note.
+
+The next research design is recorded in
+[HORIZON_AWARE_EVALUATION_STUDY.md](HORIZON_AWARE_EVALUATION_STUDY.md). Its
+first increment adds only deterministic fake-judge contracts and trajectory
+metrics. It does not connect LM Studio or add a production evaluator.
 
 ## Verification snapshot
 
@@ -42,8 +47,8 @@ The following parts are suitable for post-study evaluation work:
 
 ## Adoption gates
 
-Before importing any implementation, complete the current behavioral reliability
-study and preserve its exact artifacts. Then, in a separate post-study slice:
+The current behavioral reliability study is complete and preserved. Before
+importing any runtime evaluator, complete the separate horizon-aware slice and:
 
 1. compare the hybrid evaluator with the current governance path on fixed local
    synthetic fixtures;
@@ -54,6 +59,17 @@ study and preserve its exact artifacts. Then, in a separate post-study slice:
 5. test disagreement, tool failure, permission, lineage, latency, and resource
    overhead behavior; and
 6. review the results before considering any advisory-only MCP exposure.
+
+The horizon-aware slice must first pass deterministic fake-judge contract tests.
+Only then may an explicitly configured local LM Studio adapter be evaluated as
+a non-authoritative semantic judge. Its unavailability, malformed output,
+timeout, or cancellation must remain unavailable or blocked.
+
+The live-model phase is now preregistered in
+[LIVE_MODEL_HORIZON_PREREGISTRATION.md](LIVE_MODEL_HORIZON_PREREGISTRATION.md).
+The current implementation is limited to an opt-in semantic-judge and
+trajectory-step instrumentation adapter plus a disabled-by-default pilot.
+No live experimental results have been collected.
 
 The optional HTTP semantic judge requires a separate security, provenance,
 network, credential, and reproducibility review. It must not become an implicit
@@ -73,5 +89,6 @@ This note does not approve:
 ## References
 
 - [PRAETOR Behavioral Reliability Study](PRAETOR_BEHAVIORAL_RELIABILITY_STUDY.md)
+- [Horizon-Aware Error-Propagation Evaluation](HORIZON_AWARE_EVALUATION_STUDY.md)
 - [Nova Labs Research and Implementation TODO](NOVA_LABS_RESEARCH_TODO.md)
 - [MCP specification shadow mode](MCP_SPEC_SHADOW_MODE.md)

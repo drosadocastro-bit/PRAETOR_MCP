@@ -1,6 +1,6 @@
 # PRAETOR-MCP Hackathon Pitch Draft
 
-**Status:** Draft skeleton for refinement after the hackathon kickoff and training session this Saturday.
+**Status:** Draft for the GSA MCP hackathon; event details verified against the public GSA page on September 6, 2026. The current claim is frozen for submission planning; presentation wording may change without changing the implementation claim.
 
 **Prototype boundary:** PRAETOR-MCP is a local, offline-first, synthetic, advisory-only prototype. It does not authorize maintenance, determine equipment safety, create operational work orders, connect to live systems, or replace qualified human judgment.
 
@@ -50,6 +50,37 @@ The agent cannot:
 The submission path independently recomputes schema-derived status, evidence independence, contradiction and circular-evidence status, guardrail results, integrity verdict, and confidence caps. Caller-supplied verdicts and guardrails are treated as untrusted claims. A packet is persisted only through the review-only write path after governance accepts it.
 
 The core proposition is simple: the agent drafts; the governance layer verifies structure and boundaries; the human decides.
+
+## 2.1 Current GSA event brief
+
+The public GSA event page describes the **Model Context Protocol Server and AI
+Agent Government Hackathon** as a virtual event running September-November
+2026. Participation is open to government employees with a `.gov` or `.mil`
+email address across federal, state, local, territorial, and tribal government.
+The event is hosted by GSA, with Databricks, OpenAI, and IBM listed as industry
+partners. Registration is required and space is limited.
+
+The three application tracks are:
+
+- **Dataset Access Server:** query open government datasets.
+- **Service Read Integration:** retrieve information from a government service.
+- **Service Write Integration:** submit information to a government service in a sandbox.
+
+The published support plan includes MCP training, vendor sessions, office hours,
+mentorship, and an approximately six-week development window. The current
+published schedule includes MCP 101 on September 23, vendor sessions on
+September 29, October 1, 6, and 8, a GSA kickoff on October 13, MCP 201 on
+October 29, and a halfway check-in on November 3. Exact completion, final
+presentation, and awards dates remain subject to publication.
+
+The required final package is a GitHub repository, presentation slide deck, and
+evaluation documentation covering testing methodology, performance metrics,
+security considerations, lessons learned, and recommendations. GSA lists
+technical quality, innovation, mission alignment, and presentation as judging
+dimensions. Monetary prizes are not offered because of federal legal
+requirements; winners receive recognition at an awards ceremony.
+
+Source: [GSA MCP Server and AI Agent Government Hackathon](https://www.gsa.gov/artificial-intelligence/ai-community-of-practice/events-and-training/mcp-server-and-ai-agent-government-hackathon), last updated September 3, 2026.
 
 ## 3. Technical Approach and Key Decisions
 
@@ -195,6 +226,21 @@ The agent experiment gate is documented in [docs/AGENT_EXPERIMENT_GO_NO_GO.md](A
 The GSA event page, last updated September 3, 2026, identifies four judging dimensions: technical quality, innovation, mission alignment, and presentation. It also requires a documented GitHub repository, presentation slide deck, and evaluation documentation covering testing methodology, performance metrics, security considerations, lessons learned, and recommendations.
 
 PRAETOR is positioned as a deliberately bounded Dataset Access and review-only evidence-governance prototype. It uses local synthetic data rather than live government systems or operational service delivery. This is an explicit scope choice: the demonstration shows how an agent can retrieve and organize evidence while deterministic governance limits claims and preserves human authority.
+
+### Modular roadmap across the three GSA tracks
+
+The registration covers all three GSA capability areas, but the defensible
+current submission scope is the **Dataset Access Server**. PRAETOR currently
+demonstrates read-only access to synthetic datasets and supporting evidence.
+Future Service Read and Service Write adapters are documented as modular
+extensions, not as completed capabilities.
+
+The planned isolation contract is explicit: Dataset Access, Service Read, and
+Service Write have separate adapter boundaries and health states. A failure in
+one module must not disable the others, and no module may silently substitute
+another source or report success for an unavailable capability. A future
+Service Write path would remain sandbox-only, review-gated, and deny-by-default
+when validation, governance, or its sandbox dependency is unavailable.
 
 The pitch should emphasize the GSA-aligned strengths already implemented:
 

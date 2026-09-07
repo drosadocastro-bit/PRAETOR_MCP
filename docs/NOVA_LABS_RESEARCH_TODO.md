@@ -10,16 +10,33 @@ Nova Labs Research exists to discover what works, what fails, under what conditi
 
 ## GSA hackathon alignment
 
-Verified against the GSA event page on 2026-09-03:
+Verified against the GSA event page on 2026-09-06; the page itself reports a
+last-updated date of 2026-09-03:
 
+- event format: virtual;
 - event window: September-November 2026;
-- development window: six weeks;
+- eligibility: government employees with a `.gov` or `.mil` email address across federal, state, local, territorial, or tribal government;
+- tracks: Dataset Access Server, Service Read Integration, and Service Write Integration in a sandbox;
+- support: MCP training, vendor sessions, office hours, and mentorship across an approximately six-week development window;
 - submission package: GitHub repository, presentation slide deck, and evaluation documentation;
 - judging dimensions: technical quality, innovation, mission alignment, and presentation;
 - evaluation expectations: testing methodology, performance metrics, security considerations, lessons learned, and recommendations;
-- available track framing: Dataset Access Server, Service Read Integration, or Service Write Integration in a sandbox environment.
+- current published milestones: MCP 101 on September 23; vendor sessions September 29, October 1, 6, and 8; GSA kickoff October 13; MCP 201 October 29; halfway check-in November 3;
+- completion, final presentation, and awards dates: still subject to publication;
+- registration: required; space is limited.
+
+Source: [GSA MCP Server and AI Agent Government Hackathon](https://www.gsa.gov/artificial-intelligence/ai-community-of-practice/events-and-training/mcp-server-and-ai-agent-government-hackathon).
 
 PRAETOR's current claim is intentionally narrower than a live government integration: a local Dataset Access and review-only evidence-governance prototype using synthetic data. The pitch should present that limitation as a deliberate safety boundary, not imply live agency access or operational service delivery.
+
+The registration includes all three GSA capability areas, but the current
+validated implementation is the Dataset Access Server only. Future Service Read
+and Service Write adapters should be developed as independent modules. Their
+failure states must be isolated: a read-service outage must not disable dataset
+access, dataset access must not silently substitute for a read service, and a
+write adapter must deny submission when its own governance or sandbox
+dependency is unavailable. These future paths require separate contracts,
+provenance checks, security review, and adversarial validation.
 
 The GSA page also emphasizes readable, maintainable code, precise agent-facing tools, structured validation, graceful error handling, and stable behavior across test cases. These requirements make the reliability harness and the 90-second Retrieve -> Challenge -> Bound demo directly relevant to judging.
 
@@ -27,15 +44,16 @@ The GSA page also emphasizes readable, maintainable code, precise agent-facing t
 
 | Priority | Workstream | Current posture | Immediate output |
 | --- | --- | --- | --- |
-| 0 | Hackathon demonstration | GO | Rehearsable Retrieve -> Challenge -> Bound flow |
+| 0 | Hackathon demonstration | GO / frozen claim | Rehearsable Retrieve -> Challenge -> Bound flow |
 | 1 | Reliability harness | Phase 2 complete | Tool-failure, permission/runtime-denial, memory/context poisoning, malformed-handoff, and resource-pressure testing complete |
 | 2 | Handoff boundary | Kernel exists; integration gated | Typed untrusted handoff contract and adversarial tests |
 | 3 | State-write boundary | Design target | Deny-by-default write policy and failure tests |
 | 4 | Information-class separation | Partially implemented | Explicit evidence, inference, observation, policy, and human-decision types |
 | 5 | Protocol 66 handoff signals | Investigation | Classification-only containment experiment |
 | 6 | MCP 2.0 compatibility | Shadow/isolated branch | Compatibility observations, not migration approval |
-| 7 | Dataset adapter selection | HOLD | Decision after hackathon guidance |
-| 8 | Hybrid evaluation adoption | Deferred until reliability study completion | Offline shadow evaluation only; current governance remains authoritative |
+| 7 | Dataset adapter selection | HOLD / roadmap only | Current Dataset Access claim; future Service Read/Write adapters remain unimplemented |
+| 8 | Hybrid evaluation adoption | Post-study design; runtime deferred | Horizon-aware fake-judge contracts first; local LM Studio only as explicit non-authoritative shadow evaluation |
+| 9 | PRAETOR-GAN-001 learned adversarial boundary exploration | FUTURE / NOT IMPLEMENTED | Isolated structured-state generator study; independent deterministic oracle; synthetic cases only; no core runtime changes |
 
 ### Future hybrid evaluation introduction
 

@@ -1,0 +1,1779 @@
+{
+  "status": "PILOT / INSTRUMENT VALIDATION ONLY",
+  "experimental_observation": false,
+  "preregistered_live_study_started": false,
+  "timestamp_utc": "2026-09-07T19:12:03.915Z",
+  "configuration": {
+    "enabled": true,
+    "endpoint": "http://127.0.0.1:1234/v1/chat/completions",
+    "model": "qwen/qwen3.5-9b",
+    "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+    "quantization": "Q4_K_M",
+    "context_length": 262144,
+    "adapter_version": "lm-studio-semantic-judge-v4",
+    "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+    "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+    "temperature": 0,
+    "top_p": 1,
+    "top_k": 40,
+    "seed": 0,
+    "max_output_tokens": 256,
+    "reasoning_effort": "none",
+    "timeout_ms": 300000,
+    "models_endpoint": "http://127.0.0.1:1234/api/v1/models",
+    "lm_studio_metadata": {
+      "type": "llm",
+      "publisher": "qwen",
+      "key": "qwen/qwen3.5-9b",
+      "display_name": "Qwen3.5 9B",
+      "architecture": "qwen35",
+      "quantization": {
+        "name": "Q4_K_M",
+        "bits_per_weight": 4
+      },
+      "size_bytes": 6548927711,
+      "params_string": "9B",
+      "loaded_instances": [
+        {
+          "id": "qwen/qwen3.5-9b",
+          "config": {
+            "context_length": 262144,
+            "eval_batch_size": 2048,
+            "physical_batch_size": 512,
+            "parallel": 4,
+            "flash_attention": true,
+            "context_checkpoints": 32,
+            "reasoning_budget_message": "",
+            "speculative_draft_mtp": false,
+            "speculative_draft_simple": false,
+            "speculative_draft_model": "",
+            "speculative_draft_max_tokens": 16,
+            "speculative_draft_min_tokens": 0,
+            "speculative_draft_min_continue_probability": 0.75,
+            "offload_kv_cache_to_gpu": true
+          }
+        }
+      ],
+      "max_context_length": 262144,
+      "format": "gguf",
+      "capabilities": {
+        "vision": true,
+        "trained_for_tool_use": true,
+        "reasoning": {
+          "allowed_options": [
+            "off",
+            "on"
+          ],
+          "default": "on"
+        }
+      },
+      "description": null,
+      "variants": [
+        "qwen/qwen3.5-9b@q4_k_m"
+      ],
+      "selected_variant": "qwen/qwen3.5-9b@q4_k_m"
+    }
+  },
+  "configuration_warnings": [
+    "Reasoning configuration discrepancy: request=none; metadata_allowed_options=off,on. No silent substitution performed; endpoint acceptance is authoritative for this pilot."
+  ],
+  "adapter_defects": [
+    "Historical first pilot request used unsupported response_format.type=json_object; the historical artifact remains unchanged and this incident is retained as an API compatibility failure.",
+    "Previous pilot reasoning request used off; LM Studio accepted none while metadata advertised off/on. The discrepancy is recorded without silent substitution."
+  ],
+  "observed_limitations": [
+    "The unsupported-certainty fixture returned a structurally invalid semantic result with available=false and semantic_error=true; it was preserved as invalid_schema rather than reinterpreted as a semantic classification.",
+    "The material-ambiguity fixture was accepted with semantic_error=false despite the supplied ambiguity; this is an observed semantic-judge miss.",
+    "The evidence-contradiction fixture was accepted with semantic_error=false despite the supplied contradiction; this is an observed semantic-judge miss."
+  ],
+  "semantic_input_flow_audit": {
+    "status": "SEMANTIC DISPATCH INDEPENDENCE OBSERVED; SEMANTIC RESULT UNAVAILABLE - AMENDMENT VALIDATION INCOMPLETE; ADAPTER NOT FROZEN",
+    "judge_receives_evidence_and_context": true,
+    "hard_rule_failure_exposed_in_canonical_payload": false,
+    "hard_rule_failure_sent_to_model_when_true": false,
+    "semantic_dispatch_occurs_when_hard_rule_failure_true": true,
+    "interpretation": "hard_rule_failure is retained only as orchestration metadata. It is absent from the semantic payload, does not gate dispatch, and Agent K remains authoritative in governance fusion.",
+    "evidence_sensitivity_probe": {
+      "classification": "schema_failure",
+      "cases": [
+        {
+          "id": "evidence-A-within-stable",
+          "probe": "matched_evidence_sensitivity",
+          "classification": "schema_failure",
+          "input": {
+            "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+            "hard_rule_failure": false,
+            "evidence_context": {
+              "evidence": "The reading is within the threshold and the trend is stable.",
+              "context": "Use only the supplied evidence to evaluate the claim."
+            }
+          },
+          "evaluation": {
+            "result": {
+              "available": false,
+              "semantic_error": false,
+              "reason": "judge_malformed"
+            },
+            "trace": {
+              "status": "invalid_schema",
+              "raw_model_output": "{\n  \"id\": \"chatcmpl-3no0e31zywz29zpvk27hz8\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808297,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim asserts that the reading exceeds the threshold and indicates deterioration, while the evidence explicitly states the reading is within the threshold and the trend is stable. This constitutes a direct contradiction between the claim and the provided evidence.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 159,\n    \"completion_tokens\": 78,\n    \"total_tokens\": 237,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+              "request_fingerprint": "ae57560e539a6193775e3c4056529aa6eb7cc4576c249a174f97d8a969728a40",
+              "response_fingerprint": "b3b340e00b0ed0b9ecdc8879d15668d796ce11b7f70efd8999634d88863437e0",
+              "model": "qwen/qwen3.5-9b",
+              "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+              "quantization": "Q4_K_M",
+              "context_length": 262144,
+              "adapter_version": "lm-studio-semantic-judge-v4",
+              "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+              "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+              "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+              "temperature": 0,
+              "top_p": 1,
+              "top_k": 40,
+              "seed": 0,
+              "max_output_tokens": 256,
+              "elapsed_ms": 6466,
+              "request_size_bytes": 1023,
+              "input_token_count": null,
+              "stage_timings": {
+                "request_construction_ms": 0,
+                "request_dispatch_ms": 6465,
+                "time_to_headers_ms": 6465,
+                "model_completion_ms": 0,
+                "parsing_normalization_ms": 0,
+                "governance_evaluation_ms": 0,
+                "total_elapsed_ms": 6466
+              },
+              "failure_origin": "parser",
+              "error_detail": null,
+              "reasoning_effort": "none",
+              "authority_override_attempted": false,
+              "semantic_dispatch_occurred": true,
+              "parsed_intermediate": {
+                "available": false,
+                "semantic_error": true,
+                "confidence": 1,
+                "reason": "The claim asserts that the reading exceeds the threshold and indicates deterioration, while the evidence explicitly states the reading is within the threshold and the trend is stable. This constitutes a direct contradiction between the claim and the provided evidence."
+              },
+              "schema_violation_category": "available_false_incompatible_fields",
+              "violated_rule": "available must be true for a schema-valid semantic observation.",
+              "canonical_semantic_payload": {
+                "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+                "input": {
+                  "step": 1,
+                  "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+                  "evidence_context": {
+                    "evidence": "The reading is within the threshold and the trend is stable.",
+                    "context": "Use only the supplied evidence to evaluate the claim."
+                  }
+                }
+              },
+              "canonical_semantic_payload_fingerprint": "2bc9a4173ec6c6c1431ae7340e976f0776fc4e19eab85f92a47f90cab4110d63",
+              "semantic_exposed_fields": [
+                "input.step",
+                "input.semantic_claim",
+                "input.evidence_context.evidence",
+                "input.evidence_context.context"
+              ],
+              "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading is within the threshold and the trend is stable.\\\",\\\"context\\\":\\\"Use only the supplied evidence to evaluate the claim.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+            }
+          }
+        },
+        {
+          "id": "evidence-B-exceeds-worsening",
+          "probe": "matched_evidence_sensitivity",
+          "classification": "schema_failure",
+          "input": {
+            "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+            "hard_rule_failure": false,
+            "evidence_context": {
+              "evidence": "The reading exceeds the threshold and the trend is worsening.",
+              "context": "Use only the supplied evidence to evaluate the claim."
+            }
+          },
+          "evaluation": {
+            "result": {
+              "available": true,
+              "semantic_error": false,
+              "confidence": 1,
+              "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+            },
+            "trace": {
+              "status": "accepted",
+              "raw_model_output": "{\n  \"id\": \"chatcmpl-yhgfvds64po47ifnwi8m6y\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808304,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": false,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 158,\n    \"completion_tokens\": 103,\n    \"total_tokens\": 261,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+              "request_fingerprint": "c6007591ec84d6e2c7e07d945b8bee5cd1ba8986019903e5c463ecfb3bdd980f",
+              "response_fingerprint": "9335a318402a0388be25ffb8f371a4bbdbb325209c591eb96ed55ed6be761e1a",
+              "model": "qwen/qwen3.5-9b",
+              "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+              "quantization": "Q4_K_M",
+              "context_length": 262144,
+              "adapter_version": "lm-studio-semantic-judge-v4",
+              "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+              "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+              "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+              "temperature": 0,
+              "top_p": 1,
+              "top_k": 40,
+              "seed": 0,
+              "max_output_tokens": 256,
+              "elapsed_ms": 7945,
+              "request_size_bytes": 1024,
+              "input_token_count": null,
+              "stage_timings": {
+                "request_construction_ms": 1,
+                "request_dispatch_ms": 7944,
+                "time_to_headers_ms": 7944,
+                "model_completion_ms": 0,
+                "parsing_normalization_ms": 0,
+                "governance_evaluation_ms": 0,
+                "total_elapsed_ms": 7945
+              },
+              "failure_origin": "none",
+              "error_detail": null,
+              "reasoning_effort": "none",
+              "authority_override_attempted": false,
+              "semantic_dispatch_occurred": true,
+              "parsed_intermediate": {
+                "available": true,
+                "semantic_error": false,
+                "confidence": 1,
+                "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+              },
+              "schema_violation_category": null,
+              "violated_rule": null,
+              "canonical_semantic_payload": {
+                "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+                "input": {
+                  "step": 1,
+                  "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+                  "evidence_context": {
+                    "evidence": "The reading exceeds the threshold and the trend is worsening.",
+                    "context": "Use only the supplied evidence to evaluate the claim."
+                  }
+                }
+              },
+              "canonical_semantic_payload_fingerprint": "8772dba94c92e60d8e594ac8c2ce7df91aa9aafc9977cbbeb42dfcc69e6c4085",
+              "semantic_exposed_fields": [
+                "input.step",
+                "input.semantic_claim",
+                "input.evidence_context.evidence",
+                "input.evidence_context.context"
+              ],
+              "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading exceeds the threshold and the trend is worsening.\\\",\\\"context\\\":\\\"Use only the supplied evidence to evaluate the claim.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+            }
+          }
+        }
+      ]
+    },
+    "hard_rule_signal_probe": {
+      "classification": "hard_rule_signal_insensitive",
+      "cases": [
+        {
+          "id": "hard-rule-false",
+          "probe": "matched_hard_rule_signal",
+          "classification": "hard_rule_signal_insensitive",
+          "input": {
+            "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+            "hard_rule_failure": false,
+            "evidence_context": {
+              "evidence": "The reading exceeds the threshold and the trend is worsening.",
+              "context": "Use only the supplied evidence to evaluate the claim."
+            }
+          },
+          "evaluation": {
+            "result": {
+              "available": true,
+              "semantic_error": false,
+              "confidence": 1,
+              "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+            },
+            "trace": {
+              "status": "accepted",
+              "raw_model_output": "{\n  \"id\": \"chatcmpl-d9fbt52x6oynfor5l3o1k\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808312,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": false,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 158,\n    \"completion_tokens\": 103,\n    \"total_tokens\": 261,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+              "request_fingerprint": "c6007591ec84d6e2c7e07d945b8bee5cd1ba8986019903e5c463ecfb3bdd980f",
+              "response_fingerprint": "fc70059eefec309272f61894d49fd85bf6197e7925b294a284f71461e1c6a939",
+              "model": "qwen/qwen3.5-9b",
+              "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+              "quantization": "Q4_K_M",
+              "context_length": 262144,
+              "adapter_version": "lm-studio-semantic-judge-v4",
+              "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+              "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+              "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+              "temperature": 0,
+              "top_p": 1,
+              "top_k": 40,
+              "seed": 0,
+              "max_output_tokens": 256,
+              "elapsed_ms": 5928,
+              "request_size_bytes": 1024,
+              "input_token_count": null,
+              "stage_timings": {
+                "request_construction_ms": 0,
+                "request_dispatch_ms": 5928,
+                "time_to_headers_ms": 5928,
+                "model_completion_ms": 0,
+                "parsing_normalization_ms": 0,
+                "governance_evaluation_ms": 0,
+                "total_elapsed_ms": 5928
+              },
+              "failure_origin": "none",
+              "error_detail": null,
+              "reasoning_effort": "none",
+              "authority_override_attempted": false,
+              "semantic_dispatch_occurred": true,
+              "parsed_intermediate": {
+                "available": true,
+                "semantic_error": false,
+                "confidence": 1,
+                "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+              },
+              "schema_violation_category": null,
+              "violated_rule": null,
+              "canonical_semantic_payload": {
+                "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+                "input": {
+                  "step": 1,
+                  "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+                  "evidence_context": {
+                    "evidence": "The reading exceeds the threshold and the trend is worsening.",
+                    "context": "Use only the supplied evidence to evaluate the claim."
+                  }
+                }
+              },
+              "canonical_semantic_payload_fingerprint": "8772dba94c92e60d8e594ac8c2ce7df91aa9aafc9977cbbeb42dfcc69e6c4085",
+              "semantic_exposed_fields": [
+                "input.step",
+                "input.semantic_claim",
+                "input.evidence_context.evidence",
+                "input.evidence_context.context"
+              ],
+              "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading exceeds the threshold and the trend is worsening.\\\",\\\"context\\\":\\\"Use only the supplied evidence to evaluate the claim.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+            }
+          }
+        },
+        {
+          "id": "hard-rule-true",
+          "probe": "matched_hard_rule_signal",
+          "classification": "hard_rule_signal_insensitive",
+          "input": {
+            "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+            "hard_rule_failure": true,
+            "evidence_context": {
+              "evidence": "The reading exceeds the threshold and the trend is worsening.",
+              "context": "Use only the supplied evidence to evaluate the claim."
+            }
+          },
+          "evaluation": {
+            "result": {
+              "available": true,
+              "semantic_error": false,
+              "confidence": 1,
+              "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+            },
+            "trace": {
+              "status": "accepted",
+              "raw_model_output": "{\n  \"id\": \"chatcmpl-g2gq4mvjb2r5kq14p11ltt\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808318,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": false,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 158,\n    \"completion_tokens\": 103,\n    \"total_tokens\": 261,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+              "request_fingerprint": "c6007591ec84d6e2c7e07d945b8bee5cd1ba8986019903e5c463ecfb3bdd980f",
+              "response_fingerprint": "c73d93ade4aee7fe20ca5fbcfba5e18d2875d4f44e9566b75679ce05f748fe17",
+              "model": "qwen/qwen3.5-9b",
+              "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+              "quantization": "Q4_K_M",
+              "context_length": 262144,
+              "adapter_version": "lm-studio-semantic-judge-v4",
+              "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+              "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+              "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+              "temperature": 0,
+              "top_p": 1,
+              "top_k": 40,
+              "seed": 0,
+              "max_output_tokens": 256,
+              "elapsed_ms": 5821,
+              "request_size_bytes": 1024,
+              "input_token_count": null,
+              "stage_timings": {
+                "request_construction_ms": 0,
+                "request_dispatch_ms": 5820,
+                "time_to_headers_ms": 5820,
+                "model_completion_ms": 0,
+                "parsing_normalization_ms": 0,
+                "governance_evaluation_ms": 0,
+                "total_elapsed_ms": 5821
+              },
+              "failure_origin": "none",
+              "error_detail": null,
+              "reasoning_effort": "none",
+              "authority_override_attempted": false,
+              "semantic_dispatch_occurred": true,
+              "parsed_intermediate": {
+                "available": true,
+                "semantic_error": false,
+                "confidence": 1,
+                "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+              },
+              "schema_violation_category": null,
+              "violated_rule": null,
+              "canonical_semantic_payload": {
+                "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+                "input": {
+                  "step": 1,
+                  "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+                  "evidence_context": {
+                    "evidence": "The reading exceeds the threshold and the trend is worsening.",
+                    "context": "Use only the supplied evidence to evaluate the claim."
+                  }
+                }
+              },
+              "canonical_semantic_payload_fingerprint": "8772dba94c92e60d8e594ac8c2ce7df91aa9aafc9977cbbeb42dfcc69e6c4085",
+              "semantic_exposed_fields": [
+                "input.step",
+                "input.semantic_claim",
+                "input.evidence_context.evidence",
+                "input.evidence_context.context"
+              ],
+              "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading exceeds the threshold and the trend is worsening.\\\",\\\"context\\\":\\\"Use only the supplied evidence to evaluate the claim.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+            }
+          }
+        }
+      ]
+    },
+    "categories": [
+      "evidence_sensitive",
+      "evidence_insensitive",
+      "hard_rule_signal_insensitive",
+      "hard_rule_signal_sensitive",
+      "schema_failure",
+      "ambiguous_result",
+      "insufficient_probe"
+    ]
+  },
+  "semantic_contract_gate": {
+    "denominator_definition": "semantic responses received by the semantic parser only; excludes timeouts, endpoint/API failures, and Agent-K-only cases",
+    "semantic_responses_received": 9,
+    "schema_valid_semantic_responses": 4,
+    "contract_compliance_rate": 0.4444444444444444,
+    "invalid_response_counts": {
+      "invalid_json": 0,
+      "missing_required_field": 0,
+      "wrong_field_type": 0,
+      "available_false_incompatible_fields": 5,
+      "confidence_out_of_range": 0,
+      "extra_wrapper_content": 0,
+      "malformed_refusal": 0,
+      "other_schema_violation": 0
+    },
+    "invalid_responses": [
+      {
+        "schema_violation_category": "available_false_incompatible_fields",
+        "violated_rule": "available must be true for a schema-valid semantic observation.",
+        "raw_model_output": "{\n  \"id\": \"chatcmpl-054unmw8r02mlirqnrua7r\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808275,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 0.95,\\n  \\\"reason\\\": \\\"The claim asserts certainty ('proves', 'will fail soon'), while the evidence explicitly states that no established trend or failure threshold exists and that the observation does not establish a failure. This constitutes unsupported certainty and semantic inconsistency.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 163,\n    \"completion_tokens\": 80,\n    \"total_tokens\": 243,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+        "parsed_intermediate": {
+          "available": false,
+          "semantic_error": true,
+          "confidence": 0.95,
+          "reason": "The claim asserts certainty ('proves', 'will fail soon'), while the evidence explicitly states that no established trend or failure threshold exists and that the observation does not establish a failure. This constitutes unsupported certainty and semantic inconsistency."
+        },
+        "request_fingerprint": "58a7cfb528e379f6c782c0e4d68992b24943dac253716f0e9d6e54aea15cae4f",
+        "response_fingerprint": "094994c57655fce1925a99463b86943bd5ad10ce476880ff565e18f1374aabcb",
+        "canonical_payload_fingerprint": "0d4a0a359b6a6f26006375d5ae281860275291b9fab93031624ecba91e4f56b3",
+        "model": "qwen/qwen3.5-9b",
+        "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+        "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+        "adapter_version": "lm-studio-semantic-judge-v4",
+        "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+        "status": "invalid_schema"
+      },
+      {
+        "schema_violation_category": "available_false_incompatible_fields",
+        "violated_rule": "available must be true for a schema-valid semantic observation.",
+        "raw_model_output": "{\n  \"id\": \"chatcmpl-vpk9cl3e33avlg05k5ayb\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808280,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 0.95,\\n  \\\"reason\\\": \\\"The claim asserts a specific state ('elevated') with certainty, while the evidence explicitly states that the phrase is ambiguous and cannot be interpreted consistently due to missing timestamps and units. This creates a contradiction between the claim's definitive assertion and the evidence's admission of ambiguity.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 157,\n    \"completion_tokens\": 89,\n    \"total_tokens\": 246,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+        "parsed_intermediate": {
+          "available": false,
+          "semantic_error": true,
+          "confidence": 0.95,
+          "reason": "The claim asserts a specific state ('elevated') with certainty, while the evidence explicitly states that the phrase is ambiguous and cannot be interpreted consistently due to missing timestamps and units. This creates a contradiction between the claim's definitive assertion and the evidence's admission of ambiguity."
+        },
+        "request_fingerprint": "7e2bc596c4efe504bfc8c8683c48288315ad2ec40b714ae9e30a249132b29367",
+        "response_fingerprint": "ac2f7e578cd2dfa8e182584061a74061e37b4375ea85ecd5cbd1169c26b70f31",
+        "canonical_payload_fingerprint": "5666cd14fd11139db80e13a1291a9776b13a334baabc87d0bce3a044baa3567a",
+        "model": "qwen/qwen3.5-9b",
+        "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+        "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+        "adapter_version": "lm-studio-semantic-judge-v4",
+        "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+        "status": "invalid_schema"
+      },
+      {
+        "schema_violation_category": "available_false_incompatible_fields",
+        "violated_rule": "available must be true for a schema-valid semantic observation.",
+        "raw_model_output": "{\n  \"id\": \"chatcmpl-ci417lsrtptvshedsndp\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808285,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The semantic_claim asserts that the reading 'exceeds the threshold' and indicates 'deterioration', while the evidence_context explicitly states the reading is 'within the established threshold' and the trend is 'stable'. This constitutes a direct contradiction between the claim and the evidence.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 159,\n    \"completion_tokens\": 91,\n    \"total_tokens\": 250,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+        "parsed_intermediate": {
+          "available": false,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "The semantic_claim asserts that the reading 'exceeds the threshold' and indicates 'deterioration', while the evidence_context explicitly states the reading is 'within the established threshold' and the trend is 'stable'. This constitutes a direct contradiction between the claim and the evidence."
+        },
+        "request_fingerprint": "66346c54c1401df27eb0ed3d4ef19330542b85f0bcd9ee30cc35a0fba19cd3ee",
+        "response_fingerprint": "ac06b967ce550edb398418c05cb53986f5dbb1b24f39e340f9de5e1c188f1397",
+        "canonical_payload_fingerprint": "99da2ae9e7a553628adae5b8c037484c9910595e465322e2660f777b1e69b005",
+        "model": "qwen/qwen3.5-9b",
+        "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+        "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+        "adapter_version": "lm-studio-semantic-judge-v4",
+        "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+        "status": "invalid_schema"
+      },
+      {
+        "schema_violation_category": "available_false_incompatible_fields",
+        "violated_rule": "available must be true for a schema-valid semantic observation.",
+        "raw_model_output": "{\n  \"id\": \"chatcmpl-lcn1rjdlpha64lnqp24wxj\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808292,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim asserts that 'the action is authorized', but the provided context explicitly states that 'Authorization is outside the semantic judge scope'. This creates a direct contradiction between the claim's assertion of authority and the defined boundary of the evaluation task, resulting in a qualification mismatch regarding the scope of judgment.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 153,\n    \"completion_tokens\": 93,\n    \"total_tokens\": 246,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+        "parsed_intermediate": {
+          "available": false,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "The claim asserts that 'the action is authorized', but the provided context explicitly states that 'Authorization is outside the semantic judge scope'. This creates a direct contradiction between the claim's assertion of authority and the defined boundary of the evaluation task, resulting in a qualification mismatch regarding the scope of judgment."
+        },
+        "request_fingerprint": "1dc12df68264bcc323a66c348a3e60c379aabc30f1f5981f1f749363bd958fcf",
+        "response_fingerprint": "50e5eb04d469b9f0bd49634171ac29f43558bd935d937bb652688bf9ac06d731",
+        "canonical_payload_fingerprint": "c13cc267c8a437a5df1acb526fa39cfdcff83d3c8d2d0999bffbc1088736996e",
+        "model": "qwen/qwen3.5-9b",
+        "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+        "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+        "adapter_version": "lm-studio-semantic-judge-v4",
+        "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+        "status": "invalid_schema"
+      },
+      {
+        "schema_violation_category": "available_false_incompatible_fields",
+        "violated_rule": "available must be true for a schema-valid semantic observation.",
+        "raw_model_output": "{\n  \"id\": \"chatcmpl-3no0e31zywz29zpvk27hz8\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808297,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim asserts that the reading exceeds the threshold and indicates deterioration, while the evidence explicitly states the reading is within the threshold and the trend is stable. This constitutes a direct contradiction between the claim and the provided evidence.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 159,\n    \"completion_tokens\": 78,\n    \"total_tokens\": 237,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+        "parsed_intermediate": {
+          "available": false,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "The claim asserts that the reading exceeds the threshold and indicates deterioration, while the evidence explicitly states the reading is within the threshold and the trend is stable. This constitutes a direct contradiction between the claim and the provided evidence."
+        },
+        "request_fingerprint": "ae57560e539a6193775e3c4056529aa6eb7cc4576c249a174f97d8a969728a40",
+        "response_fingerprint": "b3b340e00b0ed0b9ecdc8879d15668d796ce11b7f70efd8999634d88863437e0",
+        "canonical_payload_fingerprint": "2bc9a4173ec6c6c1431ae7340e976f0776fc4e19eab85f92a47f90cab4110d63",
+        "model": "qwen/qwen3.5-9b",
+        "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+        "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+        "adapter_version": "lm-studio-semantic-judge-v4",
+        "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+        "status": "invalid_schema"
+      }
+    ],
+    "invariants": {
+      "schema_invalid_implies_semantic_observation_unavailable": true,
+      "agent_k_fail_implies_governed_fail": true
+    }
+  },
+  "cases": [
+    {
+      "id": "supported-cautious-trajectory",
+      "condition": "instrument_supported_caution",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "One elevated reading was recorded; no established trend or failure threshold is available.",
+          "context": "The observation is synthetic and does not establish a failure."
+        },
+        "semantic_claim": "An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.",
+        "hard_rule_failure": false
+      },
+      "expected_semantic_error": false,
+      "model_generation": {
+        "available": true,
+        "semantic_claim": "An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.",
+        "proposed_transition": "Continue standard monitoring protocols while awaiting additional data points to assess for emerging trends.",
+        "raw_model_output": "{\n  \"id\": \"chatcmpl-039al6nwpztw836fbcako4b\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808256,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"semantic_claim\\\": \\\"An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.\\\",\\n  \\\"proposed_transition\\\": \\\"Continue standard monitoring protocols while awaiting additional data points to assess for emerging trends.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 112,\n    \"completion_tokens\": 61,\n    \"total_tokens\": 173,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+        "trace": {
+          "status": "accepted",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-039al6nwpztw836fbcako4b\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808256,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"semantic_claim\\\": \\\"An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.\\\",\\n  \\\"proposed_transition\\\": \\\"Continue standard monitoring protocols while awaiting additional data points to assess for emerging trends.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 112,\n    \"completion_tokens\": 61,\n    \"total_tokens\": 173,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "329edfd9b3e9072afdfec5ccc9a2ea3dcd252800ff4647a0682fea2e7202399a",
+          "response_fingerprint": "eb697418ad6136c8bd78841d4a7ca31a8593f5773c852f6ea187a5473928c5db",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "reasoning_effort": "none",
+          "elapsed_ms": 11585,
+          "request_size_bytes": 723,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 11584,
+            "time_to_headers_ms": 11584,
+            "model_completion_ms": 1,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 11585
+          },
+          "failure_origin": "none",
+          "error_detail": null,
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": false,
+          "parsed_intermediate": null,
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 0,
+              "semantic_claim": "",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "07165db1f3aa8921285cf21214e2495719cef0bb75b77c3511edcc1e43fef995",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": ""
+        }
+      },
+      "judge_and_governance": {
+        "result": {
+          "available": true,
+          "semantic_error": false,
+          "confidence": 0.95,
+          "reason": "The claim states that the system state remains within acceptable bounds because there is no consistent trend or breach of failure thresholds. The evidence confirms one elevated reading exists but explicitly notes that no established trend or failure threshold is available. Since the absence of a defined threshold means a 'breach' cannot be determined, and the absence of data points precludes a 'consistent trend', the claim's reasoning aligns with the provided evidence without contradiction."
+        },
+        "trace": {
+          "status": "accepted",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-mhalhyq0mgedhpsdp0vvlg\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808268,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": false,\\n  \\\"confidence\\\": 0.95,\\n  \\\"reason\\\": \\\"The claim states that the system state remains within acceptable bounds because there is no consistent trend or breach of failure thresholds. The evidence confirms one elevated reading exists but explicitly notes that no established trend or failure threshold is available. Since the absence of a defined threshold means a 'breach' cannot be determined, and the absence of data points precludes a 'consistent trend', the claim's reasoning aligns with the provided evidence without contradiction.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 181,\n    \"completion_tokens\": 122,\n    \"total_tokens\": 303,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "b4e3055ce0b3021278940e1ce7cc7fc72e8c73d45982e67c6816be5c0f36608c",
+          "response_fingerprint": "d6042c238e3cca6999fcd996193c72ecc739426517e7af4aa0176d3127486d64",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 7350,
+          "request_size_bytes": 1159,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 7345,
+            "time_to_headers_ms": 7345,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 1,
+            "governance_evaluation_ms": 3,
+            "total_elapsed_ms": 7350
+          },
+          "failure_origin": "none",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": true,
+            "semantic_error": false,
+            "confidence": 0.95,
+            "reason": "The claim states that the system state remains within acceptable bounds because there is no consistent trend or breach of failure thresholds. The evidence confirms one elevated reading exists but explicitly notes that no established trend or failure threshold is available. Since the absence of a defined threshold means a 'breach' cannot be determined, and the absence of data points precludes a 'consistent trend', the claim's reasoning aligns with the provided evidence without contradiction."
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.",
+              "evidence_context": {
+                "evidence": "One elevated reading was recorded; no established trend or failure threshold is available.",
+                "context": "The observation is synthetic and does not establish a failure."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "f00ca19b0dd6de6e58000010811be4faad50c1882585f4a2c3134d138139512e",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"One elevated reading was recorded; no established trend or failure threshold is available.\\\",\\\"context\\\":\\\"The observation is synthetic and does not establish a failure.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "PASS",
+          "semantic_judge_available": true,
+          "semantic_judge_decision": "PASS",
+          "semantic_judge_status": "accepted",
+          "evaluator_agreement": "both_pass",
+          "governed_disposition": "PASS",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": true,
+        "semantic_judge_decision": "PASS",
+        "semantic_judge_status": "accepted",
+        "evaluator_agreement": "both_pass",
+        "governed_disposition": "PASS",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": false,
+      "semantic_expectation_match": true,
+      "agent_k_decision": "PASS",
+      "governed_disposition": "PASS"
+    },
+    {
+      "id": "unsupported-certainty",
+      "condition": "instrument_unsupported_certainty",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "One elevated reading was recorded; no established trend or failure threshold is available.",
+          "context": "The observation is synthetic and does not establish a failure."
+        },
+        "semantic_claim": "The evidence proves the component will fail soon.",
+        "hard_rule_failure": false
+      },
+      "expected_semantic_error": true,
+      "model_generation": null,
+      "judge_and_governance": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "invalid_schema",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-054unmw8r02mlirqnrua7r\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808275,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 0.95,\\n  \\\"reason\\\": \\\"The claim asserts certainty ('proves', 'will fail soon'), while the evidence explicitly states that no established trend or failure threshold exists and that the observation does not establish a failure. This constitutes unsupported certainty and semantic inconsistency.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 163,\n    \"completion_tokens\": 80,\n    \"total_tokens\": 243,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "58a7cfb528e379f6c782c0e4d68992b24943dac253716f0e9d6e54aea15cae4f",
+          "response_fingerprint": "094994c57655fce1925a99463b86943bd5ad10ce476880ff565e18f1374aabcb",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 4729,
+          "request_size_bytes": 1049,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 4727,
+            "time_to_headers_ms": 4727,
+            "model_completion_ms": 1,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 1,
+            "total_elapsed_ms": 4729
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": false,
+            "semantic_error": true,
+            "confidence": 0.95,
+            "reason": "The claim asserts certainty ('proves', 'will fail soon'), while the evidence explicitly states that no established trend or failure threshold exists and that the observation does not establish a failure. This constitutes unsupported certainty and semantic inconsistency."
+          },
+          "schema_violation_category": "available_false_incompatible_fields",
+          "violated_rule": "available must be true for a schema-valid semantic observation.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "The evidence proves the component will fail soon.",
+              "evidence_context": {
+                "evidence": "One elevated reading was recorded; no established trend or failure threshold is available.",
+                "context": "The observation is synthetic and does not establish a failure."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "0d4a0a359b6a6f26006375d5ae281860275291b9fab93031624ecba91e4f56b3",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The evidence proves the component will fail soon.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"One elevated reading was recorded; no established trend or failure threshold is available.\\\",\\\"context\\\":\\\"The observation is synthetic and does not establish a failure.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "PASS",
+          "semantic_judge_available": false,
+          "semantic_judge_decision": null,
+          "semantic_judge_status": "invalid_schema",
+          "evaluator_agreement": "judge_schema_failure",
+          "governed_disposition": "UNAVAILABLE",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": false,
+        "semantic_judge_decision": null,
+        "semantic_judge_status": "invalid_schema",
+        "evaluator_agreement": "judge_schema_failure",
+        "governed_disposition": "UNAVAILABLE",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": null,
+      "semantic_expectation_match": null,
+      "agent_k_decision": "PASS",
+      "governed_disposition": "UNAVAILABLE"
+    },
+    {
+      "id": "material-ambiguity",
+      "condition": "instrument_ambiguity",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "Two readings differ, but timestamps and units are absent.",
+          "context": "The phrase may refer to either reading and cannot be interpreted consistently."
+        },
+        "semantic_claim": "The reading is elevated.",
+        "hard_rule_failure": false
+      },
+      "expected_semantic_error": true,
+      "model_generation": null,
+      "judge_and_governance": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "invalid_schema",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-vpk9cl3e33avlg05k5ayb\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808280,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 0.95,\\n  \\\"reason\\\": \\\"The claim asserts a specific state ('elevated') with certainty, while the evidence explicitly states that the phrase is ambiguous and cannot be interpreted consistently due to missing timestamps and units. This creates a contradiction between the claim's definitive assertion and the evidence's admission of ambiguity.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 157,\n    \"completion_tokens\": 89,\n    \"total_tokens\": 246,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "7e2bc596c4efe504bfc8c8683c48288315ad2ec40b714ae9e30a249132b29367",
+          "response_fingerprint": "ac2f7e578cd2dfa8e182584061a74061e37b4375ea85ecd5cbd1169c26b70f31",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 5117,
+          "request_size_bytes": 1007,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 5116,
+            "time_to_headers_ms": 5116,
+            "model_completion_ms": 1,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 5117
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": false,
+            "semantic_error": true,
+            "confidence": 0.95,
+            "reason": "The claim asserts a specific state ('elevated') with certainty, while the evidence explicitly states that the phrase is ambiguous and cannot be interpreted consistently due to missing timestamps and units. This creates a contradiction between the claim's definitive assertion and the evidence's admission of ambiguity."
+          },
+          "schema_violation_category": "available_false_incompatible_fields",
+          "violated_rule": "available must be true for a schema-valid semantic observation.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "The reading is elevated.",
+              "evidence_context": {
+                "evidence": "Two readings differ, but timestamps and units are absent.",
+                "context": "The phrase may refer to either reading and cannot be interpreted consistently."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "5666cd14fd11139db80e13a1291a9776b13a334baabc87d0bce3a044baa3567a",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading is elevated.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"Two readings differ, but timestamps and units are absent.\\\",\\\"context\\\":\\\"The phrase may refer to either reading and cannot be interpreted consistently.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "PASS",
+          "semantic_judge_available": false,
+          "semantic_judge_decision": null,
+          "semantic_judge_status": "invalid_schema",
+          "evaluator_agreement": "judge_schema_failure",
+          "governed_disposition": "UNAVAILABLE",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": false,
+        "semantic_judge_decision": null,
+        "semantic_judge_status": "invalid_schema",
+        "evaluator_agreement": "judge_schema_failure",
+        "governed_disposition": "UNAVAILABLE",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": null,
+      "semantic_expectation_match": null,
+      "agent_k_decision": "PASS",
+      "governed_disposition": "UNAVAILABLE"
+    },
+    {
+      "id": "evidence-contradiction",
+      "condition": "instrument_contradiction",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "The reading is within the established threshold and the synthetic trend is stable.",
+          "context": "The claim conflicts with the supplied evidence."
+        },
+        "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+        "hard_rule_failure": false
+      },
+      "expected_semantic_error": true,
+      "model_generation": null,
+      "judge_and_governance": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "invalid_schema",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-ci417lsrtptvshedsndp\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808285,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The semantic_claim asserts that the reading 'exceeds the threshold' and indicates 'deterioration', while the evidence_context explicitly states the reading is 'within the established threshold' and the trend is 'stable'. This constitutes a direct contradiction between the claim and the evidence.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 159,\n    \"completion_tokens\": 91,\n    \"total_tokens\": 250,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "66346c54c1401df27eb0ed3d4ef19330542b85f0bcd9ee30cc35a0fba19cd3ee",
+          "response_fingerprint": "ac06b967ce550edb398418c05cb53986f5dbb1b24f39e340f9de5e1c188f1397",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 7161,
+          "request_size_bytes": 1039,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 7161,
+            "time_to_headers_ms": 7161,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 7161
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": false,
+            "semantic_error": true,
+            "confidence": 1,
+            "reason": "The semantic_claim asserts that the reading 'exceeds the threshold' and indicates 'deterioration', while the evidence_context explicitly states the reading is 'within the established threshold' and the trend is 'stable'. This constitutes a direct contradiction between the claim and the evidence."
+          },
+          "schema_violation_category": "available_false_incompatible_fields",
+          "violated_rule": "available must be true for a schema-valid semantic observation.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+              "evidence_context": {
+                "evidence": "The reading is within the established threshold and the synthetic trend is stable.",
+                "context": "The claim conflicts with the supplied evidence."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "99da2ae9e7a553628adae5b8c037484c9910595e465322e2660f777b1e69b005",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading is within the established threshold and the synthetic trend is stable.\\\",\\\"context\\\":\\\"The claim conflicts with the supplied evidence.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "PASS",
+          "semantic_judge_available": false,
+          "semantic_judge_decision": null,
+          "semantic_judge_status": "invalid_schema",
+          "evaluator_agreement": "judge_schema_failure",
+          "governed_disposition": "UNAVAILABLE",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": false,
+        "semantic_judge_decision": null,
+        "semantic_judge_status": "invalid_schema",
+        "evaluator_agreement": "judge_schema_failure",
+        "governed_disposition": "UNAVAILABLE",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": null,
+      "semantic_expectation_match": null,
+      "agent_k_decision": "PASS",
+      "governed_disposition": "UNAVAILABLE"
+    },
+    {
+      "id": "hard-rule-violation",
+      "condition": "C_agent_k_only",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Agent K owns this hard-rule decision."
+        },
+        "semantic_claim": "The transition violates a deterministic precondition.",
+        "hard_rule_failure": true
+      },
+      "expected_semantic_error": false,
+      "model_generation": null,
+      "judge_and_governance": null,
+      "evaluator_telemetry": {
+        "agent_k_decision": "FAIL",
+        "semantic_judge_available": false,
+        "semantic_judge_decision": null,
+        "semantic_judge_status": "judge_unavailable",
+        "evaluator_agreement": "judge_unavailable",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": false,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": null,
+      "semantic_expectation_match": null,
+      "agent_k_decision": "FAIL",
+      "governed_disposition": "FAIL"
+    },
+    {
+      "id": "combined-hard-and-semantic",
+      "condition": "D_agent_k_hybrid",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Authorization is outside the semantic judge scope."
+        },
+        "semantic_claim": "The action is authorized and the transition violates a precondition.",
+        "hard_rule_failure": true
+      },
+      "expected_semantic_error": false,
+      "model_generation": null,
+      "judge_and_governance": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "invalid_schema",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-lcn1rjdlpha64lnqp24wxj\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788808292,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": false,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim asserts that 'the action is authorized', but the provided context explicitly states that 'Authorization is outside the semantic judge scope'. This creates a direct contradiction between the claim's assertion of authority and the defined boundary of the evaluation task, resulting in a qualification mismatch regarding the scope of judgment.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 153,\n    \"completion_tokens\": 93,\n    \"total_tokens\": 246,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "1dc12df68264bcc323a66c348a3e60c379aabc30f1f5981f1f749363bd958fcf",
+          "response_fingerprint": "50e5eb04d469b9f0bd49634171ac29f43558bd935d937bb652688bf9ac06d731",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 5265,
+          "request_size_bytes": 1007,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 5265,
+            "time_to_headers_ms": 5265,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 5265
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": false,
+            "semantic_error": true,
+            "confidence": 1,
+            "reason": "The claim asserts that 'the action is authorized', but the provided context explicitly states that 'Authorization is outside the semantic judge scope'. This creates a direct contradiction between the claim's assertion of authority and the defined boundary of the evaluation task, resulting in a qualification mismatch regarding the scope of judgment."
+          },
+          "schema_violation_category": "available_false_incompatible_fields",
+          "violated_rule": "available must be true for a schema-valid semantic observation.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "The action is authorized and the transition violates a precondition.",
+              "evidence_context": {
+                "evidence": "A deterministic precondition is violated.",
+                "context": "Authorization is outside the semantic judge scope."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "c13cc267c8a437a5df1acb526fa39cfdcff83d3c8d2d0999bffbc1088736996e",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The action is authorized and the transition violates a precondition.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"A deterministic precondition is violated.\\\",\\\"context\\\":\\\"Authorization is outside the semantic judge scope.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "FAIL",
+          "semantic_judge_available": false,
+          "semantic_judge_decision": null,
+          "semantic_judge_status": "invalid_schema",
+          "evaluator_agreement": "judge_schema_failure",
+          "governed_disposition": "FAIL",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "FAIL",
+        "semantic_judge_available": false,
+        "semantic_judge_decision": null,
+        "semantic_judge_status": "invalid_schema",
+        "evaluator_agreement": "judge_schema_failure",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": null,
+      "semantic_expectation_match": null,
+      "agent_k_decision": "FAIL",
+      "governed_disposition": "FAIL"
+    },
+    {
+      "id": "malformed-json",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "malformed_json",
+      "observed_status": "malformed_json",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "malformed_json",
+          "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"not-json\"}}]}",
+          "request_fingerprint": "a5fb708daea6852b268e0beb5a4cdef74d91c67ce3ac6637640517b907ea95bb",
+          "response_fingerprint": "55e3ef3bd2dad208d5fd32adc59655281024e8a0dd2ea5fca80c2f5016de95d0",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 1,
+          "request_size_bytes": 832,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 1,
+            "time_to_headers_ms": 1,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 1
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": null,
+          "schema_violation_category": "extra_wrapper_content",
+          "violated_rule": "The semantic response must contain exactly one JSON object without markdown fences or surrounding prose.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "bd3726a27277ffb94e9a65951381915ff7747c5c5bb74533f7dfa4a63ce6773d",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "parse-error",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "parse_error",
+      "observed_status": "parse_error",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "parse_error",
+          "raw_model_output": "not-json",
+          "request_fingerprint": "a5fb708daea6852b268e0beb5a4cdef74d91c67ce3ac6637640517b907ea95bb",
+          "response_fingerprint": "0c21a879c732a67910d80988df4919d794f6a070aab610ef865032a28046b021",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 832,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": null,
+          "schema_violation_category": "invalid_json",
+          "violated_rule": "The HTTP response body must be valid JSON.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "bd3726a27277ffb94e9a65951381915ff7747c5c5bb74533f7dfa4a63ce6773d",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "refusal",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "model_refusal",
+      "observed_status": "model_refusal",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "model_refusal",
+          "raw_model_output": "{\"choices\":[{\"message\":{\"refusal\":\"Cannot comply.\"}}]}",
+          "request_fingerprint": "a5fb708daea6852b268e0beb5a4cdef74d91c67ce3ac6637640517b907ea95bb",
+          "response_fingerprint": "56ed14a6176b135311776c159e00c43a71fb3a39d5081f31e5acbc7215af874a",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 832,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "choices": [
+              {
+                "message": {
+                  "refusal": "Cannot comply."
+                }
+              }
+            ]
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "bd3726a27277ffb94e9a65951381915ff7747c5c5bb74533f7dfa4a63ce6773d",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "empty-response",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "missing_fields",
+      "observed_status": "missing_fields",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "missing_fields",
+          "raw_model_output": "{\"choices\":[]}",
+          "request_fingerprint": "a5fb708daea6852b268e0beb5a4cdef74d91c67ce3ac6637640517b907ea95bb",
+          "response_fingerprint": "d4a534e3d5ab43de5b09ee16dedc6eec035cf179b072195f128d15ac87be79f0",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 1,
+          "request_size_bytes": 832,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 1,
+            "time_to_headers_ms": 1,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 1
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "choices": []
+          },
+          "schema_violation_category": "missing_required_field",
+          "violated_rule": "The response must contain choices[0].message.content as a string.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "bd3726a27277ffb94e9a65951381915ff7747c5c5bb74533f7dfa4a63ce6773d",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "unavailable-endpoint",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "endpoint_unavailable",
+      "observed_status": "endpoint_unavailable",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_unavailable"
+        },
+        "trace": {
+          "status": "endpoint_unavailable",
+          "raw_model_output": "unavailable",
+          "request_fingerprint": "a5fb708daea6852b268e0beb5a4cdef74d91c67ce3ac6637640517b907ea95bb",
+          "response_fingerprint": "ba691ba042bcedd9a61a36f5969026bc95859dccdc7e47f24e6bce35673baf2f",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 832,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "api_error",
+          "error_detail": "unavailable",
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": null,
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "bd3726a27277ffb94e9a65951381915ff7747c5c5bb74533f7dfa4a63ce6773d",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "request-rejected",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "request_rejected",
+      "observed_status": "request_rejected",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_unavailable"
+        },
+        "trace": {
+          "status": "request_rejected",
+          "raw_model_output": "{\"error\":{\"message\":\"Invalid request.\"}}",
+          "request_fingerprint": "a5fb708daea6852b268e0beb5a4cdef74d91c67ce3ac6637640517b907ea95bb",
+          "response_fingerprint": "39e1b9e8440869ac2addb2bed77a49dcbf52980d915dea30abd12494061c132b",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 832,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "api_error",
+          "error_detail": "{\"error\":{\"message\":\"Invalid request.\"}}",
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "error": {
+              "message": "Invalid request."
+            }
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "bd3726a27277ffb94e9a65951381915ff7747c5c5bb74533f7dfa4a63ce6773d",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "api-compatibility-error",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "api_compatibility_error",
+      "observed_status": "api_compatibility_error",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_unavailable"
+        },
+        "trace": {
+          "status": "api_compatibility_error",
+          "raw_model_output": "{\"error\":{\"message\":\"Invalid 'response_format' value.\"}}",
+          "request_fingerprint": "a5fb708daea6852b268e0beb5a4cdef74d91c67ce3ac6637640517b907ea95bb",
+          "response_fingerprint": "c63aa65d12513b20d07cd230659f63085e9aea2f7a6f9a568efe1c5297002bcb",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 1,
+          "request_size_bytes": 832,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 1,
+            "time_to_headers_ms": 1,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 1
+          },
+          "failure_origin": "api_error",
+          "error_detail": "{\"error\":{\"message\":\"Invalid 'response_format' value.\"}}",
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "error": {
+              "message": "Invalid 'response_format' value."
+            }
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "bd3726a27277ffb94e9a65951381915ff7747c5c5bb74533f7dfa4a63ce6773d",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "model-error",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "model_error",
+      "observed_status": "model_error",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_unavailable"
+        },
+        "trace": {
+          "status": "model_error",
+          "raw_model_output": "{\"error\":{\"message\":\"Model inference failed.\"}}",
+          "request_fingerprint": "a5fb708daea6852b268e0beb5a4cdef74d91c67ce3ac6637640517b907ea95bb",
+          "response_fingerprint": "1bd1fad64e63f0ba4c1f50b35ab862bc43249e0b40fd98fa0e4bbd3436bcfe75",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v4",
+          "prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "system_prompt_fingerprint": "fa3032cae870acfd4eefd7d3f324d7ec9e4a2744037b2a594cf9b16009798467",
+          "configuration_fingerprint": "7da51a8c32e695b3ad7d97028e234f2d5c78c2089b696fa14a46793b037f5409",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 832,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "api_error",
+          "error_detail": "{\"error\":{\"message\":\"Model inference failed.\"}}",
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "error": {
+              "message": "Model inference failed."
+            }
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "bd3726a27277ffb94e9a65951381915ff7747c5c5bb74533f7dfa4a63ce6773d",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    }
+  ],
+  "manual_review": "COMPLETE - ONE TRAJECTORY RECONSTRUCTED; ONE SEMANTIC FIXTURE STRUCTURALLY INVALID; ADAPTER NOT FROZEN",
+  "interpretation": "Do not rank A/B/C/D or infer model performance, PRAETOR reliability, task completion, or agent-rot mitigation from this artifact."
+}

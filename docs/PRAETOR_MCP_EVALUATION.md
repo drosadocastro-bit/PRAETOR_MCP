@@ -93,24 +93,26 @@ The generated adversarial artifacts are:
 
 ## Current Results
 
-Validation run: 2026-07-27, Windows, Node.js 20+ project configuration.
+Validation run: 2026-09-06, Windows, Node.js 24.13.0 runtime with the Node.js 20+
+project configuration.
 
 | Measure | Result | Meaning |
 | --- | ---: | --- |
 | TypeScript check | PASS | The configured source and test types compile without emitted output. |
-| Full test files | 10 | Unit, integration, boundary, storage, adversarial, and transport coverage. |
-| Full tests | 112/112 passed | No failing automated checks in the evaluated synthetic fixture set. |
-| Protocol 66 tests | 27/27 passed | Runtime input and policy validation plus containment behavior. |
+| Full test files | 27 | Unit, integration, boundary, storage, adversarial, horizon, live-adapter, and transport coverage. |
+| Full tests | 240/240 passed | No failing automated checks in the evaluated synthetic fixture set. |
+| Protocol 66 tests | 29/29 passed | Runtime input and policy validation plus containment behavior. |
 | MCP stdio smoke | 1/1 passed | Actual server transport listed and exercised all tools. |
 | Adversarial assertions | 25/25 passed | Fixed unsafe-structure battery passed. |
-| Dependency audit | 0 vulnerabilities | No known npm advisories reported at evaluation time. |
+| Benchmark | 1,000 iterations per operation | Local synthetic adapter, schema validation, and deterministic governance measurements recorded in [reports/benchmark/latest.json](../reports/benchmark/latest.json). |
+| Dependency audit | 0 vulnerabilities | The transitive `postcss` and `nanoid` advisories were remediated at `postcss@8.5.28` and `nanoid@3.3.18`. |
 | Whitespace check | PASS | No patch whitespace errors; generated report may produce a Windows line-ending warning. |
 
 A passing test is evidence that the asserted behavior holds for the selected fixtures. It is not evidence that the system understands arbitrary natural language, predicts real failures, or generalizes to an operational environment.
 
 ## Performance Evidence
 
-The current evaluation establishes correctness and bounded behavior, but it does not yet claim a production performance target. The existing MCP smoke test includes server startup and tool exercise but is not a controlled latency benchmark.
+The current evaluation establishes correctness and bounded behavior, but it does not claim a production performance target. A controlled in-process benchmark now records local synthetic adapter, schema-validation, and deterministic-governance timings; it excludes MCP process startup, stdio startup, network latency, and live data systems.
 
 The current performance-relevant controls are structural:
 
@@ -131,7 +133,7 @@ Before any broader deployment discussion, a controlled benchmark should record a
 - behavior across repeated runs; and
 - failure behavior at each configured boundary.
 
-Those measurements should be collected on the target deployment environment and reported with sample counts, input fixtures, percentiles, and hardware/runtime versions. No unmeasured performance claim is made here.
+Those measurements should still be collected on any target deployment environment and reported with sample counts, input fixtures, percentiles, and hardware/runtime versions. The current benchmark is evidence about this local runtime only, not a service-level commitment.
 
 ## Security and Safety Evaluation
 

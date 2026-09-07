@@ -16,6 +16,20 @@ PRAETOR-MCP is:
 
 It is not a production system, a maintenance decision-maker, a safety-status authority, an operational work-order system, or a substitute for certified maintenance judgment.
 
+## Submission Claim Freeze
+
+As of September 6, 2026, the submission claim is fixed as follows: PRAETOR-MCP
+is a local, synthetic, advisory-only **Dataset Access Server** with deterministic
+evidence governance and review-only local packet persistence. The current
+implementation does not provide a government Service Read integration or a
+Service Write integration. Those are future modular adapters documented in the
+roadmap, not demonstrated capabilities.
+
+This claim remains separate from the frozen synthetic studies and the opt-in
+local-model instrument pilot. Neither establishes live government integration,
+predictive accuracy, operational readiness, maintenance authorization, or
+equipment safety.
+
 ## Why MCP
 
 MCP provides a governed interface for an AI host to query approved synthetic records and evidence without giving the model direct access to storage or operational systems. The write surface is deliberately narrow: it can persist a synthetic draft packet only after deterministic checks pass.
@@ -102,6 +116,9 @@ The v0.2 packet schema requires an advisory identifier, equipment and component 
 ## Run It
 
 For the shortest clone-to-demo path, see [QUICKSTART.md](QUICKSTART.md).
+The GSA submission artifacts are [GSA_PRESENTATION_DECK.md](docs/GSA_PRESENTATION_DECK.md),
+[GSA_SUBMISSION_CHECKLIST.md](docs/GSA_SUBMISSION_CHECKLIST.md), and
+[PRAETOR_MCP_EVALUATION.md](docs/PRAETOR_MCP_EVALUATION.md).
 
 ```sh
 npm install
@@ -166,6 +183,28 @@ The registry is selected with `PRAETOR_DATASET_ADAPTER=synthetic`. `external` an
 The pre-adapter open-data threat contract is recorded in [docs/OPEN_DATA_API_ADVERSARIAL_FINDINGS.md](docs/OPEN_DATA_API_ADVERSARIAL_FINDINGS.md) and exercised by [test/open-data-adapter-adversarial.test.ts](test/open-data-adapter-adversarial.test.ts). The suite is offline and establishes payload, provenance, bounds, error, and authority-field requirements before any HTTP adapter is implemented.
 
 The governance, schema, Protocol 66 classification, append-only storage, and review-only write path remain adapter-independent. This keeps the synthetic mode as the default proving ground while making the read boundary replaceable under explicit human review.
+
+### Future GSA capability modules
+
+For the GSA hackathon, PRAETOR is presented as a **Dataset Access Server**:
+the current validated scope is read-only access to synthetic datasets and
+supporting evidence. Service Read and Service Write integrations are future
+adapter modules, not current implementation claims.
+
+The intended modular boundary is:
+
+- **Dataset Access adapter:** retrieves approved datasets and source metadata.
+- **Service Read adapter:** retrieves information from an approved service.
+- **Service Write adapter:** submits information only to an approved sandbox,
+  after independent governance and human-review checks.
+
+These modules must fail independently. An outage in a future Service Read
+adapter must not disable Dataset Access; an outage in Dataset Access must not be
+hidden by substituting Service Read; and a Service Write adapter must not submit
+when its own validation, governance, or sandbox dependency is unavailable. No
+module may silently fall back to another source or claim that an unavailable
+capability succeeded. Each future adapter requires its own contract, provenance
+rules, bounded errors, security review, and adversarial test pass.
 
 ## Known Limitations
 
