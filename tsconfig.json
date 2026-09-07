@@ -10,8 +10,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "types": ["node", "vitest/globals"],
-    "baseUrl": "."
+    "types": ["node", "vitest/globals"]
   },
   "include": ["src", "test", "samples", "vitest.config.ts"]
 }

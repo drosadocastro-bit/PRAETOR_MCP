@@ -1,0 +1,752 @@
+{
+  "status": "PILOT / INSTRUMENT VALIDATION ONLY",
+  "instrument_status": "FROZEN",
+  "experimental_observation": false,
+  "experimental_observations": 0,
+  "preregistered_live_study_started": false,
+  "validation_scope": "post-freeze trace integrity and provenance correction only",
+  "model": "synthetic-v6.1-trace-integrity-fixture",
+  "adapter_version": "lm-studio-semantic-judge-v6.1",
+  "adapter_fingerprint": "1c56f77e40eca3b7357ac035b3c41358b258f9f670b29914e1a2ab5d2ec98e87",
+  "serializer_fingerprint": "5e386e842b1e8191ba31fec23b9d3f3d7780d37c0db8e4590d50ba8283fab7bf",
+  "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+  "cases": [
+    {
+      "id": "A-k-pass-judge-pass",
+      "input": {
+        "step": 1,
+        "semantic_claim": "The action is authorized and the transition violates a precondition.",
+        "hard_rule_failure": false,
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Authorization is outside the semantic judge scope."
+        }
+      },
+      "expected_semantic_error": false,
+      "semantic_observation": {
+        "available": true,
+        "semantic_error": false,
+        "confidence": 1,
+        "reason": "No semantic error.",
+        "status": "accepted"
+      },
+      "provenance": {
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":true,\\\"semantic_error\\\":false,\\\"confidence\\\":1,\\\"reason\\\":\\\"No semantic error.\\\"}\"}}]}",
+        "parsed_intermediate": {
+          "available": true,
+          "semantic_error": false,
+          "confidence": 1,
+          "reason": "No semantic error."
+        },
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "37d8fbddcbfd0fee3bbed74aa305d22de7380397bb1fc07e146ad74502c52590",
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16"
+      },
+      "governance": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": true,
+        "semantic_judge_decision": "PASS",
+        "semantic_judge_status": "accepted",
+        "evaluator_agreement": "both_pass",
+        "governed_disposition": "PASS",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false,
+        "governance_reason": "No semantic error observed."
+      },
+      "observed_semantic_error": false,
+      "semantic_expectation_match": true,
+      "trace_integrity": {
+        "semantic_error_preserved": true,
+        "availability_preserved": true,
+        "confidence_preserved": true,
+        "reason_preserved": true,
+        "governance_separate": true
+      },
+      "trace": {
+        "status": "accepted",
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":true,\\\"semantic_error\\\":false,\\\"confidence\\\":1,\\\"reason\\\":\\\"No semantic error.\\\"}\"}}]}",
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "37d8fbddcbfd0fee3bbed74aa305d22de7380397bb1fc07e146ad74502c52590",
+        "model": "synthetic-v6.1-trace-integrity-fixture",
+        "model_fingerprint": "synthetic-fixture-v6.1",
+        "quantization": "synthetic",
+        "context_length": 0,
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "system_prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "temperature": 0,
+        "top_p": 1,
+        "top_k": 40,
+        "seed": 0,
+        "max_output_tokens": 256,
+        "elapsed_ms": 21,
+        "request_size_bytes": 1588,
+        "input_token_count": null,
+        "stage_timings": {
+          "request_construction_ms": 0,
+          "request_dispatch_ms": 20,
+          "time_to_headers_ms": 20,
+          "model_completion_ms": 1,
+          "parsing_normalization_ms": 0,
+          "governance_evaluation_ms": 0,
+          "total_elapsed_ms": 21
+        },
+        "failure_origin": "none",
+        "error_detail": null,
+        "reasoning_effort": "none",
+        "authority_override_attempted": false,
+        "semantic_dispatch_occurred": true,
+        "parsed_intermediate": {
+          "available": true,
+          "semantic_error": false,
+          "confidence": 1,
+          "reason": "No semantic error."
+        },
+        "schema_violation_category": null,
+        "violated_rule": null,
+        "canonical_semantic_payload": {
+          "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.",
+          "input": {
+            "step": 1,
+            "semantic_claim": "The action is authorized and the transition violates a precondition.",
+            "evidence_context": {
+              "evidence": "A deterministic precondition is violated.",
+              "context": "Authorization is outside the semantic judge scope."
+            }
+          }
+        },
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "semantic_exposed_fields": [
+          "input.step",
+          "input.semantic_claim",
+          "input.evidence_context.evidence",
+          "input.evidence_context.context"
+        ],
+        "serialized_request_body": "{\"model\":\"synthetic-v6.1-trace-integrity-fixture\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The action is authorized and the transition violates a precondition.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"A deterministic precondition is violated.\\\",\\\"context\\\":\\\"Authorization is outside the semantic judge scope.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+      }
+    },
+    {
+      "id": "B-k-pass-judge-fail",
+      "input": {
+        "step": 1,
+        "semantic_claim": "The action is authorized and the transition violates a precondition.",
+        "hard_rule_failure": false,
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Authorization is outside the semantic judge scope."
+        }
+      },
+      "expected_semantic_error": true,
+      "semantic_observation": {
+        "available": true,
+        "semantic_error": true,
+        "confidence": 1,
+        "reason": "Qualification mismatch.",
+        "status": "accepted"
+      },
+      "provenance": {
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":true,\\\"semantic_error\\\":true,\\\"confidence\\\":1,\\\"reason\\\":\\\"Qualification mismatch.\\\"}\"}}]}",
+        "parsed_intermediate": {
+          "available": true,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "Qualification mismatch."
+        },
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "49fae4091c0f1d2b44179d0ce07f96b577cd9eedcdf83317cc51b223f51d81a9",
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16"
+      },
+      "governance": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": true,
+        "semantic_judge_decision": "FAIL",
+        "semantic_judge_status": "accepted",
+        "evaluator_agreement": "k_pass_judge_fail",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false,
+        "governance_reason": "Semantic observation indicates a semantic error."
+      },
+      "observed_semantic_error": true,
+      "semantic_expectation_match": true,
+      "trace_integrity": {
+        "semantic_error_preserved": true,
+        "availability_preserved": true,
+        "confidence_preserved": true,
+        "reason_preserved": true,
+        "governance_separate": true
+      },
+      "trace": {
+        "status": "accepted",
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":true,\\\"semantic_error\\\":true,\\\"confidence\\\":1,\\\"reason\\\":\\\"Qualification mismatch.\\\"}\"}}]}",
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "49fae4091c0f1d2b44179d0ce07f96b577cd9eedcdf83317cc51b223f51d81a9",
+        "model": "synthetic-v6.1-trace-integrity-fixture",
+        "model_fingerprint": "synthetic-fixture-v6.1",
+        "quantization": "synthetic",
+        "context_length": 0,
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "system_prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "temperature": 0,
+        "top_p": 1,
+        "top_k": 40,
+        "seed": 0,
+        "max_output_tokens": 256,
+        "elapsed_ms": 0,
+        "request_size_bytes": 1588,
+        "input_token_count": null,
+        "stage_timings": {
+          "request_construction_ms": 0,
+          "request_dispatch_ms": 0,
+          "time_to_headers_ms": 0,
+          "model_completion_ms": 0,
+          "parsing_normalization_ms": 0,
+          "governance_evaluation_ms": 0,
+          "total_elapsed_ms": 0
+        },
+        "failure_origin": "none",
+        "error_detail": null,
+        "reasoning_effort": "none",
+        "authority_override_attempted": false,
+        "semantic_dispatch_occurred": true,
+        "parsed_intermediate": {
+          "available": true,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "Qualification mismatch."
+        },
+        "schema_violation_category": null,
+        "violated_rule": null,
+        "canonical_semantic_payload": {
+          "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.",
+          "input": {
+            "step": 1,
+            "semantic_claim": "The action is authorized and the transition violates a precondition.",
+            "evidence_context": {
+              "evidence": "A deterministic precondition is violated.",
+              "context": "Authorization is outside the semantic judge scope."
+            }
+          }
+        },
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "semantic_exposed_fields": [
+          "input.step",
+          "input.semantic_claim",
+          "input.evidence_context.evidence",
+          "input.evidence_context.context"
+        ],
+        "serialized_request_body": "{\"model\":\"synthetic-v6.1-trace-integrity-fixture\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The action is authorized and the transition violates a precondition.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"A deterministic precondition is violated.\\\",\\\"context\\\":\\\"Authorization is outside the semantic judge scope.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+      }
+    },
+    {
+      "id": "D-k-fail-judge-pass",
+      "input": {
+        "step": 1,
+        "semantic_claim": "The action is authorized and the transition violates a precondition.",
+        "hard_rule_failure": true,
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Authorization is outside the semantic judge scope."
+        }
+      },
+      "expected_semantic_error": false,
+      "semantic_observation": {
+        "available": true,
+        "semantic_error": false,
+        "confidence": 1,
+        "reason": "No semantic error.",
+        "status": "accepted"
+      },
+      "provenance": {
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":true,\\\"semantic_error\\\":false,\\\"confidence\\\":1,\\\"reason\\\":\\\"No semantic error.\\\"}\"}}]}",
+        "parsed_intermediate": {
+          "available": true,
+          "semantic_error": false,
+          "confidence": 1,
+          "reason": "No semantic error."
+        },
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "37d8fbddcbfd0fee3bbed74aa305d22de7380397bb1fc07e146ad74502c52590",
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16"
+      },
+      "governance": {
+        "agent_k_decision": "FAIL",
+        "semantic_judge_available": true,
+        "semantic_judge_decision": "PASS",
+        "semantic_judge_status": "accepted",
+        "evaluator_agreement": "k_fail_judge_pass",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false,
+        "governance_reason": "Agent K hard-rule failure is non-overridable."
+      },
+      "observed_semantic_error": false,
+      "semantic_expectation_match": true,
+      "trace_integrity": {
+        "semantic_error_preserved": true,
+        "availability_preserved": true,
+        "confidence_preserved": true,
+        "reason_preserved": true,
+        "governance_separate": true
+      },
+      "trace": {
+        "status": "accepted",
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":true,\\\"semantic_error\\\":false,\\\"confidence\\\":1,\\\"reason\\\":\\\"No semantic error.\\\"}\"}}]}",
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "37d8fbddcbfd0fee3bbed74aa305d22de7380397bb1fc07e146ad74502c52590",
+        "model": "synthetic-v6.1-trace-integrity-fixture",
+        "model_fingerprint": "synthetic-fixture-v6.1",
+        "quantization": "synthetic",
+        "context_length": 0,
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "system_prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "temperature": 0,
+        "top_p": 1,
+        "top_k": 40,
+        "seed": 0,
+        "max_output_tokens": 256,
+        "elapsed_ms": 0,
+        "request_size_bytes": 1588,
+        "input_token_count": null,
+        "stage_timings": {
+          "request_construction_ms": 0,
+          "request_dispatch_ms": 0,
+          "time_to_headers_ms": 0,
+          "model_completion_ms": 0,
+          "parsing_normalization_ms": 0,
+          "governance_evaluation_ms": 0,
+          "total_elapsed_ms": 0
+        },
+        "failure_origin": "none",
+        "error_detail": null,
+        "reasoning_effort": "none",
+        "authority_override_attempted": false,
+        "semantic_dispatch_occurred": true,
+        "parsed_intermediate": {
+          "available": true,
+          "semantic_error": false,
+          "confidence": 1,
+          "reason": "No semantic error."
+        },
+        "schema_violation_category": null,
+        "violated_rule": null,
+        "canonical_semantic_payload": {
+          "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.",
+          "input": {
+            "step": 1,
+            "semantic_claim": "The action is authorized and the transition violates a precondition.",
+            "evidence_context": {
+              "evidence": "A deterministic precondition is violated.",
+              "context": "Authorization is outside the semantic judge scope."
+            }
+          }
+        },
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "semantic_exposed_fields": [
+          "input.step",
+          "input.semantic_claim",
+          "input.evidence_context.evidence",
+          "input.evidence_context.context"
+        ],
+        "serialized_request_body": "{\"model\":\"synthetic-v6.1-trace-integrity-fixture\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The action is authorized and the transition violates a precondition.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"A deterministic precondition is violated.\\\",\\\"context\\\":\\\"Authorization is outside the semantic judge scope.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+      }
+    },
+    {
+      "id": "D-k-fail-judge-fail",
+      "input": {
+        "step": 1,
+        "semantic_claim": "The action is authorized and the transition violates a precondition.",
+        "hard_rule_failure": true,
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Authorization is outside the semantic judge scope."
+        }
+      },
+      "expected_semantic_error": true,
+      "semantic_observation": {
+        "available": true,
+        "semantic_error": true,
+        "confidence": 1,
+        "reason": "Qualification mismatch.",
+        "status": "accepted"
+      },
+      "provenance": {
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":true,\\\"semantic_error\\\":true,\\\"confidence\\\":1,\\\"reason\\\":\\\"Qualification mismatch.\\\"}\"}}]}",
+        "parsed_intermediate": {
+          "available": true,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "Qualification mismatch."
+        },
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "49fae4091c0f1d2b44179d0ce07f96b577cd9eedcdf83317cc51b223f51d81a9",
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16"
+      },
+      "governance": {
+        "agent_k_decision": "FAIL",
+        "semantic_judge_available": true,
+        "semantic_judge_decision": "FAIL",
+        "semantic_judge_status": "accepted",
+        "evaluator_agreement": "both_fail",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false,
+        "governance_reason": "Agent K hard-rule failure is non-overridable."
+      },
+      "observed_semantic_error": true,
+      "semantic_expectation_match": true,
+      "trace_integrity": {
+        "semantic_error_preserved": true,
+        "availability_preserved": true,
+        "confidence_preserved": true,
+        "reason_preserved": true,
+        "governance_separate": true
+      },
+      "trace": {
+        "status": "accepted",
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":true,\\\"semantic_error\\\":true,\\\"confidence\\\":1,\\\"reason\\\":\\\"Qualification mismatch.\\\"}\"}}]}",
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "49fae4091c0f1d2b44179d0ce07f96b577cd9eedcdf83317cc51b223f51d81a9",
+        "model": "synthetic-v6.1-trace-integrity-fixture",
+        "model_fingerprint": "synthetic-fixture-v6.1",
+        "quantization": "synthetic",
+        "context_length": 0,
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "system_prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "temperature": 0,
+        "top_p": 1,
+        "top_k": 40,
+        "seed": 0,
+        "max_output_tokens": 256,
+        "elapsed_ms": 0,
+        "request_size_bytes": 1588,
+        "input_token_count": null,
+        "stage_timings": {
+          "request_construction_ms": 0,
+          "request_dispatch_ms": 0,
+          "time_to_headers_ms": 0,
+          "model_completion_ms": 0,
+          "parsing_normalization_ms": 0,
+          "governance_evaluation_ms": 0,
+          "total_elapsed_ms": 0
+        },
+        "failure_origin": "none",
+        "error_detail": null,
+        "reasoning_effort": "none",
+        "authority_override_attempted": false,
+        "semantic_dispatch_occurred": true,
+        "parsed_intermediate": {
+          "available": true,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "Qualification mismatch."
+        },
+        "schema_violation_category": null,
+        "violated_rule": null,
+        "canonical_semantic_payload": {
+          "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.",
+          "input": {
+            "step": 1,
+            "semantic_claim": "The action is authorized and the transition violates a precondition.",
+            "evidence_context": {
+              "evidence": "A deterministic precondition is violated.",
+              "context": "Authorization is outside the semantic judge scope."
+            }
+          }
+        },
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "semantic_exposed_fields": [
+          "input.step",
+          "input.semantic_claim",
+          "input.evidence_context.evidence",
+          "input.evidence_context.context"
+        ],
+        "serialized_request_body": "{\"model\":\"synthetic-v6.1-trace-integrity-fixture\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The action is authorized and the transition violates a precondition.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"A deterministic precondition is violated.\\\",\\\"context\\\":\\\"Authorization is outside the semantic judge scope.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+      }
+    },
+    {
+      "id": "E-k-fail-judge-unavailable",
+      "input": {
+        "step": 1,
+        "semantic_claim": "The action is authorized and the transition violates a precondition.",
+        "hard_rule_failure": true,
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Authorization is outside the semantic judge scope."
+        }
+      },
+      "expected_semantic_error": false,
+      "semantic_observation": {
+        "available": false,
+        "semantic_error": false,
+        "reason": "judge_unavailable",
+        "status": "endpoint_unavailable"
+      },
+      "provenance": {
+        "raw_model_output": null,
+        "parsed_intermediate": null,
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": null,
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16"
+      },
+      "governance": {
+        "agent_k_decision": "FAIL",
+        "semantic_judge_available": false,
+        "semantic_judge_decision": null,
+        "semantic_judge_status": "endpoint_unavailable",
+        "evaluator_agreement": "judge_unavailable",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false,
+        "governance_reason": "Agent K hard-rule failure is non-overridable."
+      },
+      "observed_semantic_error": null,
+      "semantic_expectation_match": null,
+      "trace_integrity": {
+        "semantic_error_preserved": true,
+        "availability_preserved": true,
+        "confidence_preserved": true,
+        "reason_preserved": true,
+        "governance_separate": true
+      },
+      "trace": {
+        "status": "endpoint_unavailable",
+        "raw_model_output": null,
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": null,
+        "model": "synthetic-v6.1-trace-integrity-fixture",
+        "model_fingerprint": "synthetic-fixture-v6.1",
+        "quantization": "synthetic",
+        "context_length": 0,
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "system_prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "temperature": 0,
+        "top_p": 1,
+        "top_k": 40,
+        "seed": 0,
+        "max_output_tokens": 256,
+        "elapsed_ms": 0,
+        "request_size_bytes": 1588,
+        "input_token_count": null,
+        "stage_timings": {
+          "request_construction_ms": 0,
+          "request_dispatch_ms": 0,
+          "time_to_headers_ms": null,
+          "model_completion_ms": null,
+          "parsing_normalization_ms": 0,
+          "governance_evaluation_ms": 0,
+          "total_elapsed_ms": 0
+        },
+        "failure_origin": "transport_error",
+        "error_detail": "synthetic endpoint unavailable",
+        "reasoning_effort": "none",
+        "authority_override_attempted": false,
+        "semantic_dispatch_occurred": true,
+        "parsed_intermediate": null,
+        "schema_violation_category": null,
+        "violated_rule": null,
+        "canonical_semantic_payload": {
+          "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.",
+          "input": {
+            "step": 1,
+            "semantic_claim": "The action is authorized and the transition violates a precondition.",
+            "evidence_context": {
+              "evidence": "A deterministic precondition is violated.",
+              "context": "Authorization is outside the semantic judge scope."
+            }
+          }
+        },
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "semantic_exposed_fields": [
+          "input.step",
+          "input.semantic_claim",
+          "input.evidence_context.evidence",
+          "input.evidence_context.context"
+        ],
+        "serialized_request_body": "{\"model\":\"synthetic-v6.1-trace-integrity-fixture\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The action is authorized and the transition violates a precondition.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"A deterministic precondition is violated.\\\",\\\"context\\\":\\\"Authorization is outside the semantic judge scope.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+      }
+    },
+    {
+      "id": "F-k-fail-schema-failure",
+      "input": {
+        "step": 1,
+        "semantic_claim": "The action is authorized and the transition violates a precondition.",
+        "hard_rule_failure": true,
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Authorization is outside the semantic judge scope."
+        }
+      },
+      "expected_semantic_error": false,
+      "semantic_observation": {
+        "available": false,
+        "semantic_error": false,
+        "reason": "judge_malformed",
+        "status": "invalid_schema"
+      },
+      "provenance": {
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":false,\\\"semantic_error\\\":true,\\\"confidence\\\":1,\\\"reason\\\":\\\"Invalid availability combination.\\\"}\"}}]}",
+        "parsed_intermediate": {
+          "available": false,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "Invalid availability combination."
+        },
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "4e3fffd7262db05e5e9e7db17905062a55471d5612a28e87af45a72491717d50",
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16"
+      },
+      "governance": {
+        "agent_k_decision": "FAIL",
+        "semantic_judge_available": false,
+        "semantic_judge_decision": null,
+        "semantic_judge_status": "invalid_schema",
+        "evaluator_agreement": "judge_schema_failure",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false,
+        "governance_reason": "Agent K hard-rule failure is non-overridable."
+      },
+      "observed_semantic_error": null,
+      "semantic_expectation_match": null,
+      "trace_integrity": {
+        "semantic_error_preserved": true,
+        "availability_preserved": true,
+        "confidence_preserved": true,
+        "reason_preserved": true,
+        "governance_separate": true
+      },
+      "trace": {
+        "status": "invalid_schema",
+        "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"{\\\"available\\\":false,\\\"semantic_error\\\":true,\\\"confidence\\\":1,\\\"reason\\\":\\\"Invalid availability combination.\\\"}\"}}]}",
+        "request_fingerprint": "2cdd77fe8dea5503f54f441af36291b46d1c552c7ca2edf0f19a8a6dc74c0949",
+        "response_fingerprint": "4e3fffd7262db05e5e9e7db17905062a55471d5612a28e87af45a72491717d50",
+        "model": "synthetic-v6.1-trace-integrity-fixture",
+        "model_fingerprint": "synthetic-fixture-v6.1",
+        "quantization": "synthetic",
+        "context_length": 0,
+        "adapter_version": "lm-studio-semantic-judge-v6.1",
+        "prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "system_prompt_fingerprint": "690555b779b44fd90a5c3aeed9e6bb482b9335b0b11ea5ea4850d290bd6cec16",
+        "configuration_fingerprint": "a67e4f78e7421dfb073c806c6f5220885c9726d3bda7a88e11647ea64fbdcbbd",
+        "temperature": 0,
+        "top_p": 1,
+        "top_k": 40,
+        "seed": 0,
+        "max_output_tokens": 256,
+        "elapsed_ms": 0,
+        "request_size_bytes": 1588,
+        "input_token_count": null,
+        "stage_timings": {
+          "request_construction_ms": 0,
+          "request_dispatch_ms": 0,
+          "time_to_headers_ms": 0,
+          "model_completion_ms": 0,
+          "parsing_normalization_ms": 0,
+          "governance_evaluation_ms": 0,
+          "total_elapsed_ms": 0
+        },
+        "failure_origin": "parser",
+        "error_detail": null,
+        "reasoning_effort": "none",
+        "authority_override_attempted": false,
+        "semantic_dispatch_occurred": true,
+        "parsed_intermediate": {
+          "available": false,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "Invalid availability combination."
+        },
+        "schema_violation_category": "available_false_incompatible_fields",
+        "violated_rule": "available must be true for a schema-valid semantic observation.",
+        "canonical_semantic_payload": {
+          "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.",
+          "input": {
+            "step": 1,
+            "semantic_claim": "The action is authorized and the transition violates a precondition.",
+            "evidence_context": {
+              "evidence": "A deterministic precondition is violated.",
+              "context": "Authorization is outside the semantic judge scope."
+            }
+          }
+        },
+        "canonical_semantic_payload_fingerprint": "9ab9e38e4c57c488ed37ff385ae37f923cfc96c1a9efa38cf978bd0bb047dc0c",
+        "semantic_exposed_fields": [
+          "input.step",
+          "input.semantic_claim",
+          "input.evidence_context.evidence",
+          "input.evidence_context.context"
+        ],
+        "serialized_request_body": "{\"model\":\"synthetic-v6.1-trace-integrity-fixture\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. The reason must be non-empty, concise, and no longer than 500 characters. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The action is authorized and the transition violates a precondition.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"A deterministic precondition is violated.\\\",\\\"context\\\":\\\"Authorization is outside the semantic judge scope.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+      }
+    },
+    {
+      "id": "C-agent-k-only",
+      "semantic_dispatch_occurred": false,
+      "semantic_observation": null,
+      "governance": {
+        "agent_k_decision": "FAIL",
+        "semantic_judge_decision": null,
+        "governed_disposition": "FAIL"
+      }
+    }
+  ],
+  "combined_fixture_audit": {
+    "id": "D-k-fail-judge-fail",
+    "semantic_observation": {
+      "available": true,
+      "semantic_error": true,
+      "confidence": 1,
+      "reason": "Qualification mismatch.",
+      "status": "accepted"
+    },
+    "governance": {
+      "agent_k_decision": "FAIL",
+      "semantic_judge_available": true,
+      "semantic_judge_decision": "FAIL",
+      "semantic_judge_status": "accepted",
+      "evaluator_agreement": "both_fail",
+      "governed_disposition": "FAIL",
+      "semantic_dispatch_occurred": true,
+      "authority_override_attempted": false,
+      "governance_reason": "Agent K hard-rule failure is non-overridable."
+    },
+    "expected_semantic_error": true,
+    "expectation_definition_note": "The v6.1 trace-integrity fixture intentionally represents the semantic_error=true branch to verify that a semantic FAIL remains preserved when Agent K also fails. This synthetic regression fixture does not reinterpret or rescore the historical v6 live-model expectation."
+  },
+  "invariants": {
+    "trace_integrity_pass": true,
+    "semantic_observation_preserved": true,
+    "agent_k_fail_implies_governed_fail": true,
+    "c_agent_k_only_no_dispatch": true,
+    "d_independent_dispatch": true
+  },
+  "acceptance_statement": "LIVE INSTRUMENT v6.1 FROZEN - TRACE INTEGRITY VALIDATED - SEMANTIC CONTRACT UNCHANGED FROM v6 - AGENT K AUTHORITY PRESERVED - HISTORICAL v6 EVIDENCE UNCHANGED - PREREGISTERED LIVE STUDY NOT STARTED. The post-freeze correction preserves the original semantic observation independently from governance authority. This synthetic validation does not constitute semantic-performance validation of Qwen."
+}

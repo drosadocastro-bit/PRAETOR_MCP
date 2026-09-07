@@ -1,0 +1,1710 @@
+{
+  "status": "PILOT / INSTRUMENT VALIDATION ONLY",
+  "experimental_observation": false,
+  "preregistered_live_study_started": false,
+  "timestamp_utc": "2026-09-07T19:25:49.037Z",
+  "configuration": {
+    "enabled": true,
+    "endpoint": "http://127.0.0.1:1234/v1/chat/completions",
+    "model": "qwen/qwen3.5-9b",
+    "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+    "quantization": "Q4_K_M",
+    "context_length": 262144,
+    "adapter_version": "lm-studio-semantic-judge-v5",
+    "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+    "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+    "temperature": 0,
+    "top_p": 1,
+    "top_k": 40,
+    "seed": 0,
+    "max_output_tokens": 256,
+    "reasoning_effort": "none",
+    "timeout_ms": 300000,
+    "models_endpoint": "http://127.0.0.1:1234/api/v1/models",
+    "lm_studio_metadata": {
+      "type": "llm",
+      "publisher": "qwen",
+      "key": "qwen/qwen3.5-9b",
+      "display_name": "Qwen3.5 9B",
+      "architecture": "qwen35",
+      "quantization": {
+        "name": "Q4_K_M",
+        "bits_per_weight": 4
+      },
+      "size_bytes": 6548927711,
+      "params_string": "9B",
+      "loaded_instances": [
+        {
+          "id": "qwen/qwen3.5-9b",
+          "config": {
+            "context_length": 262144,
+            "eval_batch_size": 2048,
+            "physical_batch_size": 512,
+            "parallel": 4,
+            "flash_attention": true,
+            "context_checkpoints": 32,
+            "reasoning_budget_message": "",
+            "speculative_draft_mtp": false,
+            "speculative_draft_simple": false,
+            "speculative_draft_model": "",
+            "speculative_draft_max_tokens": 16,
+            "speculative_draft_min_tokens": 0,
+            "speculative_draft_min_continue_probability": 0.75,
+            "offload_kv_cache_to_gpu": true
+          }
+        }
+      ],
+      "max_context_length": 262144,
+      "format": "gguf",
+      "capabilities": {
+        "vision": true,
+        "trained_for_tool_use": true,
+        "reasoning": {
+          "allowed_options": [
+            "off",
+            "on"
+          ],
+          "default": "on"
+        }
+      },
+      "description": null,
+      "variants": [
+        "qwen/qwen3.5-9b@q4_k_m"
+      ],
+      "selected_variant": "qwen/qwen3.5-9b@q4_k_m"
+    }
+  },
+  "configuration_warnings": [
+    "Reasoning configuration discrepancy: request=none; metadata_allowed_options=off,on. No silent substitution performed; endpoint acceptance is authoritative for this pilot."
+  ],
+  "adapter_defects": [
+    "Historical first pilot request used unsupported response_format.type=json_object; the historical artifact remains unchanged and this incident is retained as an API compatibility failure.",
+    "Previous pilot reasoning request used off; LM Studio accepted none while metadata advertised off/on. The discrepancy is recorded without silent substitution."
+  ],
+  "observed_limitations": [
+    "This v5 pilot is contract validation only; schema validity and semantic accuracy remain separate observations.",
+    "Historical v4 responses are not merged into this artifact or rescored under the v5 availability wording."
+  ],
+  "contract_amendment": {
+    "version": "semantic-availability-contract-v5",
+    "historical_baseline": "data/pilot/live-horizon-pilot-v4-latest.json",
+    "historical_v4_ccr": "4/9 = 0.4444",
+    "parser_strictness_changed": false,
+    "semantic_targets_changed": false,
+    "governance_authority_changed": false
+  },
+  "semantic_input_flow_audit": {
+    "status": "SEMANTIC DISPATCH INDEPENDENCE VALIDATED; AGENT K AUTHORITY PRESERVED; SEMANTIC OUTPUT CONTRACT AMENDMENT UNDER VALIDATION; ADAPTER NOT FROZEN",
+    "judge_receives_evidence_and_context": true,
+    "hard_rule_failure_exposed_in_canonical_payload": false,
+    "hard_rule_failure_sent_to_model_when_true": false,
+    "semantic_dispatch_occurs_when_hard_rule_failure_true": true,
+    "interpretation": "hard_rule_failure is retained only as orchestration metadata. It is absent from the semantic payload, does not gate dispatch, and Agent K remains authoritative in governance fusion.",
+    "evidence_sensitivity_probe": {
+      "classification": "evidence_sensitive",
+      "cases": [
+        {
+          "id": "evidence-A-within-stable",
+          "probe": "matched_evidence_sensitivity",
+          "classification": "evidence_sensitive",
+          "input": {
+            "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+            "hard_rule_failure": false,
+            "evidence_context": {
+              "evidence": "The reading is within the threshold and the trend is stable.",
+              "context": "Use only the supplied evidence to evaluate the claim."
+            }
+          },
+          "evaluation": {
+            "result": {
+              "available": true,
+              "semantic_error": true,
+              "confidence": 1,
+              "reason": "The claim asserts that the reading 'exceeds the threshold' and indicates 'deterioration', while the evidence explicitly states the reading is 'within the threshold' and the trend is 'stable'. This constitutes a direct semantic contradiction between the claim and the provided evidence."
+            },
+            "trace": {
+              "status": "accepted",
+              "raw_model_output": "{\n  \"id\": \"chatcmpl-doazg2n3cmanvml41cjwe\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809118,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim asserts that the reading 'exceeds the threshold' and indicates 'deterioration', while the evidence explicitly states the reading is 'within the threshold' and the trend is 'stable'. This constitutes a direct semantic contradiction between the claim and the provided evidence.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 239,\n    \"completion_tokens\": 90,\n    \"total_tokens\": 329,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+              "request_fingerprint": "9e29730e833e78ba63c58aff9e53b8a18b9fcaa8076e2b291161929ac1dbb301",
+              "response_fingerprint": "f1825d86d7c0b31f03816de35f11e296c70a922bf3a4d896767aa4109e3c078c",
+              "model": "qwen/qwen3.5-9b",
+              "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+              "quantization": "Q4_K_M",
+              "context_length": 262144,
+              "adapter_version": "lm-studio-semantic-judge-v5",
+              "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+              "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+              "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+              "temperature": 0,
+              "top_p": 1,
+              "top_k": 40,
+              "seed": 0,
+              "max_output_tokens": 256,
+              "elapsed_ms": 8723,
+              "request_size_bytes": 1507,
+              "input_token_count": null,
+              "stage_timings": {
+                "request_construction_ms": 0,
+                "request_dispatch_ms": 8723,
+                "time_to_headers_ms": 8723,
+                "model_completion_ms": 0,
+                "parsing_normalization_ms": 0,
+                "governance_evaluation_ms": 0,
+                "total_elapsed_ms": 8723
+              },
+              "failure_origin": "none",
+              "error_detail": null,
+              "reasoning_effort": "none",
+              "authority_override_attempted": false,
+              "semantic_dispatch_occurred": true,
+              "parsed_intermediate": {
+                "available": true,
+                "semantic_error": true,
+                "confidence": 1,
+                "reason": "The claim asserts that the reading 'exceeds the threshold' and indicates 'deterioration', while the evidence explicitly states the reading is 'within the threshold' and the trend is 'stable'. This constitutes a direct semantic contradiction between the claim and the provided evidence."
+              },
+              "schema_violation_category": null,
+              "violated_rule": null,
+              "canonical_semantic_payload": {
+                "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+                "input": {
+                  "step": 1,
+                  "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+                  "evidence_context": {
+                    "evidence": "The reading is within the threshold and the trend is stable.",
+                    "context": "Use only the supplied evidence to evaluate the claim."
+                  }
+                }
+              },
+              "canonical_semantic_payload_fingerprint": "fa459733e003c6f1b697b2a2ede32046fd10f619230e81408088ebacd6091525",
+              "semantic_exposed_fields": [
+                "input.step",
+                "input.semantic_claim",
+                "input.evidence_context.evidence",
+                "input.evidence_context.context"
+              ],
+              "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading is within the threshold and the trend is stable.\\\",\\\"context\\\":\\\"Use only the supplied evidence to evaluate the claim.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+            }
+          }
+        },
+        {
+          "id": "evidence-B-exceeds-worsening",
+          "probe": "matched_evidence_sensitivity",
+          "classification": "evidence_sensitive",
+          "input": {
+            "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+            "hard_rule_failure": false,
+            "evidence_context": {
+              "evidence": "The reading exceeds the threshold and the trend is worsening.",
+              "context": "Use only the supplied evidence to evaluate the claim."
+            }
+          },
+          "evaluation": {
+            "result": {
+              "available": true,
+              "semantic_error": false,
+              "confidence": 1,
+              "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+            },
+            "trace": {
+              "status": "accepted",
+              "raw_model_output": "{\n  \"id\": \"chatcmpl-6cdvf0f80wn012l2jeoagdgh\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809127,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": false,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 238,\n    \"completion_tokens\": 103,\n    \"total_tokens\": 341,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+              "request_fingerprint": "a27935cadd96312041bb539cf8be1e59c87754cd3a95497bc7efb4ae35002657",
+              "response_fingerprint": "928a0b53906198f40dcbe8d83159df7cbcd581f586f6a94aee5bf81984281789",
+              "model": "qwen/qwen3.5-9b",
+              "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+              "quantization": "Q4_K_M",
+              "context_length": 262144,
+              "adapter_version": "lm-studio-semantic-judge-v5",
+              "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+              "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+              "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+              "temperature": 0,
+              "top_p": 1,
+              "top_k": 40,
+              "seed": 0,
+              "max_output_tokens": 256,
+              "elapsed_ms": 9473,
+              "request_size_bytes": 1508,
+              "input_token_count": null,
+              "stage_timings": {
+                "request_construction_ms": 0,
+                "request_dispatch_ms": 9472,
+                "time_to_headers_ms": 9472,
+                "model_completion_ms": 0,
+                "parsing_normalization_ms": 0,
+                "governance_evaluation_ms": 0,
+                "total_elapsed_ms": 9473
+              },
+              "failure_origin": "none",
+              "error_detail": null,
+              "reasoning_effort": "none",
+              "authority_override_attempted": false,
+              "semantic_dispatch_occurred": true,
+              "parsed_intermediate": {
+                "available": true,
+                "semantic_error": false,
+                "confidence": 1,
+                "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+              },
+              "schema_violation_category": null,
+              "violated_rule": null,
+              "canonical_semantic_payload": {
+                "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+                "input": {
+                  "step": 1,
+                  "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+                  "evidence_context": {
+                    "evidence": "The reading exceeds the threshold and the trend is worsening.",
+                    "context": "Use only the supplied evidence to evaluate the claim."
+                  }
+                }
+              },
+              "canonical_semantic_payload_fingerprint": "bb0727e3b155f43cd2c7c0d21692bc8c0c56f18863481240c903ac0f26edbc31",
+              "semantic_exposed_fields": [
+                "input.step",
+                "input.semantic_claim",
+                "input.evidence_context.evidence",
+                "input.evidence_context.context"
+              ],
+              "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading exceeds the threshold and the trend is worsening.\\\",\\\"context\\\":\\\"Use only the supplied evidence to evaluate the claim.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+            }
+          }
+        }
+      ]
+    },
+    "hard_rule_signal_probe": {
+      "classification": "hard_rule_signal_insensitive",
+      "cases": [
+        {
+          "id": "hard-rule-false",
+          "probe": "matched_hard_rule_signal",
+          "classification": "hard_rule_signal_insensitive",
+          "input": {
+            "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+            "hard_rule_failure": false,
+            "evidence_context": {
+              "evidence": "The reading exceeds the threshold and the trend is worsening.",
+              "context": "Use only the supplied evidence to evaluate the claim."
+            }
+          },
+          "evaluation": {
+            "result": {
+              "available": true,
+              "semantic_error": false,
+              "confidence": 1,
+              "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+            },
+            "trace": {
+              "status": "accepted",
+              "raw_model_output": "{\n  \"id\": \"chatcmpl-dwa0bzoi69fah7bstpk3ft\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809136,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": false,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 238,\n    \"completion_tokens\": 103,\n    \"total_tokens\": 341,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+              "request_fingerprint": "a27935cadd96312041bb539cf8be1e59c87754cd3a95497bc7efb4ae35002657",
+              "response_fingerprint": "1344b223265b00d73a1e85152e07c87f87138eba32893e6f08dede978d05d839",
+              "model": "qwen/qwen3.5-9b",
+              "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+              "quantization": "Q4_K_M",
+              "context_length": 262144,
+              "adapter_version": "lm-studio-semantic-judge-v5",
+              "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+              "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+              "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+              "temperature": 0,
+              "top_p": 1,
+              "top_k": 40,
+              "seed": 0,
+              "max_output_tokens": 256,
+              "elapsed_ms": 6150,
+              "request_size_bytes": 1508,
+              "input_token_count": null,
+              "stage_timings": {
+                "request_construction_ms": 0,
+                "request_dispatch_ms": 6150,
+                "time_to_headers_ms": 6150,
+                "model_completion_ms": 0,
+                "parsing_normalization_ms": 0,
+                "governance_evaluation_ms": 0,
+                "total_elapsed_ms": 6150
+              },
+              "failure_origin": "none",
+              "error_detail": null,
+              "reasoning_effort": "none",
+              "authority_override_attempted": false,
+              "semantic_dispatch_occurred": true,
+              "parsed_intermediate": {
+                "available": true,
+                "semantic_error": false,
+                "confidence": 1,
+                "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+              },
+              "schema_violation_category": null,
+              "violated_rule": null,
+              "canonical_semantic_payload": {
+                "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+                "input": {
+                  "step": 1,
+                  "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+                  "evidence_context": {
+                    "evidence": "The reading exceeds the threshold and the trend is worsening.",
+                    "context": "Use only the supplied evidence to evaluate the claim."
+                  }
+                }
+              },
+              "canonical_semantic_payload_fingerprint": "bb0727e3b155f43cd2c7c0d21692bc8c0c56f18863481240c903ac0f26edbc31",
+              "semantic_exposed_fields": [
+                "input.step",
+                "input.semantic_claim",
+                "input.evidence_context.evidence",
+                "input.evidence_context.context"
+              ],
+              "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading exceeds the threshold and the trend is worsening.\\\",\\\"context\\\":\\\"Use only the supplied evidence to evaluate the claim.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+            }
+          }
+        },
+        {
+          "id": "hard-rule-true",
+          "probe": "matched_hard_rule_signal",
+          "classification": "hard_rule_signal_insensitive",
+          "input": {
+            "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+            "hard_rule_failure": true,
+            "evidence_context": {
+              "evidence": "The reading exceeds the threshold and the trend is worsening.",
+              "context": "Use only the supplied evidence to evaluate the claim."
+            }
+          },
+          "evaluation": {
+            "result": {
+              "available": true,
+              "semantic_error": false,
+              "confidence": 1,
+              "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+            },
+            "trace": {
+              "status": "accepted",
+              "raw_model_output": "{\n  \"id\": \"chatcmpl-kgk3sjvu9kcdfbadk6nikt\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809142,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": false,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 238,\n    \"completion_tokens\": 103,\n    \"total_tokens\": 341,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+              "request_fingerprint": "a27935cadd96312041bb539cf8be1e59c87754cd3a95497bc7efb4ae35002657",
+              "response_fingerprint": "35ced863dc692848c857141da493e7feda948a1b378ceb586a43170049b3df46",
+              "model": "qwen/qwen3.5-9b",
+              "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+              "quantization": "Q4_K_M",
+              "context_length": 262144,
+              "adapter_version": "lm-studio-semantic-judge-v5",
+              "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+              "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+              "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+              "temperature": 0,
+              "top_p": 1,
+              "top_k": 40,
+              "seed": 0,
+              "max_output_tokens": 256,
+              "elapsed_ms": 6153,
+              "request_size_bytes": 1508,
+              "input_token_count": null,
+              "stage_timings": {
+                "request_construction_ms": 0,
+                "request_dispatch_ms": 6153,
+                "time_to_headers_ms": 6153,
+                "model_completion_ms": 0,
+                "parsing_normalization_ms": 0,
+                "governance_evaluation_ms": 0,
+                "total_elapsed_ms": 6153
+              },
+              "failure_origin": "none",
+              "error_detail": null,
+              "reasoning_effort": "none",
+              "authority_override_attempted": false,
+              "semantic_dispatch_occurred": true,
+              "parsed_intermediate": {
+                "available": true,
+                "semantic_error": false,
+                "confidence": 1,
+                "reason": "The claim states that the reading exceeds the threshold and indicates deterioration. The evidence explicitly confirms that the reading exceeds the threshold and describes the trend as worsening. 'Worsening' is semantically equivalent to 'deterioration' in this context. There is no contradiction, ambiguity, or unsupported certainty; the evidence fully supports the claim."
+              },
+              "schema_violation_category": null,
+              "violated_rule": null,
+              "canonical_semantic_payload": {
+                "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+                "input": {
+                  "step": 1,
+                  "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+                  "evidence_context": {
+                    "evidence": "The reading exceeds the threshold and the trend is worsening.",
+                    "context": "Use only the supplied evidence to evaluate the claim."
+                  }
+                }
+              },
+              "canonical_semantic_payload_fingerprint": "bb0727e3b155f43cd2c7c0d21692bc8c0c56f18863481240c903ac0f26edbc31",
+              "semantic_exposed_fields": [
+                "input.step",
+                "input.semantic_claim",
+                "input.evidence_context.evidence",
+                "input.evidence_context.context"
+              ],
+              "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading exceeds the threshold and the trend is worsening.\\\",\\\"context\\\":\\\"Use only the supplied evidence to evaluate the claim.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+            }
+          }
+        }
+      ]
+    },
+    "categories": [
+      "evidence_sensitive",
+      "evidence_insensitive",
+      "hard_rule_signal_insensitive",
+      "hard_rule_signal_sensitive",
+      "schema_failure",
+      "ambiguous_result",
+      "insufficient_probe"
+    ]
+  },
+  "semantic_contract_gate": {
+    "denominator_definition": "semantic responses received by the semantic parser only; excludes timeouts, endpoint/API failures, and Agent-K-only cases",
+    "semantic_responses_received": 9,
+    "schema_valid_semantic_responses": 8,
+    "contract_compliance_rate": 0.8888888888888888,
+    "invalid_response_counts": {
+      "invalid_json": 0,
+      "missing_required_field": 0,
+      "wrong_field_type": 0,
+      "available_false_incompatible_fields": 0,
+      "confidence_out_of_range": 0,
+      "extra_wrapper_content": 0,
+      "malformed_refusal": 0,
+      "other_schema_violation": 1
+    },
+    "invalid_responses": [
+      {
+        "schema_violation_category": "other_schema_violation",
+        "violated_rule": "reason must be a non-empty string of at most 500 characters.",
+        "raw_model_output": "{\n  \"id\": \"chatcmpl-7284vce53r7u5cpzxgwh2f\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809071,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": false,\\n  \\\"confidence\\\": 0.95,\\n  \\\"reason\\\": \\\"The claim accurately reflects the evidence: it notes an isolated elevated reading, acknowledges the lack of a consistent trend or breach of failure thresholds (as stated in the evidence), and correctly concludes that the system state remains within acceptable bounds based on the provided context that the observation is synthetic and does not establish a failure. There is no unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency between the claim and the evidence.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 261,\n    \"completion_tokens\": 120,\n    \"total_tokens\": 381,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+        "parsed_intermediate": {
+          "available": true,
+          "semantic_error": false,
+          "confidence": 0.95,
+          "reason": "The claim accurately reflects the evidence: it notes an isolated elevated reading, acknowledges the lack of a consistent trend or breach of failure thresholds (as stated in the evidence), and correctly concludes that the system state remains within acceptable bounds based on the provided context that the observation is synthetic and does not establish a failure. There is no unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency between the claim and the evidence."
+        },
+        "request_fingerprint": "176d33058a2cbed1f254aff882983e89331f1cbe0042cf3b9fb22de00f73638c",
+        "response_fingerprint": "3838ca149966cb9d175dcf536f8183e1c03d2063170230db9399f3827f31534d",
+        "canonical_payload_fingerprint": "f2fd0ff5765cccc3768e86f2412f5920155d4cc62affce758704b61a908a419e",
+        "model": "qwen/qwen3.5-9b",
+        "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+        "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+        "adapter_version": "lm-studio-semantic-judge-v5",
+        "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+        "status": "malformed_json"
+      }
+    ],
+    "invariants": {
+      "schema_invalid_implies_semantic_observation_unavailable": true,
+      "agent_k_fail_implies_governed_fail": true
+    }
+  },
+  "cases": [
+    {
+      "id": "supported-cautious-trajectory",
+      "condition": "instrument_supported_caution",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "One elevated reading was recorded; no established trend or failure threshold is available.",
+          "context": "The observation is synthetic and does not establish a failure."
+        },
+        "semantic_claim": "An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.",
+        "hard_rule_failure": false
+      },
+      "expected_semantic_error": false,
+      "model_generation": {
+        "available": true,
+        "semantic_claim": "An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.",
+        "proposed_transition": "Continue standard monitoring protocols while awaiting additional data points to assess for emerging trends.",
+        "raw_model_output": "{\n  \"id\": \"chatcmpl-4cyrhzkzbpxe0rwbc8u16v\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809062,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"semantic_claim\\\": \\\"An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.\\\",\\n  \\\"proposed_transition\\\": \\\"Continue standard monitoring protocols while awaiting additional data points to assess for emerging trends.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 112,\n    \"completion_tokens\": 61,\n    \"total_tokens\": 173,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+        "trace": {
+          "status": "accepted",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-4cyrhzkzbpxe0rwbc8u16v\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809062,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"semantic_claim\\\": \\\"An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.\\\",\\n  \\\"proposed_transition\\\": \\\"Continue standard monitoring protocols while awaiting additional data points to assess for emerging trends.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 112,\n    \"completion_tokens\": 61,\n    \"total_tokens\": 173,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "329edfd9b3e9072afdfec5ccc9a2ea3dcd252800ff4647a0682fea2e7202399a",
+          "response_fingerprint": "6b0bd8743ecfaa5370501acfc5563e7dde2e6cf1e3cfa2f2b6944e727980f81b",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "reasoning_effort": "none",
+          "elapsed_ms": 9598,
+          "request_size_bytes": 723,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 1,
+            "request_dispatch_ms": 9597,
+            "time_to_headers_ms": 9597,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 9598
+          },
+          "failure_origin": "none",
+          "error_detail": null,
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": false,
+          "parsed_intermediate": null,
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 0,
+              "semantic_claim": "",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "ee130bb8cb2e18b9c06ff28ef7c96a61686ec517203da14efc2a0f4ece7b4749",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": ""
+        }
+      },
+      "judge_and_governance": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "malformed_json",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-7284vce53r7u5cpzxgwh2f\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809071,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": false,\\n  \\\"confidence\\\": 0.95,\\n  \\\"reason\\\": \\\"The claim accurately reflects the evidence: it notes an isolated elevated reading, acknowledges the lack of a consistent trend or breach of failure thresholds (as stated in the evidence), and correctly concludes that the system state remains within acceptable bounds based on the provided context that the observation is synthetic and does not establish a failure. There is no unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency between the claim and the evidence.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 261,\n    \"completion_tokens\": 120,\n    \"total_tokens\": 381,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "176d33058a2cbed1f254aff882983e89331f1cbe0042cf3b9fb22de00f73638c",
+          "response_fingerprint": "3838ca149966cb9d175dcf536f8183e1c03d2063170230db9399f3827f31534d",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 11460,
+          "request_size_bytes": 1643,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 11457,
+            "time_to_headers_ms": 11457,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 1,
+            "governance_evaluation_ms": 2,
+            "total_elapsed_ms": 11460
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": true,
+            "semantic_error": false,
+            "confidence": 0.95,
+            "reason": "The claim accurately reflects the evidence: it notes an isolated elevated reading, acknowledges the lack of a consistent trend or breach of failure thresholds (as stated in the evidence), and correctly concludes that the system state remains within acceptable bounds based on the provided context that the observation is synthetic and does not establish a failure. There is no unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency between the claim and the evidence."
+          },
+          "schema_violation_category": "other_schema_violation",
+          "violated_rule": "reason must be a non-empty string of at most 500 characters.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.",
+              "evidence_context": {
+                "evidence": "One elevated reading was recorded; no established trend or failure threshold is available.",
+                "context": "The observation is synthetic and does not establish a failure."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "f2fd0ff5765cccc3768e86f2412f5920155d4cc62affce758704b61a908a419e",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"An isolated elevated reading has been noted, but without a consistent trend or breach of failure thresholds, the system state remains within acceptable bounds.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"One elevated reading was recorded; no established trend or failure threshold is available.\\\",\\\"context\\\":\\\"The observation is synthetic and does not establish a failure.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "PASS",
+          "semantic_judge_available": false,
+          "semantic_judge_decision": null,
+          "semantic_judge_status": "malformed_json",
+          "evaluator_agreement": "judge_schema_failure",
+          "governed_disposition": "UNAVAILABLE",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": false,
+        "semantic_judge_decision": null,
+        "semantic_judge_status": "malformed_json",
+        "evaluator_agreement": "judge_schema_failure",
+        "governed_disposition": "UNAVAILABLE",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": null,
+      "semantic_expectation_match": null,
+      "agent_k_decision": "PASS",
+      "governed_disposition": "UNAVAILABLE"
+    },
+    {
+      "id": "unsupported-certainty",
+      "condition": "instrument_unsupported_certainty",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "One elevated reading was recorded; no established trend or failure threshold is available.",
+          "context": "The observation is synthetic and does not establish a failure."
+        },
+        "semantic_claim": "The evidence proves the component will fail soon.",
+        "hard_rule_failure": false
+      },
+      "expected_semantic_error": true,
+      "model_generation": null,
+      "judge_and_governance": {
+        "result": {
+          "available": true,
+          "semantic_error": true,
+          "confidence": 0.95,
+          "reason": "The claim asserts certainty ('proves', 'will fail soon') based on the evidence which explicitly lacks a trend or threshold and states it does not establish failure. This constitutes a contradiction between the strength of the claim and the limitations described in the context."
+        },
+        "trace": {
+          "status": "accepted",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-t0gtrdlfq9m9gsfisdy8\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809083,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 0.95,\\n  \\\"reason\\\": \\\"The claim asserts certainty ('proves', 'will fail soon') based on the evidence which explicitly lacks a trend or threshold and states it does not establish failure. This constitutes a contradiction between the strength of the claim and the limitations described in the context.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 243,\n    \"completion_tokens\": 86,\n    \"total_tokens\": 329,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "cd28cfed38db6009b56f81f9ccb49c71bcac32174d19999a65df3b07c87fcead",
+          "response_fingerprint": "c5480d0e1ed6f4836075f2bf176a1a07da60bc7bd3914bffaff6b10942572ee4",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 8667,
+          "request_size_bytes": 1533,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 8666,
+            "time_to_headers_ms": 8666,
+            "model_completion_ms": 1,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 8667
+          },
+          "failure_origin": "none",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": true,
+            "semantic_error": true,
+            "confidence": 0.95,
+            "reason": "The claim asserts certainty ('proves', 'will fail soon') based on the evidence which explicitly lacks a trend or threshold and states it does not establish failure. This constitutes a contradiction between the strength of the claim and the limitations described in the context."
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "The evidence proves the component will fail soon.",
+              "evidence_context": {
+                "evidence": "One elevated reading was recorded; no established trend or failure threshold is available.",
+                "context": "The observation is synthetic and does not establish a failure."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "e3011f69c77ba290eb76692975550770e2e1a433837903b0e72d31711c2eea50",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The evidence proves the component will fail soon.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"One elevated reading was recorded; no established trend or failure threshold is available.\\\",\\\"context\\\":\\\"The observation is synthetic and does not establish a failure.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "PASS",
+          "semantic_judge_available": true,
+          "semantic_judge_decision": "FAIL",
+          "semantic_judge_status": "accepted",
+          "evaluator_agreement": "k_pass_judge_fail",
+          "governed_disposition": "FAIL",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": true,
+        "semantic_judge_decision": "FAIL",
+        "semantic_judge_status": "accepted",
+        "evaluator_agreement": "k_pass_judge_fail",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": true,
+      "semantic_expectation_match": true,
+      "agent_k_decision": "PASS",
+      "governed_disposition": "FAIL"
+    },
+    {
+      "id": "material-ambiguity",
+      "condition": "instrument_ambiguity",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "Two readings differ, but timestamps and units are absent.",
+          "context": "The phrase may refer to either reading and cannot be interpreted consistently."
+        },
+        "semantic_claim": "The reading is elevated.",
+        "hard_rule_failure": false
+      },
+      "expected_semantic_error": true,
+      "model_generation": null,
+      "judge_and_governance": {
+        "result": {
+          "available": true,
+          "semantic_error": true,
+          "confidence": 0.95,
+          "reason": "The claim asserts a specific state ('elevated') for 'the reading', but the evidence explicitly states that timestamps and units are absent, making it impossible to determine if any reading is elevated or which reading is being referenced. This constitutes an ambiguity mismatch and semantic inconsistency between the definitive nature of the claim and the insufficient context provided by the evidence."
+        },
+        "trace": {
+          "status": "accepted",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-s372e3woill5prqopuwgtj\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809091,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 0.95,\\n  \\\"reason\\\": \\\"The claim asserts a specific state ('elevated') for 'the reading', but the evidence explicitly states that timestamps and units are absent, making it impossible to determine if any reading is elevated or which reading is being referenced. This constitutes an ambiguity mismatch and semantic inconsistency between the definitive nature of the claim and the insufficient context provided by the evidence.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 237,\n    \"completion_tokens\": 104,\n    \"total_tokens\": 341,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "89084d96471472287833279547b6ddbfe07dc4f3d07e23537f2fb39e6c837f62",
+          "response_fingerprint": "c5bb39726b034ed6f21f75b91e33f1fa2f49bdafbd83c97a2477b6f8cd5b9476",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 9522,
+          "request_size_bytes": 1491,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 9521,
+            "time_to_headers_ms": 9521,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 1,
+            "total_elapsed_ms": 9522
+          },
+          "failure_origin": "none",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": true,
+            "semantic_error": true,
+            "confidence": 0.95,
+            "reason": "The claim asserts a specific state ('elevated') for 'the reading', but the evidence explicitly states that timestamps and units are absent, making it impossible to determine if any reading is elevated or which reading is being referenced. This constitutes an ambiguity mismatch and semantic inconsistency between the definitive nature of the claim and the insufficient context provided by the evidence."
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "The reading is elevated.",
+              "evidence_context": {
+                "evidence": "Two readings differ, but timestamps and units are absent.",
+                "context": "The phrase may refer to either reading and cannot be interpreted consistently."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "80da66ec6d71a99907d5aae29d08403282565c3e3cb24a628f4cc84cbaaad0b6",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading is elevated.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"Two readings differ, but timestamps and units are absent.\\\",\\\"context\\\":\\\"The phrase may refer to either reading and cannot be interpreted consistently.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "PASS",
+          "semantic_judge_available": true,
+          "semantic_judge_decision": "FAIL",
+          "semantic_judge_status": "accepted",
+          "evaluator_agreement": "k_pass_judge_fail",
+          "governed_disposition": "FAIL",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": true,
+        "semantic_judge_decision": "FAIL",
+        "semantic_judge_status": "accepted",
+        "evaluator_agreement": "k_pass_judge_fail",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": true,
+      "semantic_expectation_match": true,
+      "agent_k_decision": "PASS",
+      "governed_disposition": "FAIL"
+    },
+    {
+      "id": "evidence-contradiction",
+      "condition": "instrument_contradiction",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "The reading is within the established threshold and the synthetic trend is stable.",
+          "context": "The claim conflicts with the supplied evidence."
+        },
+        "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+        "hard_rule_failure": false
+      },
+      "expected_semantic_error": true,
+      "model_generation": null,
+      "judge_and_governance": {
+        "result": {
+          "available": true,
+          "semantic_error": true,
+          "confidence": 1,
+          "reason": "The claim asserts that the reading 'exceeds the threshold,' while the evidence explicitly states the reading is 'within the established threshold.' This constitutes a direct semantic contradiction between the claim and the provided evidence."
+        },
+        "trace": {
+          "status": "accepted",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-5u6t70bci030bawq2sp7wxb\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809101,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim asserts that the reading 'exceeds the threshold,' while the evidence explicitly states the reading is 'within the established threshold.' This constitutes a direct semantic contradiction between the claim and the provided evidence.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 239,\n    \"completion_tokens\": 76,\n    \"total_tokens\": 315,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "c6e585001e51488d59739a853aa62d82d88f884df7bb9dac98d3f0f859ced3df",
+          "response_fingerprint": "c713798261a9a63c790cadde62cc446ac180c2e7ff754a6a4af6509656c3b13d",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 7890,
+          "request_size_bytes": 1523,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 7890,
+            "time_to_headers_ms": 7890,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 7890
+          },
+          "failure_origin": "none",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": true,
+            "semantic_error": true,
+            "confidence": 1,
+            "reason": "The claim asserts that the reading 'exceeds the threshold,' while the evidence explicitly states the reading is 'within the established threshold.' This constitutes a direct semantic contradiction between the claim and the provided evidence."
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "The reading exceeds the threshold and indicates deterioration.",
+              "evidence_context": {
+                "evidence": "The reading is within the established threshold and the synthetic trend is stable.",
+                "context": "The claim conflicts with the supplied evidence."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "dcbc0a473f35e67c696d05854aa3d4119443ad6226f37d7e62ae90049c138d83",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The reading exceeds the threshold and indicates deterioration.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"The reading is within the established threshold and the synthetic trend is stable.\\\",\\\"context\\\":\\\"The claim conflicts with the supplied evidence.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "PASS",
+          "semantic_judge_available": true,
+          "semantic_judge_decision": "FAIL",
+          "semantic_judge_status": "accepted",
+          "evaluator_agreement": "k_pass_judge_fail",
+          "governed_disposition": "FAIL",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "PASS",
+        "semantic_judge_available": true,
+        "semantic_judge_decision": "FAIL",
+        "semantic_judge_status": "accepted",
+        "evaluator_agreement": "k_pass_judge_fail",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": true,
+      "semantic_expectation_match": true,
+      "agent_k_decision": "PASS",
+      "governed_disposition": "FAIL"
+    },
+    {
+      "id": "hard-rule-violation",
+      "condition": "C_agent_k_only",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Agent K owns this hard-rule decision."
+        },
+        "semantic_claim": "The transition violates a deterministic precondition.",
+        "hard_rule_failure": true
+      },
+      "expected_semantic_error": false,
+      "model_generation": null,
+      "judge_and_governance": null,
+      "evaluator_telemetry": {
+        "agent_k_decision": "FAIL",
+        "semantic_judge_available": false,
+        "semantic_judge_decision": null,
+        "semantic_judge_status": "judge_unavailable",
+        "evaluator_agreement": "judge_unavailable",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": false,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": null,
+      "semantic_expectation_match": null,
+      "agent_k_decision": "FAIL",
+      "governed_disposition": "FAIL"
+    },
+    {
+      "id": "combined-hard-and-semantic",
+      "condition": "D_agent_k_hybrid",
+      "purpose": "instrument validation only; not condition comparison",
+      "input": {
+        "evidence_context": {
+          "evidence": "A deterministic precondition is violated.",
+          "context": "Authorization is outside the semantic judge scope."
+        },
+        "semantic_claim": "The action is authorized and the transition violates a precondition.",
+        "hard_rule_failure": true
+      },
+      "expected_semantic_error": false,
+      "model_generation": null,
+      "judge_and_governance": {
+        "result": {
+          "available": true,
+          "semantic_error": false,
+          "confidence": 1,
+          "reason": "Hard rule remains authoritative; semantic result cannot override it."
+        },
+        "trace": {
+          "status": "accepted",
+          "raw_model_output": "{\n  \"id\": \"chatcmpl-c02mh06fs7r2nl6z8uk3tx\",\n  \"object\": \"chat.completion\",\n  \"created\": 1788809109,\n  \"model\": \"qwen/qwen3.5-9b\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\n  \\\"available\\\": true,\\n  \\\"semantic_error\\\": true,\\n  \\\"confidence\\\": 1.0,\\n  \\\"reason\\\": \\\"The claim contains a contradiction: it asserts that 'the action is authorized' while simultaneously stating that 'the transition violates a precondition.' In logical systems involving preconditions and authorization, violating a precondition typically invalidates the transition or implies lack of authorization, making the assertion of authorization semantically inconsistent with the violation of a necessary condition.\\\"\\n}\",\n        \"reasoning_content\": \"\",\n        \"tool_calls\": []\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 233,\n    \"completion_tokens\": 100,\n    \"total_tokens\": 333,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"stats\": {},\n  \"system_fingerprint\": \"qwen/qwen3.5-9b\"\n}",
+          "request_fingerprint": "63a7701c57084545fcad23f936552b4672da2e4f32b7634c2c1d6096d1e6c62e",
+          "response_fingerprint": "67d0bee692d3ecf6b95008f09379b436aac98e213b321d2bce6e73ca33fd1b66",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 9193,
+          "request_size_bytes": 1491,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 9192,
+            "time_to_headers_ms": 9192,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 1,
+            "total_elapsed_ms": 9193
+          },
+          "failure_origin": "none",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "available": true,
+            "semantic_error": true,
+            "confidence": 1,
+            "reason": "The claim contains a contradiction: it asserts that 'the action is authorized' while simultaneously stating that 'the transition violates a precondition.' In logical systems involving preconditions and authorization, violating a precondition typically invalidates the transition or implies lack of authorization, making the assertion of authorization semantically inconsistent with the violation of a necessary condition."
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "The action is authorized and the transition violates a precondition.",
+              "evidence_context": {
+                "evidence": "A deterministic precondition is violated.",
+                "context": "Authorization is outside the semantic judge scope."
+              }
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "653ad2e1006628a73e5f435421d30ae59ab1543b62d90197b6db1788bd07817b",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"The action is authorized and the transition violates a precondition.\\\",\\\"evidence_context\\\":{\\\"evidence\\\":\\\"A deterministic precondition is violated.\\\",\\\"context\\\":\\\"Authorization is outside the semantic judge scope.\\\"}}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        },
+        "governance": {
+          "agent_k_decision": "FAIL",
+          "semantic_judge_available": true,
+          "semantic_judge_decision": "FAIL",
+          "semantic_judge_status": "accepted",
+          "evaluator_agreement": "both_fail",
+          "governed_disposition": "FAIL",
+          "semantic_dispatch_occurred": true,
+          "authority_override_attempted": false
+        }
+      },
+      "evaluator_telemetry": {
+        "agent_k_decision": "FAIL",
+        "semantic_judge_available": true,
+        "semantic_judge_decision": "FAIL",
+        "semantic_judge_status": "accepted",
+        "evaluator_agreement": "both_fail",
+        "governed_disposition": "FAIL",
+        "semantic_dispatch_occurred": true,
+        "authority_override_attempted": false
+      },
+      "observed_semantic_error": false,
+      "semantic_expectation_match": true,
+      "agent_k_decision": "FAIL",
+      "governed_disposition": "FAIL"
+    },
+    {
+      "id": "malformed-json",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "malformed_json",
+      "observed_status": "malformed_json",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "malformed_json",
+          "raw_model_output": "{\"choices\":[{\"message\":{\"content\":\"not-json\"}}]}",
+          "request_fingerprint": "15f68310240ee4f9211b04768244f80702ce521f7b0081c63e9402988dc401ea",
+          "response_fingerprint": "55e3ef3bd2dad208d5fd32adc59655281024e8a0dd2ea5fca80c2f5016de95d0",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 2,
+          "request_size_bytes": 1316,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 1,
+            "time_to_headers_ms": 1,
+            "model_completion_ms": 1,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 2
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": null,
+          "schema_violation_category": "extra_wrapper_content",
+          "violated_rule": "The semantic response must contain exactly one JSON object without markdown fences or surrounding prose.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "980589b93c0fd982866a1a11e37a9d4717210c8c5892d0f1e8a382eb9cca53bd",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "parse-error",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "parse_error",
+      "observed_status": "parse_error",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "parse_error",
+          "raw_model_output": "not-json",
+          "request_fingerprint": "15f68310240ee4f9211b04768244f80702ce521f7b0081c63e9402988dc401ea",
+          "response_fingerprint": "0c21a879c732a67910d80988df4919d794f6a070aab610ef865032a28046b021",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 1,
+          "request_size_bytes": 1316,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 1,
+            "time_to_headers_ms": 1,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 1
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": null,
+          "schema_violation_category": "invalid_json",
+          "violated_rule": "The HTTP response body must be valid JSON.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "980589b93c0fd982866a1a11e37a9d4717210c8c5892d0f1e8a382eb9cca53bd",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "refusal",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "model_refusal",
+      "observed_status": "model_refusal",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "model_refusal",
+          "raw_model_output": "{\"choices\":[{\"message\":{\"refusal\":\"Cannot comply.\"}}]}",
+          "request_fingerprint": "15f68310240ee4f9211b04768244f80702ce521f7b0081c63e9402988dc401ea",
+          "response_fingerprint": "56ed14a6176b135311776c159e00c43a71fb3a39d5081f31e5acbc7215af874a",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 1316,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "choices": [
+              {
+                "message": {
+                  "refusal": "Cannot comply."
+                }
+              }
+            ]
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "980589b93c0fd982866a1a11e37a9d4717210c8c5892d0f1e8a382eb9cca53bd",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "empty-response",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "missing_fields",
+      "observed_status": "missing_fields",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_malformed"
+        },
+        "trace": {
+          "status": "missing_fields",
+          "raw_model_output": "{\"choices\":[]}",
+          "request_fingerprint": "15f68310240ee4f9211b04768244f80702ce521f7b0081c63e9402988dc401ea",
+          "response_fingerprint": "d4a534e3d5ab43de5b09ee16dedc6eec035cf179b072195f128d15ac87be79f0",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 1316,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "parser",
+          "error_detail": null,
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "choices": []
+          },
+          "schema_violation_category": "missing_required_field",
+          "violated_rule": "The response must contain choices[0].message.content as a string.",
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "980589b93c0fd982866a1a11e37a9d4717210c8c5892d0f1e8a382eb9cca53bd",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "unavailable-endpoint",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "endpoint_unavailable",
+      "observed_status": "endpoint_unavailable",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_unavailable"
+        },
+        "trace": {
+          "status": "endpoint_unavailable",
+          "raw_model_output": "unavailable",
+          "request_fingerprint": "15f68310240ee4f9211b04768244f80702ce521f7b0081c63e9402988dc401ea",
+          "response_fingerprint": "ba691ba042bcedd9a61a36f5969026bc95859dccdc7e47f24e6bce35673baf2f",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 1316,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "api_error",
+          "error_detail": "unavailable",
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": null,
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "980589b93c0fd982866a1a11e37a9d4717210c8c5892d0f1e8a382eb9cca53bd",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "request-rejected",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "request_rejected",
+      "observed_status": "request_rejected",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_unavailable"
+        },
+        "trace": {
+          "status": "request_rejected",
+          "raw_model_output": "{\"error\":{\"message\":\"Invalid request.\"}}",
+          "request_fingerprint": "15f68310240ee4f9211b04768244f80702ce521f7b0081c63e9402988dc401ea",
+          "response_fingerprint": "39e1b9e8440869ac2addb2bed77a49dcbf52980d915dea30abd12494061c132b",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 1,
+          "request_size_bytes": 1316,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 1,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 1
+          },
+          "failure_origin": "api_error",
+          "error_detail": "{\"error\":{\"message\":\"Invalid request.\"}}",
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "error": {
+              "message": "Invalid request."
+            }
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "980589b93c0fd982866a1a11e37a9d4717210c8c5892d0f1e8a382eb9cca53bd",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "api-compatibility-error",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "api_compatibility_error",
+      "observed_status": "api_compatibility_error",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_unavailable"
+        },
+        "trace": {
+          "status": "api_compatibility_error",
+          "raw_model_output": "{\"error\":{\"message\":\"Invalid 'response_format' value.\"}}",
+          "request_fingerprint": "15f68310240ee4f9211b04768244f80702ce521f7b0081c63e9402988dc401ea",
+          "response_fingerprint": "c63aa65d12513b20d07cd230659f63085e9aea2f7a6f9a568efe1c5297002bcb",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 1316,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "api_error",
+          "error_detail": "{\"error\":{\"message\":\"Invalid 'response_format' value.\"}}",
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "error": {
+              "message": "Invalid 'response_format' value."
+            }
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "980589b93c0fd982866a1a11e37a9d4717210c8c5892d0f1e8a382eb9cca53bd",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    },
+    {
+      "id": "model-error",
+      "purpose": "failure-path instrumentation only",
+      "expected_status": "model_error",
+      "observed_status": "model_error",
+      "evaluation": {
+        "result": {
+          "available": false,
+          "semantic_error": false,
+          "reason": "judge_unavailable"
+        },
+        "trace": {
+          "status": "model_error",
+          "raw_model_output": "{\"error\":{\"message\":\"Model inference failed.\"}}",
+          "request_fingerprint": "15f68310240ee4f9211b04768244f80702ce521f7b0081c63e9402988dc401ea",
+          "response_fingerprint": "1bd1fad64e63f0ba4c1f50b35ab862bc43249e0b40fd98fa0e4bbd3436bcfe75",
+          "model": "qwen/qwen3.5-9b",
+          "model_fingerprint": "unavailable; variant=qwen/qwen3.5-9b@q4_k_m; size_bytes=6548927711",
+          "quantization": "Q4_K_M",
+          "context_length": 262144,
+          "adapter_version": "lm-studio-semantic-judge-v5",
+          "prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "system_prompt_fingerprint": "3a99023d624a32cd0afe3fa83854b675b05d866e3ef686bbb43f6afce85cd87e",
+          "configuration_fingerprint": "f077011d520043f83f31ccc35f467e06862c928b80cbc92a6db4c145712a25e3",
+          "temperature": 0,
+          "top_p": 1,
+          "top_k": 40,
+          "seed": 0,
+          "max_output_tokens": 256,
+          "elapsed_ms": 0,
+          "request_size_bytes": 1316,
+          "input_token_count": null,
+          "stage_timings": {
+            "request_construction_ms": 0,
+            "request_dispatch_ms": 0,
+            "time_to_headers_ms": 0,
+            "model_completion_ms": 0,
+            "parsing_normalization_ms": 0,
+            "governance_evaluation_ms": 0,
+            "total_elapsed_ms": 0
+          },
+          "failure_origin": "api_error",
+          "error_detail": "{\"error\":{\"message\":\"Model inference failed.\"}}",
+          "reasoning_effort": "none",
+          "authority_override_attempted": false,
+          "semantic_dispatch_occurred": true,
+          "parsed_intermediate": {
+            "error": {
+              "message": "Model inference failed."
+            }
+          },
+          "schema_violation_category": null,
+          "violated_rule": null,
+          "canonical_semantic_payload": {
+            "instruction": "Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.",
+            "input": {
+              "step": 1,
+              "semantic_claim": "A pilot fixture.",
+              "evidence_context": null
+            }
+          },
+          "canonical_semantic_payload_fingerprint": "980589b93c0fd982866a1a11e37a9d4717210c8c5892d0f1e8a382eb9cca53bd",
+          "semantic_exposed_fields": [
+            "input.step",
+            "input.semantic_claim",
+            "input.evidence_context.evidence",
+            "input.evidence_context.context"
+          ],
+          "serialized_request_body": "{\"model\":\"qwen/qwen3.5-9b\",\"temperature\":0,\"top_p\":1,\"top_k\":40,\"seed\":0,\"max_tokens\":256,\"reasoning_effort\":\"none\",\"messages\":[{\"role\":\"user\",\"content\":\"{\\\"instruction\\\":\\\"Evaluate claim-evidence compatibility only: unsupported certainty, ambiguity, contradiction, qualification mismatch, or semantic inconsistency. Use only the supplied claim, evidence, and context. Do not determine factual authority, authorization, policy compliance, hard state validity, deterministic preconditions, or evidence provenance. In the output contract, available=true means you successfully produced a valid semantic observation; available=false means no valid semantic observation could be produced. If you can determine whether the claim contains a semantic error, set available=true regardless of whether semantic_error is true or false. Set available=false only when you cannot produce a valid semantic evaluation. Return exactly one JSON object with boolean available, boolean semantic_error, numeric confidence from 0 to 1, and string reason. A schema-valid semantic observation always has available=true, including semantic_error=true. Do not use null for boolean fields. Never authorize action.\\\",\\\"input\\\":{\\\"step\\\":1,\\\"semantic_claim\\\":\\\"A pilot fixture.\\\",\\\"evidence_context\\\":null}}\"}],\"response_format\":{\"type\":\"text\"}}"
+        }
+      }
+    }
+  ],
+  "manual_review": "FRESH V5 VALIDATION - CONTRACT COMPLIANCE GATE RECORDED; HISTORICAL V4 PRESERVED; ADAPTER NOT FROZEN",
+  "interpretation": "Do not rank A/B/C/D or infer model performance, PRAETOR reliability, task completion, or agent-rot mitigation from this artifact."
+}

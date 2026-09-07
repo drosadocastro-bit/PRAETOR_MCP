@@ -347,8 +347,7 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
         : (await adapterCall('searchRecords', () => adapter.searchRecords({ equipment_id: input.equipment_id, anomaly_code: input.anomaly_code, limit: 1 }), validateRecords))[0] ?? null;
       const evidence = await adapterCall('getSupportingEvidence', () => adapter.getSupportingEvidence({
         equipment_id: input.equipment_id ?? record?.equipment_id,
-        anomaly_code: input.anomaly_code ?? record?.anomaly_code,
-        finding: record?.technician_note
+        anomaly_code: input.anomaly_code ?? record?.anomaly_code
       }), validateEvidence);
       const source = record ? await adapterCall('getSourceMetadata', () => adapter.getSourceMetadata(record.source_id), validateSource) : null;
       const priorCases = await adapterCall('getPriorCases', () => adapter.getPriorCases({

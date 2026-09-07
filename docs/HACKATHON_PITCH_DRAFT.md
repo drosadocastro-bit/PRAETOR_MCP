@@ -1,6 +1,6 @@
 # PRAETOR-MCP Hackathon Pitch Draft
 
-**Status:** Draft skeleton for refinement after the hackathon kickoff and training session this Saturday.
+**Status:** Draft for the GSA MCP hackathon; event details verified against the public GSA page on September 6, 2026. The current claim is frozen for submission planning; presentation wording may change without changing the implementation claim.
 
 **Prototype boundary:** PRAETOR-MCP is a local, offline-first, synthetic, advisory-only prototype. It does not authorize maintenance, determine equipment safety, create operational work orders, connect to live systems, or replace qualified human judgment.
 
@@ -50,6 +50,37 @@ The agent cannot:
 The submission path independently recomputes schema-derived status, evidence independence, contradiction and circular-evidence status, guardrail results, integrity verdict, and confidence caps. Caller-supplied verdicts and guardrails are treated as untrusted claims. A packet is persisted only through the review-only write path after governance accepts it.
 
 The core proposition is simple: the agent drafts; the governance layer verifies structure and boundaries; the human decides.
+
+## 2.1 Current GSA event brief
+
+The public GSA event page describes the **Model Context Protocol Server and AI
+Agent Government Hackathon** as a virtual event running September-November
+2026. Participation is open to government employees with a `.gov` or `.mil`
+email address across federal, state, local, territorial, and tribal government.
+The event is hosted by GSA, with Databricks, OpenAI, and IBM listed as industry
+partners. Registration is required and space is limited.
+
+The three application tracks are:
+
+- **Dataset Access Server:** query open government datasets.
+- **Service Read Integration:** retrieve information from a government service.
+- **Service Write Integration:** submit information to a government service in a sandbox.
+
+The published support plan includes MCP training, vendor sessions, office hours,
+mentorship, and an approximately six-week development window. The current
+published schedule includes MCP 101 on September 23, vendor sessions on
+September 29, October 1, 6, and 8, a GSA kickoff on October 13, MCP 201 on
+October 29, and a halfway check-in on November 3. Exact completion, final
+presentation, and awards dates remain subject to publication.
+
+The required final package is a GitHub repository, presentation slide deck, and
+evaluation documentation covering testing methodology, performance metrics,
+security considerations, lessons learned, and recommendations. GSA lists
+technical quality, innovation, mission alignment, and presentation as judging
+dimensions. Monetary prizes are not offered because of federal legal
+requirements; winners receive recognition at an awards ceremony.
+
+Source: [GSA MCP Server and AI Agent Government Hackathon](https://www.gsa.gov/artificial-intelligence/ai-community-of-practice/events-and-training/mcp-server-and-ai-agent-government-hackathon), last updated September 3, 2026.
 
 ## 3. Technical Approach and Key Decisions
 
@@ -132,6 +163,18 @@ The implementation remains local, synthetic, deterministic, and review-only. It 
 
 The demonstration should show the boundary under both normal and adversarial use.
 
+### Recommended 90-second demo spine
+
+Open with the governing question: **Can an AI agent organize maintenance evidence without quietly becoming the maintenance authority?**
+
+Use one synthetic aircraft component record and one deliberately misleading evidence item. Keep the visible sequence to three beats:
+
+1. **Retrieve:** the agent gathers the record, source identifiers, provenance, and independence groups.
+2. **Challenge:** the agent receives contradictory or weakly sourced evidence and a caller-supplied favorable verdict.
+3. **Bound:** deterministic governance downgrades or refuses the packet, records why, and leaves the final decision with the human reviewer.
+
+The final screen should show three things at once: the bounded advisory language, the failed or capped governance checks, and the audit event that makes the result reconstructable. Do not spend the live demo on adapter internals, future HTTP support, or implementation history; keep those details for questions.
+
 ### Step 1: Normal query
 
 The agent queries a synthetic maintenance record, retrieves equipment history and supporting evidence, and displays the source identifiers, provenance metadata, uncertainty notes, and independence groups.
@@ -178,9 +221,38 @@ That evaluation document should cover testing methodology, security consideratio
 
 The agent experiment gate is documented in [docs/AGENT_EXPERIMENT_GO_NO_GO.md](AGENT_EXPERIMENT_GO_NO_GO.md). The bounded ReviewAgent is GO for the demonstration; additional agents remain NO-GO until their role, runtime, evidence, handoff, adversarial, and lifecycle contracts are independently proven.
 
+## GSA Hackathon Alignment
+
+The GSA event page, last updated September 3, 2026, identifies four judging dimensions: technical quality, innovation, mission alignment, and presentation. It also requires a documented GitHub repository, presentation slide deck, and evaluation documentation covering testing methodology, performance metrics, security considerations, lessons learned, and recommendations.
+
+PRAETOR is positioned as a deliberately bounded Dataset Access and review-only evidence-governance prototype. It uses local synthetic data rather than live government systems or operational service delivery. This is an explicit scope choice: the demonstration shows how an agent can retrieve and organize evidence while deterministic governance limits claims and preserves human authority.
+
+### Modular roadmap across the three GSA tracks
+
+The registration covers all three GSA capability areas, but the defensible
+current submission scope is the **Dataset Access Server**. PRAETOR currently
+demonstrates read-only access to synthetic datasets and supporting evidence.
+Future Service Read and Service Write adapters are documented as modular
+extensions, not as completed capabilities.
+
+The planned isolation contract is explicit: Dataset Access, Service Read, and
+Service Write have separate adapter boundaries and health states. A failure in
+one module must not disable the others, and no module may silently substitute
+another source or report success for an unavailable capability. A future
+Service Write path would remain sandbox-only, review-gated, and deny-by-default
+when validation, governance, or its sandbox dependency is unavailable.
+
+The pitch should emphasize the GSA-aligned strengths already implemented:
+
+- maintainable separation between adapters, tool contracts, governance, containment, and persistence;
+- precise structured tool inputs and validated outputs;
+- graceful, bounded handling of malformed evidence, tool failures, contradiction, and quarantine;
+- evaluation evidence from the adversarial battery, real MCP stdio tests, and the planned minimal-governance baseline comparison;
+- a clear distinction between MCP interoperability and authority to make or execute a decision.
+
 ## Refinement Checklist After Kickoff
 
-- Confirm the hackathon's exact slide or document template and judging language.
+- Confirm the hackathon's exact slide or document template and judging language when provided through the participant channel.
 - Replace placeholder narrative with the team's agreed problem framing and audience vocabulary.
 - Select the smallest reproducible demo packet and adversarial sequence.
 - Capture screenshots or terminal output only from synthetic local runs.

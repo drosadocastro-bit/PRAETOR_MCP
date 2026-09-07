@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27T15:30:48.163Z",
+  "generated_at": "2026-09-06T23:50:02.688Z",
   "runtime": {
     "node": "v24.13.0",
     "platform": "win32",
@@ -22,44 +22,44 @@
       "name": "adapter_search_records",
       "iterations": 1000,
       "durations_ms": {
-        "min": 0.0048,
-        "median": 0.0053,
-        "p95": 0.0099,
-        "max": 0.6745,
-        "mean": 0.0072
+        "min": 0.0055,
+        "median": 0.0063,
+        "p95": 0.0119,
+        "max": 0.7562,
+        "mean": 0.0087
       }
     },
     {
       "name": "adapter_supporting_evidence",
       "iterations": 1000,
       "durations_ms": {
-        "min": 0.0032,
-        "median": 0.0047,
-        "p95": 0.0105,
-        "max": 0.507,
-        "mean": 0.0067
+        "min": 0.0037,
+        "median": 0.0053,
+        "p95": 0.0135,
+        "max": 0.195,
+        "mean": 0.0069
       }
     },
     {
       "name": "packet_schema_validation",
       "iterations": 1000,
       "durations_ms": {
-        "min": 0.0112,
-        "median": 0.0142,
-        "p95": 0.0295,
-        "max": 0.3338,
-        "mean": 0.0175
+        "min": 0.0132,
+        "median": 0.018,
+        "p95": 0.0463,
+        "max": 0.3561,
+        "mean": 0.0229
       }
     },
     {
       "name": "deterministic_governance",
       "iterations": 1000,
       "durations_ms": {
-        "min": 0.0112,
-        "median": 0.0137,
-        "p95": 0.0247,
-        "max": 0.2475,
-        "mean": 0.0156
+        "min": 0.0128,
+        "median": 0.0156,
+        "p95": 0.0326,
+        "max": 0.3471,
+        "mean": 0.0183
       }
     }
   ]

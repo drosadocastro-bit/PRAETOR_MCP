@@ -97,7 +97,7 @@ Confirm:
 Use these documents as the source of truth:
 
 - [README.md](../README.md) for the project thesis and boundaries;
-- [PRAETOR_MCP_PITCH_DRAFT.md](PRAETOR_MCP_PITCH_DRAFT.md) for the narrative and technical approach;
+- [HACKATHON_PITCH_DRAFT.md](HACKATHON_PITCH_DRAFT.md) for the narrative and technical approach;
 - [PRAETOR_MCP_EVALUATION.md](PRAETOR_MCP_EVALUATION.md) for evaluation methodology and security evidence;
 - [PRAETOR_MCP_BENCHMARK_RESULTS.md](PRAETOR_MCP_BENCHMARK_RESULTS.md) for controlled performance measurements; and
 - [PRAETOR_MCP_AI_TECHNICAL_DEBT.md](../PRAETOR_MCP_AI_TECHNICAL_DEBT.md) for open risks and explicit NO-GO boundaries.
