@@ -1,0 +1,13 @@
+{
+  "assessment_version": "g3-gate-review-v1",
+  "algorithm": "SHA-256 of UTF-8 canonical JSON, recursively sorted object keys, array order retained, no whitespace",
+  "canonicalizer": "experiments/praetor_verify_001/g2/contract.ts canonical/sha256, frozen source unchanged",
+  "execution_assessment_manifest_sha256": "2cf79a55ac835bc5be4b7f658a28e057f7ab08885f3a908597cac5d7387bc422",
+  "seed_manifest_sha256": "f9c222ba3deb69d2ef64230af9a4784ee20b0233f94db5da45b974f4b7848445",
+  "exposure_manifest_sha256": "ca85edd9dd83b15613d0957a5cddc77058a487be8847a1f506cb9b2d4ec7fc9e",
+  "failure_taxonomy_sha256": "757bb5d42bfb28789c6d3998a506c863f21b3d7c08ab627be09016a697f531bb",
+  "budget_manifest_sha256": "00389e853506d633f904523ae6e52273e5edcdf6a226f6991fd3a9d89ecd367f",
+  "unsigned_authorization_record_sha256": "b10cf5d81968a4387440b1dc17f59456d0e16b076058f0ba6b4e5a9d18f8eb60",
+  "scope": "Assessment and design-value fingerprints only, not executable G3 component fingerprints or human approval",
+  "G3_EXECUTION_LOCK_SHA256": null
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PRAETOR-VERIFY-001 claim",
+  "type": "object",
+  "required": ["claim_id", "claim_text", "claim_type", "required_verifier_class", "evidence", "source", "synthetic", "fixture_id"],
+  "properties": {
+    "claim_id": { "type": "string", "minLength": 1 },
+    "claim_text": { "type": "string", "minLength": 1 },
+    "claim_type": { "type": "string" },
+    "required_verifier_class": { "type": "string" },
+    "evidence": { "type": "object" },
+    "source": { "const": "synthetic_fixture" },
+    "synthetic": { "const": true },
+    "seed": { "type": "integer" },
+    "fixture_id": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

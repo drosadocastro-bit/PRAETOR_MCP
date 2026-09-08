@@ -1,0 +1,18 @@
+{
+  "version": "g3a-reconfirmation-validation-v1",
+  "historical_g3a_modified": false,
+  "freeze_verified_pre_run": true,
+  "start_receipt_verified": true,
+  "receipt_precedes_run": true,
+  "freeze_unchanged_post_run": true,
+  "receipt_unchanged_post_run": true,
+  "toy_only_isolation_verified": true,
+  "adaptation_verified": true,
+  "replay_consistency": 1,
+  "selection_rule_applied": true,
+  "selected_instrument": "tabular",
+  "human_review_status": "READY_FOR_HUMAN_DECISION",
+  "g3b_execution_authorized": false,
+  "g3b_comparative_observations": 0,
+  "holdout_constructed": false
+}

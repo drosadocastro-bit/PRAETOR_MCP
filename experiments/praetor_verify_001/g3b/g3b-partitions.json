@@ -1,0 +1,913 @@
+{
+  "version": "g3b-partitions-v1",
+  "construction": "deterministic structural allocation before comparative execution; no PRAETOR or oracle calls",
+  "generator_training": [
+    {
+      "case_id": "train-0000",
+      "case_fingerprint": "7641f197985a296d74e43e3d7e52e7c0f16bc2e3719008d664c7a00677de6a91",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0001",
+      "case_fingerprint": "42d610f8b465ece21628ae43900c468db09cb190c4f4ad70ee2ca604cb2d3e72",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0002",
+      "case_fingerprint": "5b4597715d2f9100d6d0cbc3138e10442bf1cf353ee570eeea8dbfdf47148cd2",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0003",
+      "case_fingerprint": "fea770720aba5f02d197398c8cbb22ce6d344abc9c9838d4045dfa34b0ae82ed",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0004",
+      "case_fingerprint": "6e127a2f0af4165b5b4331edec144a71f423e4f56b47fdc2c3b84bc73ce3b1ec",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0005",
+      "case_fingerprint": "3f6c7b1cad78c23e5934c51037e5c8512dfa7c112e227eaa13f77514dc90e5ce",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0006",
+      "case_fingerprint": "644d77571f989625437adad531fa3be9abe37331105c8e9bfb8cf78ddec2a4df",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0007",
+      "case_fingerprint": "86f8211f5dc4360a9fc19fa8979dbdcf33468d22df872aede2224553f8ccdefe",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0008",
+      "case_fingerprint": "c154165c917dd5023de8f7b299d1a8c2da7c3a9a28ff81f764d3405837c93258",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0009",
+      "case_fingerprint": "81b68f32bce88ead74fe39ae3ac227d249ad6087d4ebbe61d122a1dfc7437841",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0010",
+      "case_fingerprint": "e9295a137836bc2af94b8c880d8652073a3ceefba7727884e97532e34fd34165",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0011",
+      "case_fingerprint": "c808c25eab7706060ebfb9bb846f26e54fbf78112185929b68d450cdd45397a9",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0012",
+      "case_fingerprint": "b49b966be22787910cd50ab353b03e166d8ba69c77681b4321b642d665a37359",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0013",
+      "case_fingerprint": "6d7e4d88f1c3560e8dca222219be18dbaac9216571936a7b562ea6f75a2757ed",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0014",
+      "case_fingerprint": "ecd7faa32c03d9c62dd822eaab1313f0538d92ca7b2012bd65b75926e427e28e",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0015",
+      "case_fingerprint": "6444781da4d14ae6d0a41c8fbe34f9c8bd7883d6fde9537e94923343b082fce5",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0016",
+      "case_fingerprint": "2a96cccfdce2b60cddad05855b81740472465a488bb766012047b903fb9cde53",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0017",
+      "case_fingerprint": "e963b8d8182536006019b336dcbef85c11b81affd4848e65dc689d2b22caccac",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0018",
+      "case_fingerprint": "41fa89688f8ccf72ad7150ef6036f95a4ecca9c7c064ce717e8018c2b480f2df",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0019",
+      "case_fingerprint": "e88bcddb4f9ccc622611cf2faa20ae65e4ad5ae1fdfe41c746963cc586fc725b",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0020",
+      "case_fingerprint": "5e5409aac983435c9de735831471a891d4e034d53f6a7e9aa7b97c58356b372b",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0021",
+      "case_fingerprint": "b3300785c9a4a337e062e315bee30af2e3feb08b76f26498e5009fee83ca40ea",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0022",
+      "case_fingerprint": "dac803565c7c7ac5e92b6c2ffb616c0b31fbafbace1da67c69b647b4b7b517b1",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0023",
+      "case_fingerprint": "6300465b7460ab7bfac9e21833bf277d25cbf7b8867024393c0e941977bca7cd",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0024",
+      "case_fingerprint": "ad91896be5de9962dc35c15bc54a8636eed2dee1e225ed9a8dc3fcb4c9e163ac",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0025",
+      "case_fingerprint": "a44259826f58431fd64735d0aa106011261349694015ba229bf71f7c13f7f3e8",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0026",
+      "case_fingerprint": "60adaff74163774d525677c730c9a113cbc30c7205b1420122d57c15268978c2",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0027",
+      "case_fingerprint": "182cae590d79a600784f8fe32c92b562788e1b4abfb7d40cfb6ba7243a382911",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0028",
+      "case_fingerprint": "8fee5afd0c01b42a8d8e8213234c2319627aab47dd6c42bdb09eb37d1bc3a490",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0029",
+      "case_fingerprint": "0f1e6ecb64f4f497c7c134c4d05a2769f46ae75258237defed80daa0de8d1fa0",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0030",
+      "case_fingerprint": "3b9090fa9d066c020341cfee5fbdf93e78d0080242e1de00fb9c99d0436f253a",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "train-0031",
+      "case_fingerprint": "18f9969bbc40763efadfc900071407fe76f9ab61fc5e687ee9e5272a5c5bba8d",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    }
+  ],
+  "instrument_validation": [
+    {
+      "case_id": "validate-0000",
+      "case_fingerprint": "fe4a5652dc6f8becb1c43bdf2abd8fe69203fba9e55bc9a9dc5e33142e6036e0",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0001",
+      "case_fingerprint": "35b63ebca6d7fe0e46fd7888e3162aebc3bd1f24a0451cf1237a982379aee3b4",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0002",
+      "case_fingerprint": "d8c965ac0df60c1db23725d9f3c4da788bccfad63816b4dc04dd2aabbb3a91a0",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0003",
+      "case_fingerprint": "178469b9476e206caf1f7d07bbc917da7c8be48494230db709c9f948673bef70",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0004",
+      "case_fingerprint": "c7705cb45f720bfe531c61e2cf9e569d70bb3dc6d0c0214997a54b409d648ab4",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0005",
+      "case_fingerprint": "035b150885471ef8cec3b1d614994f109b2cc269f22bfb3d385a482823584de3",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0006",
+      "case_fingerprint": "5245575533e41a2c790137bd701a5766cbc294ae491ac2d0400b58a1931e9e40",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0007",
+      "case_fingerprint": "838cc842e22b9044e88f1eaf56992391ba16f377822baa0d5434a21d1759d287",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0008",
+      "case_fingerprint": "f2cecda4bbe1ee9e9f24af8675afe700887cccdd895345dbf6e311befe0abb68",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0009",
+      "case_fingerprint": "94156a8a992859f207ebcfb03dc8ec4130551023efb8096607608d95f1e8260f",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0010",
+      "case_fingerprint": "d8ab36be3786dc1efb22b2c7a66680633cfbc7f6416b129b2f4eba3b37c0c540",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0011",
+      "case_fingerprint": "bbe80c843e74428cded7257d23f9b0b980c5b74be02cc62bdb3d8b175b0ea29a",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0012",
+      "case_fingerprint": "d4a6df289f6416778843431d8c763d188c146a01041763c1dde261c1319bc98b",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0013",
+      "case_fingerprint": "d719fd77b485d9ccc309496b51c008cd05f3c4dcec346cc63b43cc430044fcb0",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0014",
+      "case_fingerprint": "fb7bd62d698839b77d8d6573a29f228d8c768c256d9681d7b0dc60c9702a7e82",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0015",
+      "case_fingerprint": "5fd75b42adf084af960e3d92e4fd863514e4b875d71c28b8dcd4875be51e5abd",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0016",
+      "case_fingerprint": "64953ac137852aa05fb341f5266d8d3de2c735b7ccf81e817683bfc0f609e225",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0017",
+      "case_fingerprint": "578e45460e122343235480238cab5c0adccf63d5c78c10b03a55450da3c9eef2",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0018",
+      "case_fingerprint": "1dbd6da722eef4e16bb501b36af451ddbca0fd2dff8efd6740b339e5dba80a7e",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0019",
+      "case_fingerprint": "9354634c671a4da57831dd1d56022be339d169d1f11bc14fd52845a79805d05f",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0020",
+      "case_fingerprint": "c15724807882cc56aaca39dd8a3fdab9a20b250969d57b93a102e80058eccb17",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0021",
+      "case_fingerprint": "3d0642809e1f5d0f437d3007fb0d10cc550eb58fb9f2e1f61f75edd204d5bb09",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0022",
+      "case_fingerprint": "cdf7f718332dceb2229cf4ca088fdc7d33c286e720340af897341b7e1ce193d9",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0023",
+      "case_fingerprint": "04c4581dbd85f32485cf07ef09a2a0c73a0c38c11b1c4f6400405a183a498ac7",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0024",
+      "case_fingerprint": "6b1c38085f39f04077b63a596f4747ed2546ad0050dd2613e4c7cab998f4b493",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0025",
+      "case_fingerprint": "f09bb69aad1961cb55dfbe0f81f2b88577e1b0c4424fdfec54787a28e674fdab",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0026",
+      "case_fingerprint": "0d7af6b1ef924d0646e55cd593f4e17a38f4c6133e3485a6c3e2502f6f026d73",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0027",
+      "case_fingerprint": "961ef0350afd1f29bd0a97c34532bc75e75311058d631432fae27945350d9cfb",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0028",
+      "case_fingerprint": "83e439ba77dff5e1c8bc68de16443534f0a047f371a1be5f35765de2470c47f8",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0029",
+      "case_fingerprint": "73814e3c9d34dc40ebc402b336da5456edabe8a1aa12d3f133b17508e1c8b4ea",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0030",
+      "case_fingerprint": "2dc8a23cf4073433f5d31b15f0640ed203fb26a8f764c8319e600248df2a35ef",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "validate-0031",
+      "case_fingerprint": "7a830dbfdbc3de05fab8698ca30bc11e88db693fa943490e93d1b7e74efb017d",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    }
+  ],
+  "comparative_holdout": [
+    {
+      "case_id": "holdout-0000",
+      "case_fingerprint": "8af7d808404d217ffa9bf6468f72d0aed6dea182d51ba97011d682a6857f2ddf",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0001",
+      "case_fingerprint": "a3878c213efcd929da86a6ee1fd06f58edfe8456983ebe39dae732f29b79f391",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0002",
+      "case_fingerprint": "f94c78df2ef6f4deacbb7ef45130b4bfe15f20db9631dd13575a486499ee4f47",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0003",
+      "case_fingerprint": "b94e942915e1e0289ad83c32faa1ecc9f3a6ffe19c46c2c4bf8eb4df3bac616f",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0004",
+      "case_fingerprint": "713e6dc3797c96295f2679c26e422960058e3b1427eed4c958cd1649f3ef08ff",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0005",
+      "case_fingerprint": "c898069e2c4fbb8bb384eb3f03318a5b0c7325f5679a80d5f621ddba4267cbb6",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0006",
+      "case_fingerprint": "7ed63d8f7273a861a74c1ecc4ded85560ee1161a57dbb7fa72c7ace966ecc5b5",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0007",
+      "case_fingerprint": "18ce164564c6ee239269432c37e4fb4a1b093792f55dab177e51d6beb326f532",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0008",
+      "case_fingerprint": "d80e2238b4bd08635009e5d015f98be7d016bb7581a9359c629260d968d68f93",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0009",
+      "case_fingerprint": "ebdf81ab86ad1254186c764b5d0ce21b6376050048d9e44c870b6ecf5e5df482",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0010",
+      "case_fingerprint": "2a759ae839e693bf5d46815d27ddd792533ed25546ec3e9cc3ed0a129c9ee42e",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0011",
+      "case_fingerprint": "b311f9fc32bcf89dcacdf28bd3d324a9d005c97763d944963be49edcbf427fba",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0012",
+      "case_fingerprint": "7395ea49fdd416f9e92f248fa72b046b86c7082cacb2ba4ab22e570fb246fcab",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0013",
+      "case_fingerprint": "95b8304e975db24b88df6e3d21c4debbade69303380b955056314bcfc1acb051",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0014",
+      "case_fingerprint": "3c9ce8b3f28c749342a1cb36ac1ffc4d3b0ca4a6cffc48942cb7575beb0a3eeb",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0015",
+      "case_fingerprint": "a0973e54a122f4618a46621ec223b2ff1cc2b91f43ef23106dc63fe05a721486",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0016",
+      "case_fingerprint": "56e79ccbc68ab726a359ea050cd1bb28a8e0d24612023d9b66c010c4ff1821f7",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0017",
+      "case_fingerprint": "413d837df07c467a353801125fc8b19314f56dc9be6ded68fe0fc05ab1a876dc",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0018",
+      "case_fingerprint": "b9e6e6798cb8b7fd1112c085cfcd58b855356e3380c6b91f2dc1722fb77f36a2",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0019",
+      "case_fingerprint": "e2a5b670e3b507ee7b0f059f59438727f53f67db777d66b4c5d62b1995621445",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0020",
+      "case_fingerprint": "40ceee52c870409492578a2903923486ef415b7413b1d3acc6ecd1a7183251dc",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0021",
+      "case_fingerprint": "dde9019766392a7e5e781b77baf4a07f8d7c404bef49ab3933f5e8f3f74a835f",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0022",
+      "case_fingerprint": "a3540f2b1fe8a4b6b275cde423c993c2ceb87b4cf7dc634c0f797dfb6804de33",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0023",
+      "case_fingerprint": "5e7bce8604ea16f7c32119f040f0847f4b642ad9d43f45e0006976513970c687",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0024",
+      "case_fingerprint": "046a76aba46d4e66d6b3673359fa44dd7e88a288ae9bc04e61aa55f3a23e503e",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0025",
+      "case_fingerprint": "0a52ae66220a6a7699469746fc8f743174f652076316584bd95fc169dafd07c3",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0026",
+      "case_fingerprint": "179fdd5cc174e999458ead4996e46845f9e3c974bf8e782fce02e7924d72a192",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0027",
+      "case_fingerprint": "7a33f656e673867c95b950e8ef71b12fcc0a2af14c431350138d6780e1c17c0d",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0028",
+      "case_fingerprint": "c8672662ada17b07bd1c0463750cdd2c7ef87b2b135acc92004e3e6acccd003e",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0029",
+      "case_fingerprint": "7014962319b1eb25d39fea1f33f979623c78445cc5bbaf8f98773ca320050578",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0030",
+      "case_fingerprint": "d01b6e3c345a9e7586c7f5be4a15db785392cfd2a65d00c149f354d812b3095e",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0031",
+      "case_fingerprint": "3021b2d6613b4fccabdce0f4df3a5b6ca8130ba56c557cd4c7233515a7fc4d9c",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0032",
+      "case_fingerprint": "31192887fadcd444d93de87496ebd20f355efaceddcafb8b0164b589ed44d704",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0033",
+      "case_fingerprint": "1d67082e152711d9129cb0b210c99bc6a7a2223748efe9926e508fb265707607",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0034",
+      "case_fingerprint": "b2b4f663003800a61adac84c16e3c665e2e001baec488a8d6514431ff04fa6ca",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0035",
+      "case_fingerprint": "093526f125ead2e904a399ce20f30619e45068bc9475177e4868f51ac70228d9",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0036",
+      "case_fingerprint": "0c5a8323217fda1b45ab4811d427fce436a33e1269c46f45e8cf841b03689ee2",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0037",
+      "case_fingerprint": "df2c919cabfaca70daab41a6e4cef63b42790b74220651aec995434906c647bf",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0038",
+      "case_fingerprint": "e556540b358cb324de20529f0c9df1b6a6071c6e7d15f963311851f416ab4889",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0039",
+      "case_fingerprint": "8c877e9c3f09b5313c632e08b7171ef4f78532d2286af6949e0595ceffcd2b6f",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0040",
+      "case_fingerprint": "456fd9ea64ef22c89e0db8b1af5b14c86bb5c59fb195d6fcab870fd45272ed5c",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0041",
+      "case_fingerprint": "389c2eb548186729cd21c047fa08c53d7179536a611faab3053d447ce95effaa",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0042",
+      "case_fingerprint": "4efd93e5ed7f1615a1b210ac621dcd681cc968ace03404b0123a1dbab70a3455",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0043",
+      "case_fingerprint": "f5e20e3cb2f7e3a617ca3a79c905fbecce15f8cae2e0df319501fd9e102e7937",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0044",
+      "case_fingerprint": "5832d79d05d98aa70258bb585bc2c80551c6ed41c627d8fec20924863b1f8c8a",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0045",
+      "case_fingerprint": "5633ae0353e8e05ad12eb651e08cc0d815625034ba9c415a3961b15ccb372e2b",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0046",
+      "case_fingerprint": "a60909341d87c8b02aba3d4c44e1e9bf1fc937e2b2cab2796da1c795b7c58a57",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0047",
+      "case_fingerprint": "9535cade039a97348ff7a37499eec9932b8dfbfb27ef9a0ee9cb4b6925f8855c",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0048",
+      "case_fingerprint": "6a017ac031e13bd3832024b27b1b1a944e3611bb782c4f8bba1542396fccc821",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0049",
+      "case_fingerprint": "14ffac0690318fd44d92a1351f4b8d3776bb964760b6fb6662367749b5a2c2ad",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0050",
+      "case_fingerprint": "36cfb1af90adb9bddb57b01f8a81836146e7a3106fee565391ebda7d47a4e5b6",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0051",
+      "case_fingerprint": "03fcee3def83eb777472097b3fd0b4428d2b877f2f129259147322ab984fbe99",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0052",
+      "case_fingerprint": "ad6c3cb98d2eeb58481a0c1e185da97a8b0b3e7b99052f2705a78628ee7c2469",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0053",
+      "case_fingerprint": "18399bba0e02fa1b98ebe811561fabc8cc2e211c53cc989c5c59318915aa8e43",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0054",
+      "case_fingerprint": "243555a1fa16ffad3aef6d6029e75169f03aa652165f4ba17a86bfc4a2da8e16",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0055",
+      "case_fingerprint": "0be8d3c9da0a037330097f4a9de31dd84eaeb28fdb24fb1d7748a99ed4c87096",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0056",
+      "case_fingerprint": "31130b45d9f44535c5925345d1f86ee858669b83fb9865ad3fdce3a5eb83d24c",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0057",
+      "case_fingerprint": "2712bef36fa3e31da53dee3525586a5b18b2eaa7d509cba8d8a5adaf1ae07cc9",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0058",
+      "case_fingerprint": "4a74f14eee4a83e3a56519358639c3501b28af72f7171d8d320f11c65de318b4",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0059",
+      "case_fingerprint": "6d904b9cca5f82d5dd7a9fc1e9b71c65af18e36591c0d80aa7145751ad137589",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0060",
+      "case_fingerprint": "bf294bff48d0ebe1bcf4d23293437aafab9a8f93539539c698c09140ee9cfffe",
+      "logical_family": "permission",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0061",
+      "case_fingerprint": "234d900933871c0dbb884b28caf9fc2783f5c694c9c6b2702aebc479bb618611",
+      "logical_family": "semantic",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0062",
+      "case_fingerprint": "6afe2ca58a331a67f245de8e37d099915a143578656f8b5a9d5dc6d541b0af9c",
+      "logical_family": "human",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    },
+    {
+      "case_id": "holdout-0063",
+      "case_fingerprint": "40026306187f062caf15fc95b0a7820489190253f1076857b1bd2f5c942e71e8",
+      "logical_family": "universal",
+      "source": "synthetic_structural_partition",
+      "outcome_inspected": false
+    }
+  ],
+  "disjointness_check": "case_id and case_fingerprint sets are disjoint by construction",
+  "holdout_outcomes_inspected": false,
+  "structural_contamination_audit": {
+    "compared_against_prior_case_fingerprints": true,
+    "prior_outcomes_inspected": false,
+    "result": "PASS"
+  }
+}

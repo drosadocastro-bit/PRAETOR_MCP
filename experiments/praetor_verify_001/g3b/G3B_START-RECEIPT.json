@@ -1,0 +1,10 @@
+{
+  "phase": "G3B",
+  "version": "g3b-executable-supplement-v1",
+  "execution_lock_sha256": "c7c73b98a967134e57e68175fe110e46e65547fcda04d0e9d76c024a82c1538d",
+  "receipt_created_at": "2026-09-08T16:24:16.955Z",
+  "pilot_started": false,
+  "human_g3b_authorization_signed": false,
+  "g3b_execution_authorized": false,
+  "g3b_comparative_observations": 0
+}

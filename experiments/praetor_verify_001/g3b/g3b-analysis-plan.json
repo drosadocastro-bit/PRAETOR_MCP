@@ -1,0 +1,21 @@
+{
+  "version": "g3b-analysis-v1",
+  "primary_endpoint": "unique independently valid logical failure signatures at 2500 proposals",
+  "contrasts": [
+    "adaptive-random",
+    "adaptive-rule_based"
+  ],
+  "summaries": [
+    "per-seed",
+    "median",
+    "IQR",
+    "mean"
+  ],
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 20260908,
+    "interval": "95% percentile",
+    "paired_by_seed": true
+  },
+  "regimes_separate": true
+}

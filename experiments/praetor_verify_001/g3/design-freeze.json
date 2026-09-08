@@ -1,0 +1,22 @@
+{
+  "experiment_id": "PRAETOR-VERIFY-001-G3",
+  "design_version": "g3-design-v1",
+  "date": "2026-09-08",
+  "status": "PREREGISTERED - FROZEN DESIGN - 0 EXPERIMENTAL OBSERVATIONS - NOT AUTHORIZED FOR EXECUTION",
+  "hash_algorithm": "SHA-256 of exact file bytes",
+  "scope": "Documentation-only design freeze; not an executable study freeze or approval",
+  "execution_authorized": false,
+  "experimental_observations": 0,
+  "files": {
+    "experiments/praetor_verify_001/g3/PREREGISTRATION.md": "c613074370bcd903f7932c08a799767617ec88f15c5809320f8ee100c1e77b0c",
+    "experiments/praetor_verify_001/g3/execution-gate.json": "3f637a12ffeb783ac0634348c7800d337c34ebaa5b3f7533ac4dfd556f337e03"
+  },
+  "referenced_frozen_baselines": {
+    "experiments/praetor_verify_001/g2/freeze.json": "67cacdea11126d67fbd209439ee16907a1d272d106a4981dc1eced3b399ecaa1",
+    "data/pilot/live-horizon-pilot-v6-latest.json": "e173ce23633c8a4ac4836b2f66617bdabff3867a73602dd66369ec071b92d066",
+    "data/pilot/live-horizon-pilot-v6.1-latest.json": "37ae78b1e6ace2334319be27f3859c15a046ca9ebc243c78bc0d97ed2286dd42"
+  },
+  "self_hash_excluded": true,
+  "executable_package": "NOT PRESENT; unresolved components listed in execution-gate.json",
+  "revision_policy": "Preserve this design and manifest. Future resolution requires a separately versioned prospective supplement, fingerprints, tests, and explicit human execution approval."
+}

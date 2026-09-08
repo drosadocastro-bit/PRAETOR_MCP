@@ -1,0 +1,10 @@
+{
+  "version": "g3b-random-v1",
+  "condition": "random",
+  "adapts": false,
+  "prng": "LCG32",
+  "seed_initialization": "state=seed",
+  "distribution": "uniform over frozen field domains followed by constraint rejection",
+  "invalid_generation": "record and consume proposal budget",
+  "outcome_independent": true
+}

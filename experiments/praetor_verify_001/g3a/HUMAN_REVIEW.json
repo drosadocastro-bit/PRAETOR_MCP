@@ -1,0 +1,46 @@
+{
+  "version": "g3a-instrument-human-review-v1",
+  "status": "PENDING_UNSIGNED",
+  "proposed_instrument": "tabular-v1",
+  "proposal_scope": "G3B DESIGN INTEGRATION ONLY, subject to review of the bounded experimental evaluator and the toy-only adaptation evidence",
+  "allowed_decisions": [
+    "APPROVE SELECTED ADAPTIVE INSTRUMENT FOR G3B DESIGN INTEGRATION",
+    "DO NOT APPROVE"
+  ],
+  "reviewer": null,
+  "decision": null,
+  "signature": null,
+  "date": null,
+  "selection_freeze_sha256": "3418983d0ba0896d014dd60887db0f3fba2aeee0a601af183e0b1e6940e07719",
+  "result_summary_byte_sha256": "3c13ab7502c4d99297502cceda4e1975b56a1ea4daec2cb3bb17884e06a7a906",
+  "proposed_source_byte_sha256": "9c602901452d7dd667bfbb148946be1a08a4015f0e74ef40876ebfef59b09c5a",
+  "source_scope": "search.ts contains all three retained candidate implementations; the proposed method is selected by the tabular identifier",
+  "proposed_configuration_sha256": "7c921a7aacf1686a03cef6ebce8cd9d9f96187e011d2ecbea7d829ebeedc93af",
+  "configuration_scope": "Entire frozen instrument configuration, including all methods, pilot schedule and selection rules; not a G3B configuration",
+  "hyperparameters": {
+    "actions": 4,
+    "initial_values": [0, 0, 0, 0],
+    "alpha": 0.25,
+    "epsilon": 0.2,
+    "tie_break": "lowest_index",
+    "update": "value[action] += alpha * (toy_reward - value[action])",
+    "seed_stream": "LCG32 as frozen in selection-freeze.json"
+  },
+  "input_contract": "Strict G3A_TOY_ONLY reward 0/1; no oracle, observed disposition, failure labels or G3B reward reaches the search update",
+  "exposure_contract": "Observable and white-box feedback adapters tested independently and exercised in each pilot cell; exposed PRAETOR feedback is recorded, not used for learning in this pilot",
+  "limits": { "generation_ms": 100, "evaluation_ms": 100, "rss_bytes": 536870912, "input_bytes": 8192, "retry_count": 0 },
+  "remaining_before_g3b": [
+    "Actual human instrument integration decision",
+    "Review the independent experimental evaluator/oracle policy for fitness to the G3B scientific question",
+    "Prospective adapter from permitted G3B feedback to the selected searcher's update, without holdout tuning",
+    "Freeze the G3B sampler, rule-based schedule, full candidate domain, failure mapping and unavailable-evidence handling",
+    "Define disjoint partitions only after accepted instrument selection, then perform the separate holdout-contamination audit",
+    "Prepare a new executable supplement and pass its tests, fingerprints and pre-execution gate",
+    "Separate explicit human G3B execution authorization"
+  ],
+  "g3b_design_integration_approved": false,
+  "g3b_execution_authorized": false,
+  "g3b_comparative_observations": 0,
+  "holdout_constructed": false,
+  "holdout_contamination_detected": null
+}

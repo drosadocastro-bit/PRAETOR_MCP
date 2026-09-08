@@ -1,0 +1,34 @@
+{
+  "version": "g3a-prerequisites-v1",
+  "date": "2026-09-08",
+  "phase": "G3A",
+  "g3a_1": "PASS_BOUNDED_EXPERIMENTAL_RUNTIME",
+  "g3a_2": "PASS_SEPARATE_EXPERIMENTAL_DECISION_PATHS",
+  "validation": { "tests": 26, "passed": 26, "typecheck": "PASS", "command": "npx vitest run test/praetor-g3a-runtime.test.ts" },
+  "privileged_information_leakage": false,
+  "leakage_scope": "Executed mutation, copy isolation, static import and exact whitelist tests only; no claim of hostile-process sandboxing",
+  "evaluator_scope": "New isolated synthetic policy evaluator; not production PRAETOR certification or an independent policy-specification validation",
+  "limitations": [
+    "Shared policy specification may contain common-mode errors despite separate decision code",
+    "Deadlines are cooperative measurements of bounded synchronous local functions, not preemption",
+    "Oversized input retains byte hash, not full bytes, and cannot be fully replayed from that trace",
+    "Transition references are limited to a single changed nonpressure field within the same family/source",
+    "Unclassified disagreements stop the instrument instead of becoming negative findings"
+  ],
+  "g3a_3_implementation_may_proceed": true,
+  "g3b_execution_authorized": false,
+  "g3b_comparative_observations": 0,
+  "holdout_constructed": false,
+  "holdout_contamination_detected": null,
+  "g2_fingerprint": "46f78b12efd7b7cb7d6c3a2bb0f118cab34adf3b00da201014126acb6fa42216",
+  "files": {
+    "experiments/praetor_verify_001/g3a/contract.ts": "d4fd4d82f442f389c1e5b857307ed89ae7f63da2d2b5a236150604e6c1f47928",
+    "experiments/praetor_verify_001/g3a/evaluator.ts": "287ed5f0de65cc1bc25e3ee62663bec82cbddcbfff6905472a354c0f2313b854",
+    "experiments/praetor_verify_001/g3a/oracle.ts": "1e9372712ddd46429ede928f463dddc96d1b3c5bd5b2e7f994845c46446d86d5",
+    "experiments/praetor_verify_001/g3a/comparison.ts": "7d3ad87120214c7625f077f5a3d7baea56864d7cc452fdb54fa84de6b71c512a",
+    "experiments/praetor_verify_001/g3a/exposure.ts": "59c041fc4f698dc751610282fa567420dadd9202a83ee5a8a213055aa8bd0774",
+    "experiments/praetor_verify_001/g3a/runtime.ts": "0b8bf3f954c9ab8175ba3765cf4357119503023f92a1fc54ca1704ec1eb1df58",
+    "experiments/praetor_verify_001/g3a/PROTOCOL.md": "58b48fbd198efd7bda0a333519e3ac58b1086d9082f66695b1add8a9e3573db5",
+    "test/praetor-g3a-runtime.test.ts": "4bc9083d60955059ce044828f0be6c3684ced4a8b48276c6fd9b07de32e5eb6f"
+  }
+}

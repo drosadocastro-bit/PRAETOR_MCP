@@ -1,0 +1,9 @@
+{
+  "version": "g3b-holdout-v1",
+  "constructed": true,
+  "evaluated": false,
+  "outcomes_inspected": false,
+  "contamination_audit": "PASS_STRUCTURAL_ONLY",
+  "contamination_detected": false,
+  "source": "g3b-partitions.json"
+}

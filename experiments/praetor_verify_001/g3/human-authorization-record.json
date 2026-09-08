@@ -1,0 +1,25 @@
+{
+  "experiment": "PRAETOR-VERIFY-001-G3",
+  "authorization_type": "HUMAN_EXECUTION_AUTHORIZATION",
+  "record_status": "NOT_GRANTED_UNSIGNED_TEMPLATE",
+  "design": "FROZEN",
+  "proposed_human_reviewer": "Daniel Rosado",
+  "human_reviewer": null,
+  "decision": "NOT AUTHORIZED FOR EXECUTION",
+  "authorization_date": null,
+  "assessment_date": "2026-09-08",
+  "experimental_observations_at_assessment": 0,
+  "experimental_observations_at_authorization": null,
+  "authorized_scope": null,
+  "signature": null,
+  "reason": "Algorithm unresolved; mandatory STOP and 19 substantive requirements still blocking. No human authorization attested.",
+  "template_only_not_an_attestation": [
+    "I authorize execution of the frozen PRAETOR-VERIFY-001 G3 preregistered study under the exact conditions, information regimes, budgets, seeds, oracle, metrics, failure taxonomy, and stopping criteria recorded in the frozen execution manifest. This authorization does not permit post-hoc modification of the study design based on experimental outcomes.",
+    "A negative, null, contradictory, or unexpected result is an acceptable research outcome and must be preserved."
+  ],
+  "future_authorization_would_not_permit": [
+    "changing oracle or expected outcomes", "changing reward", "changing budgets or seeds",
+    "changing failure taxonomy", "changing proof obligations or capability registry",
+    "post-hoc tuning using holdout results", "automatic approval of G3B from G3A approval"
+  ]
+}

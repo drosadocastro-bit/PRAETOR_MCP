@@ -1,0 +1,31 @@
+{
+  "experiment_id": "PRAETOR-VERIFY-001-G3",
+  "design_version": "g3-design-v1",
+  "status": "PREREGISTERED - FROZEN DESIGN - 0 EXPERIMENTAL OBSERVATIONS - NOT AUTHORIZED FOR EXECUTION",
+  "execution_authorized": false,
+  "g3a_authorized": false,
+  "g3b_authorized": false,
+  "experimental_observations": 0,
+  "implementation_present": false,
+  "design_freeze_only": true,
+  "human_approval": null,
+  "conditions": ["random", "rule_based", "adaptive"],
+  "regimes": ["G3-observable", "G3-white-box"],
+  "proposal_budget": 2500,
+  "budget_prefixes": [100, 250, 500, 1000, 2500],
+  "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  "primary_endpoint": "unique valid logical failure signatures at 2500 proposals",
+  "required_before_execution": [
+    "separate authorization for G3A and G3B",
+    "prospective algorithm-selection and executable freeze supplement",
+    "independent evaluator and oracle implementations with leakage tests",
+    "candidate schema, joint domains, claim bindings and partition manifest",
+    "fixed sampler, rules, adaptive algorithm and transient update policy",
+    "feedback interfaces and private versus exposed rewards",
+    "shared generation and evaluation timeout limits",
+    "failure mapping and pre-study known-signature catalog",
+    "immutable fingerprints for executable components and protected baselines",
+    "required invariants and full regression suite passing",
+    "explicit recorded human approval; no automatic execution"
+  ]
+}

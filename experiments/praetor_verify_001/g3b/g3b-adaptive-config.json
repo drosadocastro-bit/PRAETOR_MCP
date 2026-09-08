@@ -1,0 +1,33 @@
+{
+  "version": "g3b-adaptive-v1",
+  "condition": "adaptive",
+  "method": "tabular-v1",
+  "actions": 4,
+  "initial_values": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "alpha": 0.25,
+  "epsilon": 0.2,
+  "tie_break": "lowest_index",
+  "prng": "LCG32",
+  "update": "only permitted regime feedback; state reset per seed/regime",
+  "toy_reward_not_reused": true,
+  "observable_feedback": [
+    "selected_verifier",
+    "governed_disposition",
+    "envelope_valid"
+  ],
+  "white_box_feedback": [
+    "selected_verifier",
+    "governed_disposition",
+    "envelope_valid",
+    "frozen_capability_map",
+    "proof_definitions",
+    "oracle_confirmed_failure",
+    "failure_category",
+    "explicit_reward"
+  ]
+}

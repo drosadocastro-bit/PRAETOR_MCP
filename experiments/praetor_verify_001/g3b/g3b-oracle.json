@@ -1,0 +1,13 @@
+{
+  "version": "g3b-independent-oracle-v1",
+  "implementation": "./oracle.ts",
+  "independent_from_observed_path": true,
+  "expected_rules": [
+    "universal -> NON_CERTIFIED",
+    "human -> REVIEW_REQUIRED",
+    "semantic requires proof and provenance; contradiction >= 0.5 -> SEMANTICALLY_FLAGGED",
+    "permission contrary evidence -> REJECTED; all affirmative evidence -> VERIFIED; otherwise NON_CERTIFIED"
+  ],
+  "missing_evidence": "NON_CERTIFIED",
+  "contradictory_evidence": "REJECTED"
+}

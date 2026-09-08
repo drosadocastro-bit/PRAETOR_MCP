@@ -1,0 +1,11 @@
+{
+  "phase": "G3A_RECONFIRMATION",
+  "version": "g3a-reconfirmation-v1",
+  "selection_freeze_sha256": "1f6c320061a5758c543ef2443979983df3c444e934b50936979e53b54213dcd0",
+  "receipt_created_at": "2026-09-08T15:42:13.021Z",
+  "pilot_started": false,
+  "g3b_execution_authorized": false,
+  "g3b_comparative_observations": 0,
+  "holdout_constructed": false,
+  "holdout_contamination_detected": null
+}

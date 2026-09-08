@@ -1,0 +1,6 @@
+{
+  "version": "g3b-protected-baselines-v1",
+  "historical_g3a_reconfirmation": "1f6c320061a5758c543ef2443979983df3c444e934b50936979e53b54213dcd0",
+  "g3b_observations": 0,
+  "g3b_holdout_outcomes": false
+}

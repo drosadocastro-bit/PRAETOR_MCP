@@ -1,0 +1,13 @@
+{
+  "version": "g3b-human-authorization-v1",
+  "status": "PENDING_UNSIGNED",
+  "allowed_decisions": [
+    "AUTHORIZE FROZEN PRAETOR-VERIFY-001 G3B FOR EXECUTION",
+    "DO NOT AUTHORIZE"
+  ],
+  "reviewer": null,
+  "decision": null,
+  "signature": null,
+  "date": null,
+  "execution_authorized": false
+}
