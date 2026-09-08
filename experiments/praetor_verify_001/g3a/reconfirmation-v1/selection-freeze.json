@@ -1,0 +1,537 @@
+{
+  "version": "g3a-reconfirmation-v1",
+  "phase": "G3A_RECONFIRMATION",
+  "purpose": "Prospective instrument-selection reconfirmation; toy-only and advisory-only",
+  "historical_g3a_preserved": true,
+  "historical_selection_snapshot": {
+    "version": "g3a-selection-freeze-v1",
+    "phase": "G3A",
+    "status": "FROZEN_BEFORE_INSTRUMENT_PILOT",
+    "prerequisites": {
+      "prerequisites_sha256": "d8f83d12cf28bb308c01754b7477cdfc4118146e3a2e134e30d25ff22e28b0dc",
+      "g2": "46f78b12efd7b7cb7d6c3a2bb0f118cab34adf3b00da201014126acb6fa42216",
+      "g3_design_sha256": "22021b19ca2bff3ed584efa501ef0aaed5ea6754692820088416f34a8e163f07"
+    },
+    "source_hashes": {
+      "experiments/praetor_verify_001/g3a/PROTOCOL.md": "58b48fbd198efd7bda0a333519e3ac58b1086d9082f66695b1add8a9e3573db5",
+      "experiments/praetor_verify_001/g3a/prerequisites.json": "ea542f9f0dfb6588de3222c89a07d039ff2efb584ac5f8522821c378521d564c",
+      "experiments/praetor_verify_001/g3a/contract.ts": "d4fd4d82f442f389c1e5b857307ed89ae7f63da2d2b5a236150604e6c1f47928",
+      "experiments/praetor_verify_001/g3a/evaluator.ts": "287ed5f0de65cc1bc25e3ee62663bec82cbddcbfff6905472a354c0f2313b854",
+      "experiments/praetor_verify_001/g3a/oracle.ts": "1e9372712ddd46429ede928f463dddc96d1b3c5bd5b2e7f994845c46446d86d5",
+      "experiments/praetor_verify_001/g3a/comparison.ts": "7d3ad87120214c7625f077f5a3d7baea56864d7cc452fdb54fa84de6b71c512a",
+      "experiments/praetor_verify_001/g3a/exposure.ts": "59c041fc4f698dc751610282fa567420dadd9202a83ee5a8a213055aa8bd0774",
+      "experiments/praetor_verify_001/g3a/runtime.ts": "0b8bf3f954c9ab8175ba3765cf4357119503023f92a1fc54ca1704ec1eb1df58",
+      "experiments/praetor_verify_001/g3a/search.ts": "9c602901452d7dd667bfbb148946be1a08a4015f0e74ef40876ebfef59b09c5a",
+      "experiments/praetor_verify_001/g3a/selection.ts": "0d93fd62b27397e8c247649439b057dab5abb1708a233fc627ced34c2a2f799d",
+      "experiments/praetor_verify_001/g3a/freeze.ts": "cbc83c0a359792e2a8eea6d84b98c0f0686367581c6df15d202a3fc803dbdd3d",
+      "experiments/praetor_verify_001/g3a/pilot.ts": "278ce4adaffbd840dd145753f21accc537cd3cba1a5dd26b4c40f2c3ba438eec",
+      "experiments/praetor_verify_001/g3a/run.ts": "575d755857f11da9ba039c702f62b634e67948dd5527750ff09617f25f3748fc",
+      "test/praetor-g3a-runtime.test.ts": "4bc9083d60955059ce044828f0be6c3684ced4a8b48276c6fd9b07de32e5eb6f",
+      "test/praetor-g3a-search.test.ts": "556c4b8ec5da7ba7c193c45c8b7749a2b27e84d3b0338a66f5af387252357a0a",
+      "test/praetor-g3a-pilot.test.ts": "8fe4975b65a7b4b630180ce48cfdeebed3bbe546756c4554125115ff1fd3b206",
+      "package.json": "5af13a354cf604f33c17bf5c2521b926b744d3048c4dbf36c18f6d5fa59690ed",
+      "package-lock.json": "81b27a84bad13fa6933f61dcd0cf8d3f14e1e96cced1a143fc842f09dc178b94",
+      "tsconfig.json": "b8d0dc338e5e77d6ede2fe6cbb2207aaa676308fc89de1c9b484568912f7f365",
+      "vitest.config.ts": "1373c9705594a01e5a9226243f6bea00b8c8f47a7f1d858fbb6ae342017d0501"
+    },
+    "components": {
+      "schema_sha256": "77b507d1eb1f7dd5ba2802e2204d2026622dfe628c103a31e7c389ba04d287cc",
+      "candidate_domain_sha256": "376fd9c920166b9ecc04447336eb57cb6d5da66e29d163968115185ab8787b45",
+      "registry_sha256": "c917d8ed07941e9c971ffde82561e5c4937c741978297a2bc6f83b2427e89a15",
+      "proof_obligation_sha256": "570662706f65ae216212b342bf7ed55bad29f885f55a6bc5551c5bfa62a45611",
+      "oracle_sha256": "1e9372712ddd46429ede928f463dddc96d1b3c5bd5b2e7f994845c46446d86d5",
+      "evaluator_sha256": "287ed5f0de65cc1bc25e3ee62663bec82cbddcbfff6905472a354c0f2313b854",
+      "configuration_sha256": "218b25211c5d86e38094b5f052c12e81d0e0fed27fddeb9fcbe2ee429e01343c"
+    },
+    "configuration": {
+      "version": "g3a-search-v1",
+      "seeds": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "budget": 250,
+      "methods": [
+        "tabular",
+        "bandit",
+        "evolutionary"
+      ],
+      "actions": 4,
+      "prng": "LCG32: state=(1664525*state+1013904223) mod 2^32; uniform=state/2^32",
+      "tabular": {
+        "version": "tabular-v1",
+        "alpha": 0.25,
+        "epsilon": 0.2,
+        "initial_value": 0,
+        "tie_break": "lowest_index"
+      },
+      "bandit": {
+        "version": "bandit-v1",
+        "exploration": 2,
+        "initial_visits": 1,
+        "tie_break": "lowest_index",
+        "update": "running_mean"
+      },
+      "evolutionary": {
+        "version": "evolutionary-v1",
+        "population": 8,
+        "retain": 4,
+        "mutation": 0.25,
+        "crossover": false,
+        "tie_break": "original_index"
+      },
+      "selection": {
+        "rank": {
+          "tabular": 1,
+          "bandit": 2,
+          "evolutionary": 3
+        },
+        "max_igr": 0.05,
+        "minimum_neutral_states": 2,
+        "replay": 1,
+        "seed_reproduction": 1,
+        "budget_compliance": 1,
+        "provenance_completeness": 1,
+        "leakage_count": 0
+      },
+      "toy_objective": "reward 1 iff action=3 (critical urgency AND high reputation); otherwise 0",
+      "proposal_schedule": "four families cycle by iteration; six evidence profiles by floor(iteration/4); three numeric bins by iteration mod 3; action controls urgency/reputation only",
+      "evidence_profiles": [
+        "complete",
+        "missing_authority",
+        "missing_proof",
+        "contrary_proof",
+        "denied_permission",
+        "missing_provenance_and_bad_schema"
+      ],
+      "domain_scope": "G3A instrument-only; no G3B sampler or rule schedule is defined"
+    },
+    "configuration_sha256": "7c921a7aacf1686a03cef6ebce8cd9d9f96187e011d2ecbea7d829ebeedc93af",
+    "cells": [
+      {
+        "method": "tabular",
+        "regime": "G3-observable",
+        "seed": 101,
+        "budget": 250
+      },
+      {
+        "method": "tabular",
+        "regime": "G3-observable",
+        "seed": 102,
+        "budget": 250
+      },
+      {
+        "method": "tabular",
+        "regime": "G3-observable",
+        "seed": 103,
+        "budget": 250
+      },
+      {
+        "method": "tabular",
+        "regime": "G3-observable",
+        "seed": 104,
+        "budget": 250
+      },
+      {
+        "method": "tabular",
+        "regime": "G3-observable",
+        "seed": 105,
+        "budget": 250
+      },
+      {
+        "method": "tabular",
+        "regime": "G3-white-box",
+        "seed": 101,
+        "budget": 250
+      },
+      {
+        "method": "tabular",
+        "regime": "G3-white-box",
+        "seed": 102,
+        "budget": 250
+      },
+      {
+        "method": "tabular",
+        "regime": "G3-white-box",
+        "seed": 103,
+        "budget": 250
+      },
+      {
+        "method": "tabular",
+        "regime": "G3-white-box",
+        "seed": 104,
+        "budget": 250
+      },
+      {
+        "method": "tabular",
+        "regime": "G3-white-box",
+        "seed": 105,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-observable",
+        "seed": 101,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-observable",
+        "seed": 102,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-observable",
+        "seed": 103,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-observable",
+        "seed": 104,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-observable",
+        "seed": 105,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-white-box",
+        "seed": 101,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-white-box",
+        "seed": 102,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-white-box",
+        "seed": 103,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-white-box",
+        "seed": 104,
+        "budget": 250
+      },
+      {
+        "method": "bandit",
+        "regime": "G3-white-box",
+        "seed": 105,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-observable",
+        "seed": 101,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-observable",
+        "seed": 102,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-observable",
+        "seed": 103,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-observable",
+        "seed": 104,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-observable",
+        "seed": 105,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-white-box",
+        "seed": 101,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-white-box",
+        "seed": 102,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-white-box",
+        "seed": 103,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-white-box",
+        "seed": 104,
+        "budget": 250
+      },
+      {
+        "method": "evolutionary",
+        "regime": "G3-white-box",
+        "seed": 105,
+        "budget": 250
+      }
+    ],
+    "environment": {
+      "node": "v24.13.0",
+      "platform": "win32",
+      "arch": "x64"
+    },
+    "g3b_execution_authorized": false,
+    "g3b_comparative_observations": 0,
+    "holdout_constructed": false,
+    "holdout_contamination_detected": null
+  },
+  "candidates": [
+    {
+      "id": "tabular-v1",
+      "method": "tabular"
+    },
+    {
+      "id": "bandit-v1",
+      "method": "bandit"
+    },
+    {
+      "id": "evolutionary-v1",
+      "method": "evolutionary"
+    }
+  ],
+  "selection_rule": {
+    "rank": {
+      "tabular": 1,
+      "bandit": 2,
+      "evolutionary": 3
+    },
+    "max_igr": 0.05,
+    "minimum_neutral_states": 2,
+    "replay": 1,
+    "seed_reproduction": 1,
+    "budget_compliance": 1,
+    "provenance_completeness": 1,
+    "leakage_count": 0
+  },
+  "pilot_budget": 250,
+  "cells": [
+    {
+      "method": "tabular",
+      "regime": "G3-observable",
+      "seed": 101,
+      "budget": 250
+    },
+    {
+      "method": "tabular",
+      "regime": "G3-observable",
+      "seed": 102,
+      "budget": 250
+    },
+    {
+      "method": "tabular",
+      "regime": "G3-observable",
+      "seed": 103,
+      "budget": 250
+    },
+    {
+      "method": "tabular",
+      "regime": "G3-observable",
+      "seed": 104,
+      "budget": 250
+    },
+    {
+      "method": "tabular",
+      "regime": "G3-observable",
+      "seed": 105,
+      "budget": 250
+    },
+    {
+      "method": "tabular",
+      "regime": "G3-white-box",
+      "seed": 101,
+      "budget": 250
+    },
+    {
+      "method": "tabular",
+      "regime": "G3-white-box",
+      "seed": 102,
+      "budget": 250
+    },
+    {
+      "method": "tabular",
+      "regime": "G3-white-box",
+      "seed": 103,
+      "budget": 250
+    },
+    {
+      "method": "tabular",
+      "regime": "G3-white-box",
+      "seed": 104,
+      "budget": 250
+    },
+    {
+      "method": "tabular",
+      "regime": "G3-white-box",
+      "seed": 105,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-observable",
+      "seed": 101,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-observable",
+      "seed": 102,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-observable",
+      "seed": 103,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-observable",
+      "seed": 104,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-observable",
+      "seed": 105,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-white-box",
+      "seed": 101,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-white-box",
+      "seed": 102,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-white-box",
+      "seed": 103,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-white-box",
+      "seed": 104,
+      "budget": 250
+    },
+    {
+      "method": "bandit",
+      "regime": "G3-white-box",
+      "seed": 105,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-observable",
+      "seed": 101,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-observable",
+      "seed": 102,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-observable",
+      "seed": 103,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-observable",
+      "seed": 104,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-observable",
+      "seed": 105,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-white-box",
+      "seed": 101,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-white-box",
+      "seed": 102,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-white-box",
+      "seed": 103,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-white-box",
+      "seed": 104,
+      "budget": 250
+    },
+    {
+      "method": "evolutionary",
+      "regime": "G3-white-box",
+      "seed": 105,
+      "budget": 250
+    }
+  ],
+  "toy_objective": "reward 1 iff action=3 (critical urgency AND high reputation); otherwise 0",
+  "proposal_schedule": "four families cycle by iteration; six evidence profiles by floor(iteration/4); three numeric bins by iteration mod 3; action controls urgency/reputation only",
+  "evidence_profiles": [
+    "complete",
+    "missing_authority",
+    "missing_proof",
+    "contrary_proof",
+    "denied_permission",
+    "missing_provenance_and_bad_schema"
+  ],
+  "input_contract": "G3A_TOY_ONLY reward 0/1; no oracle, disposition, failure label or G3B endpoint reaches learning",
+  "prohibited_selection_inputs": [
+    "PRAETOR failure count",
+    "unique failure signatures",
+    "G3B primary endpoint",
+    "adaptive efficacy against PRAETOR"
+  ],
+  "praetor_failure_discovery_used_for_selection": false,
+  "g3b_execution_authorized": false,
+  "g3b_comparative_observations": 0,
+  "holdout_constructed": false,
+  "holdout_contamination_detected": null
+}

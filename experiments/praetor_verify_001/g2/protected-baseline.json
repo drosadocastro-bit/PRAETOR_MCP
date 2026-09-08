@@ -1,0 +1,12 @@
+{
+  "experiments/praetor_verify_001/claimTaxonomy.ts": "7ad17089cde8741613aa6e1dbe97079b941ee111f67e38e425f40c24f7dcd307",
+  "experiments/praetor_verify_001/claim_schema.json": "57ad07daa74e9ad6d697e879134ad3acb03de52405ff98054f2253b67a27d748",
+  "experiments/praetor_verify_001/evaluate.ts": "73ceba32575dfdd31b7610a4de921372f69f12ed9586055ec597a0543f8427d5",
+  "experiments/praetor_verify_001/fixtures.ts": "b4c1c726243da3a45f738ae901ff4bf877f7f455dc4fadc67f5f0a1e3c215eb4",
+  "experiments/praetor_verify_001/g1.ts": "78fc7b9d74cbbd529796a22ad63641db6b2372eaaec210da427509c95af52b7b",
+  "experiments/praetor_verify_001/oracle.ts": "64e01a875e59f74b36294a62494e0cb37d6e4bc962a11d51031b9c1d951b93b0",
+  "experiments/praetor_verify_001/README.md": "57c663e3c10f65c0b9dc3177ca386f2e0dcb449e76d3969e4b35e5ff3bef4562",
+  "experiments/praetor_verify_001/verifierRegistry.ts": "d67b53cc51f744241bafc7a3687d7dbc0cf66ad5263c6aee4798d093eb6696e7",
+  "data/pilot/live-horizon-pilot-v6-latest.json": "e173ce23633c8a4ac4836b2f66617bdabff3867a73602dd66369ec071b92d066",
+  "data/pilot/live-horizon-pilot-v6.1-latest.json": "37ae78b1e6ace2334319be27f3859c15a046ca9ebc243c78bc0d97ed2286dd42"
+}

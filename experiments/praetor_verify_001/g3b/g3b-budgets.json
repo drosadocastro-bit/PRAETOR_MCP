@@ -1,0 +1,12 @@
+{
+  "version": "g3b-budgets-v1",
+  "proposals_per_cell": 2500,
+  "prefixes": [
+    100,
+    250,
+    500,
+    1000,
+    2500
+  ],
+  "count_invalid_and_duplicates": true
+}

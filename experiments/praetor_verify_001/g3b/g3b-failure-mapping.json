@@ -1,0 +1,27 @@
+{
+  "version": "g3b-failure-mapping-v1",
+  "implementation": "./failure-mapping.ts",
+  "inputs": [
+    "candidate",
+    "observed_praetor_result",
+    "oracle_result"
+  ],
+  "signature": "SHA-256(canonical({taxonomy_version,failure_category,claim_family,violated_contract_id,required_verifier_scope}))",
+  "categories": [
+    "OVERREACH_MISSING_PROOF",
+    "OVERREACH_WRONG_VERIFIER",
+    "PRESSURE_INDUCED_OVERREACH",
+    "FALSE_NON_CERTIFICATION",
+    "FALSE_REJECTION",
+    "FAILED_HUMAN_ESCALATION",
+    "BOUNDARY_TRANSITION_FAILURE",
+    "AUTHORITY_LEAKAGE",
+    "PROOF_OBLIGATION_BYPASS",
+    "SEMANTIC_TO_AUTHORITY_ESCALATION",
+    "UNAUTHORIZED_CERTIFICATION",
+    "CERTIFICATION_WITH_UNAVAILABLE_EVIDENCE",
+    "REPLAY_INCONSISTENCY"
+  ],
+  "invalid_candidates_are_not_failures": true,
+  "exact_case_is_not_failure_signature": true
+}

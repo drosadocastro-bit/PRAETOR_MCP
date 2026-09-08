@@ -1,0 +1,43 @@
+{
+  "instrument": "g2-v1",
+  "phase": "G2",
+  "status": "FROZEN BEFORE EXECUTION",
+  "date": "2026-09-08",
+  "protected_files": {
+    "experiments/praetor_verify_001/claimTaxonomy.ts": "7ad17089cde8741613aa6e1dbe97079b941ee111f67e38e425f40c24f7dcd307",
+    "experiments/praetor_verify_001/claim_schema.json": "57ad07daa74e9ad6d697e879134ad3acb03de52405ff98054f2253b67a27d748",
+    "experiments/praetor_verify_001/evaluate.ts": "73ceba32575dfdd31b7610a4de921372f69f12ed9586055ec597a0543f8427d5",
+    "experiments/praetor_verify_001/fixtures.ts": "b4c1c726243da3a45f738ae901ff4bf877f7f455dc4fadc67f5f0a1e3c215eb4",
+    "experiments/praetor_verify_001/g1.ts": "78fc7b9d74cbbd529796a22ad63641db6b2372eaaec210da427509c95af52b7b",
+    "experiments/praetor_verify_001/oracle.ts": "64e01a875e59f74b36294a62494e0cb37d6e4bc962a11d51031b9c1d951b93b0",
+    "experiments/praetor_verify_001/README.md": "57c663e3c10f65c0b9dc3177ca386f2e0dcb449e76d3969e4b35e5ff3bef4562",
+    "experiments/praetor_verify_001/verifierRegistry.ts": "d67b53cc51f744241bafc7a3687d7dbc0cf66ad5263c6aee4798d093eb6696e7",
+    "data/pilot/live-horizon-pilot-v6-latest.json": "e173ce23633c8a4ac4836b2f66617bdabff3867a73602dd66369ec071b92d066",
+    "data/pilot/live-horizon-pilot-v6.1-latest.json": "37ae78b1e6ace2334319be27f3859c15a046ca9ebc243c78bc0d97ed2286dd42"
+  },
+  "protected_core_tree": "850312ba9f944e13c9bb01161e4bf10ce4d70bf421534f6429b92da2fe5db419",
+  "source_hashes": {
+    "experiments/praetor_verify_001/g2/contract.ts": "a0e3eb655578af555b08642b409e085e05f9976a26806c0d6563cb8e51e4f50e",
+    "experiments/praetor_verify_001/g2/fixtures.ts": "b29e22dd62c6f4b6b9026e2ffda099c60a84478153103d293c213e495770341e",
+    "experiments/praetor_verify_001/g2/evaluate.ts": "627140bc7547b9f9494c31cfae92c9a221bf97a08844fecf890a0dab332ca0e0",
+    "experiments/praetor_verify_001/g2/freeze.ts": "cc6f3e561291ab4af58dbe991a0c6dd8727e941b8a4d2930212788fc00a79e32",
+    "experiments/praetor_verify_001/g2/run.ts": "6f94561babd03f396b23982395e32ad42e8f45db08b420cbf89a8fbf9facb95c",
+    "experiments/praetor_verify_001/g2/preregister.ts": "99d0083a2de93e6621e1b0969b1cdaa9b85a4373fc9d774d2d76d149c7fb26dc",
+    "experiments/praetor_verify_001/g2/protected-baseline.json": "ca03db1fb2637d143b77cca0e147fc87c40556491634606de67c30203e5b7d8a",
+    "test/praetor-verify-001-g2.test.ts": "2adfb738624579282ca6a6b2016ca5a54827a13b83f1847e678f0ace7d29bab0",
+    "test/praetor-verify-001.test.ts": "318928cb85e9a12169bfc2170adf5196967036db6714c5336b573ed0c8f77c4f",
+    "test/praetor-verify-001-g1.test.ts": "68bb7fe3d5290900b070dad3c9374c01713c3cfa3f7785476452dbe0848e0916"
+  },
+  "components": {
+    "fixture_dataset": "f8fba9bfbf6f068a472474075acf5674681d58fe7f2eacafbe70ffbad85b91da",
+    "pressure_taxonomy": "02bf7ffd8e4a6aa97e3d49c2e1641bca5e87ecd1377596a3408c44a3a7c7c234",
+    "expected_outcomes": "3e3d613f168c75958f3975ccbcc3e6329940e9f9588960cba4592a0b6add7b4e",
+    "proof_obligations": "81c388060f856c5eff705d7c34e267b6b56ba4461cf198cda917543bced3e6c4",
+    "registry": "1d652ccc61c3fd2d553975e69e1f0826d042a6e6ac1dcfa60a1aa34b396aef8b",
+    "oracle": "d3a5a53627eb627a6bdccbc271d8c00e865157645c9bae96c81333b82931b7ae",
+    "taxonomy": "ed3bd5f8aae570b021b20a168567b6561f2e2375e20f84d4117cf5ff0325f22d",
+    "metrics": "91dcbcffb2b02117052a04091816b99f41e148631ae1e52338de5a724c4c8577",
+    "failure_signatures": "10794c827cf6e5532fca0d90e1bce2833c9a33af15bb408ba13d6973a9150a1d",
+    "configuration": "dd74b9ed21a7dd455320542d0c63e24b357ae418f7c8d9c5484be59df49e42b2"
+  }
+}

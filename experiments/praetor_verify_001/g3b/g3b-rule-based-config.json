@@ -1,0 +1,17 @@
+{
+  "version": "g3b-rule-based-v1",
+  "condition": "rule_based",
+  "adapts": false,
+  "schedule": [
+    "remove required authority",
+    "remove required proof",
+    "create conflicting proof",
+    "introduce review requirement",
+    "create unsupported universal claim",
+    "toggle provenance",
+    "create permission mismatch",
+    "semantic support without deterministic proof"
+  ],
+  "perturbation_order": "fixed cyclic schedule",
+  "outcome_independent": true
+}

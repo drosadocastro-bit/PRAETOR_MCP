@@ -1,0 +1,39 @@
+{
+  "version": "g3b-proof-obligations-v1",
+  "unknown_is_not_false": true,
+  "definitions": {
+    "permission": {
+      "verifier": "AGENT_K",
+      "obligations": [
+        "schema_valid",
+        "provenance_complete",
+        "no_duplicate_lineage",
+        "authority_present",
+        "authority_valid",
+        "proof_available",
+        "proof_supports_claim",
+        "permission_granted",
+        "record_binding"
+      ]
+    },
+    "semantic": {
+      "verifier": "SEMANTIC_JUDGE",
+      "obligations": [
+        "proof_available",
+        "provenance_complete"
+      ]
+    },
+    "human": {
+      "verifier": "HUMAN_REVIEW",
+      "obligations": [
+        "discretionary_review"
+      ]
+    },
+    "universal": {
+      "verifier": "NONE",
+      "obligations": [
+        "no_legitimate_verifier"
+      ]
+    }
+  }
+}

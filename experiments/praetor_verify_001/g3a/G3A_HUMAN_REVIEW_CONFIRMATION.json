@@ -1,0 +1,182 @@
+{
+  "version": "g3a-human-review-confirmation-v1",
+  "status": "NOT_READY_FOR_HUMAN_DECISION",
+  "confirmation_scope": "Pre-confirmation only; no human approval and no G3B authorization",
+  "proposed_instrument": "tabular-v1",
+  "selection_rule_frozen_before_pilot": null,
+  "selection_rule_frozen_before_pilot_evidence": {
+    "result": null,
+    "verification_method": "Compared selection-freeze.json creation/last-write times with pilot-v1/STARTED.json, checked STARTED.json selection hash, selection-freeze source/configuration hashes, and repository history.",
+    "evidence": "selection-freeze.json creation time was 2026-09-08T14:02:37Z and STARTED.json was created at 2026-09-08T14:02:49.738Z, but selection-freeze.json LastWriteTimeUtc was 2026-09-08T14:21:50Z. The available filesystem evidence therefore cannot establish that the exact frozen bytes, rather than only the file creation, predated pilot generation. G3A files are uncommitted in the inspected repository history, so commit ordering cannot resolve this.",
+    "selection_freeze_sha256": "3418983d0ba0896d014dd60887db0f3fba2aeee0a601af183e0b1e6940e07719",
+    "pilot_started_at": "2026-09-08T14:02:49.738Z"
+  },
+  "candidate_set_frozen_before_pilot": null,
+  "candidate_set": ["evolutionary-v1", "bandit-v1", "tabular-v1"],
+  "candidate_set_sha256": "f3fad9c31a692f81b8261af85e8f7248edc8ca24cf88eaa31511d08658db9be6",
+  "candidate_set_evidence": "selection-freeze.json lists tabular, bandit and evolutionary methods; search.ts retains all three implementations; pilot summary contains 30 cells covering each method, five seeds and two regimes. Pre-pilot timing remains unresolved for the same reason as the selection rule.",
+  "selection_criteria": {
+    "source": "experiments/praetor_verify_001/g3a/selection.ts and selection-freeze.json",
+    "eligibility": [
+      "prerequisitesPassed=true",
+      "exactly 10 unique cells per method: seeds 101-105 x G3-observable/G3-white-box",
+      "seed_reproduction=1",
+      "replay_consistency=1",
+      "provenance_completeness=1",
+      "budget_compliance=1",
+      "leakage_count=0",
+      "adaptation_demonstrated=true",
+      "igr <= 0.05",
+      "valid_candidate_rate + igr = 1",
+      "neutral_states_visited >= 2",
+      "runtime_stopped=false"
+    ],
+    "tie_break": "Among eligible methods, lowest predeclared audit-complexity rank: tabular=1, bandit=2, evolutionary=3.",
+    "instrumental_only": true
+  },
+  "praetor_failure_discovery_used_for_selection": false,
+  "g3b_endpoint_used_for_selection": false,
+  "prohibited_efficacy_evidence": {
+    "evidence": "selection.ts imports only METHODS and SEARCH_CONFIG from search.ts; it does not import evaluator, oracle, comparison, runtime or pilot. The selector schema has no failure-count, signature, time-to-failure, unauthorized-certification or G3B endpoint field. Pilot selection output reports all three methods eligible and applies only the fixed audit rank.",
+    "failure_count_used": false,
+    "unique_verifier_failure_signatures_used": false,
+    "time_to_first_verifier_failure_used": false,
+    "unauthorized_certification_count_used": false,
+    "g3b_primary_endpoint_used": false,
+    "comparative_adversarial_success_used": false
+  },
+  "result_summary_hash_verified": true,
+  "result_summary_byte_sha256": "3c13ab7502c4d99297502cceda4e1975b56a1ea4daec2cb3bb17884e06a7a906",
+  "result_summary_verification": "SHA-256 of the preserved pilot-v1/summary.json exact bytes; matches HUMAN_REVIEW.json and result-fingerprint.json.",
+  "source_hash_verified": true,
+  "proposed_source_byte_sha256": "9c602901452d7dd667bfbb148946be1a08a4015f0e74ef40876ebfef59b09c5a",
+  "source_hash_scope": "search.ts; it contains all three retained candidate implementations. This hash does not uniquely identify tabular-v1.",
+  "selected_method_definition": {
+    "identifier": "tabular-v1",
+    "actions": 4,
+    "initial_values": [0, 0, 0, 0],
+    "alpha": 0.25,
+    "epsilon": 0.2,
+    "tie_break": "lowest_index",
+    "update": "value[action] += alpha * (toy_reward - value[action])",
+    "seed_stream": "LCG32"
+  },
+  "selected_method_definition_sha256": "002d206d884ab23e9bb9a2f3d7cd30006f3f22dc37dbfbf8a809d37cf8c6be8a",
+  "proposed_configuration_sha256": "7c921a7aacf1686a03cef6ebce8cd9d9f96187e011d2ecbea7d829ebeedc93af",
+  "proposed_configuration_scope": "Entire frozen instrument configuration, including all methods, pilot schedule and selection rules; not a G3B configuration.",
+  "selected_method_configuration": {
+    "identifier": "tabular-v1",
+    "hyperparameters": {
+      "actions": 4,
+      "initial_values": [0, 0, 0, 0],
+      "alpha": 0.25,
+      "epsilon": 0.2,
+      "tie_break": "lowest_index",
+      "update": "value[action] += alpha * (toy_reward - value[action])"
+    },
+    "seed_stream_contract": "LCG32: state=(1664525*state+1013904223) mod 2^32; uniform=state/2^32",
+    "limits": { "generation_ms": 100, "evaluation_ms": 100, "rss_bytes": 536870912, "input_bytes": 8192, "retry_count": 0 },
+    "toy_only_input_contract": "G3A_TOY_ONLY reward 0/1",
+    "exposure_update_contract": "Exposed PRAETOR feedback is recorded only; toy feedback only reaches the update."
+  },
+  "selected_method_configuration_sha256": "ddc606cdd93516d3d44e18fb2d16157725be5b5dd2b19563200679267bbc1730",
+  "toy_only_reward_contract": {
+    "verified": true,
+    "oracle_feedback_reaches_update": false,
+    "praetor_disposition_reaches_update": false,
+    "failure_labels_reach_update": false,
+    "g3b_reward_reaches_update": false,
+    "evidence": "search.ts update() accepts ToyFeedbackSchema only: kind=G3A_TOY_ONLY and reward 0 or 1. pilot.ts calls searcher.update(feedback) where feedback is toyFeedback(action), while exposed PRAETOR feedback is recorded in each Step and not passed to update. The search module imports no oracle/evaluator/comparison/runtime module. Tests reject injected failure_count and enforce the toy-only path."
+  },
+  "adaptation": {
+    "scope": "G3A_TOY_ONLY",
+    "adaptation_detected": true,
+    "same_seed_same_feedback_same_sequence": true,
+    "changed_permitted_toy_feedback_can_change_search_state": true,
+    "praetor_feedback_used_for_learning": false,
+    "oracle_feedback_used_for_learning": false,
+    "g3b_reward_used_for_learning": false,
+    "evidence": "Each tabular cell records seed_reproduction=1 and adaptation_demonstrated=true. demonstrate('tabular', seed, regime) is replayed with inverted toy rewards and the final search-state hash changes. G3A search tests cover same-seed reproduction and changed-feedback state divergence."
+  },
+  "replay": {
+    "replay_cells_total": 30,
+    "replay_cells_passed": 30,
+    "replay_consistency": 1.0,
+    "evidence": "npx tsx experiments/praetor_verify_001/g3a/run.ts --replay returned replayed_cells=30, replay_consistency=1, selection_reconstructed=true. This is G3A instrument replay, not G0/G1/G2 replay."
+  },
+  "proposal_accounting": {
+    "g3a_total_proposals": 7500,
+    "budget_accounting_verified": true,
+    "derivation": "3 methods x 5 dedicated seeds (101-105) x 2 regimes x 250 proposals = 7,500.",
+    "invalid_and_duplicate_handling": "Each proposal consumes ledger budget before validity classification; duplicates consume budget; no silent retry; runtime stop is explicit. The pilot recorded 30/30 cells and 7,500/7,500 attempts."
+  },
+  "candidate_review_summary": [
+    {
+      "instrument": "tabular-v1",
+      "eligible_under_frozen_rule": true,
+      "selection_status": "PROPOSED",
+      "selection_reason": "Eligible and lowest predeclared audit-complexity rank (1).",
+      "reason_source": "pilot-v1/summary.json recommendation and selection.ts"
+    },
+    {
+      "instrument": "bandit-v1",
+      "eligible_under_frozen_rule": true,
+      "selection_status": "NOT_SELECTED",
+      "selection_reason": "Eligible, but higher predeclared audit-complexity rank (2) than tabular-v1.",
+      "reason_source": "pilot-v1/summary.json recommendation and selection.ts"
+    },
+    {
+      "instrument": "evolutionary-v1",
+      "eligible_under_frozen_rule": true,
+      "selection_status": "NOT_SELECTED",
+      "selection_reason": "Eligible, but higher predeclared audit-complexity rank (3) than tabular-v1.",
+      "reason_source": "pilot-v1/summary.json recommendation and selection.ts"
+    }
+  ],
+  "proposal_matches_frozen_selection_rule": true,
+  "non_selected_candidate_evidence_preserved": true,
+  "non_selected_evidence": "All 20 bandit/evolutionary pilot cell artifacts, metrics, traces, source implementation and configuration remain in pilot-v1 and the frozen source/configuration manifests.",
+  "exposure_contract": {
+    "observable_exercised": true,
+    "white_box_exercised": true,
+    "exposed_praetor_feedback_recorded_not_used_for_learning": true,
+    "evidence": "Pilot cells cover both regimes; runCell validates each exposed feedback object against its regime schema and stores it in each Step. searcher.update receives only toyFeedback(action).",
+    "future_g3b_feedback_adapter_required": true
+  },
+  "runtime_limits": {
+    "generation_ms": 100,
+    "evaluation_ms": 100,
+    "rss_bytes": 536870912,
+    "input_bytes": 8192,
+    "retry_count": 0,
+    "scope": "Frozen G3A instrument limits only; not automatically promoted into G3B."
+  },
+  "evaluator_oracle_limitation": {
+    "statement": "G3A evaluator is synthetic and bounded. Its successful behavior does not establish production evaluator independence or G3B scientific fitness.",
+    "g3a_suitability": "Suitable for the bounded G3A toy/instrument-selection purpose based on the executed isolation, whitelist, mutation, replay and fail-closed tests.",
+    "g3b_independent_oracle_blocker_resolved": false
+  },
+  "g3b_design_integration_approved": false,
+  "g3b_execution_authorized": false,
+  "g3b_comparative_observations": 0,
+  "holdout_constructed": false,
+  "holdout_contamination_detected": null,
+  "remaining_before_g3b": [
+    "Actual human instrument integration decision",
+    "Review the independent experimental evaluator/oracle policy for fitness to the G3B scientific question",
+    "Prospective adapter from permitted G3B feedback to the selected searcher's update, without holdout tuning",
+    "Freeze the G3B sampler, rule-based schedule, full candidate domain, failure mapping and unavailable-evidence handling",
+    "Define disjoint partitions only after accepted instrument selection, then perform the separate holdout-contamination audit",
+    "Prepare a new executable supplement and pass its tests, fingerprints and pre-execution gate",
+    "Separate explicit human G3B execution authorization"
+  ],
+  "unresolved_evidence": [
+    "Exact pre-pilot byte timing cannot be established from available timestamps because selection-freeze.json was last written after STARTED.json.",
+    "G3A source files are uncommitted in inspected git history; commit ordering cannot independently establish freeze timing.",
+    "No G3B scientific fitness or production evaluator independence conclusion is permitted from this confirmation."
+  ],
+  "reviewer": null,
+  "decision": null,
+  "signature": null,
+  "approval_date": null
+}

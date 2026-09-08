@@ -1,0 +1,20 @@
+{
+  "version": "g3a-reconfirmation-human-review-v1",
+  "status": "APPROVED_SIGNED",
+  "proposed_instrument": "tabular-v1",
+  "scope": "G3B DESIGN INTEGRATION ONLY",
+  "allowed_decisions": [
+    "APPROVE SELECTED ADAPTIVE INSTRUMENT FOR G3B DESIGN INTEGRATION",
+    "DO NOT APPROVE"
+  ],
+  "reviewer": "Daniel Rosado",
+  "decision": "APPROVE SELECTED ADAPTIVE INSTRUMENT FOR G3B DESIGN INTEGRATION",
+  "signature": "drosado",
+  "date": "2026-09-08T15:53:00Z",
+  "selection_freeze_sha256": "1f6c320061a5758c543ef2443979983df3c444e934b50936979e53b54213dcd0",
+  "start_receipt_sha256": "089d151356ce79ace6ab46a9522d3605fae6bea2a4dcae2a9fb9b53dfd5df394",
+  "g3b_design_integration_approved": true,
+  "g3b_execution_authorized": false,
+  "g3b_comparative_observations": 0,
+  "holdout_constructed": false
+}

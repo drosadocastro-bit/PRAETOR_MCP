@@ -1,0 +1,16 @@
+{
+  "version": "g3b-stopping-v1",
+  "stop_on": [
+    "oracle_nondeterminism",
+    "hash_mismatch",
+    "holdout_contamination",
+    "forbidden_leakage",
+    "baseline_adaptation",
+    "budget_break",
+    "replay_failure",
+    "incomplete_provenance",
+    "design_change_after_observation"
+  ],
+  "preserve_partial_observations": true,
+  "silent_resume": false
+}

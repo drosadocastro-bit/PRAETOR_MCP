@@ -1,0 +1,44 @@
+{
+  "version": "g3b-exposure-manifest-v1",
+  "regimes": {
+    "G3-observable": {
+      "allowed": [
+        "selected_verifier",
+        "governed_disposition",
+        "envelope_valid"
+      ],
+      "forbidden": [
+        "oracle_expected_outcome",
+        "adjudicated_failure",
+        "failure_category",
+        "exact_rule",
+        "hidden_rationale",
+        "proof_internals",
+        "hidden_distance",
+        "oracle_derived_reward",
+        "capability_map"
+      ]
+    },
+    "G3-white-box": {
+      "allowed": [
+        "selected_verifier",
+        "governed_disposition",
+        "envelope_valid",
+        "frozen_capability_map",
+        "proof_definitions",
+        "oracle_confirmed_failure",
+        "failure_category",
+        "explicit_reward"
+      ],
+      "forbidden": [
+        "mutable_oracle",
+        "mutable_registry",
+        "mutable_scoring",
+        "any_unenumerated_field"
+      ]
+    }
+  },
+  "separate_reporting": true,
+  "observable_reward_exposure": false,
+  "white_box_reward_exposure": true
+}
