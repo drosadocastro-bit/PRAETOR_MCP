@@ -1,8 +1,40 @@
 # PRAETOR-MCP
 
-PRAETOR-MCP means **Predictive Reliability Assessment and Evidence Traceability for Operational Readiness**. It is a local synthetic prototype showing how an AI agent can query maintenance evidence through an MCP server, prepare a bounded advisory packet, and preserve the evidence and uncertainty needed for human review.
+**Predictive Reliability Assessment and Evidence Traceability for Operational Readiness**
 
-> **PRAETOR-MCP is a local synthetic prototype only. It does not use internal data. It does not connect to operational systems. It does not create work orders. It does not authorize maintenance action. It preserves human review authority.**
+PRAETOR-MCP is a local, synthetic, advisory-only MCP server for governed
+maintenance-evidence access. It helps an AI assistant retrieve approved records,
+preserve provenance and uncertainty, and keep advisory recommendations inside
+explicit human-review boundaries.
+
+> **One-line claim:** PRAETOR-MCP is a governed MCP Dataset Access Server for
+> synthetic maintenance evidence that refuses to let advisory language outrun
+> provenance, uncertainty, or human authority.
+
+It does **not** authorize maintenance, determine equipment safety, create work
+orders, or connect to live operational systems.
+
+## 30-Second Overview
+
+Many AI demonstrations focus on whether a model can produce a useful answer.
+PRAETOR-MCP explores a different question:
+
+> **What evidence and authority should an AI assistant be allowed to rely on
+> when producing that answer?**
+
+The prototype keeps these concepts structurally distinct:
+
+- retrieved evidence;
+- user or host claims;
+- model inference;
+- deterministic governance results;
+- human-review state;
+- operational authority.
+
+When evidence is incomplete or provenance is insufficient, the desired outcome
+may be revision, escalation, refusal, or non-certification rather than a more
+confident answer. Everything demonstrated by this repository is synthetic,
+local, advisory-only, and review-gated.
 
 ## What It Is and Is Not
 
@@ -25,29 +57,35 @@ implementation does not provide a government Service Read integration or a
 Service Write integration. Those are future modular adapters documented in the
 roadmap, not demonstrated capabilities.
 
-This claim remains separate from the frozen synthetic studies and the opt-in
-local-model instrument pilot. Neither establishes live government integration,
-predictive accuracy, operational readiness, maintenance authorization, or
-equipment safety.
+This claim remains separate from the frozen synthetic research experiments and
+the opt-in local-model instrument pilot. Neither establishes live government
+integration, predictive accuracy, operational readiness, maintenance
+authorization, equipment safety, or production reliability.
 
 ## Why MCP
 
-MCP provides a governed interface for an AI host to query approved synthetic records and evidence without giving the model direct access to storage or operational systems. The write surface is deliberately narrow: it can persist a synthetic draft packet only after deterministic checks pass.
+MCP provides a structured interface through which an AI host can query approved
+synthetic records and evidence without giving the model direct access to storage
+or operational systems. The write surface is deliberately narrow: it can
+persist a synthetic advisory packet only after deterministic checks pass.
 
 ## Architecture Flow
 
 ```mermaid
 flowchart TD
-	A[Synthetic Data] --> B[MCP Dataset Access Tools]
-	B --> C[MCP Service Read Tools]
-	C --> D[Draft Advisory Packet]
-	D --> E[Deterministic Governance Layer]
-	E --> F[Agent K-style Integrity Scorer]
-	F --> G[Review-only Submission]
-	G --> H[Human Review]
+	A[AI host / assistant] --> B[Host governance]
+	B --> C[MCP gateway]
+	C --> D[PRAETOR-MCP]
+	D --> E[Synthetic dataset and evidence]
+	D --> F[Deterministic governance]
+	F --> G[Review-only submission]
+	G --> H[Human review]
 ```
 
-Governance and integrity scoring happen before the packet is stored. No path creates an operational action.
+The MCP server and host-side containment runtime are deliberately distinct.
+Direct access to the MCP server does not by itself prove that host-side Agent K
+containment was enforced. Governance and integrity scoring happen before a
+packet is stored. No path creates an operational action.
 
 ## Exposed Tools
 
@@ -59,7 +97,7 @@ Governance and integrity scoring happen before the packet is stored. No path cre
 - `get_recurring_patterns`
 - `get_source_metadata`
 
-### Service Read Integration
+### Synthetic Evidence Read Surface
 
 - `retrieve_supporting_evidence`
 - `retrieve_document_excerpt`
@@ -67,15 +105,26 @@ Governance and integrity scoring happen before the packet is stored. No path cre
 - `retrieve_anomaly_context`
 - `evaluate_evidence_boundary`
 
-Read responses carry source ID, source type, timestamp, excerpts or record references, provenance metadata, independence grouping, and uncertainty notes where applicable.
+These tools demonstrate the shape of a future approved Service Read adapter;
+they operate only over synthetic fixtures. Read responses carry source ID,
+source type, timestamp, excerpts or record references, provenance metadata,
+independence grouping, and uncertainty notes where applicable.
 
 `evaluate_evidence_boundary` is a deterministic review tool for separating authorized retrieved evidence from chat claims and model inference. The host must explicitly pass the prompt, retrieved context, and optional draft answer; the MCP server cannot inspect arbitrary host chat implicitly. The tool does not diagnose conditions, determine equipment safety, authorize maintenance, or replace human judgment.
 
-### Service Write Integration
+### Local Review-Write Surface
 
 - `submit_review_advisory_packet`
 
-This tool accepts only a schema-valid advisory packet. The caller-supplied verdict and guardrails are treated as untrusted claims; governance recomputes authoritative results before persistence. It does not create work orders, authorize maintenance, update operational records, determine equipment safety, or bypass human review.
+This tool accepts only a schema-valid advisory packet. Caller-supplied verdicts
+and guardrails are untrusted claims; governance recomputes deterministic results
+before persistence. It writes only to a local append-only JSONL store. It does
+not create work orders, authorize maintenance, update operational records,
+determine equipment safety, or bypass human review.
+
+This is **not** a live Service Write integration. A future adapter would require
+its own approved sandbox, provenance controls, governance checks, security
+review, and adversarial validation.
 
 ## Evidence Boundary and Audit Events
 

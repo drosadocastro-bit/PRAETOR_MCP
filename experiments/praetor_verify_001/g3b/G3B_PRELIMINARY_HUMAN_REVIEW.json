@@ -1,0 +1,112 @@
+{
+  "version": "g3b-preliminary-human-review-v1",
+  "status": "PENDING",
+  "review_scope": "Preliminary review only; no G3B execution, holdout evaluation, comparative results, or execution authorization",
+  "conclusion": "The G3B design is frozen and provenance-bound, but execution eligibility remains blocked because key runtime guarantees are still specified rather than executable and validated",
+  "repository_checkpoint": {
+    "commit_sha": "a12c4ab2da5b79cdfdd77ea9213c29c7943a2428",
+    "commit_verified": true,
+    "working_tree_expected_state": "Tracked files match the pushed checkpoint; unrelated untracked local files are excluded from review scope",
+    "execution_lock_sha256": "c7c73b98a967134e57e68175fe110e46e65547fcda04d0e9d76c024a82c1538d"
+  },
+  "comparative_observations": 0,
+  "checks": {
+    "lock_complete": false,
+    "lock_complete_detail": {
+      "missing_components": [
+        "executable G3B comparative runner",
+        "runtime limits contract",
+        "proposal provenance schema",
+        "replay contract and executable replay precheck",
+        "executable regime-specific feedback/reward adapter"
+      ],
+      "lock_sha256": "c7c73b98a967134e57e68175fe110e46e65547fcda04d0e9d76c024a82c1538d"
+    },
+    "receipt_matches_lock": true,
+    "receipt_precedes_experimental_observations": true,
+    "comparative_observations_at_receipt": 0,
+    "oracle_independence": {
+      "validated": false,
+      "shared_final_state": null,
+      "oracle_to_observed_leakage": null,
+      "observed_to_oracle_mutation": null,
+      "reason": "A separate oracle module is present, but no executable PRAETOR observed path, comparison layer, or independence test exists in the G3B package."
+    },
+    "observable_feedback_isolated": false,
+    "observable_feedback_detail": {
+      "allowed_fields": ["selected_verifier", "governed_disposition", "envelope_valid"],
+      "actual_fields": null,
+      "forbidden_fields_observed": null,
+      "oracle_equivalent_reward_leakage": null,
+      "contract_matches_runtime": null
+    },
+    "white_box_contract_enforced": false,
+    "white_box_detail": {
+      "allowed_fields": ["selected_verifier", "governed_disposition", "envelope_valid", "frozen_capability_map", "proof_definitions", "oracle_confirmed_failure", "failure_category", "explicit_reward"],
+      "actual_fields": null,
+      "unexpected_fields": null,
+      "contract_matches_runtime": null
+    },
+    "holdout_unevaluated": true,
+    "holdout_contamination_detected": null,
+    "holdout_detail": {
+      "constructed": true,
+      "evaluated": false,
+      "results_inspected": false,
+      "used_for_tuning": false,
+      "oracle_distribution_inspected": false,
+      "exact_case_overlap_count": null,
+      "hidden_label_overlap_count": null,
+      "audit_scope": "Structural partition disjointness only; executable comparison against G0/G1/G2/G3A/G3A reconfirmation and development provenance is not implemented."
+    },
+    "baseline_parity": null,
+    "baseline_parity_detail": {
+      "equal_proposal_budget": true,
+      "invalids_consume_budget": true,
+      "duplicates_consume_budget": true,
+      "free_retries_detected": null,
+      "unequal_hidden_evaluations_detected": null,
+      "reason": "The frozen configuration declares parity, but no comparative runner enforces or measures it."
+    },
+    "baseline_nonadaptation": null,
+    "adaptation_contract": {
+      "random_is_nonadaptive": null,
+      "rule_based_is_nonadaptive": null,
+      "tabular_is_adaptive": null,
+      "reason": "Sampler and rule configuration declarations exist without executable G3B trajectories or outcome-independence tests."
+    },
+    "cell_matrix_complete": true,
+    "cell_matrix": {"conditions": 3, "regimes": 2, "seeds": 10, "cells": 60, "seed_values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]},
+    "budget_contract_verified": true,
+    "prefix_semantics_verified": false,
+    "failure_mapping_deterministic": false,
+    "novelty_mapping_deterministic": false,
+    "unavailable_evidence_semantics_verified": false,
+    "trace_integrity_verified": false,
+    "provenance_complete": false,
+    "replay_precheck_passed": false,
+    "replay_consistency": null,
+    "stopping_rules_enforced": false,
+    "zero_observations_verified": true,
+    "zero_observations_detail": {"g3b_comparative_observations": 0, "g3b_results_directory_exists": false},
+    "git_checkpoint_matches": true
+  },
+  "human_execution_eligibility": "NOT_ELIGIBLE_FOR_HUMAN_EXECUTION_DECISION",
+  "human_execution_authorized": false,
+  "unresolved_blockers": [
+    "Execution lock does not bind a complete executable comparative runtime contract.",
+    "Oracle independence is documentary only and has no executable separation test.",
+    "Observable and white-box feedback isolation is not enforced by a G3B runtime.",
+    "Holdout contamination audit is structural only; contamination status must remain null.",
+    "Baseline parity, non-adaptation, provenance, failure mapping, replay, and stopping rules lack executable validation.",
+    "No human execution decision or signature is present."
+  ],
+  "prohibited_state_changes": {
+    "g3b_execution_authorized": false,
+    "g3b_comparative_observations": 0,
+    "holdout_evaluated": false,
+    "execution_lock_modified": false,
+    "receipt_modified": false
+  },
+  "recommendation": "NOT ELIGIBLE FOR HUMAN EXECUTION DECISION"
+}
