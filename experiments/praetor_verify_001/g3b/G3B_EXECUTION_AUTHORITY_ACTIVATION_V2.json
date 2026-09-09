@@ -1,0 +1,40 @@
+{
+  "version": "g3b-execution-authority-activation-v2",
+  "activation_status": "PENDING_HUMAN_APPLICABILITY_REVIEW",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "supersedes_activation": "g3b-execution-authority-activation-v1",
+  "frozen_references": {
+    "design_freeze_commit": "a12c4ab2da5b79cdfdd77ea9213c29c7943a2428",
+    "manifest_sha256": "2ae2b095a81ebbdcf739992dbb73be3975fda758db102f1ca800d048789ebcc3",
+    "receipt_sha256": "401e6d7fb33d4e71eaac33d408eaf3db5c36f3f40cdf1cf6fe722df66a6c9716",
+    "prevalidation_sha256": "895c1e5be9ff9176450df6a87154e24d732849ddd2c9887b08e26398ca459b09",
+    "authorization_sha256": "d8f3f528accf884fbbebb507dda09ffa2b2aee7b7062024d4a0a8c04d38534e0"
+  },
+  "authority_chain": {
+    "technical_prevalidation": "PASS",
+    "eligibility": "ELIGIBLE_FOR_HUMAN_EXECUTION_DECISION",
+    "authorization_status": "APPROVED_SIGNED",
+    "authorization_decision": "APPROVE_FOR_EXECUTION",
+    "execution_authorized": true,
+    "signature_present": true,
+    "date_present": true,
+    "authorization_experiment_matches": true,
+    "frozen_artifact_hashes_match": true,
+    "repository_clean_required": true,
+    "holdout_not_accessed": true,
+    "execution_not_performed": true,
+    "authority_chain_valid": true
+  },
+  "authorization_applicability_review": "PENDING",
+  "effective_execution_authorized": false,
+  "historical_state": {
+    "historical_execution_authorized": false,
+    "historical_human_authorization_signed": false
+  },
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "activation_parent_commit_sha": "1e404cba48aec8f8483ebd822fa61b4c4d4f09a7",
+  "append_only_statement": "This v2 event supersedes the v1 derivation semantics without rewriting v1 or frozen historical artifacts."
+}

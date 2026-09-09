@@ -1,0 +1,18 @@
+{
+  "finding_id": "G3B-AUTHORITY-FINDING-001",
+  "discovery_timestamp": "2026-09-09T22:45:00.000Z",
+  "category": "AUTHORITY_STATE_INCONSISTENCY",
+  "severity": "EXECUTION_BLOCKING",
+  "affected_contract_version": "g3b-execution-authority-contract-v1",
+  "affected_activation_version": "g3b-execution-authority-activation-v1",
+  "activation_status_observed": "ACTIVE_PENDING_APPLICABILITY_REVIEW",
+  "effective_authority_observed": true,
+  "missing_required_condition": "authorization_applicability_review_pass",
+  "self_reference_concern": "activation_producing_commit_sha referred to the commit containing the activation artifact, creating circular provenance semantics.",
+  "description": "The authority activation artifact declared effective_execution_authorized=true while applicability review remained pending. The authority contract did not require successful applicability review before effective authority could become true.",
+  "holdout_access_status": "NOT_ACCESSED",
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "remediation_status": "PRESERVED_BEFORE_REMEDIATION",
+  "preservation_rule": "This finding is append-only evidence and must not be overwritten after remediation."
+}
