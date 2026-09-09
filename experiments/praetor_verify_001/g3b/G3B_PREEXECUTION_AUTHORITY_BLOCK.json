@@ -1,0 +1,24 @@
+{
+  "version": "g3b-preexecution-authority-block-v1",
+  "recorded_at": "2026-09-09T22:35:15.9431343Z",
+  "repository_state": "CLEAN",
+  "repository_commit": "fbcd92033c10e181f6527b591ff8224a5c5d2b9d",
+  "authorization_artifact": "G3B_HUMAN_EXECUTION_AUTHORIZATION.json",
+  "authorization_status": "APPROVED_SIGNED",
+  "authorization_decision": "APPROVE_FOR_EXECUTION",
+  "authorization_execution_authorized": true,
+  "frozen_manifest_execution_authorized": false,
+  "frozen_receipt_human_authorization_signed": false,
+  "frozen_execution_ready": false,
+  "guard_result": "G3B_EXECUTION_BLOCKED",
+  "holdout_access_status": "NOT_ACCESSED",
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "frozen_artifact_hashes": {
+    "G3B_PRE_EXECUTION_MANIFEST.json": "2ae2b095a81ebbdcf739992dbb73be3975fda758db102f1ca800d048789ebcc3",
+    "G3B_START-RECEIPT.json": "401e6d7fb33d4e71eaac33d408eaf3db5c36f3f40cdf1cf6fe722df66a6c9716",
+    "G3B_HUMAN_EXECUTION_AUTHORIZATION.json": "d8f3f528accf884fbbebb507dda09ffa2b2aee7b7062024d4a0a8c04d38534e0",
+    "G3B_RUNTIME_PREVALIDATION.json": "895c1e5be9ff9176450df6a87154e24d732849ddd2c9887b08e26398ca459b09"
+  },
+  "preservation_rule": "This historical blocked result must remain immutable and must not be overwritten by later authority activation."
+}

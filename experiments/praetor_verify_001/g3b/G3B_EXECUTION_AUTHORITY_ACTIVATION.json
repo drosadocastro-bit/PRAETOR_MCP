@@ -1,0 +1,47 @@
+{
+  "version": "g3b-execution-authority-activation-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "activation_status": "ACTIVE_PENDING_CLEAN_RECHECK",
+  "frozen_references": {
+    "design_freeze_commit": "a12c4ab2da5b79cdfdd77ea9213c29c7943a2428",
+    "preliminary_review_commit": "88193f4",
+    "eligibility_clarification_commit": "995add0",
+    "manifest": {
+      "path": "G3B_PRE_EXECUTION_MANIFEST.json",
+      "sha256": "2ae2b095a81ebbdcf739992dbb73be3975fda758db102f1ca800d048789ebcc3"
+    },
+    "receipt": {
+      "path": "G3B_START-RECEIPT.json",
+      "sha256": "401e6d7fb33d4e71eaac33d408eaf3db5c36f3f40cdf1cf6fe722df66a6c9716"
+    }
+  },
+  "technical_prevalidation": {
+    "artifact": "G3B_RUNTIME_PREVALIDATION.json",
+    "sha256": "895c1e5be9ff9176450df6a87154e24d732849ddd2c9887b08e26398ca459b09",
+    "result": "PASS",
+    "eligibility": "ELIGIBLE_FOR_HUMAN_EXECUTION_DECISION"
+  },
+  "later_human_authorization": {
+    "artifact": "G3B_HUMAN_EXECUTION_AUTHORIZATION.json",
+    "sha256": "d8f3f528accf884fbbebb507dda09ffa2b2aee7b7062024d4a0a8c04d38534e0",
+    "authorization_commit": "ac54ec64cfea12bb1aa0d6dc2b497a1eb0b3845c",
+    "status": "APPROVED_SIGNED",
+    "decision": "APPROVE_FOR_EXECUTION",
+    "reviewer": "Daniel Rosado Castro",
+    "signature_present": true,
+    "authorization_date": "09/09/2026 2224z",
+    "execution_authorized": true
+  },
+  "activation_timestamp": "2026-09-09T22:40:00.000Z",
+  "activation_producing_commit_sha": "PENDING_COMMIT_SHA",
+  "derived_state": {
+    "historical_execution_authorized": false,
+    "historical_human_authorization_signed": false,
+    "effective_execution_authorized": true,
+    "holdout_access_status": "NOT_ACCESSED",
+    "holdout_evaluated": false,
+    "execution_performed": false,
+    "comparative_observations": 0
+  },
+  "append_only_statement": "This event extends the evidence history; it does not rewrite the frozen manifest or receipt."
+}
