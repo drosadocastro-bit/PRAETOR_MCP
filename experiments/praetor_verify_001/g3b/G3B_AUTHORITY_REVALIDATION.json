@@ -1,0 +1,62 @@
+{
+  "version": "g3b-authority-revalidation-v1",
+  "authority_revalidation": "PASS",
+  "revalidation_scope": "Authority-chain remediation commit b7e988f only; no G3B holdout execution.",
+  "remediation_commit": "b7e988f156b2bacf51541fc5ecf3b06c3d11ebae",
+  "contract_version": "g3b-execution-authority-contract-v2",
+  "activation_version": "g3b-execution-authority-activation-v2",
+  "contract_parses": true,
+  "activation_references": {
+    "manifest_sha256_matches": true,
+    "receipt_sha256_matches": true,
+    "prevalidation_sha256_matches": true,
+    "authorization_sha256_matches": true,
+    "activation_parent_commit_is_non_self_referential": true
+  },
+  "historical_integrity": {
+    "manifest_byte_identical": true,
+    "receipt_byte_identical": true,
+    "prevalidation_artifact_hash_matches": true,
+    "signed_authorization_hash_matches": true,
+    "frozen_design_unchanged": true,
+    "holdout_unchanged": true
+  },
+  "pending_state": {
+    "authority_chain_valid": true,
+    "authorization_applicability_review": "PENDING",
+    "effective_execution_authorized": false,
+    "guard_result": "G3B_EXECUTION_BLOCKED",
+    "blocking_reason": "authorization_applicability_review_pass",
+    "holdout_access_status": "NOT_ACCESSED",
+    "holdout_evaluated": false,
+    "execution_performed": false,
+    "comparative_observations": 0,
+    "repository_state_before_report": "CLEAN"
+  },
+  "negative_tests": [
+    { "case": "PENDING applicability review", "result": "BLOCKED" },
+    { "case": "missing applicability review", "result": "BLOCKED" },
+    { "case": "unknown applicability value", "result": "BLOCKED" },
+    { "case": "REAUTHORIZATION_REQUIRED", "result": "BLOCKED" },
+    { "case": "unsigned authorization", "result": "BLOCKED" },
+    { "case": "wrong experiment ID", "result": "BLOCKED" },
+    { "case": "authorization hash mismatch", "result": "BLOCKED" },
+    { "case": "frozen artifact hash mismatch", "result": "BLOCKED" },
+    { "case": "technical prevalidation != PASS", "result": "BLOCKED" }
+  ],
+  "synthetic_positive_test": {
+    "real_applicability_state_modified": false,
+    "authorization_applicability_review": "AUTHORIZATION_REMAINS_APPLICABLE",
+    "authority_chain_valid": true,
+    "effective_execution_authorized": true,
+    "holdout_access_status": "NOT_ACCESSED",
+    "execution_performed": false,
+    "comparative_observations": 0
+  },
+  "stop_boundary": "STOP_FOR_HUMAN_APPLICABILITY_REVIEW",
+  "notes": [
+    "The positive path is synthetic and does not modify the real applicability artifact.",
+    "Revalidation does not authorize, access, or execute the G3B holdout.",
+    "A passing revalidation does not freeze an execution baseline."
+  ]
+}
