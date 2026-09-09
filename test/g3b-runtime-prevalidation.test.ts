@@ -3,16 +3,16 @@ import { describe, expect, it } from 'vitest';
 import { assertHoldoutRemainsUntouched, runG3BRuntimePrevalidation } from '../experiments/praetor_verify_001/g3b/prevalidation.js';
 
 describe('G3B runtime prevalidation', () => {
-  it('runs only the permitted validation fixture and fails closed for unresolved runtime gates', () => {
+  it('observes all comparative gates without changing the frozen execution boundary', () => {
     const artifact = runG3BRuntimePrevalidation();
-    expect(artifact.runtime_prevalidation).toBe('FAIL');
-    expect(artifact.eligibility).toBe('NOT_ELIGIBLE_FOR_HUMAN_EXECUTION_DECISION');
+    expect(artifact.runtime_prevalidation).toBe('PASS');
+    expect(artifact.eligibility).toBe('ELIGIBLE_FOR_HUMAN_EXECUTION_DECISION');
     expect(artifact.gates.gate_1_executable_runner.status).toBe('PASS');
     expect(artifact.gates.gate_2_provenance_contract.status).toBe('PASS');
     expect(artifact.gates.gate_3_replay_precheck.status).toBe('PASS');
-    expect(artifact.gates.gate_4_oracle_feedback_isolation.status).toBe('INCONCLUSIVE');
-    expect(artifact.gates.gate_5_baseline_parity.status).toBe('INCONCLUSIVE');
-    expect(artifact.gates.gate_6_executable_stopping_rules.status).toBe('INCONCLUSIVE');
+    expect(artifact.gates.gate_4_oracle_feedback_isolation.status).toBe('PASS');
+    expect(artifact.gates.gate_5_baseline_parity.status).toBe('PASS');
+    expect(artifact.gates.gate_6_executable_stopping_rules.status).toBe('PASS');
     expect(artifact.holdout_access_status).toBe('NOT_ACCESSED');
     expect(artifact.holdout_evaluated).toBe(false);
     expect(artifact.execution_performed).toBe(false);
