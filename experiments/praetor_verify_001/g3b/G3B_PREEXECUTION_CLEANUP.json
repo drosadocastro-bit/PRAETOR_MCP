@@ -89,7 +89,12 @@
     "stash_identifier": "stash@{0}",
     "stash_message": "pre-g3b preserve local-only vscode screenshots audit log",
     "include_untracked_verified": true,
-    "paths_verified": 8
+    "paths_verified": 8,
+    "post_validation_stash": {
+      "stash_identifier": "stash@{0}",
+      "stash_message": "pre-g3b preserve generated audit log after authority validation",
+      "path_verified": "data/audit-events.ndjson"
+    }
   },
   "cleanup_commits": {
     "documentation_commit": "9ffad26b037065844aacc2499199400e41ed2c2d"
