@@ -302,6 +302,52 @@ future composition receipt may include formal verification, provenance
 verification, semantic assessment, human review, remaining uncertainty,
 certified scope, and non-certified scope.
 
+## Future Local-Model Horizon Instrument
+
+The local LM Studio horizon pilot is retained as a future research instrument,
+not as a current production dependency or a completed comparative study. Its
+implementation reference is [`scripts/live-horizon-pilot.ts`](../scripts/live-horizon-pilot.ts),
+with the adapter boundary documented in
+[`docs/LIVE_MODEL_ADAPTER.md`](LIVE_MODEL_ADAPTER.md) and the preregistered
+study design in
+[`docs/LIVE_MODEL_HORIZON_PREREGISTRATION.md`](LIVE_MODEL_HORIZON_PREREGISTRATION.md).
+
+The instrument may, after explicit human review, validate only bounded local
+properties such as:
+
+- local endpoint connectivity and pinned model configuration;
+- strict semantic-response parsing;
+- request, response, and provenance fingerprints;
+- trace persistence and reconstructability;
+- explicit timeout, refusal, parser, API, and endpoint failures;
+- semantic-judge behavior under synthetic evidence, ambiguity, and
+        contradiction fixtures;
+- preservation of Agent K authority during governance fusion.
+
+Its current guardrails are mandatory for any future continuation:
+
+- disabled by default;
+- localhost-only when enabled;
+- no retries, fabricated responses, operational writes, or authority grants;
+- semantic evaluation cannot override a hard Agent K failure;
+- invalid or unavailable semantic responses remain unavailable and fail closed;
+- synthetic evidence stays separate from model output and provenance;
+- pilot artifacts are instrumentation records, not experimental observations.
+
+The pinned v6 instrument and its v6.1 trace-integrity correction are historical
+validation artifacts. They do not start the preregistered live study, establish
+predictive accuracy, establish agent-rot mitigation, validate general model
+reliability, or justify ranking conditions. Any future study must freeze its
+model, adapter, prompt, sampling configuration, timeout, failure taxonomy,
+metrics, and stopping rules before collecting study observations. Historical
+pilot artifacts must remain immutable and must not be rescored to tune a later
+study.
+
+This thread connects to `PRAETOR-SPEC-001`, `PRAETOR-FORMAL-001`, and
+`PRAETOR-SCALE-001`: a model response can satisfy a parser contract without
+establishing specification correctness, formal proof, real-world truth, or
+operational authority.
+
 ## Bounded Hackathon Connection
 
 The previously documented `COMS Specialist Agent` and `Data Access Agent` remain
@@ -312,6 +358,14 @@ Each future role requires explicit inputs, outputs, authority boundaries, and
 prohibited actions.
 
 The hackathon architecture must not become an uncontrolled swarm.
+
+The separate external red-team research plan is documented in
+[`docs/FUTURE_EXTERNAL_ADVERSARIAL_RED_TEAM_RESEARCH.md`](FUTURE_EXTERNAL_ADVERSARIAL_RED_TEAM_RESEARCH.md).
+It is future research only and requires an independently frozen target,
+separate research branch, preserved counterexamples, reproducible findings, and
+human-reviewed claim boundaries. A successful campaign means only that no
+counterexample was found under tested conditions; it does not certify PRAETOR
+as secure.
 
 ## Human Boundary
 
