@@ -1,0 +1,35 @@
+{
+  "version": "g3b-execution-baseline-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "baseline_parent_commit_sha": "11b066652c9e9b7a99ffce68fa0ab313d21074e1",
+  "branch": "mcp-2026-07-28-compat-shadow",
+  "baseline_timestamp": "2026-09-09T23:33:28.5719929Z",
+  "design_freeze_commit": "a12c4ab2da5b79cdfdd77ea9213c29c7943a2428",
+  "runtime_prevalidation_commit": "f9812ee37304dfa604764f2f2fc2362c438d4e6e",
+  "human_authorization_commit": "ac54ec64cfea12bb1aa0d6dc2b497a1eb0b3845c",
+  "authority_remediation_commit": "b7e988f156b2bacf51541fc5ecf3b06c3d11ebae",
+  "authority_revalidation_commit": "97fbe092a8486268d0755145f437c99a7c5e98c7",
+  "applicability_decision_commit": "11b066652c9e9b7a99ffce68fa0ab313d21074e1",
+  "authority_state": {
+    "authority_chain_valid": true,
+    "authorization_applicability_review": "AUTHORIZATION_REMAINS_APPLICABLE",
+    "effective_execution_authorized": true
+  },
+  "authority_artifacts": {
+    "contract_v2": { "path": "G3B_EXECUTION_AUTHORITY_CONTRACT_V2.json", "sha256": "8e2041fe76bf1d38c88dd54d1c4905b011207d66a86b5ced670370ef27f5f1ac" },
+    "activation_v2": { "path": "G3B_EXECUTION_AUTHORITY_ACTIVATION_V2.json", "sha256": "3ef97d5cc900c5d3bf582fcaddff81a0198b9b45d9d3ad279067a762ee0b477f" },
+    "authorization": { "path": "G3B_HUMAN_EXECUTION_AUTHORIZATION.json", "sha256": "d8f3f528accf884fbbebb507dda09ffa2b2aee7b7062024d4a0a8c04d38534e0" },
+    "applicability": { "path": "G3B_HUMAN_AUTHORIZATION_APPLICABILITY.json", "sha256": "ba033c6acb55724a286da450a3931da447baba0aef4ee27f8dd00074cd265bb1" }
+  },
+  "frozen_artifacts": {
+    "holdout_manifest_sha256": "a954b81803d21d813123907c7870e7253971a44e68644c9c2ec9c86a9a57a62c",
+    "partitions_sha256": "4a57c445e6f6f78147a1283f03be248af40bf31b3e89f64844c2a71b5904cac7"
+  },
+  "repository_state": "CLEAN_AT_BASELINE_PARENT",
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "execution_baseline_frozen": true,
+  "baseline_commit_provenance": "The containing commit is recorded by G3B_EXECUTION_BASELINE_RECEIPT.json; this artifact intentionally records its clean parent commit to avoid self-reference."
+}
