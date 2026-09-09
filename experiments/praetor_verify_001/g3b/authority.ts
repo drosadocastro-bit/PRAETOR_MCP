@@ -75,7 +75,7 @@ export function readG3BAuthorityInput(repositoryClean = currentRepositoryIsClean
   const authorization = readJson<{ version: string; status: string; decision: string; execution_authorized: boolean; reviewer: string | null; signature: string | null; date: string | null }>('G3B_HUMAN_EXECUTION_AUTHORIZATION.json');
   const prevalidation = readJson<{ runtime_prevalidation: string; eligibility: string }>('G3B_RUNTIME_PREVALIDATION.json');
   const activation = readJson<{ experiment_id: string; frozen_references: { manifest_sha256: string; receipt_sha256: string; prevalidation_sha256: string; authorization_sha256: string }; authority_chain: { technical_prevalidation: string; eligibility: string; authorization_status: string; authorization_decision: string; execution_authorized: boolean; authority_chain_valid: boolean }; authorization_applicability_review: string; effective_execution_authorized: boolean; holdout_access_status: string; execution_performed: boolean; append_only_statement: string }>('G3B_EXECUTION_AUTHORITY_ACTIVATION_V2.json');
-  const applicability = readJson<{ version: string; experiment_id: string; reviewer: string; referenced_original_authorization_artifact: string; referenced_original_authorization_sha256: string; referenced_authority_contract_v2: string; referenced_authority_activation_v2: string; referenced_remediation_commit: string; referenced_revalidation_commit: string; decision: string; signature: string | null; date: string | null; holdout_access_status: string; execution_performed: boolean; comparative_observations: number; authorization_scope_statement: string }>('G3B_HUMAN_AUTHORIZATION_APPLICABILITY.json');
+  const applicability = readJson<{ version: string; experiment_id: string; reviewer: string; referenced_original_authorization_artifact: string; referenced_original_authorization_sha256: string; referenced_authority_contract_v2: string; referenced_authority_activation_v2: string; referenced_remediation_commit: string; referenced_revalidation_commit: string; decision: string; signature: string | null; date: string | null; human_confirmation: boolean; confirmation_source: string; confirmation_timestamp: string; holdout_access_status: string; execution_performed: boolean; comparative_observations: number; authorization_scope_statement: string }>('G3B_HUMAN_AUTHORIZATION_APPLICABILITY.json');
   const actualComponentHashes = Object.fromEntries(Object.keys(manifest.components).map(name => [name, byteHash(readFileSync(name.includes('/') ? resolve(root, '..', name) : resolve(root, name)))]));
   const frozenArtifactHashesMatch = JSON.stringify(actualComponentHashes) === JSON.stringify(manifest.components)
     && activation.frozen_references.manifest_sha256 === sha256('G3B_PRE_EXECUTION_MANIFEST.json')
@@ -103,8 +103,11 @@ export function readG3BAuthorityInput(repositoryClean = currentRepositoryIsClean
     && applicability.referenced_remediation_commit === 'b7e988f156b2bacf51541fc5ecf3b06c3d11ebae'
     && applicability.referenced_revalidation_commit === '97fbe092a8486268d0755145f437c99a7c5e98c7'
     && applicability.decision === 'AUTHORIZATION_REMAINS_APPLICABLE'
-    && typeof applicability.signature === 'string' && applicability.signature.length > 0
-    && typeof applicability.date === 'string' && applicability.date.length > 0
+    && applicability.signature === null
+    && applicability.date === null
+    && applicability.human_confirmation === true
+    && applicability.confirmation_source === 'EXPLICIT_USER_INSTRUCTION_CURRENT_SESSION'
+    && applicability.confirmation_timestamp.length > 0
     && applicability.holdout_access_status === 'NOT_ACCESSED'
     && applicability.execution_performed === false
     && applicability.comparative_observations === 0
