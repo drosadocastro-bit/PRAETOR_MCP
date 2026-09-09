@@ -5,8 +5,13 @@
     "AUTHORIZE FROZEN PRAETOR-VERIFY-001 G3B FOR EXECUTION",
     "DO NOT AUTHORIZE"
   ],
-  "reviewer": null,
+  "technical_prevalidation": "PASS",
+  "eligibility": "ELIGIBLE_FOR_HUMAN_EXECUTION_DECISION",
+  "reviewer": "Daniel Rosado Castro",
   "decision": null,
+  "holdout_accessed_before_decision": false,
+  "comparative_observations_before_decision": 0,
+  "reviewer_notes": null,
   "signature": null,
   "date": null,
   "execution_authorized": false
