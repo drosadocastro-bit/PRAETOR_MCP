@@ -13,6 +13,7 @@
     "study:horizon": "tsx scripts/horizon-study.ts",
     "pilot:live-horizon": "tsx scripts/live-horizon-pilot.ts",
     "pilot:live-horizon-v61": "tsx scripts/live-horizon-pilot-v6.1.ts",
+    "prevalidate:g3b": "tsx scripts/g3b-runtime-prevalidation.ts",
     "pilot:verify-001": "tsx scripts/praetor-verify-001.ts",
     "pilot:verify-001-g1": "tsx scripts/praetor-verify-001-g1.ts",
     "test": "vitest run",
