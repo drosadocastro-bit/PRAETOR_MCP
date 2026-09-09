@@ -15,6 +15,7 @@ describe('G3B design integration without execution', () => {
       signaturePresent: true, datePresent: true, authorizationExperimentMatches: true, frozenArtifactHashesMatch: true,
       repositoryClean: true, holdoutAccessStatus: 'NOT_ACCESSED', executionPerformed: false,
       historicalExecutionAuthorized: false, historicalHumanAuthorizationSigned: false, activationArtifactValid: true,
+      applicabilityArtifactValid: true,
       authorizationApplicabilityReview: 'PENDING'
     };
     const result = deriveG3BExecutionAuthority(authority);
@@ -43,6 +44,7 @@ describe('G3B design integration without execution', () => {
       signaturePresent: true, datePresent: true, authorizationExperimentMatches: true, frozenArtifactHashesMatch: true,
       repositoryClean: true, holdoutAccessStatus: 'NOT_ACCESSED', executionPerformed: false,
       historicalExecutionAuthorized: false, historicalHumanAuthorizationSigned: false, activationArtifactValid: true,
+      applicabilityArtifactValid: true,
       authorizationApplicabilityReview: 'PENDING',
       ...override
     };
@@ -55,6 +57,7 @@ describe('G3B design integration without execution', () => {
       signaturePresent: true, datePresent: true, authorizationExperimentMatches: true, frozenArtifactHashesMatch: true,
       repositoryClean: true, holdoutAccessStatus: 'NOT_ACCESSED', executionPerformed: false,
       historicalExecutionAuthorized: false, historicalHumanAuthorizationSigned: false, activationArtifactValid: true,
+      applicabilityArtifactValid: true,
       authorizationApplicabilityReview: 'AUTHORIZATION_REMAINS_APPLICABLE'
     };
     expect(deriveG3BExecutionAuthority(authority).effectiveExecutionAuthorized).toBe(true);
