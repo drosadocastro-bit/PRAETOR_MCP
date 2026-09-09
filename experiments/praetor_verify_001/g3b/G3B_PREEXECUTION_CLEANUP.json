@@ -1,0 +1,98 @@
+{
+  "version": "g3b-preexecution-cleanup-v1",
+  "created_at": "2026-09-09T22:35:15.9431343Z",
+  "holdout_accessed": false,
+  "execution_performed": false,
+  "inventory_before_cleanup": [
+    {
+      "path": "docs/FUTURE_VERIFICATION_MULTI_AGENT_RESEARCH_ROADMAP.md",
+      "state": "tracked_modified",
+      "classification": "valid_work_ready_to_preserve",
+      "action": "committed_separately",
+      "result": "commit 9ffad26b037065844aacc2499199400e41ed2c2d",
+      "reason": "Completed future research documentation unrelated to G3B execution."
+    },
+    {
+      "path": "docs/FUTURE_EXTERNAL_ADVERSARIAL_RED_TEAM_RESEARCH.md",
+      "state": "untracked",
+      "classification": "valid_work_ready_to_preserve",
+      "action": "committed_separately",
+      "result": "commit 9ffad26b037065844aacc2499199400e41ed2c2d",
+      "reason": "Completed future red-team research plan; explicitly future-only and outside G3B execution."
+    },
+    {
+      "path": ".vscode/settings.json",
+      "state": "untracked",
+      "classification": "generated_or_local_only_artifact",
+      "action": "stashed",
+      "result": "stash@{0}: pre-g3b preserve local-only vscode screenshots audit log",
+      "reason": "Personal workspace configuration, not experiment evidence or repository source."
+    },
+    {
+      "path": "Screenshot_20260801_110252_Instagram.jpg",
+      "state": "untracked",
+      "classification": "accidental_or_unwanted_file",
+      "action": "stashed",
+      "result": "stash@{0}: pre-g3b preserve local-only vscode screenshots audit log",
+      "reason": "Unrelated personal screenshot; preserved for recovery rather than deleted."
+    },
+    {
+      "path": "Screenshot_20260801_110257_Instagram.jpg",
+      "state": "untracked",
+      "classification": "accidental_or_unwanted_file",
+      "action": "stashed",
+      "result": "stash@{0}: pre-g3b preserve local-only vscode screenshots audit log",
+      "reason": "Unrelated personal screenshot; preserved for recovery rather than deleted."
+    },
+    {
+      "path": "Screenshot_20260801_110300_Instagram.jpg",
+      "state": "untracked",
+      "classification": "accidental_or_unwanted_file",
+      "action": "stashed",
+      "result": "stash@{0}: pre-g3b preserve local-only vscode screenshots audit log",
+      "reason": "Unrelated personal screenshot; preserved for recovery rather than deleted."
+    },
+    {
+      "path": "Screenshot_20260801_151249_LinkedIn.jpg",
+      "state": "untracked",
+      "classification": "accidental_or_unwanted_file",
+      "action": "stashed",
+      "result": "stash@{0}: pre-g3b preserve local-only vscode screenshots audit log",
+      "reason": "Unrelated personal screenshot; preserved for recovery rather than deleted."
+    },
+    {
+      "path": "Screenshot_20260801_151254_LinkedIn.jpg",
+      "state": "untracked",
+      "classification": "accidental_or_unwanted_file",
+      "action": "stashed",
+      "result": "stash@{0}: pre-g3b preserve local-only vscode screenshots audit log",
+      "reason": "Unrelated personal screenshot; preserved for recovery rather than deleted."
+    },
+    {
+      "path": "Screenshot_20260801_151258_LinkedIn.jpg",
+      "state": "untracked",
+      "classification": "accidental_or_unwanted_file",
+      "action": "stashed",
+      "result": "stash@{0}: pre-g3b preserve local-only vscode screenshots audit log",
+      "reason": "Unrelated personal screenshot; preserved for recovery rather than deleted."
+    },
+    {
+      "path": "data/audit-events.ndjson",
+      "state": "untracked",
+      "classification": "generated_or_local_only_artifact",
+      "action": "stashed",
+      "result": "stash@{0}: pre-g3b preserve local-only vscode screenshots audit log",
+      "reason": "Generated local audit log; not part of frozen G3B evidence and preserved for recovery."
+    }
+  ],
+  "recovery_verification": {
+    "stash_identifier": "stash@{0}",
+    "stash_message": "pre-g3b preserve local-only vscode screenshots audit log",
+    "include_untracked_verified": true,
+    "paths_verified": 8
+  },
+  "cleanup_commits": {
+    "documentation_commit": "9ffad26b037065844aacc2499199400e41ed2c2d"
+  },
+  "repository_state_after_cleanup_record": "CLEAN_CHECKPOINT_READY"
+}
