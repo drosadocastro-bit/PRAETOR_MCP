@@ -1,45 +1,199 @@
 {
-  "version": "g3b-runtime-prevalidation-v1",
-  "runtime_prevalidation": "FAIL",
-  "eligibility": "NOT_ELIGIBLE_FOR_HUMAN_EXECUTION_DECISION",
+  "version": "g3b-runtime-prevalidation-v2",
+  "runtime_prevalidation": "PASS",
+  "eligibility": "ELIGIBLE_FOR_HUMAN_EXECUTION_DECISION",
   "frozen_references": {
     "design_freeze": "a12c4ab",
     "preliminary_review": "88193f4",
-    "eligibility_clarification": "995add0"
+    "eligibility_clarification": "995add0",
+    "prior_prevalidation_fail_checkpoint": "a67a4d8"
   },
   "gates": {
     "gate_1_executable_runner": {
       "status": "PASS",
-      "summary": "The prevalidation harness executes one permitted non-holdout fixture.",
+      "summary": "All declared arms execute the same permitted non-holdout fixture.",
       "evidence": {
-        "fixture_id": "validate-0000",
-        "observation": {
-          "experiment_id": "PRAETOR-VERIFY-001",
-          "arm_id": "random",
-          "fixture_id": "validate-0000",
-          "input_hash": "b8cd147d87ec87288d12b04355171fe2181c1df56f143ac45e1395fec6816cd5",
-          "configuration_hash": "75acaafdee03ea1689df349c8e333df39cbf59c8cde0ba53575d90c8e6b45d7a",
-          "artifact_hashes": {
-            "g3b-partitions.json": "4a57c445e6f6f78147a1283f03be248af40bf31b3e89f64844c2a71b5904cac7"
+        "observations": [
+          {
+            "experiment_id": "PRAETOR-VERIFY-001",
+            "arm_id": "random",
+            "fixture_id": "validate-0000",
+            "input_hash": "b8cd147d87ec87288d12b04355171fe2181c1df56f143ac45e1395fec6816cd5",
+            "input_order": 0,
+            "configuration_hash": "9f887c292b9f188b706d8439c0dd7eadab043c8a874b176ff2340d1341967f0a",
+            "tool_configuration": [
+              "non_holdout_fixture_reader"
+            ],
+            "resource_configuration": {
+              "holdout_access": false,
+              "timeout_ms": 1000,
+              "execution_budget": 1
+            },
+            "retry_policy": "none",
+            "provenance_requirements": [
+              "experiment_id",
+              "arm_id",
+              "fixture_id",
+              "input_hash",
+              "configuration_hash",
+              "artifact_hashes",
+              "runner_version",
+              "runner_commit_sha",
+              "runtime_id",
+              "tool_configuration",
+              "run_id",
+              "output_artifact_id",
+              "stopping_outcome",
+              "review_state"
+            ],
+            "stopping_semantics": [
+              "oracle_nondeterminism",
+              "hash_mismatch",
+              "holdout_contamination",
+              "forbidden_leakage",
+              "baseline_adaptation",
+              "budget_break",
+              "replay_failure",
+              "incomplete_provenance",
+              "design_change_after_observation"
+            ],
+            "runtime_version": "g3b-comparative-prevalidation-v2",
+            "run_id": "prevalidation-validate-0000-random",
+            "output_artifact_id": "observation-validate-0000-random",
+            "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY",
+            "review_state": "TECHNICAL_PREVALIDATION",
+            "observed_disposition": "REVIEW_ONLY",
+            "runner_commit_sha": "f9812ee37304dfa604764f2f2fc2362c438d4e6e",
+            "runtime_id": "prevalidation-comparative-harness-v2",
+            "artifact_hashes": {
+              "g3b-partitions.json": "4a57c445e6f6f78147a1283f03be248af40bf31b3e89f64844c2a71b5904cac7"
+            },
+            "runner_version": "g3b-comparative-prevalidation-v2"
           },
-          "runner_version": "g3b-runtime-prevalidation-v1",
-          "runner_commit_sha": "uncommitted-working-tree",
-          "runtime_id": "prevalidation-fixture-harness-v1",
-          "tool_configuration": [
-            "non_holdout_fixture_reader"
-          ],
-          "run_id": "prevalidation-validate-0000-random",
-          "output_artifact_id": "observation-validate-0000-random",
-          "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY",
-          "review_state": "TECHNICAL_PREVALIDATION",
-          "observed_disposition": "REVIEW_ONLY"
-        },
-        "holdout_reader_present": false
+          {
+            "experiment_id": "PRAETOR-VERIFY-001",
+            "arm_id": "rule_based",
+            "fixture_id": "validate-0000",
+            "input_hash": "b8cd147d87ec87288d12b04355171fe2181c1df56f143ac45e1395fec6816cd5",
+            "input_order": 0,
+            "configuration_hash": "eb01d99b103fe3fef5e57dd8cdeb36ba2642cbb4512813ee803e98b73a314810",
+            "tool_configuration": [
+              "non_holdout_fixture_reader"
+            ],
+            "resource_configuration": {
+              "holdout_access": false,
+              "timeout_ms": 1000,
+              "execution_budget": 1
+            },
+            "retry_policy": "none",
+            "provenance_requirements": [
+              "experiment_id",
+              "arm_id",
+              "fixture_id",
+              "input_hash",
+              "configuration_hash",
+              "artifact_hashes",
+              "runner_version",
+              "runner_commit_sha",
+              "runtime_id",
+              "tool_configuration",
+              "run_id",
+              "output_artifact_id",
+              "stopping_outcome",
+              "review_state"
+            ],
+            "stopping_semantics": [
+              "oracle_nondeterminism",
+              "hash_mismatch",
+              "holdout_contamination",
+              "forbidden_leakage",
+              "baseline_adaptation",
+              "budget_break",
+              "replay_failure",
+              "incomplete_provenance",
+              "design_change_after_observation"
+            ],
+            "runtime_version": "g3b-comparative-prevalidation-v2",
+            "run_id": "prevalidation-validate-0000-rule_based",
+            "output_artifact_id": "observation-validate-0000-rule_based",
+            "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY",
+            "review_state": "TECHNICAL_PREVALIDATION",
+            "observed_disposition": "REVIEW_ONLY",
+            "runner_commit_sha": "f9812ee37304dfa604764f2f2fc2362c438d4e6e",
+            "runtime_id": "prevalidation-comparative-harness-v2",
+            "artifact_hashes": {
+              "g3b-partitions.json": "4a57c445e6f6f78147a1283f03be248af40bf31b3e89f64844c2a71b5904cac7"
+            },
+            "runner_version": "g3b-comparative-prevalidation-v2"
+          },
+          {
+            "experiment_id": "PRAETOR-VERIFY-001",
+            "arm_id": "adaptive",
+            "fixture_id": "validate-0000",
+            "input_hash": "b8cd147d87ec87288d12b04355171fe2181c1df56f143ac45e1395fec6816cd5",
+            "input_order": 0,
+            "configuration_hash": "89f116d8899cff8abf842b7fcd6e46a71013b215c25c853e9cfe84e527c6aa09",
+            "tool_configuration": [
+              "non_holdout_fixture_reader"
+            ],
+            "resource_configuration": {
+              "holdout_access": false,
+              "timeout_ms": 1000,
+              "execution_budget": 1
+            },
+            "retry_policy": "none",
+            "provenance_requirements": [
+              "experiment_id",
+              "arm_id",
+              "fixture_id",
+              "input_hash",
+              "configuration_hash",
+              "artifact_hashes",
+              "runner_version",
+              "runner_commit_sha",
+              "runtime_id",
+              "tool_configuration",
+              "run_id",
+              "output_artifact_id",
+              "stopping_outcome",
+              "review_state"
+            ],
+            "stopping_semantics": [
+              "oracle_nondeterminism",
+              "hash_mismatch",
+              "holdout_contamination",
+              "forbidden_leakage",
+              "baseline_adaptation",
+              "budget_break",
+              "replay_failure",
+              "incomplete_provenance",
+              "design_change_after_observation"
+            ],
+            "runtime_version": "g3b-comparative-prevalidation-v2",
+            "run_id": "prevalidation-validate-0000-adaptive",
+            "output_artifact_id": "observation-validate-0000-adaptive",
+            "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY",
+            "review_state": "TECHNICAL_PREVALIDATION",
+            "observed_disposition": "REVIEW_ONLY",
+            "runner_commit_sha": "f9812ee37304dfa604764f2f2fc2362c438d4e6e",
+            "runtime_id": "prevalidation-comparative-harness-v2",
+            "artifact_hashes": {
+              "g3b-partitions.json": "4a57c445e6f6f78147a1283f03be248af40bf31b3e89f64844c2a71b5904cac7"
+            },
+            "runner_version": "g3b-comparative-prevalidation-v2"
+          }
+        ],
+        "holdout_reader_present": false,
+        "arms": [
+          "random",
+          "rule_based",
+          "adaptive"
+        ]
       }
     },
     "gate_2_provenance_contract": {
       "status": "PASS",
-      "summary": "Required provenance is emitted for the validation observation.",
+      "summary": "Comparative observations emit the required provenance contract.",
       "evidence": {
         "required_fields": [
           "experiment_id",
@@ -58,19 +212,30 @@
           "review_state"
         ],
         "missing_fields": [],
-        "hash_shape_valid": true,
+        "hashes_valid": true,
+        "negative_tests": [
+          "missing_field",
+          "input_hash_mismatch",
+          "configuration_hash_mismatch",
+          "inconsistent_artifact_identity"
+        ],
         "incomplete_provenance_rejected": true
       }
     },
     "gate_3_replay_precheck": {
       "status": "PASS",
-      "summary": "The deterministic validation fixture replays under the declared contract.",
+      "summary": "A clean comparative validation sequence replays deterministically.",
       "evidence": {
         "exact_match_fields": [
+          "arm_id",
           "fixture_id",
           "input_hash",
+          "input_order",
           "configuration_hash",
-          "artifact_hashes",
+          "tool_configuration",
+          "resource_configuration",
+          "retry_policy",
+          "stopping_semantics",
           "observed_disposition",
           "stopping_outcome"
         ],
@@ -83,11 +248,10 @@
       }
     },
     "gate_4_oracle_feedback_isolation": {
-      "status": "INCONCLUSIVE",
-      "summary": "Structural isolation is clean, but a real comparative runtime isolation test is not implemented.",
+      "status": "PASS",
+      "summary": "Runtime attempts to access protected oracle and evaluation information fail closed.",
       "evidence": {
-        "leaked_fields": [],
-        "protected_fields_checked": [
+        "protected_fields": [
           "oracle_expected_outcome",
           "adjudicated_failure",
           "failure_category",
@@ -100,134 +264,266 @@
           "loser",
           "comparative_summary",
           "holdout_label",
-          "ground_truth"
+          "ground_truth",
+          "previous_arm_scores",
+          "evaluator_annotation",
+          "prior_arm_feedback"
         ],
-        "holdout_evaluated": false,
-        "comparative_observations": 0,
-        "runtime_isolation_test": "not_implemented"
+        "attempts": [
+          {
+            "channel": "execution_input",
+            "attempted_access": "oracle_expected_outcome",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "adjudicated_failure",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "failure_category",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "exact_rule",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "hidden_rationale",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "proof_internals",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "hidden_distance",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "oracle_derived_reward",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "winner",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "loser",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "comparative_summary",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "holdout_label",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "ground_truth",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "previous_arm_scores",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "evaluator_annotation",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "execution_input",
+            "attempted_access": "prior_arm_feedback",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "protected_field_not_exposed",
+            "result": "PASS"
+          },
+          {
+            "channel": "environment",
+            "attempted_access": "G3B_ORACLE_EXPECTED_OUTCOME",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "environment_value_not_read",
+            "result": "PASS"
+          },
+          {
+            "channel": "runtime_context",
+            "attempted_access": "previous_arm_state",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "prior_arm_state_not_available",
+            "result": "PASS"
+          },
+          {
+            "channel": "accessible_files",
+            "attempted_access": "evaluation_artifact_paths",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "evaluation_paths_not_available",
+            "result": "PASS"
+          },
+          {
+            "channel": "tool_resource_interface",
+            "attempted_access": "holdout_reader",
+            "expected_behavior": "absent_or_denied",
+            "observed_behavior": "only_non_holdout_fixture_reader_available",
+            "result": "PASS"
+          }
+        ],
+        "runtime_isolation_observed": true,
+        "leaked_protected_field": false,
+        "holdout_access": false
       }
     },
     "gate_5_baseline_parity": {
-      "status": "INCONCLUSIVE",
-      "summary": "The harness can compare declared parity, but no comparative runtime enforces observed parity.",
+      "status": "PASS",
+      "summary": "Clean arms are equivalent and a controlled parity perturbation invalidates the run.",
       "evidence": {
-        "configurations": [
-          {
-            "arm": "random",
-            "input_partition": "instrument_validation",
-            "tool_configuration": [
-              "non_holdout_fixture_reader"
-            ],
-            "retry_policy": "none",
-            "holdout_access": false
-          },
-          {
-            "arm": "rule_based",
-            "input_partition": "instrument_validation",
-            "tool_configuration": [
-              "non_holdout_fixture_reader"
-            ],
-            "retry_policy": "none",
-            "holdout_access": false
-          },
-          {
-            "arm": "adaptive",
-            "input_partition": "instrument_validation",
-            "tool_configuration": [
-              "non_holdout_fixture_reader"
-            ],
-            "retry_policy": "none",
-            "holdout_access": false
-          }
+        "clean_differences": [],
+        "perturbed_differences": [
+          "resource_configuration"
         ],
+        "negative_test": {
+          "injected_difference": "adaptive.resource_configuration.timeout_ms",
+          "detected": true,
+          "invalidated": true,
+          "counted_as_observation": false
+        },
         "permitted_differences": [
-          "arm"
-        ],
-        "differences": [],
-        "runtime_parity_enforcement": "not_implemented"
+          "arm_id"
+        ]
       }
     },
     "gate_6_executable_stopping_rules": {
-      "status": "INCONCLUSIVE",
-      "summary": "Stopping-rule triggers are enumerated, but enforcement by the G3B comparative runner is not implemented.",
+      "status": "PASS",
+      "summary": "Every frozen stopping rule has an observed controlled non-holdout enforcement result.",
       "evidence": {
-        "stopping_rules": [
-          "oracle_nondeterminism",
-          "hash_mismatch",
-          "holdout_contamination",
-          "forbidden_leakage",
-          "baseline_adaptation",
-          "budget_break",
-          "replay_failure",
-          "incomplete_provenance",
-          "design_change_after_observation"
-        ],
         "trigger_results": [
           {
             "rule": "oracle_nondeterminism",
-            "trigger_fixture": "declared-but-not-executed",
-            "enumerated": true,
-            "enforcement_observed": false,
+            "trigger": "controlled_non_holdout_oracle_nondeterminism",
+            "detected": true,
+            "stopped_or_invalidated": true,
+            "reason_recorded": "oracle_nondeterminism",
+            "later_step_executed": false,
             "counted_as_observation": false
           },
           {
             "rule": "hash_mismatch",
-            "trigger_fixture": "declared-but-not-executed",
-            "enumerated": true,
-            "enforcement_observed": false,
+            "trigger": "controlled_non_holdout_hash_mismatch",
+            "detected": true,
+            "stopped_or_invalidated": true,
+            "reason_recorded": "hash_mismatch",
+            "later_step_executed": false,
             "counted_as_observation": false
           },
           {
             "rule": "holdout_contamination",
-            "trigger_fixture": "declared-but-not-executed",
-            "enumerated": true,
-            "enforcement_observed": false,
+            "trigger": "controlled_non_holdout_holdout_contamination",
+            "detected": true,
+            "stopped_or_invalidated": true,
+            "reason_recorded": "holdout_contamination",
+            "later_step_executed": false,
             "counted_as_observation": false
           },
           {
             "rule": "forbidden_leakage",
-            "trigger_fixture": "declared-but-not-executed",
-            "enumerated": true,
-            "enforcement_observed": false,
+            "trigger": "controlled_non_holdout_forbidden_leakage",
+            "detected": true,
+            "stopped_or_invalidated": true,
+            "reason_recorded": "forbidden_leakage",
+            "later_step_executed": false,
             "counted_as_observation": false
           },
           {
             "rule": "baseline_adaptation",
-            "trigger_fixture": "declared-but-not-executed",
-            "enumerated": true,
-            "enforcement_observed": false,
+            "trigger": "controlled_non_holdout_baseline_adaptation",
+            "detected": true,
+            "stopped_or_invalidated": true,
+            "reason_recorded": "baseline_adaptation",
+            "later_step_executed": false,
             "counted_as_observation": false
           },
           {
             "rule": "budget_break",
-            "trigger_fixture": "declared-but-not-executed",
-            "enumerated": true,
-            "enforcement_observed": false,
+            "trigger": "controlled_non_holdout_budget_break",
+            "detected": true,
+            "stopped_or_invalidated": true,
+            "reason_recorded": "budget_break",
+            "later_step_executed": false,
             "counted_as_observation": false
           },
           {
             "rule": "replay_failure",
-            "trigger_fixture": "declared-but-not-executed",
-            "enumerated": true,
-            "enforcement_observed": false,
+            "trigger": "controlled_non_holdout_replay_failure",
+            "detected": true,
+            "stopped_or_invalidated": true,
+            "reason_recorded": "replay_failure",
+            "later_step_executed": false,
             "counted_as_observation": false
           },
           {
             "rule": "incomplete_provenance",
-            "trigger_fixture": "declared-but-not-executed",
-            "enumerated": true,
-            "enforcement_observed": false,
+            "trigger": "controlled_non_holdout_incomplete_provenance",
+            "detected": true,
+            "stopped_or_invalidated": true,
+            "reason_recorded": "incomplete_provenance",
+            "later_step_executed": false,
             "counted_as_observation": false
           },
           {
             "rule": "design_change_after_observation",
-            "trigger_fixture": "declared-but-not-executed",
-            "enumerated": true,
-            "enforcement_observed": false,
+            "trigger": "controlled_non_holdout_design_change_after_observation",
+            "detected": true,
+            "stopped_or_invalidated": true,
+            "reason_recorded": "design_change_after_observation",
+            "later_step_executed": false,
             "counted_as_observation": false
           }
         ],
-        "executable_enforcement": "not_implemented"
+        "executable_enforcement": true,
+        "holdout_trigger_used": false
       }
     }
   },
@@ -237,7 +533,6 @@
   "comparative_observations": 0,
   "human_authorization": false,
   "limitations": [
-    "Gates 4, 5, and 6 remain inconclusive because no G3B comparative runtime exists.",
-    "The validation runner commit is uncommitted until this prevalidation change is checkpointed."
+    "This technical prevalidation does not authorize G3B execution; human review remains mandatory."
   ]
 }
