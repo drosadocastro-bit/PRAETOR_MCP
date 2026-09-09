@@ -86,7 +86,7 @@
     }
   ],
   "recovery_verification": {
-    "stash_identifier": "stash@{0}",
+    "stash_identifier": "stash@{1}",
     "stash_message": "pre-g3b preserve local-only vscode screenshots audit log",
     "include_untracked_verified": true,
     "paths_verified": 8,
