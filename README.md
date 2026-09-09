@@ -269,4 +269,17 @@ rules, bounded errors, security review, and adversarial test pass.
 
 ## Future Work
 
-Future work may include richer synthetic histories, trend detection, anomaly clustering, calibration-style tests, and a local client demo. It may also include a compatibility review against the MCP 2026-07-28 specification, including stateless runtime assumptions, task-style long-running operations, and host-side containment boundaries. This is a review item, not a claim of current support. See the [VentureBeat reference](https://venturebeat.com/infrastructure/mcp-just-got-its-biggest-update-ever-heres-what-changes-for-ai-agents) for the reported protocol changes. Live systems, private data, operational writes, and learned scoring remain out of scope.
+Future work may include richer synthetic histories, trend detection, anomaly clustering, calibration-style tests, and a local client demo. It may also include a compatibility review against the MCP 2026-07-28 specification, including stateless runtime assumptions, task-style long-running operations, and host-side containment boundaries. This is a review item, not a claim of current support. See the [VentureBeat reference](https://venturebeat.com/infrastructure/mcp-just-got-its-biggest-update-ever-heres-what-changes-for-ai-agents) for the reported protocol changes.
+
+The proposed role-separated multi-agent phase is documented in
+[docs/FUTURE_MULTI_AGENT_PHASE.md](docs/FUTURE_MULTI_AGENT_PHASE.md). It is
+future reference only: no multi-agent runtime or swarm is implemented, and it
+must not begin until G3B runtime validation and execution gating, followed by
+PRAETOR-GAN-001 experimental work, are complete. Live systems, private data,
+operational writes, and learned scoring remain out of scope.
+
+The broader future verification and multi-agent research roadmap is documented
+in [docs/FUTURE_VERIFICATION_MULTI_AGENT_RESEARCH_ROADMAP.md](docs/FUTURE_VERIFICATION_MULTI_AGENT_RESEARCH_ROADMAP.md).
+It treats external large-scale reasoning claims as research motivation only and
+preserves the distinctions between formal proof, specification correctness,
+multi-agent agreement, independent evidence, and authority.
