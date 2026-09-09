@@ -1,0 +1,14 @@
+{
+  "version": "g3b-execution-baseline-receipt-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "baseline_artifact": "G3B_EXECUTION_BASELINE.json",
+  "baseline_sha256": "5f8eea64fe0bfc185a8b19d05bd2ab4dd4ef7ce6fb485dab85b3d5475da81226",
+  "baseline_commit": "7b1fae2457d436341876ab7efa10f3670830db6d",
+  "parent_commit_recorded_in_baseline": "11b066652c9e9b7a99ffce68fa0ab313d21074e1",
+  "repository_state": "CLEAN_AT_BASELINE_COMMIT",
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "final_phase_boundary": "STOP_BEFORE_G3B_HOLDOUT_EXECUTION"
+}
