@@ -30,8 +30,11 @@ describe('G3B adaptive semantic design resolution', () => {
 
   it('keeps the adaptive amendment pending human approval', () => {
     const amendment = read('G3B_ADAPTIVE_DESIGN_AMENDMENT.json');
-    expect(amendment.status).toBe('PENDING_HUMAN_DECISION');
+    expect(amendment.status).toBe('PENDING_HUMAN_DESIGN_DECISION');
     expect(amendment.adaptive_design_amendment).toBe('PROPOSED');
+    expect(amendment.design_decision).toBe('DESIGN_AMBIGUITY_REMAINS');
+    expect(amendment.prior_design_finding.mapping_resolution).toBe('INSUFFICIENT_DESIGN');
+    expect(amendment.prior_design_finding.transition_resolution).toBe('INSUFFICIENT_DESIGN');
     expect(amendment.recommended_design).toBe('DIRECT_CANDIDATE_ID_FINITE_STATE');
     expect(amendment.selected_design).toBeNull();
     expect(amendment.decision).toBeNull();
@@ -46,5 +49,13 @@ describe('G3B adaptive semantic design resolution', () => {
     expect(amendment.execution_performed).toBe(false);
     expect(amendment.comparative_observations).toBe(0);
     expect(amendment.proposed_semantics.transition.feedback_mapping).toContain('PENDING_HUMAN_DECISION');
+    expect(amendment.feedback_contract_inventory.semantic_feedback_classes_defined).toBe(false);
+    expect(amendment.feedback_transition_table).toHaveLength(2);
+    for (const entry of amendment.feedback_transition_table) {
+      expect(entry.status).toBe('DESIGN_AMBIGUITY_REMAINS');
+      expect(entry.result).toBeNull();
+    }
+    expect(amendment.invalid_transition_behavior.result).toBe('INVALID_TRANSITION');
+    expect(amendment.selection_rule.proposed).toContain('search after the most recently selected candidate');
   });
 });
