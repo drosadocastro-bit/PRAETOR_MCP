@@ -18,10 +18,15 @@ describe('G3B executable runtime freeze', () => {
     expect(second.oracle_output).toEqual(first.oracle_output);
   });
 
-  it('blocks adaptive execution until action semantics receive human review', () => {
-    expect(() => adaptiveCandidate()).toThrow('G3B_RUNTIME_REAUTHORIZATION_REQUIRED');
+  it('resolves adaptive candidate IDs without authorizing execution', () => {
+    const candidate = adaptiveCandidate(
+      { candidate_id: 'validate-0000', fixture_id: 'validate-0000', experiment_id: 'PRAETOR-VERIFY-001', arm_id: 'adaptive', regime: 'G3-observable', seed: 0, step_id: 0 },
+      [{ case_id: 'validate-0000', case_fingerprint: 'a'.repeat(64), fixture_id: 'validate-0000' }],
+      { fixture_id: 'validate-0000', regime: 'G3-observable', seed: 0 }
+    );
+    expect(candidate.case_id).toBe('validate-0000');
     expect(runtimeManifest().execution_review_status).toBe('REAUTHORIZATION_REQUIRED');
-    expect(runtimeManifest().arms.adaptive).toContain('BLOCKED');
+    expect(runtimeManifest().arms.adaptive).toContain('DIRECT_CANDIDATE_ID_FINITE_STATE');
   });
 
   it('declares zero G3B comparative observations', () => {

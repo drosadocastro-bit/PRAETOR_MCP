@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { AdaptiveFeedbackAdapter } from '../experiments/praetor_verify_001/g3b/adaptive-feedback.js';
+import { initializeAdaptiveState } from '../experiments/praetor_verify_001/g3b/adaptive-action.js';
 
 function feedback(overrides: Record<string, unknown> = {}) {
   const base = {
@@ -48,7 +49,8 @@ describe('G3B adaptive feedback adapter', () => {
       provenance: { ...feedback().provenance, event_id: 'white-0', regime: 'G3-white-box' }
     });
     expect(adapter.accept(event).status).toBe('ACCEPTED');
-    expect(() => adapter.transition()).toThrow('state_transition_semantics_unresolved_reauthorization_required');
+    const state = initializeAdaptiveState([{ case_id: 'validate-0000', case_fingerprint: 'a'.repeat(64), fixture_id: 'validate-0000' }], { fixture_id: 'validate-0000', regime: 'G3-white-box', seed: 0 });
+    expect(() => adapter.transition(state, { candidate_id: 'validate-0000', fixture_id: 'validate-0000', experiment_id: 'PRAETOR-VERIFY-001', arm_id: 'adaptive', regime: 'G3-white-box', seed: 0, step_id: 0 })).toThrow('G3B_ADAPTIVE_INVALID_TRANSITION');
   });
 
   it('rejects events after a stopping condition', () => {

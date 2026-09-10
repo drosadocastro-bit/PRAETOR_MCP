@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { adjudicateG3B, type G3BDecision } from './oracle.js';
 import { mapFailure } from './failure-mapping.js';
+import { mapAdaptiveAction, type AdaptiveAction, type AdaptiveContext, type CandidateReference } from './adaptive-action.js';
 
 export const RUNTIME_VERSION = 'g3b-executable-runtime-v1';
 export const RUNNER_STATUS = 'FROZEN_NON_HOLDOUT_VALIDATION_ONLY';
@@ -90,8 +91,8 @@ export function ruleBasedCandidate(seed: number, proposalIndex: number): G3BCand
   return ruleMutations[proposalIndex % ruleMutations.length](base);
 }
 
-export function adaptiveCandidate(): never {
-  throw new Error('G3B_RUNTIME_REAUTHORIZATION_REQUIRED:adaptive_action_semantics_not_frozen');
+export function adaptiveCandidate(action: AdaptiveAction, candidateSpace: readonly CandidateReference[], context: AdaptiveContext): CandidateReference {
+  return mapAdaptiveAction(action, candidateSpace, context);
 }
 
 function validateCandidate(candidate: G3BCandidate) {
@@ -122,7 +123,7 @@ export function runtimeManifest() {
   return {
     version: 'g3b-executable-runtime-manifest-v1', experiment_id: 'PRAETOR-VERIFY-001', runner_version: RUNTIME_VERSION,
     status: RUNNER_STATUS, execution_review_status: EXECUTION_REVIEW_STATUS, holdout_access: 'FORBIDDEN_IN_VALIDATION',
-    arms: { random: 'LCG32 uniform frozen field domains with constraint rejection', rule_based: 'fixed cyclic eight-mutation schedule', adaptive: 'BLOCKED: four action semantics are not specified' },
+    arms: { random: 'LCG32 uniform frozen field domains with constraint rejection', rule_based: 'fixed cyclic eight-mutation schedule', adaptive: 'DIRECT_CANDIDATE_ID_FINITE_STATE: non-holdout implementation only' },
     ordering: 'regime order, then seed ascending, then proposal index ascending; no arm interleaving',
     evaluation: 'independent oracle adjudication; invalid candidates are not failures; exact disposition mismatch maps through frozen taxonomy',
     replay: 'same arm, regime, seed, proposal index and fixture must reproduce input/configuration hashes and oracle disposition',
@@ -130,7 +131,7 @@ export function runtimeManifest() {
     stopping_integration: readJson('g3b-stopping-rules.json'),
     parity: ['fixture identity', 'input hash', 'configuration hash', 'timeout', 'budget', 'retry policy', 'tools', 'runtime version'],
     oracle_isolation: { expected_outcome_not_exposed: true, previous_arm_state_not_exposed: true, comparative_summary_not_exposed: true },
-    newly_documented_decisions_requiring_human_review: ['adaptive action-to-candidate mapping', 'whether validation oracle invocation is an acceptable proxy for the production evaluator path'],
+    newly_documented_decisions_requiring_human_review: ['whether validation oracle invocation is an acceptable proxy for the production evaluator path'],
     holdout_evaluated: false, g3b_comparative_observations: 0
   };
 }

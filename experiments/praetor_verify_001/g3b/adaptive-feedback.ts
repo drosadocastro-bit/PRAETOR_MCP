@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { transitionAdaptiveState, type AdaptiveAction, type AdaptiveState } from './adaptive-action.js';
 
 export const ADAPTIVE_FEEDBACK_ADAPTER_VERSION = 'g3b-adaptive-feedback-adapter-v1';
 export type FeedbackRegime = 'G3-observable' | 'G3-white-box';
@@ -30,6 +31,7 @@ export class AdaptiveFeedbackAdapter {
   #seen = new Set<string>();
   #stopped = false;
   #fixtureId: string | undefined;
+  #lastAccepted: FeedbackAcceptance | undefined;
 
   constructor(fixtureId?: string) { this.#fixtureId = fixtureId; }
 
@@ -63,12 +65,14 @@ export class AdaptiveFeedbackAdapter {
     const eventHash = hash(feedback);
     this.#seen.add(feedback.event_id);
     this.#lastStep = feedback.step_id;
-    return { status: 'ACCEPTED', event_hash: eventHash, feedback };
+    this.#lastAccepted = { status: 'ACCEPTED', event_hash: eventHash, feedback };
+    return this.#lastAccepted;
   }
 
   stop() { this.#stopped = true; }
 
-  transition() {
-    return fail('state_transition_semantics_unresolved_reauthorization_required');
+  transition(state: AdaptiveState, action: AdaptiveAction) {
+    if (!this.#lastAccepted) return fail('missing_accepted_feedback');
+    return transitionAdaptiveState(state, action, this.#lastAccepted);
   }
 }
