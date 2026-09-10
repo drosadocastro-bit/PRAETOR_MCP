@@ -1,0 +1,12 @@
+{
+  "version": "g3b-adaptive-state-transition-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "UNRESOLVED_REQUIRES_REAUTHORIZATION",
+  "previous_state": "four-value tabular state initialized to [0,0,0,0] per seed/regime is declared, but its G3B transition input is unspecified",
+  "allowed_feedback_input": "G3B_ADAPTIVE_FEEDBACK_CONTRACT.json",
+  "transition": "BLOCKED: no state transition formula is frozen for G3B",
+  "resulting_state": "NOT_DEFINED",
+  "future_effect": "NOT_DEFINED",
+  "prohibited_mutations": ["prior observations", "hidden evaluator state", "arm identity", "global configuration", "parity fields", "other arm", "stopping rules"],
+  "reason": "G3A toy reward semantics are explicitly non-authoritative for G3B and no alternative G3B transition was frozen."
+}
