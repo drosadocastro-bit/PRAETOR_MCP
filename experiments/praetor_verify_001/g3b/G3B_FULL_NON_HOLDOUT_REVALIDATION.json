@@ -1,0 +1,90 @@
+{
+  "version": "g3b-full-non-holdout-revalidation-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "source_commit": "5fe98744120d919379b00366cec2fb1519118d7d",
+  "revalidation_scope": "current executable basis on non-holdout validation fixtures only",
+  "final_revalidation_disposition": "INCONCLUSIVE",
+  "full_non_holdout_revalidation": "INCONCLUSIVE",
+  "execution_basis_validated": false,
+  "effective_execution_authorized_for_new_basis": false,
+  "reauthorization_required": true,
+  "unresolved_findings": [
+    {
+      "id": "G3B-REVALIDATION-ADAPTIVE-RUNNER-MISSING",
+      "severity": "BLOCKING_FOR_PASS",
+      "gate": "GATE_1_EXECUTABLE_RUNNER",
+      "finding": "No runner entrypoint executes the adaptive arm end-to-end on instrument_validation fixtures and emits the same result/provenance observation contract used by random and rule_based.",
+      "evidence": [
+        "runtime.ts exports executeNonHoldoutValidation only for Exclude<Arm, 'adaptive'>",
+        "adaptiveCandidate resolves a CandidateReference but does not execute a G3BCandidate or capture RuntimeObservation",
+        "G3B_ADAPTIVE_CANDIDATE_SPACE.json remains an identity inventory without complete candidate payloads"
+      ],
+      "required_before_pass": "Add a separately reviewable non-holdout adaptive runner that uses only the approved candidate-ID/state semantics and captures action, candidate, feedback, result, and stop provenance."
+    },
+    {
+      "id": "G3B-REVALIDATION-LEGACY-CONTRACTS-UNRESOLVED",
+      "severity": "BLOCKING_FOR_PASS",
+      "gate": "GATE_1_EXECUTABLE_RUNNER",
+      "finding": "Historical adaptive action/state/transition contract artifacts still declare unresolved or reauthorization-required semantics.",
+      "artifacts": [
+        "G3B_ADAPTIVE_ACTION_CONTRACT.json",
+        "G3B_ADAPTIVE_STATE_CONTRACT.json",
+        "G3B_ADAPTIVE_STATE_TRANSITION_CONTRACT.json"
+      ],
+      "required_before_pass": "A future controlled phase must reconcile these historical contract artifacts with the already-approved amendment without silently rewriting historical records."
+    }
+  ],
+  "frozen_inputs": {
+    "runtime": {"path":"experiments/praetor_verify_001/g3b/runtime.ts","sha256":"0BAEAEC2ED60A8B4C011232E288D37C7C00747D642101E98EB2B8A005A719449"},
+    "adaptive_runtime": {"path":"experiments/praetor_verify_001/g3b/adaptive-action.ts","sha256":"D46AA53167BB13CB6F589BA8D3A0C5C6C37E4BF51D01E0C59D2F69CDD33CF0AE"},
+    "feedback_runtime": {"path":"experiments/praetor_verify_001/g3b/adaptive-feedback.ts","sha256":"AA35CCCC4BA3EEF86287124B8392DCA2154FB642D59053FE18BFF24583E5CA42"},
+    "adaptive_semantic_decision": {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_HUMAN_SEMANTIC_DECISION_PACKET.json","sha256":"9FBBC6D611F36949BC04290A142D3A8A0CF413FDBBCD37275A6505701DB697D2"},
+    "adaptive_runtime_validation": {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_RUNTIME_VALIDATION.json","sha256":"AC34FB82BEC4CCDF425B49BE909629FE24D990681411E12A31C748A423D3F858"},
+    "candidate_space": {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_CANDIDATE_SPACE.json","sha256":"92E74D373E9196F7B8C24200A971075467BAB330BD02A30BEE1058609F83707B"},
+    "feedback_contract": {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_FEEDBACK_CONTRACT.json","sha256":"AC7331C3A2BBD84DB2596341D876BD55AFA5E8234E343C6BEBA40DEEC01342C2"},
+    "feedback_isolation_contract": {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_FEEDBACK_ISOLATION_CONTRACT.json","sha256":"0E7D1D250E2CDC82B895DFE648EA2221F561B2DD2F637709D12105353F0AB910"},
+    "authority_contract": {"path":"experiments/praetor_verify_001/g3b/G3B_EXECUTION_AUTHORITY_CONTRACT_V2.json","sha256":"8E2041FE76BF1D38C88DD54D1C4905B011207D66A86B5CED670370EF27F5F1AC"},
+    "adaptive_config": {"path":"experiments/praetor_verify_001/g3b/g3b-adaptive-config.json","sha256":"ADDFEE59B5623D3DF8482C62272C53477B535EB177F67FDA4B4598829DED9786"},
+    "random_config": {"path":"experiments/praetor_verify_001/g3b/g3b-random-config.json","sha256":"F000E495E37E562B3CF65C2F5952FF4B598B249B9A39EB0CF1EF750C1BB0AB77"},
+    "rule_based_config": {"path":"experiments/praetor_verify_001/g3b/g3b-rule-based-config.json","sha256":"A6013C720B07BC5840207B7137177D29BE9D6C8E3BE880A0C1FD721E5D540B69"},
+    "stopping_rules": {"path":"experiments/praetor_verify_001/g3b/g3b-stopping-rules.json","sha256":"1D15DE98587B5DBD0BB0104A6E48C9C1D81645F1EA9B88B8A8F17DAA2E8849C1"},
+    "oracle": {"path":"experiments/praetor_verify_001/g3b/oracle.ts","sha256":"4E21CE3B0FEA22CCEF40868F2754E65284FEEB60FD9703F7E4092DC20A1C87E3"},
+    "non_holdout_partition_artifact": {"path":"experiments/praetor_verify_001/g3b/g3b-partitions.json","sha256":"4A57C445E6F6F78147A1283F03BE248AF40BF31B3E89F64844C2A71B5904CAC7","fixture_scope":"instrument_validation only; outcomes_inspected false"}
+  },
+  "gate_results": {
+    "gate_1_executable_runner": {"status":"INCONCLUSIVE","random":"PASS","rule_based":"PASS","adaptive":"NOT_ESTABLISHED","evidence":"Direct non-holdout probes passed for random and rule_based; adaptive end-to-end runner is absent."},
+    "gate_2_provenance_contract": {"status":"INCONCLUSIVE","random":"PASS","rule_based":"PASS","adaptive":"PARTIAL","evidence":"Adaptive action/feedback state tests preserve fixture, regime, seed, step, event, originating action and candidate linkage, but no end-to-end adaptive result provenance exists."},
+    "gate_3_replay": {"status":"INCONCLUSIVE","random":"PASS","rule_based":"PASS","adaptive":"PARTIAL","evidence":"Adaptive state transition replay passes; full arm execution/result replay cannot be established without an adaptive runner."},
+    "gate_4_oracle_feedback_isolation": {"status":"PASS","random":"PASS","rule_based":"PASS","adaptive":"PASS_FOR_TRANSITION_LAYER","evidence":"Observable and white-box field isolation tests pass; forbidden white-box fields cannot acquire adaptive transition authority."},
+    "gate_5_baseline_parity": {"status":"INCONCLUSIVE","random":"PASS","rule_based":"PASS","adaptive":"NOT_ESTABLISHED","evidence":"Existing random/rule_based parity probes pass; no adaptive end-to-end baseline output exists to compare."},
+    "gate_6_stopping_rules": {"status":"INCONCLUSIVE","random":"PARTIAL","rule_based":"PARTIAL","adaptive":"PARTIAL","evidence":"Adaptive STOP_NO_SELECTABLE_CANDIDATE and fail-closed invalid paths are unit-tested; complete three-arm horizon/runner stopping integration is not established."},
+    "gate_7_cross_arm_isolation": {"status":"PASS_FOR_AVAILABLE_SURFACE","evidence":"Adaptive state is context-bound and contains no shared arm state; no cross-arm mutable state was observed."},
+    "gate_8_authority_boundary": {"status":"PASS","evidence":"Effective execution authorization remains false; runtime manifest retains REAUTHORIZATION_REQUIRED and no runtime path mutates approval or holdout state."},
+    "gate_9_negative_tests": {"status":"PASS_FOR_ADAPTIVE_LAYER","evidence":"G3B adaptive focused negative tests pass for malformed action/state, provenance, duplicate/future/post-stop feedback, invalid domain/envelope, white-box leakage, reward/oracle signals and reserved ELIGIBLE state."},
+    "gate_10_non_holdout_control_runs": {"status":"INCONCLUSIVE","random":"PASS","rule_based":"PASS","adaptive":"NOT_EXECUTED_END_TO_END","comparative_observations":0,"evidence":"Only validation-only random/rule_based probes were executed; no comparative interpretation was performed."}
+  },
+  "arm_validation": {
+    "random": {"status":"PASS","fixture_scope":"instrument_validation","replay":"PASS","holdout_access":false,"oracle_feedback_exposed":false},
+    "rule_based": {"status":"PASS","fixture_scope":"instrument_validation","replay":"PASS","holdout_access":false,"oracle_feedback_exposed":false},
+    "adaptive": {"status":"INCONCLUSIVE","state_machine":"PASS","candidate_id_resolution":"PASS","transition_table":"PASS","end_to_end_fixture_execution":"NOT_ESTABLISHED","holdout_access":false,"comparative_observations":0}
+  },
+  "test_evidence": {
+    "focused_g3b_tests":"59 passed across 9 files",
+    "direct_non_holdout_baseline_probe":"PASS for random and rule_based replay",
+    "typescript":"PASS",
+    "diagnostics":"PASS",
+    "schema_validation":"PASS for this artifact",
+    "hash_integrity":"PASS for recorded frozen inputs",
+    "git_diff_check":"PASS"
+  },
+  "holdout_state": {
+    "holdout_access_status":"NOT_ACCESSED",
+    "holdout_evaluated":false,
+    "execution_performed":false,
+    "comparative_observations":0,
+    "authorized_holdout_study_executed":false,
+    "new_human_execution_authorization_created":false
+  },
+  "next_phase":"Resolve the documented adaptive runner/legacy-contract evidence gap in a separately controlled implementation phase, then repeat full non-holdout revalidation. Do not authorize or execute holdout study.",
+  "stop_boundary":"STOP_WITHOUT_HOLDOUT_EXECUTION_OR_NEW_AUTHORIZATION"
+}
