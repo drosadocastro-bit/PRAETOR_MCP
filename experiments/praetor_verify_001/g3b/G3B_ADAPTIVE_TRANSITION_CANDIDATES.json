@@ -1,0 +1,21 @@
+{
+  "version": "g3b-adaptive-transition-candidates-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "transition_resolution": "INSUFFICIENT_DESIGN",
+  "holdout_access_status": "NOT_ACCESSED",
+  "comparative_observations": 0,
+  "candidates": [
+    {"id":"append_only_history","definition":"append each permitted feedback event; do not change selection values","source_support":"Feedback contract requires append-only evidence","requires_scalar_reward":false,"uses_hidden_truth":false,"reconstructible":true,"future_behavior_effect":"none","disposition":"INSUFFICIENT_FOR_ADAPTIVE_BEHAVIOR"},
+    {"id":"categorical_projection","definition":"map governed_disposition or verifier fields to finite value updates","source_support":"Permitted feedback fields exist","requires_scalar_reward":false,"uses_hidden_truth":false,"reconstructible":true,"future_behavior_effect":"yes","disposition":"AMBIGUOUS_UNAUTHORIZED_ENCODING"},
+    {"id":"bounded_field_counters","definition":"increment declared counters for selected observable categories","source_support":"No counter fields or update increments are frozen","requires_scalar_reward":false,"uses_hidden_truth":false,"reconstructible":true,"future_behavior_effect":"yes","disposition":"INSUFFICIENT_DESIGN"},
+    {"id":"tabular_reward_update","definition":"value[action] += alpha * (feedback-derived scalar - value[action])","source_support":"G3A only; G3B explicitly forbids toy reward reuse","requires_scalar_reward":true,"uses_hidden_truth":"unknown","reconstructible":true,"future_behavior_effect":"yes","disposition":"REJECTED_NO_SCALAR_REWARD"},
+    {"id":"state_machine_transition","definition":"finite state transition keyed by the structured feedback tuple","source_support":"No finite states or transition table are frozen","requires_scalar_reward":false,"uses_hidden_truth":false,"reconstructible":true,"future_behavior_effect":"yes","disposition":"INSUFFICIENT_DESIGN"}
+  ],
+  "eliminated_or_rejected_rules": [
+    {"rule":"future-step feedback","disposition":"REJECTED","reason":"violates current-step timing"},
+    {"rule":"comparative update","disposition":"REJECTED","reason":"violates parity and cross-arm isolation"},
+    {"rule":"oracle-private update","disposition":"REJECTED","reason":"violates oracle isolation"},
+    {"rule":"stochastic update not frozen","disposition":"REJECTED","reason":"violates replay determinism"}
+  ],
+  "surviving_alternatives":"Several non-scalar deterministic transition families remain, but frozen evidence does not select one or define its field-level formula."
+}

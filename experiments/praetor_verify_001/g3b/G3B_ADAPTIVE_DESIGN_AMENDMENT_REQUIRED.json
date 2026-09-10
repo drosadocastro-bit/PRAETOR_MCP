@@ -1,0 +1,32 @@
+{
+  "version": "g3b-adaptive-design-amendment-required-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "DESIGN_AMENDMENT_REQUIRED",
+  "unresolved_questions": [
+    "What exact candidate or candidate mutation does each of four action slots represent?",
+    "What exact state fields and deterministic formula update after each permitted feedback event?"
+  ],
+  "surviving_alternatives": {
+    "mapping": ["direct_candidate_id", "stable_candidate_index", "symbolic_candidate_mutation", "state_dependent_selector"],
+    "transition": ["append_only_history", "categorical_projection", "bounded_field_counters", "state_machine_transition"]
+  },
+  "frozen_evidence_cannot_select": [
+    "The candidate artifact exposes metadata only and does not define semantic ordering.",
+    "The four action slots have no candidate mapping.",
+    "The four tabular values have no G3B update formula.",
+    "G3A toy reward is explicitly non-authoritative and cannot break the tie.",
+    "Performance evidence and holdout knowledge are prohibited selection criteria."
+  ],
+  "expected_behavioral_impact": "The selected mapping determines which candidate is proposed; the selected transition determines future action selection. Both materially alter the adaptive arm.",
+  "human_decision_required": true,
+  "reauthorization_required": true,
+  "full_revalidation_required": true,
+  "new_semantics_must_be_append_only": true,
+  "prohibited_decision_basis": ["performance", "benchmark scores", "preferred outcomes", "holdout structure", "G3A toy reward"],
+  "human_choice_requirements": ["exact mapping definition", "exact state schema", "exact transition formula", "tie-break rule", "invalid-input behavior", "provenance and replay rules"],
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "next_phase": "HUMAN ADAPTIVE DESIGN DECISION"
+}

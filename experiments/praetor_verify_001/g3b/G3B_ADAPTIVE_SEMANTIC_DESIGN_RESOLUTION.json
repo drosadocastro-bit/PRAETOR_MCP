@@ -1,0 +1,43 @@
+{
+  "version": "g3b-adaptive-semantic-design-resolution-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "mapping_resolution": "INSUFFICIENT_DESIGN",
+  "transition_resolution": "INSUFFICIENT_DESIGN",
+  "adaptive_semantic_resolution": "DESIGN_AMENDMENT_REQUIRED",
+  "adaptive_semantics_ready_for_validation": false,
+  "surviving_alternatives": {
+    "mapping": ["direct_candidate_id", "stable_candidate_index", "symbolic_candidate_mutation", "state_dependent_selector"],
+    "transition": ["append_only_history", "categorical_projection", "bounded_field_counters", "state_machine_transition"]
+  },
+  "eliminated_alternatives": [
+    "oracle-derived mapping or transition",
+    "performance-ranked mapping",
+    "holdout-specific mapping",
+    "G3A toy reward update",
+    "future-step feedback",
+    "cross-arm or comparative update",
+    "nondeterministic unfrozen update"
+  ],
+  "evidence_references": [
+    "G3B_ADAPTIVE_SEMANTIC_EVIDENCE.json",
+    "G3B_ADAPTIVE_MAPPING_CANDIDATES.json",
+    "G3B_ADAPTIVE_TRANSITION_CANDIDATES.json",
+    "G3B_ADAPTIVE_CANDIDATE_SPACE.json",
+    "G3B_ADAPTIVE_FEEDBACK_CONTRACT.json",
+    "g3b-adaptive-config.json"
+  ],
+  "materiality": {
+    "mapping": "MATERIAL_NEW_SEMANTIC",
+    "transition": "MATERIAL_NEW_SEMANTIC"
+  },
+  "amendment_required": true,
+  "human_decision_required": true,
+  "reauthorization_required": true,
+  "full_revalidation_required": true,
+  "effective_execution_authorized_for_new_basis": false,
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "stop_boundary": "STOP_BEFORE_ADAPTIVE_NON_HOLDOUT_VALIDATION_AND_FULL_G3B_REVALIDATION"
+}
