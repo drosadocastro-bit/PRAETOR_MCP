@@ -31,11 +31,3 @@ const validation = {
 writeFileSync(resolve(outputRoot, 'G3B_EXECUTABLE_RUNTIME_MANIFEST.json'), `${JSON.stringify(runtimeManifest(), null, 2)}\n`, 'utf8');
 writeFileSync(resolve(outputRoot, 'G3B_RUNTIME_FREEZE_VALIDATION.json'), `${JSON.stringify(validation, null, 2)}\n`, 'utf8');
 console.log(JSON.stringify({ manifest: runtimeManifest(), validation: { ...validation, observations: undefined } }, null, 2));
-EOF
-*** Begin Patch
-*** Update File: d:\Preator_MCP\package.json
-@@
-     "prevalidate:g3b": "tsx scripts/g3b-runtime-prevalidation.ts",
-+    "freeze:g3b-runtime": "tsx scripts/g3b-runtime-freeze-validation.ts",
-*** End Patch
-*** End Patch
