@@ -1,0 +1,45 @@
+{
+  "version": "g3b-adaptive-feedback-freeze-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "adaptive_feedback_semantics": "ADAPTIVE_FEEDBACK_SEMANTICS_UNRESOLVED",
+  "freeze_scope": "The traceability, isolation, acceptance, rejection, replay, and fail-closed boundary are frozen; material adaptive state transition semantics are not frozen.",
+  "source_commit": "10c824c3ccbeea24a362c0a6b22fc1b1e8a39a0e",
+  "contract_versions": {
+    "feedback": "g3b-adaptive-feedback-v1",
+    "isolation": "g3b-adaptive-feedback-isolation-v1",
+    "state_transition": "g3b-adaptive-state-transition-v1",
+    "adapter": "g3b-adaptive-feedback-adapter-v1"
+  },
+  "artifact_hashes": {
+    "trace": "e58b7ef67eb5df22333cfa02105468987f53f7e33ab7a0f56c7c5545b75121dd",
+    "isolation_contract": "0e7d1d250e2cdc82b895dfe648ea2221f561b2dd2f637709d12105353f0ab910",
+    "feedback_contract": "ac7331c3a2bbd84db2596341d876bd55afa5e8234e343c6beba40deec01342c2",
+    "state_transition_contract": "1e0d0a414e6b9762120cb8df9e2983019eb766493f6adccf1667cca3363a65ce",
+    "validation": "d4a5c7c1c4c75145a5298efd8ceec788c4c8e07d4c0a0f0796cec26eca291afe",
+    "adapter": "69ea78b9b0f4148b1b04ee6f2ec38c5258de2d8066a32c488b9f7a431de83d50"
+  },
+  "validation": {
+    "accepted_events": 3,
+    "feedback_timing": "PASS",
+    "provenance": "PASS",
+    "isolation": "PASS",
+    "replay": "PASS",
+    "negative_tests": "PASS",
+    "scalar_reward": "NO_SCALAR_REWARD"
+  },
+  "materiality": "MATERIAL_EXECUTION_SEMANTIC",
+  "reauthorization_required": true,
+  "unresolved_behaviors": [
+    "feedback-to-state encoding",
+    "state transition formula",
+    "action-to-candidate mapping",
+    "white-box explicit_reward update authority",
+    "feedback persistence beyond current step"
+  ],
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "next_phase": "G3B FULL NON-HOLDOUT REVALIDATION AFTER NEW HUMAN REAUTHORIZATION",
+  "stop_boundary": "STOP_BEFORE_HOLDOUT_EXECUTION"
+}
