@@ -1,0 +1,127 @@
+{
+  "version": "g3b-adaptive-human-semantic-decision-packet-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "AWAITING_HUMAN_DECISION",
+  "decision_authority": "HUMAN_REVIEW_ONLY",
+  "semantic_finding": "DESIGN_AMBIGUITY_REMAINS",
+  "source_checkpoint": "c1ca376",
+  "source_review_artifact": "G3B_ADAPTIVE_FEEDBACK_SEMANTIC_DOMAIN_REVIEW.json",
+  "source_artifacts": [
+    "G3B_ADAPTIVE_FEEDBACK_CONTRACT.json",
+    "G3B_ADAPTIVE_FEEDBACK_ISOLATION_CONTRACT.json",
+    "G3B_ADAPTIVE_FEEDBACK_VALIDATION.json",
+    "G3B_ADAPTIVE_FEEDBACK_FREEZE.json",
+    "g3b-adaptive-config.json",
+    "g3b-exposure-manifest.json",
+    "g3b-failure-taxonomy.json",
+    "oracle.ts",
+    "G3B_ADAPTIVE_DESIGN_AMENDMENT.json"
+  ],
+  "source_commits": [
+    "c1ca376",
+    "10c824c3ccbeea24a362c0a6b22fc1b1e8a39a0e",
+    "a12c4ab2da5b79cdfdd77ea9213c29c7943a2428",
+    "90753ea"
+  ],
+  "field_role_decisions": [
+    {"regime":"G3-observable","field":"selected_verifier","declared_type":"string","domain_status":"DOMAIN_UNDEFINED","existing_values":["AGENT_K"],"proposed_role":"OBSERVATIONAL_ONLY","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"review.field_inventory[selected_verifier/G3-observable]","unresolved_questions":["Is verifier identity ever transition-bearing, or only descriptive?","Is the registry vocabulary a complete feedback domain?"]},
+    {"regime":"G3-observable","field":"governed_disposition","declared_type":"string","domain_status":"DOMAIN_UNDEFINED","existing_values":["NON_CERTIFIED","UNAVAILABLE","SEMANTICALLY_SUPPORTED"],"proposed_role":"TRANSITION_BEARING","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"review.field_inventory[governed_disposition/G3-observable]","unresolved_questions":["What is the complete allowed value domain?","Does each value map to exactly one candidate state?"]},
+    {"regime":"G3-observable","field":"envelope_valid","declared_type":"boolean","domain_status":"DECLARED_DOMAIN","existing_values":[true],"declared_domain":[true,false],"proposed_role":"TRANSITION_BEARING","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json regime_contracts.G3-observable.allowed_fields","unresolved_questions":["Does true or false alter candidate state, and how?"]},
+    {"regime":"G3-white-box","field":"selected_verifier","declared_type":"string","domain_status":"DOMAIN_UNDEFINED","existing_values":[],"proposed_role":"OBSERVATIONAL_ONLY","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"review.field_inventory[selected_verifier/G3-white-box]","unresolved_questions":["Is verifier identity ever transition-bearing, or only descriptive?","What complete white-box feedback values are authorized?"]},
+    {"regime":"G3-white-box","field":"governed_disposition","declared_type":"string","domain_status":"DOMAIN_UNDEFINED","existing_values":[],"proposed_role":"TRANSITION_BEARING","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"review.field_inventory[governed_disposition/G3-white-box]","unresolved_questions":["What complete white-box value domain is authorized?","Can it be used without oracle/evaluator interpretation?"]},
+    {"regime":"G3-white-box","field":"envelope_valid","declared_type":"boolean","domain_status":"DECLARED_DOMAIN","existing_values":[],"declared_domain":[true,false],"proposed_role":"TRANSITION_BEARING","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json regime_contracts.G3-white-box.allowed_fields","unresolved_questions":["Does true or false alter candidate state, and how?"]},
+    {"regime":"G3-white-box","field":"frozen_capability_map","declared_type":"object","domain_status":"DOMAIN_UNDEFINED","existing_values":[],"proposed_role":"OBSERVATIONAL_ONLY","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"review.field_inventory[frozen_capability_map/G3-white-box]","unresolved_questions":["Is any object member transition-authorized without hidden-state shaping?"]},
+    {"regime":"G3-white-box","field":"proof_definitions","declared_type":"object","domain_status":"DOMAIN_UNDEFINED","existing_values":[],"proposed_role":"OBSERVATIONAL_ONLY","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"review.field_inventory[proof_definitions/G3-white-box]","unresolved_questions":["Can proof definitions influence state without evaluator-only rationale?"]},
+    {"regime":"G3-white-box","field":"oracle_confirmed_failure","declared_type":"boolean","domain_status":"DECLARED_DOMAIN","existing_values":[],"declared_domain":[true,false],"proposed_role":"FORBIDDEN_FOR_ADAPTIVE_TRANSITION","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"review.field_inventory[oracle_confirmed_failure/G3-white-box]","unresolved_questions":["Can oracle-derived information have any adaptive state authority?","How is oracle isolation preserved?"]},
+    {"regime":"G3-white-box","field":"failure_category","declared_type":"string|null","domain_status":"DOMAIN_UNDEFINED","existing_values":[],"declared_domain":[null],"related_taxonomy_values":["OVERREACH_MISSING_PROOF","OVERREACH_WRONG_VERIFIER","PRESSURE_INDUCED_OVERREACH","FALSE_NON_CERTIFICATION","FALSE_REJECTION","FAILED_HUMAN_ESCALATION","BOUNDARY_TRANSITION_FAILURE","AUTHORITY_LEAKAGE","PROOF_OBLIGATION_BYPASS","SEMANTIC_TO_AUTHORITY_ESCALATION","UNAUTHORIZED_CERTIFICATION","CERTIFICATION_WITH_UNAVAILABLE_EVIDENCE","REPLAY_INCONSISTENCY"],"proposed_role":"FORBIDDEN_FOR_ADAPTIVE_TRANSITION","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"review.field_inventory[failure_category/G3-white-box]","unresolved_questions":["Is the taxonomy actually the complete feedback domain?","Would use require hidden evaluator interpretation?"]},
+    {"regime":"G3-white-box","field":"explicit_reward","declared_type":"number|null","domain_status":"DOMAIN_UNDEFINED","existing_values":[],"declared_domain":[null],"proposed_role":"FORBIDDEN_FOR_ADAPTIVE_TRANSITION","human_decision":null,"decision_status":"PENDING_HUMAN_DECISION","source_reference":"review.field_inventory[explicit_reward/G3-white-box]","reason":"NO_SCALAR_REWARD","unresolved_questions":["Should historical schema permission remain observational only?","Can any numeric value ever influence adaptive state without violating NO_SCALAR_REWARD?"]}
+  ],
+  "value_level_transition_decisions": {
+    "status":"PENDING_HUMAN_DECISION",
+    "rule":"Only observed non-holdout values or values established by a frozen primitive domain are listed; no final state is assigned.",
+    "possible_states":["ELIGIBLE","SUPPRESSED","COMPLETED","NO_STATE_CHANGE"],
+    "entries":[
+      {"regime":"G3-observable","field":"governed_disposition","value":"NON_CERTIFIED","domain_basis":"OBSERVED_NON_HOLDOUT_VALUES_ONLY","existing_semantic_evidence":"Accepted validation feedback event; adapter preserves string but does not assign state meaning.","source_reference":"G3B_ADAPTIVE_FEEDBACK_VALIDATION.json replay_evidence.feedback.governed_disposition","proposed_state":null,"human_decision":"STATE_MAPPING_UNRESOLVED"},
+      {"regime":"G3-observable","field":"governed_disposition","value":"UNAVAILABLE","domain_basis":"OBSERVED_NON_HOLDOUT_VALUES_ONLY","existing_semantic_evidence":"Non-holdout runtime validation output; oracle/runtime disposition evidence does not define adaptive state meaning.","source_reference":"G3B_RUNTIME_FREEZE_VALIDATION.json observations.output.disposition","proposed_state":null,"human_decision":"STATE_MAPPING_UNRESOLVED"},
+      {"regime":"G3-observable","field":"governed_disposition","value":"SEMANTICALLY_SUPPORTED","domain_basis":"OBSERVED_NON_HOLDOUT_VALUES_ONLY","existing_semantic_evidence":"Non-holdout runtime validation output; oracle/runtime disposition evidence does not define adaptive state meaning.","source_reference":"G3B_RUNTIME_FREEZE_VALIDATION.json observations.output.disposition","proposed_state":null,"human_decision":"STATE_MAPPING_UNRESOLVED"},
+      {"regime":"G3-observable","field":"envelope_valid","value":true,"domain_basis":"DECLARED_DOMAIN plus observed non-holdout value","existing_semantic_evidence":"Feedback contract declares boolean; accepted validation event contains true.","source_reference":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json and G3B_ADAPTIVE_FEEDBACK_VALIDATION.json","proposed_state":null,"human_decision":"STATE_MAPPING_UNRESOLVED"},
+      {"regime":"G3-observable","field":"envelope_valid","value":false,"domain_basis":"DECLARED_DOMAIN","existing_semantic_evidence":"Boolean false is type-authorized by the frozen contract but not observed in the reviewed non-holdout event set.","source_reference":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json regime_contracts.G3-observable.allowed_fields.envelope_valid","proposed_state":null,"human_decision":"STATE_MAPPING_UNRESOLVED"},
+      {"regime":"G3-white-box","field":"envelope_valid","value":true,"domain_basis":"DECLARED_DOMAIN","existing_semantic_evidence":"Boolean true is type-authorized; no white-box adaptive value was observed in the reviewed evidence.","source_reference":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json regime_contracts.G3-white-box.allowed_fields.envelope_valid","proposed_state":null,"human_decision":"STATE_MAPPING_UNRESOLVED"},
+      {"regime":"G3-white-box","field":"envelope_valid","value":false,"domain_basis":"DECLARED_DOMAIN","existing_semantic_evidence":"Boolean false is type-authorized; no white-box adaptive value was observed in the reviewed evidence.","source_reference":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json regime_contracts.G3-white-box.allowed_fields.envelope_valid","proposed_state":null,"human_decision":"STATE_MAPPING_UNRESOLVED"}
+    ],
+    "excluded_from_automatic_mapping":["G3-white-box.governed_disposition has no observed value or complete enum","G3-white-box.frozen_capability_map has undefined object domain","G3-white-box.proof_definitions has undefined object domain","G3-white-box.oracle_confirmed_failure is oracle-derived and proposed forbidden","G3-white-box.failure_category has undefined string domain","G3-white-box.explicit_reward is proposed forbidden under NO_SCALAR_REWARD"]
+  },
+  "multi_field_precedence": {
+    "same_event_fields_can_coexist":true,
+    "reachable_combinations":"The schemas permit governed_disposition, envelope_valid, and selected_verifier together; white-box events may additionally carry all white-box-only fields.",
+    "observable_combinations":["selected_verifier + governed_disposition + envelope_valid"],
+    "white_box_combinations":["observable fields + any declared white-box-only fields"],
+    "decision_status":"PRECEDENCE_AMBIGUITY_REMAINS",
+    "human_options":["one authoritative transition field","deterministic precedence","deterministic combination rule","conflicting signals cause INVALID_TRANSITION"],
+    "software_decision":null,
+    "reason":"No frozen artifact establishes precedence or conflict handling among transition-bearing candidates."
+  },
+  "regime_isolation": {
+    "observable_fields":["selected_verifier","governed_disposition","envelope_valid"],
+    "white_box_only_fields":["oracle_confirmed_failure","failure_category","frozen_capability_map","proof_definitions","explicit_reward"],
+    "observable_white_box_leakage":false,
+    "validation_status":"PASS_FOR_SCHEMA_ISOLATION_ONLY",
+    "human_decision_cannot_grant_observable_access_to_white_box_fields":true,
+    "statement":"White-box-only evidence must not influence G3-observable behavior unless a separately frozen design explicitly permits it."
+  },
+  "unresolved_domains": [
+    "G3-observable.selected_verifier",
+    "G3-observable.governed_disposition",
+    "G3-white-box.selected_verifier",
+    "G3-white-box.governed_disposition",
+    "G3-white-box.frozen_capability_map",
+    "G3-white-box.proof_definitions",
+    "G3-white-box.failure_category",
+    "G3-white-box.explicit_reward"
+  ],
+  "proposed_adaptive_design": {
+    "id":"DIRECT_CANDIDATE_ID_FINITE_STATE",
+    "selected_design":null,
+    "candidate_space":"finite, frozen, provenance-bearing, fixture-scoped, deterministically ordered",
+    "action":"candidate_id directly identifies one frozen candidate",
+    "states":["UNTRIED","ELIGIBLE","SUPPRESSED","COMPLETED"],
+    "optional_outcome":"NO_STATE_CHANGE",
+    "selection":"deterministic round-robin over UNTRIED or ELIGIBLE candidates; exclude SUPPRESSED and COMPLETED",
+    "invalid_transition":"INVALID_TRANSITION followed by fail-closed trajectory termination",
+    "scalar_reward":"NO_SCALAR_REWARD",
+    "hidden_mutable_state":false,
+    "replay":"same candidate space + same state + same action + same permitted feedback produces same next state and next candidate",
+    "human_approval_required":true,
+    "implementation_authorized":false
+  },
+  "human_review_checklist": [
+    {"id":1,"decision":"Select adaptive design","status":"PENDING","value":null},
+    {"id":2,"decision":"Approve candidate states","status":"PENDING","value":null},
+    {"id":3,"decision":"Approve field roles","status":"PENDING","value":null},
+    {"id":4,"decision":"Approve explicit_reward treatment","status":"PENDING","value":null},
+    {"id":5,"decision":"Approve value-to-state mappings","status":"PENDING","value":null},
+    {"id":6,"decision":"Approve multi-field precedence/conflict behavior","status":"PENDING","value":null},
+    {"id":7,"decision":"Approve round-robin selection","status":"PENDING","value":null},
+    {"id":8,"decision":"Approve invalid-transition behavior","status":"PENDING","value":null},
+    {"id":9,"decision":"Approve stopping behavior","status":"PENDING","value":null},
+    {"id":10,"decision":"Approve materiality classification","status":"PENDING","value":null},
+    {"id":11,"decision":"Confirm full revalidation required","status":"PENDING","value":null},
+    {"id":12,"decision":"Confirm reauthorization required","status":"PENDING","value":null}
+  ],
+  "materiality":"MATERIAL_NEW_SEMANTIC",
+  "full_revalidation_required":true,
+  "reauthorization_required":true,
+  "signature":null,
+  "date":null,
+  "review_boundary": {
+    "holdout_access_status":"NOT_ACCESSED",
+    "holdout_evaluated":false,
+    "execution_performed":false,
+    "comparative_observations":0,
+    "adaptive_runtime_implemented":false,
+    "full_revalidation_started":false,
+    "amendment_modified":false,
+    "stop":"STOP_FOR_HUMAN_SEMANTIC_DECISION"
+  },
+  "conclusion":"This packet exposes the complete known decision surface without selecting roles, mappings, precedence, or design. Human approval is required before the amendment can become implementable."
+}
