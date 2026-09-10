@@ -1,0 +1,98 @@
+{
+  "version": "g3b-adaptive-design-amendment-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "PENDING_HUMAN_DECISION",
+  "adaptive_design_amendment": "PROPOSED",
+  "reviewer": null,
+  "prior_semantic_resolution_artifact": "G3B_ADAPTIVE_SEMANTIC_DESIGN_RESOLUTION.json",
+  "prior_semantic_resolution_commit": "bb034f5",
+  "recommended_design": "DIRECT_CANDIDATE_ID_FINITE_STATE",
+  "selected_design": null,
+  "decision": null,
+  "signature": null,
+  "date": null,
+  "materiality": "MATERIAL_NEW_SEMANTIC",
+  "rationale": "Direct candidate-ID mapping with deterministic finite-state transitions is recommended because it introduces the minimum new semantic surface required to make the adaptive arm executable while preserving provenance, replay, isolation, and deterministic governance boundaries. The recommendation is not a human approval and was not selected using comparative performance evidence. Adaptive state may influence candidate selection only and does not acquire execution or governance authority.",
+  "proposed_semantics": {
+    "candidate_space": {
+      "finite": true,
+      "frozen": true,
+      "provenance_bearing": true,
+      "fixture_scoped": true,
+      "feedback_creates_candidates": false,
+      "identity_fields": ["case_id", "case_fingerprint"],
+      "stable_ordering_source": "candidate-space artifact; must be frozen before implementation",
+      "ordering_performance_derived": false
+    },
+    "action": {
+      "representation": "candidate_id",
+      "mapping": "map(action.candidate_id, candidate_space)",
+      "invalid_action_behavior": ["INVALID_ACTION", "invalid provenance", "unavailable fixture candidate"],
+      "contains": [],
+      "silent_fallback": false
+    },
+    "state": {
+      "representation": ["step", "current_candidate", "candidate_status", "feedback_history"],
+      "statuses": ["UNTRIED", "ELIGIBLE", "SUPPRESSED", "COMPLETED"],
+      "initialization": {"step": 0, "current_candidate": null, "all_candidate_statuses": "UNTRIED", "feedback_history": []},
+      "scalar_reward": "NO_SCALAR_REWARD",
+      "hidden_mutable_state": false
+    },
+    "feedback": {
+      "source_contract": "G3B_ADAPTIVE_FEEDBACK_CONTRACT.json",
+      "allowed_classes": "existing permitted feedback fields only",
+      "provenance_required": true,
+      "current_step_only": true,
+      "forbidden": ["ground truth", "holdout label", "hidden oracle state", "expected outcome", "winner/loser metadata", "comparative arm result", "scalar reward", "evaluator-only rationale", "future-step information"]
+    },
+    "transition": {
+      "form": "deterministic finite-state transition(state_t, action_t, permitted_feedback_t)",
+      "allowed_effects": ["selected candidate status", "current candidate", "step counter", "append-only feedback history", "next candidate eligibility"],
+      "forbidden_effects": ["experiment configuration", "arm identity", "another arm", "stopping rules", "governance authority", "provenance rules", "oracle access", "parity-controlled configuration"],
+      "feedback_mapping": "PENDING_HUMAN_DECISION: map only existing G3B feedback fields to UNTRIED, ELIGIBLE, SUPPRESSED, or COMPLETED; no new feedback categories may be invented",
+      "existing_feedback_contracts": ["G3-observable", "G3-white-box"],
+      "invalid_behavior": "INVALID_TRANSITION"
+    },
+    "selection": {
+      "eligible_statuses": ["UNTRIED", "ELIGIBLE"],
+      "rule": "first eligible candidate in frozen stable ordering",
+      "no_eligible_behavior": "STOP_NO_ELIGIBLE_CANDIDATE",
+      "tie_break": "frozen stable candidate ordering",
+      "randomness": false
+    },
+    "replay_invariant": "same candidate space + same state + same action + same permitted feedback = same next state + same next candidate"
+  },
+  "alternatives_considered": [
+    {
+      "id": "DIRECT_CANDIDATE_ID_FINITE_STATE",
+      "label": "Alternative A",
+      "characteristics": ["direct mapping", "deterministic state", "no scalar reward", "stable ordering", "exact replay", "minimal new semantics"],
+      "status": "RECOMMENDED_NOT_SELECTED"
+    },
+    {
+      "id": "CANDIDATE_INDEX_FINITE_STATE",
+      "label": "Alternative B",
+      "characteristics": ["deterministic", "simpler action encoding", "depends on ordering/index stability", "candidate meaning less explicit in provenance"],
+      "status": "AVAILABLE_FOR_HUMAN_DECISION"
+    },
+    {
+      "id": "LEARNED_SCORED_CANDIDATE_RANKING",
+      "label": "Alternative C",
+      "characteristics": ["additional optimization semantics", "requires score definition", "greater replay and provenance complexity", "greater risk of hidden outcome shaping"],
+      "status": "NOT_RECOMMENDED"
+    }
+  ],
+  "allowed_decisions": ["APPROVE_ADAPTIVE_DESIGN_AMENDMENT", "DO_NOT_APPROVE_ADAPTIVE_DESIGN_AMENDMENT"],
+  "approval_effect": "Approval makes the amendment eligible for implementation and non-holdout validation; it does not authorize holdout execution.",
+  "full_revalidation_required": true,
+  "reauthorization_required": true,
+  "effective_execution_authorized_for_new_basis": false,
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "adaptive_execution_semantics": "UNRESOLVED",
+  "adaptive_feedback_semantics": "UNRESOLVED",
+  "next_phase_if_approved": "G3B ADAPTIVE AMENDMENT IMPLEMENTATION AND NON-HOLDOUT VALIDATION",
+  "stop_boundary": "STOP_BEFORE_ADAPTIVE_IMPLEMENTATION_AND_ALL_REVALIDATION"
+}
