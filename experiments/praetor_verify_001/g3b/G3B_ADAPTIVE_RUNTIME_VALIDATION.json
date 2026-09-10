@@ -1,0 +1,156 @@
+{
+  "version": "g3b-adaptive-runtime-validation-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "NON_HOLDOUT_VALIDATION_PASS",
+  "approved_design": "DIRECT_CANDIDATE_ID_FINITE_STATE",
+  "approved_design_commit": "db4803f07aa8cc67a7554c6eca50b9d37ee20536",
+  "implementation_commit": "3773a003585ce1085f1eb6bba87cda2aa3d8b84d",
+  "implementation_authorized": true,
+  "effective_execution_authorized_for_new_basis": false,
+  "non_holdout_validation": "PASS",
+  "adaptive_runtime_implemented": true,
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "full_revalidation_started": false,
+  "validation_scope": "synthetic instrument_validation fixtures only; no comparative execution",
+  "action_mapping_validation": {
+    "status": "PASS",
+    "resolution": "action.candidate_id resolves to the exact frozen candidate reference",
+    "fixture_membership": "PASS",
+    "provenance_matching": "PASS",
+    "index_fallback": false,
+    "fuzzy_matching": false,
+    "candidate_synthesis": false,
+    "ranking": false,
+    "invalid_resolution": "INVALID_ACTION followed by fail-closed rejection"
+  },
+  "transition_table_validation": {
+    "status": "PASS",
+    "transition_field": "governed_disposition",
+    "domain": ["SEMANTICALLY_SUPPORTED", "NON_CERTIFIED", "UNAVAILABLE"],
+    "mapping": {
+      "SEMANTICALLY_SUPPORTED": "COMPLETED",
+      "NON_CERTIFIED": "SUPPRESSED",
+      "UNAVAILABLE": "SUPPRESSED"
+    },
+    "unknown_value": "INVALID_TRANSITION",
+    "other_candidates_modified": false,
+    "envelope_checked_before_transition": true,
+    "invalid_envelope": "INVALID_FEEDBACK_ENVELOPE followed by FAIL_CLOSED_TRAJECTORY_TERMINATION"
+  },
+  "state_model_validation": {
+    "status": "PASS",
+    "reachable_states": ["UNTRIED", "SUPPRESSED", "COMPLETED"],
+    "reserved_not_reachable": "ELIGIBLE",
+    "reserved_label": "RESERVED_NOT_REACHABLE_IN_G3B_ADAPTIVE_V1",
+    "state_fields": ["step", "current_candidate", "candidate_status", "feedback_history", "context", "stopped", "stop_result"],
+    "hidden_mutable_state": false,
+    "score": false,
+    "confidence": false,
+    "reward": false,
+    "learned_ranking": false
+  },
+  "selection_validation": {
+    "status": "PASS",
+    "algorithm": "deterministic frozen-order round-robin",
+    "selectable_states": ["UNTRIED"],
+    "excluded_states": ["SUPPRESSED", "COMPLETED"],
+    "wrap_behavior": "PASS",
+    "no_selectable_result": "STOP_NO_SELECTABLE_CANDIDATE",
+    "randomness": false,
+    "performance_derived_ordering": false
+  },
+  "replay_evidence": {
+    "status": "PASS",
+    "same_candidate_space_state_action_feedback": true,
+    "same_next_state": true,
+    "same_next_candidate": true,
+    "same_stop_result": true,
+    "same_append_only_event_history": true
+  },
+  "negative_test_evidence": {
+    "status": "PASS",
+    "covered": [
+      "unknown governed_disposition",
+      "malformed candidate ID",
+      "candidate absent from frozen space",
+      "wrong fixture candidate",
+      "wrong arm",
+      "wrong experiment",
+      "missing provenance",
+      "mismatched originating action",
+      "mismatched originating candidate",
+      "duplicate feedback event",
+      "future-step feedback",
+      "feedback after STOP",
+      "invalid envelope",
+      "malformed adaptive state",
+      "ELIGIBLE state injection",
+      "explicit_reward adaptive signal",
+      "oracle_confirmed_failure adaptive signal",
+      "failure_category adaptive signal",
+      "proof_definitions adaptive signal",
+      "frozen_capability_map adaptive signal",
+      "white-box leakage into observable transition"
+    ],
+    "all_fail_closed": true,
+    "silent_repair": false,
+    "semantic_fallback": false
+  },
+  "provenance_validation": {
+    "status": "PASS",
+    "experiment_id": "PRAETOR-VERIFY-001",
+    "arm_id": "adaptive",
+    "regime_and_seed_bound": true,
+    "fixture_bound": true,
+    "append_only_feedback_history": true
+  },
+  "isolation_validation": {
+    "status": "PASS",
+    "arm_isolation": "Adaptive action requires arm_id=adaptive; no random or rule_based state is mutable by this module.",
+    "fixture_isolation": "Candidate and feedback context fixture IDs are checked before mapping or transition.",
+    "regime_isolation": "White-box-only fields are rejected as transition authority and cannot alter observable behavior.",
+    "authority_isolation": "Adaptive state changes only candidate selection state; execution, governance, provenance, stopping, configuration, and oracle boundaries are untouched."
+  },
+  "parity_validation": {
+    "status": "PASS",
+    "random_arm": "Existing non-holdout parity tests pass.",
+    "rule_based_arm": "Existing non-holdout parity and replay tests pass.",
+    "shared_runtime_configuration": "Unchanged.",
+    "external_stopping_rules": "Unchanged.",
+    "oracle_boundary": "oracle feedback is not exposed to adaptive transition logic."
+  },
+  "test_evidence": {
+    "focused_adaptive_tests": "24 passed",
+    "complete_suite": "412 passed across 45 files",
+    "typescript": "PASS",
+    "diagnostics": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "freeze": {
+    "source_commit": "3773a003585ce1085f1eb6bba87cda2aa3d8b84d",
+    "semantic_decision_hash_sha256": "9FBBC6D611F36949BC04290A142D3A8A0CF413FDBBCD37275A6505701DB697D2",
+    "amendment_hash_sha256": "55C02CEF2BA386EF212C50A2C12A6FDE6548C20546E70DE6C9594D7EC6DC22A6",
+    "candidate_space_hash_sha256": "92E74D373E9196F7B8C24200A971075467BAB330BD02A30BEE1058609F83707B",
+    "adaptive_config_hash_sha256": "ADDFEE59B5623D3DF8482C62272C53477B535EB177F67FDA4B4598829DED9786",
+    "adaptive_action_hash_sha256": "D46AA53167BB13CB6F589BA8D3A0C5C6C37E4BF51D01E0C59D2F69CDD33CF0AE",
+    "adaptive_feedback_hash_sha256": "AA35CCCC4BA3EEF86287124B8392DCA2154FB642D59053FE18BFF24583E5CA42",
+    "runtime_hash_sha256": "0BAEAEC2ED60A8B4C011232E288D37C7C00747D642101E98EB2B8A005A719449",
+    "validation_artifact_hash_basis": "SHA-256 of canonical artifact content with validation_artifact_hash_sha256 omitted",
+    "validation_artifact_hash_sha256": "c7d90d6208c9f08b2f904ee535c79212e7fdc78e63bd30434c44bc6338606a09",
+    "basis_frozen": true,
+    "full_g3b_readiness": false
+  },
+  "holdout_state": {
+    "holdout_access_status": "NOT_ACCESSED",
+    "holdout_evaluated": false,
+    "comparative_observations": 0,
+    "execution_performed": false,
+    "adaptive_runtime_implemented": true,
+    "full_revalidation_started": false,
+    "comparative_g3b_executed": false
+  },
+  "stop_boundary": "STOP_BEFORE_FULL_G3B_NON_HOLDOUT_REVALIDATION_AND_HOLDOUT_EXECUTION"
+}
