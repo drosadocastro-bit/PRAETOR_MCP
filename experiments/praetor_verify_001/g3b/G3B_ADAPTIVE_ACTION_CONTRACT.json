@@ -1,0 +1,14 @@
+{
+  "version": "g3b-adaptive-action-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "FAIL_CLOSED_UNRESOLVED",
+  "action_count": 4,
+  "representation": "integer action slot in [0, 3]",
+  "candidate_mapping": "UNRESOLVED",
+  "mapping_function": "map(action, candidate_space, current_state) is not executable until candidate ordering and mutation semantics are human-authorized",
+  "forbidden_action_content": ["ground_truth", "hidden_evaluator_state", "reward", "comparative_arm_result", "future_step_information", "arbitrary_code"],
+  "invalid_action_behavior": "INVALID_ACTION_REAUTHORIZATION_REQUIRED",
+  "failure_cases": ["unknown action", "out-of-range index", "invalid candidate ID", "duplicate candidate identity", "missing candidate provenance", "stale candidate reference", "cross-fixture candidate", "cross-arm candidate", "empty candidate set"],
+  "tie_break": "NOT_DEFINED",
+  "reason": "Selecting an ordering or mutation mapping would be a material execution semantic not present in the frozen G3B design."
+}

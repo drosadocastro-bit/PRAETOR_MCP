@@ -1,0 +1,20 @@
+{
+  "version": "g3b-adaptive-state-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "FAIL_CLOSED_UNRESOLVED",
+  "declared_state": {
+    "values": {"type": "array<number>", "length": 4, "initial": [0, 0, 0, 0], "source": "g3b-adaptive-config.json"},
+    "prng_state": {"type": "unknown", "initial": "seed", "source": "g3b-adaptive-config.json"},
+    "feedback_history": {"type": "append-only events", "initial": [], "source": "G3B_ADAPTIVE_FEEDBACK_CONTRACT.json"}
+  },
+  "field_rules": {
+    "values": "transition rule unresolved; no G3B scalar reward permitted",
+    "prng_state": "must be deterministic if later specified; cannot consume hidden feedback",
+    "feedback_history": "append-only and reconstructible; never rewritten or erased"
+  },
+  "permitted_readers": ["adaptive action selector after human-authorized transition semantics"],
+  "forbidden_state": ["ground truth", "oracle private state", "comparative scores", "other arm state", "authority state", "mutable stopping rules", "parity configuration"],
+  "initialization": "deterministic from declared seed/configuration only, but complete state initialization is unresolved",
+  "transition": "UNRESOLVED_REAUTHORIZATION_REQUIRED",
+  "reason": "The frozen design declares four values and reset scope but does not define how permitted G3B feedback updates them."
+}

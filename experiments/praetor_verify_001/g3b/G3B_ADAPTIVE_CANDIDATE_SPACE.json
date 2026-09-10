@@ -1,0 +1,28 @@
+{
+  "version": "g3b-adaptive-candidate-space-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "INVENTORY_ONLY_UNRESOLVED",
+  "source_artifact": "g3b-partitions.json",
+  "validation_partition": "instrument_validation",
+  "candidate_identity": {
+    "fields": ["case_id", "case_fingerprint"],
+    "case_id_order": "file order in instrument_validation",
+    "fingerprint": "SHA-256 structural fingerprint emitted by package.ts",
+    "hidden_outcome_independent": true
+  },
+  "candidate_provenance": {
+    "source": "synthetic_structural_partition",
+    "outcome_inspected": false,
+    "fixture_bound": true
+  },
+  "trajectory_rules": {
+    "candidates_added": false,
+    "candidates_removed": false,
+    "identity_persists_across_steps": false,
+    "ordering_semantically_meaningful": false,
+    "reason": "The frozen artifact exposes metadata only; no complete candidate payload or action-specific ordering is defined."
+  },
+  "available_candidate_count": 32,
+  "adaptive_resolution": "UNRESOLVED",
+  "missing_semantics": ["complete candidate representation", "action-to-candidate ordering", "candidate mutation mapping", "cross-step identity rule"]
+}
