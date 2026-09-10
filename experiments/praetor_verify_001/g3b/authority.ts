@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { byteHash } from '../g3a/contract.js';
+import { validateG3BActivationArtifact } from './activation-validity.js';
 
 const root = fileURLToPath(new URL('./', import.meta.url));
 const readJson = <T>(name: string): T => JSON.parse(readFileSync(resolve(root, name), 'utf8')) as T;
@@ -26,6 +27,7 @@ export type AuthorityInput = {
   historicalExecutionAuthorized: boolean;
   historicalHumanAuthorizationSigned: boolean;
   activationArtifactValid: boolean;
+  activationArtifactFailedChecks?: string[];
   applicabilityArtifactValid: boolean;
   authorizationApplicabilityReview: string | undefined;
 };
@@ -54,7 +56,13 @@ export function deriveG3BExecutionAuthority(input: AuthorityInput): AuthorityDec
     ['activation_artifact_valid', input.activationArtifactValid],
     ['applicability_artifact_valid', input.applicabilityArtifactValid]
   ];
-  const failedConditions = conditions.filter(([, passed]) => !passed).map(([name]) => name);
+  const failedConditions = conditions.flatMap(([name, passed]) => {
+    if (passed) return [];
+    if (name === 'activation_artifact_valid' && input.activationArtifactFailedChecks?.length) {
+      return input.activationArtifactFailedChecks;
+    }
+    return [name];
+  });
   const authorityChainValid = failedConditions.length === 0;
   const applicabilityPass = input.authorizationApplicabilityReview === 'AUTHORIZATION_REMAINS_APPLICABLE';
   return {
@@ -74,7 +82,10 @@ export function readG3BAuthorityInput(repositoryClean = currentRepositoryIsClean
   const receipt = readJson<{ human_g3b_authorization_signed: boolean; g3b_execution_authorized: boolean }>('G3B_START-RECEIPT.json');
   const authorization = readJson<{ version: string; status: string; decision: string; execution_authorized: boolean; reviewer: string | null; signature: string | null; date: string | null }>('G3B_HUMAN_EXECUTION_AUTHORIZATION.json');
   const prevalidation = readJson<{ runtime_prevalidation: string; eligibility: string }>('G3B_RUNTIME_PREVALIDATION.json');
-  const activation = readJson<{ experiment_id: string; frozen_references: { manifest_sha256: string; receipt_sha256: string; prevalidation_sha256: string; authorization_sha256: string }; authority_chain: { technical_prevalidation: string; eligibility: string; authorization_status: string; authorization_decision: string; execution_authorized: boolean; authority_chain_valid: boolean }; authorization_applicability_review: string; effective_execution_authorized: boolean; holdout_access_status: string; execution_performed: boolean; append_only_statement: string }>('G3B_EXECUTION_AUTHORITY_ACTIVATION_V2.json');
+  const activation = readJson<any>('G3B_EXECUTION_AUTHORITY_ACTIVATION_V2.json');
+  const activationV1 = readJson<any>('G3B_EXECUTION_AUTHORITY_ACTIVATION.json');
+  const authorityContract = readJson<any>('G3B_EXECUTION_AUTHORITY_CONTRACT_V2.json');
+  const supersession = readJson<any>('G3B_EXECUTION_AUTHORITY_SUPERSESSION.json');
   const applicability = readJson<{ version: string; experiment_id: string; reviewer: string; referenced_original_authorization_artifact: string; referenced_original_authorization_sha256: string; referenced_authority_contract_v2: string; referenced_authority_activation_v2: string; referenced_remediation_commit: string; referenced_revalidation_commit: string; decision: string; signature: string | null; date: string | null; human_confirmation: boolean; confirmation_source: string; confirmation_timestamp: string; holdout_access_status: string; execution_performed: boolean; comparative_observations: number; authorization_scope_statement: string }>('G3B_HUMAN_AUTHORIZATION_APPLICABILITY.json');
   const actualComponentHashes = Object.fromEntries(Object.keys(manifest.components).map(name => [name, byteHash(readFileSync(name.includes('/') ? resolve(root, '..', name) : resolve(root, name)))]));
   const frozenArtifactHashesMatch = JSON.stringify(actualComponentHashes) === JSON.stringify(manifest.components)
@@ -82,17 +93,23 @@ export function readG3BAuthorityInput(repositoryClean = currentRepositoryIsClean
     && activation.frozen_references.receipt_sha256 === sha256('G3B_START-RECEIPT.json')
     && activation.frozen_references.prevalidation_sha256 === sha256('G3B_RUNTIME_PREVALIDATION.json')
     && activation.frozen_references.authorization_sha256 === sha256('G3B_HUMAN_EXECUTION_AUTHORIZATION.json');
-  const activationArtifactValid = activation.experiment_id === 'PRAETOR-VERIFY-001'
-    && activation.authority_chain.technical_prevalidation === prevalidation.runtime_prevalidation
-    && activation.authority_chain.eligibility === prevalidation.eligibility
-    && activation.authority_chain.authorization_status === authorization.status
-    && activation.authority_chain.authorization_decision === authorization.decision
-    && activation.authority_chain.execution_authorized === authorization.execution_authorized
-    && activation.authority_chain.authority_chain_valid === true
-    && activation.effective_execution_authorized === false
-    && activation.append_only_statement.length > 0
-    && activation.holdout_access_status === 'NOT_ACCESSED'
-    && activation.execution_performed === false;
+  const activationValidity = validateG3BActivationArtifact({
+    activation,
+    activationV1,
+    contract: authorityContract,
+    manifest,
+    receipt,
+    prevalidation,
+    authorization,
+    supersession,
+    actualHashes: {
+      manifest: sha256('G3B_PRE_EXECUTION_MANIFEST.json'),
+      receipt: sha256('G3B_START-RECEIPT.json'),
+      prevalidation: sha256('G3B_RUNTIME_PREVALIDATION.json'),
+      authorization: sha256('G3B_HUMAN_EXECUTION_AUTHORIZATION.json')
+    },
+    currentCommitSha: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: resolve(root, '../../..'), encoding: 'utf8' }).trim()
+  });
   const applicabilityArtifactValid = applicability.version === 'g3b-human-authorization-applicability-v1'
     && applicability.experiment_id === 'PRAETOR-VERIFY-001'
     && applicability.reviewer === authorization.reviewer
@@ -128,7 +145,8 @@ export function readG3BAuthorityInput(repositoryClean = currentRepositoryIsClean
     executionPerformed: activation.execution_performed,
     historicalExecutionAuthorized: manifest.g3b_execution_authorized,
     historicalHumanAuthorizationSigned: receipt.human_g3b_authorization_signed,
-    activationArtifactValid,
+    activationArtifactValid: activationValidity.activationArtifactValid,
+    activationArtifactFailedChecks: activationValidity.failedChecks,
     applicabilityArtifactValid,
     authorizationApplicabilityReview: applicability.decision
   };
