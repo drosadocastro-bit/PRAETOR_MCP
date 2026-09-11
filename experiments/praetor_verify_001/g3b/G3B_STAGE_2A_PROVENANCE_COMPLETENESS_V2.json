@@ -1,0 +1,655 @@
+{
+  "version": "G3B_STAGE_2A_PROVENANCE_COMPLETENESS_V2",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "fixture_id": "instrument_validation",
+  "status": "COMPLETE_INDEPENDENT_ASSESSMENTS_AWAITING_HUMAN_REVIEW",
+  "lineage": {
+    "supersedes_for_forward_review": [
+      "G3B_STAGE_2A_PROVENANCE_COMPLETENESS_V1.json"
+    ],
+    "historical_v1_status": "PRESERVED_WITH_UNRESOLVED_DEPENDENCY_PROVENANCE",
+    "generation_basis": "Generated from the exact current authored-claims bytes and freshly generated V2 classifications; V1 output records were not copied."
+  },
+  "policy": {
+    "identity": "G3B_SEMANTIC_COMPLETENESS",
+    "version": "proposed-v1",
+    "policy_status": "STAGE_1_DESIGN_APPROVED_SOURCE_VALUES_PENDING",
+    "obligations": [
+      "CLAIM_ATTRIBUTION",
+      "EVIDENCE_ATTRIBUTION",
+      "CLAIM_EVIDENCE_LINKS",
+      "DERIVATION_LINEAGE",
+      "SCOPE_ACCOUNTING"
+    ]
+  },
+  "source_dependencies": [
+    {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json",
+      "sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921"
+    },
+    {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json",
+      "sha256": "5AE743163C9D86E04E4C3F60094B23E6F347B28075EFA397FDCF867B298F86D7"
+    }
+  ],
+  "independence": {
+    "evaluator": false,
+    "oracle": false,
+    "adaptive_feedback": false,
+    "performance": false,
+    "holdout": false,
+    "payload_emitter": false,
+    "comparative_results": false
+  },
+  "assessment_rule": "Every obligation is explicitly assessed against exact current authored-claims bytes and locators. No obligation is inferred from case order, logical_family, outcome, evaluator output or proof availability.",
+  "assessments": [
+    {
+      "case_id": "validate-0000",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[0]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "31E8160A3E65DE4732B9A203BB07CE28CE6ECC11B154EA3DB567614FBA79D389",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[0]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[0]"
+    },
+    {
+      "case_id": "validate-0001",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[1]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "59BD8EA99E2FEABD39E8DEFFB340B349255B74B803A371FE2BB3EE52303DFAFF",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[1]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[1]"
+    },
+    {
+      "case_id": "validate-0002",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[2]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "ED93FAECA2FE59AEC51E59DFCCA9C05DFBE8B7239A596DFB4934191829988AA4",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[2]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[2]"
+    },
+    {
+      "case_id": "validate-0003",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[3]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "0D05DA283DCBD25472F1236757705B91A2D630C7805B07F4D0B52DECCD0FF45B",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[3]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[3]"
+    },
+    {
+      "case_id": "validate-0004",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[4]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "CFD9D571EEEBC6D5DEE68867ECD04E096F030924BE8B298BF84B3F0C3DC99DF8",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[4]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[4]"
+    },
+    {
+      "case_id": "validate-0005",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[5]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "6B157F549F33791E420C6B827BC492969E02EDA5CD0D72445855EFA4EA1F6E64",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[5]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[5]"
+    },
+    {
+      "case_id": "validate-0006",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[6]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "62F2256F16A2C2782C0ED6E751203859A901EE93DDE6FDC455F97851807ACF55",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[6]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[6]"
+    },
+    {
+      "case_id": "validate-0007",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[7]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "5FE1076846427B2936BCECAA0243B5242455FD8759C165230AB07378E1B37C6F",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[7]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[7]"
+    },
+    {
+      "case_id": "validate-0008",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[8]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "F72380CBD2371DF304D2D56999C04435BED532049804180831B1961856D20936",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[8]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[8]"
+    },
+    {
+      "case_id": "validate-0009",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[9]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "5E6DAB217A558B8A2F0ECD03504A106F4EE2ED5C8BF6A4CA35EE9AAB0EBAEE53",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[9]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[9]"
+    },
+    {
+      "case_id": "validate-0010",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[10]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "576F0A632283471EBC1D62328C6A81D501ABDC546A6706DB205AFA1298BD3682",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[10]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[10]"
+    },
+    {
+      "case_id": "validate-0011",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[11]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "00B31B2EC7C1E43315BFFB41550FC86293E2CA1CC938B5340126461635F9C594",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[11]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[11]"
+    },
+    {
+      "case_id": "validate-0012",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[12]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "7796908F237E8DFDBEB0EE9D1E456C8FC082C9676369B8032724980ED925BC49",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[12]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[12]"
+    },
+    {
+      "case_id": "validate-0013",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[13]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "5E8363F2113530F608687DDB3766DE9328EDC7224CCA9DAA6AF8796621A7F891",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[13]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[13]"
+    },
+    {
+      "case_id": "validate-0014",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[14]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "A20F7F5759B60AD6FFB0C6CE64F4A04B416F4E0D817E2D916D7A7DA5B7583047",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[14]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[14]"
+    },
+    {
+      "case_id": "validate-0015",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[15]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "A67C5F34CFB16B57556D80957BC11F737541647A0C0C65260C7DA8C52CF6D564",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[15]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[15]"
+    },
+    {
+      "case_id": "validate-0016",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[16]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "8F4D5BD69C8FE94F4C6AF2D0A79AD9E377A0BB39EF9A31F050A1A5CD7B966255",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[16]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[16]"
+    },
+    {
+      "case_id": "validate-0017",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[17]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "74D01559AD53009D5BA065DC1BFA1142E7E729BA83B08EF41BD4D3EAB5C6D670",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[17]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[17]"
+    },
+    {
+      "case_id": "validate-0018",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[18]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "9B0A70A02EB9D6CD14FB001194244A80D4BF5A405A7F4697134ED27AEA4976B9",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[18]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[18]"
+    },
+    {
+      "case_id": "validate-0019",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[19]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "483EA224936CBB1B1B1B65136376A8E91DB25BDC6AF7475B124D5E7970B90FD1",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[19]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[19]"
+    },
+    {
+      "case_id": "validate-0020",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[20]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "562BD477BF332EFE1145D61315F2953B57E869FDDF0B394D0C2878707F57CD51",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[20]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[20]"
+    },
+    {
+      "case_id": "validate-0021",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[21]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "66E55622C8D25C9C47C1FF65CFB8D675BAF2E2277C8AD8A142C7AE3E7E20A92D",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[21]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[21]"
+    },
+    {
+      "case_id": "validate-0022",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[22]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "EE0F2F9A24C896E069FBE468BEE83812DC2D4765DC249673F709A2B5A7526EAB",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[22]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[22]"
+    },
+    {
+      "case_id": "validate-0023",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[23]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "813C98697291CFAB6C65B839E90129211960C86919F047F8470E37B06AD84D10",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[23]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[23]"
+    },
+    {
+      "case_id": "validate-0024",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[24]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "DD9BD16C7E2459930B22CE318BC6888CC1F290621D7861BF7F6B6401ECB1D50C",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[24]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[24]"
+    },
+    {
+      "case_id": "validate-0025",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[25]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "F3EA480AA419BF2ED3C52A84BC688A48F5D92AEFFA678D1D87078C1EA22EEFD2",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[25]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[25]"
+    },
+    {
+      "case_id": "validate-0026",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[26]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "574758D0970EC6FAD111437002BF27478FB9367B3B029CD091E350D6B358C1DD",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[26]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[26]"
+    },
+    {
+      "case_id": "validate-0027",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[27]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "CCF7A4ACCD356E4739C365B14AE9BC082CD21A87E8EA33405E1A8509483E6AA6",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[27]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[27]"
+    },
+    {
+      "case_id": "validate-0028",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[28]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "75BC2A94A691BC716DAAE082A443C9C9E5C670752872026420BAFBEDF7A7FCF1",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[28]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[28]"
+    },
+    {
+      "case_id": "validate-0029",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[29]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "9E6FFCA9D6306B2ECC3E9B4DDEFD6BAD9DEB7D60F5CCC936BDAD38F68FC4AC97",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[29]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[29]"
+    },
+    {
+      "case_id": "validate-0030",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[30]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "DF84197090186B9FFA0269C1AC848F49550B7B553F2D44E9D4DA6C3910BC55EF",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[30]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[30]"
+    },
+    {
+      "case_id": "validate-0031",
+      "fixture_id": "instrument_validation",
+      "claim_reference": "../g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json#$.claims[31]",
+      "claim_artifact_sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921",
+      "claim_hash": "7A9ACF493A478E6A7F2AF9E4F0150C38CA51235147CB91F52B54EA79A5C0B6C8",
+      "classification_reference": "../g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json#$.classifications[31]",
+      "obligations": {
+        "CLAIM_ATTRIBUTION": "SATISFIED",
+        "EVIDENCE_ATTRIBUTION": "SATISFIED",
+        "CLAIM_EVIDENCE_LINKS": "SATISFIED",
+        "DERIVATION_LINEAGE": "SATISFIED_NO_TRANSFORMATION",
+        "SCOPE_ACCOUNTING": "SATISFIED"
+      },
+      "result": true,
+      "reviewer_required": true,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "exact_record_locator": "$.assessments[31]"
+    }
+  ]
+}

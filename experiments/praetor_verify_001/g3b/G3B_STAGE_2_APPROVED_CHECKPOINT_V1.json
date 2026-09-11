@@ -1,0 +1,86 @@
+{
+  "checkpoint_id": "G3B_STAGE_2_APPROVED_CHECKPOINT_V1",
+  "checkpoint_version": 1,
+  "project": "PRAETOR",
+  "gate": "G3B",
+  "stage": 2,
+  "checkpoint_status": "FROZEN_BEFORE_IMPLEMENTATION_AUTHORIZATION",
+  "basis": {
+    "chain": "accepted V2-bound artifacts",
+    "approved_decision": "APPROVE_STAGE_2_SEMANTIC_SOURCE_BASIS",
+    "reviewer": "drosado",
+    "approved_decision_timestamp": "09/11/2026 1947Z",
+    "scope": "Approved Stage-2 semantic source basis only; no separate implementation authorization is granted."
+  },
+  "hash_algorithm": "SHA-256",
+  "artifact_hashes": {
+    "v2_forward_basis_acceptance_packet": {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_V2_HUMAN_ACCEPTANCE_PACKET_V1.json",
+      "sha256": "4F9C7F3AD20ED590584FD3BED155ADDA693CDEE6B45F8F56956E220B0A7BFC43"
+    },
+    "v2_bound_source_construction_packet": {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_SOURCE_CONSTRUCTION_PACKET_V2.json",
+      "sha256": "15DBA417D797243EAECE15EAA816825656919C132B934ADD25179A98FF584136"
+    },
+    "v2_bound_source_instantiation_review": {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2_SOURCE_INSTANTIATION_REVIEW_V2.json",
+      "sha256": "E54B56AF35F53AA653A5BC32FFD6AADC5FCBF7DF21B560CD0A30234D28FD2BE2"
+    },
+    "v2_bound_human_semantic_review_summary": {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2_HUMAN_SEMANTIC_REVIEW_SUMMARY_V2.json",
+      "sha256": "DE3EE75746DCF0AAB272360A44BD5DA41C3F823CE4F182A42548DF2726809936"
+    },
+    "stage_2_human_decision_packet": {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2_HUMAN_DECISION_PACKET_V1.json",
+      "sha256": "5720F4B97A1F589FD0B3C20314E95B880CF3F59EA678ECB224DB46EC10435A8A"
+    },
+    "accepted_v2_a1_classification_artifact": {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json",
+      "sha256": "5AE743163C9D86E04E4C3F60094B23E6F347B28075EFA397FDCF867B298F86D7"
+    },
+    "accepted_v2_a2_provenance_artifact": {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_PROVENANCE_COMPLETENESS_V2.json",
+      "sha256": "501A972EE1F2A213AB06293419737D6E537F9B8158703E110F0194425E5DEE09"
+    },
+    "current_authored_claims_artifact": {
+      "path": "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json",
+      "sha256": "1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921"
+    }
+  },
+  "semantic_state": {
+    "case_count": 32,
+    "semantic_parity": "32/32 identical",
+    "semantic_change_count": 0,
+    "unresolved_case_count": 0
+  },
+  "historical_v1_state": {
+    "provenance": "UNDETERMINED",
+    "preserved": true,
+    "retroactively_validated": false
+  },
+  "authority_state": {
+    "implementation_authorized": false,
+    "payload_construction_authorized": false,
+    "evaluator_authorized": false,
+    "comparative_execution_authorized": false,
+    "holdout_access_authorized": false
+  },
+  "invariant": "This checkpoint records the approved Stage-2 semantic source basis. It does not authorize implementation, payload construction, evaluator invocation, comparative execution, or holdout access.",
+  "integrity_constraints": {
+    "semantic_reinterpretation": false,
+    "previously_approved_artifacts_modified": false,
+    "v1_artifacts_modified": false,
+    "checkpoint_hash_is_external_only": true
+  },
+  "reconstruction_set": [
+    "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_V2_HUMAN_ACCEPTANCE_PACKET_V1.json",
+    "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_SOURCE_CONSTRUCTION_PACKET_V2.json",
+    "experiments/praetor_verify_001/g3b/G3B_STAGE_2_SOURCE_INSTANTIATION_REVIEW_V2.json",
+    "experiments/praetor_verify_001/g3b/G3B_STAGE_2_HUMAN_SEMANTIC_REVIEW_SUMMARY_V2.json",
+    "experiments/praetor_verify_001/g3b/G3B_STAGE_2_HUMAN_DECISION_PACKET_V1.json",
+    "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json",
+    "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_PROVENANCE_COMPLETENESS_V2.json",
+    "experiments/praetor_verify_001/g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json",
+    "experiments/praetor_verify_001/g3b/G3B_STAGE_2_APPROVED_CHECKPOINT_V1.json"
+  ]
+}

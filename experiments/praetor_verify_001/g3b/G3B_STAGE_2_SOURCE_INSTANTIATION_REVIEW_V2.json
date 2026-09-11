@@ -1,0 +1,21 @@
+{
+  "version":"G3B_STAGE_2_SOURCE_INSTANTIATION_REVIEW_V2",
+  "experiment_id":"PRAETOR-VERIFY-001",
+  "fixture_id":"instrument_validation",
+  "status":"AWAITING_STAGE_2_HUMAN_REVIEW",
+  "materiality":"V2_FORWARD_REVIEW_BASIS_METADATA_REBINDING",
+  "review_scope":"Documentary Stage-2 source review for the approved non-holdout instrument_validation scope. No semantic values, executable payloads, runtime, evaluator, comparative execution or holdout access.",
+  "acceptance_basis":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_V2_HUMAN_ACCEPTANCE_PACKET_V1.json","decision":"ACCEPT_V2_AS_FORWARD_REVIEW_BASIS","reviewer":"drosado","date":"09/11/2026 1712Z"},
+  "stage_1_authority":{"approval_sha256":"C3C80EE94F04E6D5579E73C1FA6CB3C6F240EE205C805A8C88AEBF0760F4A84D","effective_stage_1_source_instantiation_authorized":true},
+  "approved_scope":{"fixture_id":"instrument_validation","case_count":32,"case_ids":["validate-0000","validate-0001","validate-0002","validate-0003","validate-0004","validate-0005","validate-0006","validate-0007","validate-0008","validate-0009","validate-0010","validate-0011","validate-0012","validate-0013","validate-0014","validate-0015","validate-0016","validate-0017","validate-0018","validate-0019","validate-0020","validate-0021","validate-0022","validate-0023","validate-0024","validate-0025","validate-0026","validate-0027","validate-0028","validate-0029","validate-0030","validate-0031"]},
+  "membership_basis":{"path":"experiments/praetor_verify_001/g3b/g3b-partitions.json","sha256":"4A57C445E6F6F78147A1283F03BE248AF40BF31B3E89F64844C2A71B5904CAC7","partition":"instrument_validation","holdout_partition":"NOT_ACCESSED"},
+  "source_manifest":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_SOURCE_CONSTRUCTION_PACKET_V2.json","sha256":"15DBA417D797243EAECE15EAA816825656919C132B934ADD25179A98FF584136","entry_count":32,"fully_resolved_count":0,"blocked_unresolved_count":32},
+  "v2_dependency_closure":{"a1_classifications":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json","sha256":"5AE743163C9D86E04E4C3F60094B23E6F347B28075EFA397FDCF867B298F86D7"},"a2_provenance":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_PROVENANCE_COMPLETENESS_V2.json","sha256":"501A972EE1F2A213AB06293419737D6E537F9B8158703E110F0194425E5DEE09"},"authored_claims_current_sha256":"1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921"},
+  "inherited_evidence":{"a3_a6_unchanged":true,"paths":["G3B_STAGE_2A_PROOF_AVAILABILITY_V1.json","G3B_STAGE_2A_PROOF_SUPPORT_RELATIONS_V1.json","G3B_STAGE_2A_EVIDENCE_ASSERTION_VALIDATION_V1.json","G3B_STAGE_2A_FINITE_CONTRADICTION_LEDGER_V1.json"]},
+  "instantiation_result":{"cases_enumerated":32,"fully_instantiated":0,"blocked_unresolved":32,"semantic_values_created":0,"candidate_payloads_created":0,"source_records_created":224,"semantic_delta_cases":0,"unresolved_semantic_changes":0},
+  "authority_containment":{"stage_2_decision":null,"stage_2_signature":null,"stage_2_date":null,"implementation_authorized":false,"payload_construction_authorized":false,"evaluator_authorized":false,"comparative_execution_authorized":false,"holdout_access_authorized":false},
+  "execution_record":{"evaluator_invocation_count":0,"comparative_observations":0,"holdout_access":"NOT_ACCESSED","runtime_execution":"NOT_PERFORMED","adaptive_feedback_used":false,"model_generated_values_used":false},
+  "human_review":{"decision":null,"signature":null,"date":null,"required_action":"Human must independently review the V2-bound blocked submission. Acceptance of V2 as a forward-review basis is not Stage-2 approval."},
+  "integrity_statement":"This packet is a new V2-bound documentary review artifact. V1 artifacts remain preserved and unchanged; A3-A6 are inherited source evidence, while A1/A2 dependencies are bound exclusively to regenerated V2 artifacts.",
+  "packet_hash_is_external_only":true
+}

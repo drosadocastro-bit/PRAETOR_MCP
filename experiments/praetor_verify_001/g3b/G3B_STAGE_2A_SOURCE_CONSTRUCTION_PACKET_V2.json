@@ -1,0 +1,26 @@
+{
+  "version":"G3B_STAGE_2A_SOURCE_CONSTRUCTION_PACKET_V2",
+  "experiment_id":"PRAETOR-VERIFY-001",
+  "fixture_id":"instrument_validation",
+  "lineage":{"basis":"G3B_STAGE_2A_V2_HUMAN_ACCEPTANCE_PACKET_V1.json","decision":"ACCEPT_V2_AS_FORWARD_REVIEW_BASIS","reviewer":"drosado","date":"09/11/2026 1712Z","v1_artifacts_preserved":true},
+  "membership_artifact_sha256":"4A57C445E6F6F78147A1283F03BE248AF40BF31B3E89F64844C2A71B5904CAC7",
+  "stage_1_approval_sha256":"C3C80EE94F04E6D5579E73C1FA6CB3C6F240EE205C805A8C88AEBF0760F4A84D",
+  "construction_status":"COMPLETE_SOURCE_FAMILIES_AWAITING_STAGE_2_HUMAN_REVIEW",
+  "stage_2_decision":null,
+  "stage_2_signature":null,
+  "stage_2_date":null,
+  "authorization_flags":{"implementation_authorized":false,"payload_construction_authorized":false,"evaluator_authorized":false,"comparative_execution_authorized":false,"holdout_access_authorized":false},
+  "source_families":[
+    {"family":"A1_AUTHORED_CLAIMS","path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json","sha256":"1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921","record_locator":"$.claims[0..31]","record_count":32,"status":"INHERITED_UNCHANGED_PENDING_HUMAN_REVIEW"},
+    {"family":"A1_CLAIM_FAMILY_CLASSIFICATIONS","path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json","sha256":"5AE743163C9D86E04E4C3F60094B23E6F347B28075EFA397FDCF867B298F86D7","record_locator":"$.classifications[0..31]","record_count":32,"status":"V2_FORWARD_REVIEW_BASIS"},
+    {"family":"A2_PROVENANCE_COMPLETENESS","path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_PROVENANCE_COMPLETENESS_V2.json","sha256":"501A972EE1F2A213AB06293419737D6E537F9B8158703E110F0194425E5DEE09","record_locator":"$.assessments[0..31]","record_count":32,"status":"V2_FORWARD_REVIEW_BASIS"},
+    {"family":"A3_PROOF_AVAILABILITY","path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_PROOF_AVAILABILITY_V1.json","sha256":"95F092650C40768B3636E8E304CA369C201CB36CC17AF6A4CF3E5D4554CBC1EE","record_locator":"$.proof_inventory[0..31]","record_count":32,"status":"INHERITED_UNCHANGED_PENDING_HUMAN_REVIEW"},
+    {"family":"A4_PROOF_SUPPORT_RELATIONS","path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_PROOF_SUPPORT_RELATIONS_V1.json","sha256":"0031ED9AD2F88AE11B6A3EA7277375BD6E00F229A527457B32A1AD78F4F54E6D","record_locator":"$.assessments[0..31]","record_count":32,"status":"INHERITED_UNCHANGED_PENDING_HUMAN_REVIEW"},
+    {"family":"A5_EVIDENCE_ASSERTION_VALIDATION","path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_EVIDENCE_ASSERTION_VALIDATION_V1.json","sha256":"A68A955709DF75D081F8B47DBC3A191BA675803000DCA16C6212AF9FD8BBC76E","record_locator":"$.assessments[0..31]","record_count":32,"status":"INHERITED_UNCHANGED_PENDING_HUMAN_REVIEW"},
+    {"family":"A6_FINITE_CONTRADICTION_LEDGER","path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_FINITE_CONTRADICTION_LEDGER_V1.json","sha256":"079CAA3B359C7E8E034DDBD7221CE8E675DD17608CF15D8D0673E2B54BB160EF","record_locator":"$.pair_assessments[0..31] and $.scope_attestation","record_count":32,"status":"INHERITED_UNCHANGED_PENDING_HUMAN_REVIEW"}
+  ],
+  "semantic_delta":{"total_cases":32,"semantic_changes":0,"unresolved_cases":0,"result":"IDENTICAL_SEMANTIC_OUTCOMES_WITH_METADATA_ONLY_DIFFERENCES","comparison_artifact":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_V1_V2_SEMANTIC_COMPARISON_V1.json","comparison_sha256":"C3D84C3E4174072B583053C62BFE2B7D980196B4D733D3C5E15970BD6EA66A3D"},
+  "case_bindings":{"expected_count":32,"case_ids":["validate-0000","validate-0001","validate-0002","validate-0003","validate-0004","validate-0005","validate-0006","validate-0007","validate-0008","validate-0009","validate-0010","validate-0011","validate-0012","validate-0013","validate-0014","validate-0015","validate-0016","validate-0017","validate-0018","validate-0019","validate-0020","validate-0021","validate-0022","validate-0023","validate-0024","validate-0025","validate-0026","validate-0027","validate-0028","validate-0029","validate-0030","validate-0031"],"all_fixture_ids_match":true,"all_source_families_present":true,"all_review_pending":true},
+  "execution_record":{"payload_activity":false,"runtime_activity":false,"evaluator_activity":false,"comparative_activity":false,"holdout_activity":false,"holdout_access":"NOT_ACCESSED"},
+  "review_boundary":"This V2 packet is ready for further Stage-2 human review only. It does not approve Stage-2, resolve semantic values, authorize implementation, construct payloads, invoke evaluators, execute comparisons, or access holdout data."
+}
