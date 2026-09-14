@@ -1,0 +1,94 @@
+{
+  "packet_id": "G3B_MISSING_QUALIFICATION_AUDIT_DISPOSITION_V1",
+  "packet_type": "MISSING_AUTHORITY_INDEPENDENCE_REVIEW",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "gate": "G3B",
+  "artifact": "experiments/praetor_verify_001/g3b/G3B_IMPLEMENTATION_BLOCKER_QUALIFICATION_AUDIT_V1.json",
+  "expected_sha256": "88E4FCAB798452174C12BF1C9F81B462C65D84D581A51FCB4BA2A6AC5ABBC255",
+  "recovery_result": "EXACT_AUDIT_ARTIFACT_RECOVERY_REQUIRED",
+  "recovery_facts": [
+    "file absent from working tree",
+    "no reachable Git history contains target path",
+    "no repository-backed blob matches expected SHA",
+    "no substitute created",
+    "no semantic reconstruction performed"
+  ],
+  "historical_integrity_status": "PRESERVED_AS_UNRECOVERABLE_REFERENCE",
+  "review_subject": {
+    "path": "experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_EXECUTABLE_CONTRACT_HUMAN_DECISION_PACKET_V2.json",
+    "sha256": "72654B0451FD7828F1D35AB1A6F7D579B3D150B0E8D95DDD2C3F01B34B1C48C5",
+    "human_decisions_pending": 6,
+    "human_decisions_recorded": false
+  },
+  "present_authority_checked": [
+    {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_EXECUTABLE_CONTRACT_SPECIFICATION_PACKET_V2.json","sha256":"2F5985D5F69D7D68FD111FD5935706AFF292EF3A55FF86A0434A6E698A1753BA","status":"PRESENT_AND_HASH_MATCHED"},
+    {"path":"experiments/praetor_verify_001/g3b/G3B_IMPLEMENTATION_DESIGN_DECISION_PACKET_V1.json","sha256":"45F7D0F2ADEEE185177C3ED03CC02A2F57499D121695E4EA7343A47B624EC411","status":"PRESENT_AND_HASH_MATCHED"},
+    {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_INPUT_CONTRACT_HUMAN_DECISION.json","sha256":"15A8C84D66D1F4A4FFF2ED5E8D4ACEA39E45D152A0773DC43023EA44D11EB0D6","status":"PRESENT_AND_HASH_MATCHED"}
+  ],
+  "authority_independence_result": "CANNOT_ESTABLISH_AUTHORITY_INDEPENDENCE",
+  "result_basis": "The missing qualification audit is not shown to be the source of the approved Stage-2 order, branch rules, hard invariants, or existing failure cases. However, the remaining present authority explicitly leaves executable primitive types, exact domains, and field roles unresolved. V2 adds concrete domain values and evaluator-consumed role proposals that cannot be established completely from the remaining present artifacts. This prevents an independence finding and prevents forward V3 reconciliation.",
+  "proposal_dependency_matrix": [
+    {"decision_id":1,"decision_area":"FIELD_TYPES_DOMAINS_AND_BRANCH_FIELD_ROLES","proposal":"Concrete primitive types and domains for all fields","classification":"CANNOT_ESTABLISH","remaining_authority_basis":"Specification V2 marks primitive_type and exact_enum_or_domain HUMAN_DECISION_REQUIRED for every field; adaptive input authority establishes field lists and requiredness only."},
+    {"decision_id":1,"decision_area":"FIELD_TYPES_DOMAINS_AND_BRANCH_FIELD_ROLES","proposal":"evaluator-consumed role for all non-action fields","classification":"CANNOT_ESTABLISH","remaining_authority_basis":"Specification V2 marks role HUMAN_DECISION_REQUIRED; the present adaptive-input artifact identifies evaluator fields but does not mechanically establish executable role for every field."},
+    {"decision_id":2,"decision_area":"NULLABILITY_AND_REPRESENTATION_POLICY","proposal":"null prohibited unless explicitly approved","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Implementation design authority states null without explicit schema permission is BLOCK and no implicit defaults are allowed."},
+    {"decision_id":2,"decision_area":"NULLABILITY_AND_REPRESENTATION_POLICY","proposal":"coercion prohibited","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Implementation design authority states unsupported representation or coercion is BLOCK; fingerprint rules prohibit implicit numeric conversion."},
+    {"decision_id":2,"decision_area":"NULLABILITY_AND_REPRESENTATION_POLICY","proposal":"normalization NONE, including no trimming, case folding, aliases, or key renaming","classification":"CANNOT_ESTABLISH","remaining_authority_basis":"Present authority constrains canonical strings and conversion but does not completely establish this executable contract normalization policy for every field."},
+    {"decision_id":2,"decision_area":"NULLABILITY_AND_REPRESENTATION_POLICY","proposal":"NO_DEFAULTS","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Implementation design authority expressly states NO IMPLICIT DEFAULTS and missing required values BLOCK."},
+    {"decision_id":3,"decision_area":"CLOSED_OBJECT_BEHAVIOR","proposal":"additionalProperties prohibited and unknown field disposition BLOCK","classification":"CANNOT_ESTABLISH","remaining_authority_basis":"Specification V2 leaves additionalProperties and unknown_field_behavior HUMAN_DECISION_REQUIRED; fingerprint additional_fields prohibition is not by itself the executable input contract authority."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"wrong primitive type => BLOCK","classification":"CANNOT_ESTABLISH","remaining_authority_basis":"Specification V2 leaves structural rejection and failure semantics HUMAN_DECISION_REQUIRED; missing audit is not proven to be the sole source, but remaining authority is insufficient."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"invalid enum/domain => BLOCK","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Implementation design authority states unknown enum or domain value is BLOCK."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"prohibited null => BLOCK","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Implementation design authority states null without explicit schema permission is BLOCK."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"unknown field => BLOCK","classification":"CANNOT_ESTABLISH","remaining_authority_basis":"Specification V2 leaves unknown field behavior HUMAN_DECISION_REQUIRED; present fingerprint rules are not sufficient to establish input-contract disposition."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"missing always-required field => BLOCK","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Implementation design authority states missing required value is BLOCK."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"missing permission-only field on permission branch => BLOCK","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Inherited adaptive-input authority establishes conditional requiredness; approved implementation invariants explicitly assign BLOCK."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"permission-only field on non-permission branch => CONTRACT_REJECTION_BEFORE_EVALUATOR","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Inherited branch boundary and approved implementation decision explicitly preserve this terminal pre-evaluator disposition."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"proof_supports_claim=true while proof_available=false => BLOCK","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Approved hard invariant."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"authority_valid=true while authority_present=false => BLOCK","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Approved hard invariant."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"numeric out-of-range or non-finite => BLOCK","classification":"CANNOT_ESTABLISH","remaining_authority_basis":"Present artifacts do not establish contradiction_score type, range, endpoint, or non-finite behavior; missing audit is not proven to supply the only evidence."},
+    {"decision_id":4,"decision_area":"CONTRACT_FAILURE_SEMANTICS","proposal":"fingerprint mismatch => BLOCK","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Approved Stage-2 fingerprint rules explicitly assign mismatch BLOCK before evaluator invocation."},
+    {"decision_id":5,"decision_area":"REQUESTED_ACTION_DOMAIN_AND_ROLE","proposal":"requested_action remains unresolved and requires a new human action-domain decision","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Adaptive input authority explicitly notes type/domain and role are not mechanically established."},
+    {"decision_id":6,"decision_area":"RECORD_ACTION_DOMAIN_AND_ROLE","proposal":"record_action remains unresolved and requires a new human action-domain decision","classification":"SUPPORTED_WITHOUT_MISSING_AUDIT","remaining_authority_basis":"Adaptive input authority explicitly notes type/domain and role are not mechanically established."}
+  ],
+  "independent_review": {
+    "exact_17_step_validation_order":"SUPPORTED_WITHOUT_MISSING_AUDIT",
+    "branch_requiredness":"SUPPORTED_WITHOUT_MISSING_AUDIT",
+    "hard_invariants":"SUPPORTED_WITHOUT_MISSING_AUDIT",
+    "block_semantics":"SUPPORTED_WITHOUT_MISSING_AUDIT_FOR_APPROVED_CASES; incomplete for generic structural cases",
+    "contract_rejection_before_evaluator_semantics":"SUPPORTED_WITHOUT_MISSING_AUDIT",
+    "no_default_boundary":"SUPPORTED_WITHOUT_MISSING_AUDIT",
+    "no_coercion_boundary":"SUPPORTED_WITHOUT_MISSING_AUDIT",
+    "requested_action_unresolved":"SUPPORTED_WITHOUT_MISSING_AUDIT",
+    "record_action_unresolved":"SUPPORTED_WITHOUT_MISSING_AUDIT"
+  },
+  "forward_version": {
+    "v3_created": false,
+    "reason": "V3 is permitted only after an authority-independence result of MISSING_AUDIT_NOT_REQUIRED_FOR_EXECUTABLE_CONTRACT_AUTHORITY. That result was not established.",
+    "required_classification_not_claimed": "FORWARD_AUTHORITY_BASIS_RECONCILIATION"
+  },
+  "human_approval_readiness": "BLOCKED_BY_UNRECOVERABLE_AUTHORITY_EVIDENCE",
+  "authority_state": {
+    "implementation_authorized": true,
+    "payload_construction_authorized": false,
+    "evaluator_authorized": false,
+    "comparative_execution_authorized": false,
+    "holdout_access_authorized": false,
+    "implementation_resume_status": "BLOCKED_PENDING_HUMAN_DESIGN_RESOLUTION"
+  },
+  "activity_confirmation": {
+    "human_decisions_recorded": false,
+    "schema_generated": false,
+    "semantic_sources_instantiated": false,
+    "payloads_constructed": false,
+    "fingerprints_generated": false,
+    "evaluator_invoked": false,
+    "comparative_trials_executed": false,
+    "holdout_accessed": false,
+    "v2_modified": false,
+    "missing_audit_recreated": false,
+    "substitute_created": false
+  },
+  "packet_status": "PENDING_AUTHORITY_INDEPENDENCE_RESOLUTION",
+  "human_signature": null,
+  "human_timestamp": null,
+  "human_rationale": null
+}
