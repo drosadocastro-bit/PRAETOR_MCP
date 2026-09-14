@@ -1,0 +1,16 @@
+# Normal source remains text without imposing a repository-wide platform style.
+* text=auto
+
+# The frozen PRAETOR-VERIFY lineage was hashed from CRLF working bytes unless a
+# narrower rule below records an LF-generated artifact.
+experiments/praetor_verify_001/** text eol=crlf
+data/pilot/*.json text eol=lf
+experiments/praetor_verify_001/g3b/g3b-*.json text eol=lf
+experiments/praetor_verify_001/g3b/G3B_EXECUTABLE_SUPPLEMENT.md text eol=lf
+experiments/praetor_verify_001/g3b/G3B_PRE_EXECUTION_MANIFEST.json text eol=lf
+experiments/praetor_verify_001/g3b/G3B_START-RECEIPT.json text eol=lf
+experiments/praetor_verify_001/g3b/G3B_RUNTIME_PREVALIDATION.json text eol=lf
+experiments/praetor_verify_001/g3b/G3B_HUMAN_EXECUTION_AUTHORIZATION.json text eol=lf
+
+# This recovered historical intermediate is already stored as exact CRLF bytes.
+experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_INPUT_IMPLEMENTATION_DESIGN_REVIEW.json -text -diff
