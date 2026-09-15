@@ -1,0 +1,288 @@
+{
+  "version": "g3b-runtime-freeze-validation-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "runner_version": "g3b-executable-runtime-v1",
+  "runner_commit_sha": "319a5fbfd6498a6cf276232cbb0c23634c941d30",
+  "validation_scope": "instrument_validation_only",
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "validation_observations": 8,
+  "arms_validated": [
+    "random",
+    "rule_based"
+  ],
+  "adaptive_status": "BLOCKED_REAUTHORIZATION_REQUIRED",
+  "replay": {
+    "status": "PASS",
+    "exact_fields": [
+      "input_hash",
+      "configuration_hash",
+      "output",
+      "oracle_output"
+    ]
+  },
+  "parity": {
+    "status": "PASS"
+  },
+  "oracle_isolation": {
+    "status": "PASS"
+  },
+  "evidence_preserved_before_aggregation": true,
+  "stopping_events": [],
+  "review_required": [
+    "adaptive action-to-candidate mapping",
+    "validation evaluator-path equivalence"
+  ],
+  "observations": [
+    {
+      "experiment_id": "PRAETOR-VERIFY-001",
+      "arm_id": "random",
+      "regime": "G3-observable",
+      "seed": 0,
+      "proposal_index": 0,
+      "fixture_id": "validate-0000",
+      "input_hash": "9898c7cfc079f08c19ef0bc908ead9fefc3a692ffeac545e1749c61726a5c1e1",
+      "configuration_hash": "d1f6f8ecea487e35744faeb31eb6cba34031785960b7cb7a901e38d22720efe7",
+      "runtime_id": "g3b-non-holdout-validation",
+      "output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "UNAVAILABLE"
+      },
+      "oracle_output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "UNAVAILABLE"
+      },
+      "failure_signatures": [],
+      "provenance": {
+        "runner_version": "g3b-executable-runtime-v1",
+        "runner_commit_sha": "319a5fbfd6498a6cf276232cbb0c23634c941d30",
+        "tool_configuration": [
+          "non_holdout_fixture_reader"
+        ],
+        "holdout_access": false,
+        "oracle_feedback_exposed": false
+      },
+      "validity": "VALIDATION_ONLY",
+      "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY"
+    },
+    {
+      "experiment_id": "PRAETOR-VERIFY-001",
+      "arm_id": "rule_based",
+      "regime": "G3-observable",
+      "seed": 0,
+      "proposal_index": 0,
+      "fixture_id": "validate-0000",
+      "input_hash": "9898c7cfc079f08c19ef0bc908ead9fefc3a692ffeac545e1749c61726a5c1e1",
+      "configuration_hash": "24d37e822146ccf1e7f5529c265bb1c8f4a69c5b1c5cb59ee845468d323a6002",
+      "runtime_id": "g3b-non-holdout-validation",
+      "output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "UNAVAILABLE"
+      },
+      "oracle_output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "UNAVAILABLE"
+      },
+      "failure_signatures": [],
+      "provenance": {
+        "runner_version": "g3b-executable-runtime-v1",
+        "runner_commit_sha": "319a5fbfd6498a6cf276232cbb0c23634c941d30",
+        "tool_configuration": [
+          "non_holdout_fixture_reader"
+        ],
+        "holdout_access": false,
+        "oracle_feedback_exposed": false
+      },
+      "validity": "VALIDATION_ONLY",
+      "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY"
+    },
+    {
+      "experiment_id": "PRAETOR-VERIFY-001",
+      "arm_id": "random",
+      "regime": "G3-observable",
+      "seed": 1,
+      "proposal_index": 0,
+      "fixture_id": "validate-0000",
+      "input_hash": "4d934ccda277dc4d2e5e4019515e1247f41e427b947ca82730940c42fdd4451d",
+      "configuration_hash": "0e4f09cadffb2a9df528ff6002ea15d039d9791cfabf467ae051ca3b22d1e8b6",
+      "runtime_id": "g3b-non-holdout-validation",
+      "output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "SEMANTICALLY_SUPPORTED"
+      },
+      "oracle_output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "SEMANTICALLY_SUPPORTED"
+      },
+      "failure_signatures": [],
+      "provenance": {
+        "runner_version": "g3b-executable-runtime-v1",
+        "runner_commit_sha": "319a5fbfd6498a6cf276232cbb0c23634c941d30",
+        "tool_configuration": [
+          "non_holdout_fixture_reader"
+        ],
+        "holdout_access": false,
+        "oracle_feedback_exposed": false
+      },
+      "validity": "VALIDATION_ONLY",
+      "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY"
+    },
+    {
+      "experiment_id": "PRAETOR-VERIFY-001",
+      "arm_id": "rule_based",
+      "regime": "G3-observable",
+      "seed": 1,
+      "proposal_index": 0,
+      "fixture_id": "validate-0000",
+      "input_hash": "4d934ccda277dc4d2e5e4019515e1247f41e427b947ca82730940c42fdd4451d",
+      "configuration_hash": "494d30ddc0130fd1bb87d71b974f60d94623dcd6c39132147e4796b9764e4338",
+      "runtime_id": "g3b-non-holdout-validation",
+      "output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "SEMANTICALLY_SUPPORTED"
+      },
+      "oracle_output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "SEMANTICALLY_SUPPORTED"
+      },
+      "failure_signatures": [],
+      "provenance": {
+        "runner_version": "g3b-executable-runtime-v1",
+        "runner_commit_sha": "319a5fbfd6498a6cf276232cbb0c23634c941d30",
+        "tool_configuration": [
+          "non_holdout_fixture_reader"
+        ],
+        "holdout_access": false,
+        "oracle_feedback_exposed": false
+      },
+      "validity": "VALIDATION_ONLY",
+      "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY"
+    },
+    {
+      "experiment_id": "PRAETOR-VERIFY-001",
+      "arm_id": "random",
+      "regime": "G3-white-box",
+      "seed": 0,
+      "proposal_index": 0,
+      "fixture_id": "validate-0000",
+      "input_hash": "9898c7cfc079f08c19ef0bc908ead9fefc3a692ffeac545e1749c61726a5c1e1",
+      "configuration_hash": "253c1cf893aabc1baa8928ba67efc08adba5dcf90c029b54614c93f09df317a5",
+      "runtime_id": "g3b-non-holdout-validation",
+      "output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "UNAVAILABLE"
+      },
+      "oracle_output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "UNAVAILABLE"
+      },
+      "failure_signatures": [],
+      "provenance": {
+        "runner_version": "g3b-executable-runtime-v1",
+        "runner_commit_sha": "319a5fbfd6498a6cf276232cbb0c23634c941d30",
+        "tool_configuration": [
+          "non_holdout_fixture_reader"
+        ],
+        "holdout_access": false,
+        "oracle_feedback_exposed": false
+      },
+      "validity": "VALIDATION_ONLY",
+      "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY"
+    },
+    {
+      "experiment_id": "PRAETOR-VERIFY-001",
+      "arm_id": "rule_based",
+      "regime": "G3-white-box",
+      "seed": 0,
+      "proposal_index": 0,
+      "fixture_id": "validate-0000",
+      "input_hash": "9898c7cfc079f08c19ef0bc908ead9fefc3a692ffeac545e1749c61726a5c1e1",
+      "configuration_hash": "d730175cc302d11df6b0a324d5f8a46f6f8a4a45ba3f7acde701cdd8976964d9",
+      "runtime_id": "g3b-non-holdout-validation",
+      "output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "UNAVAILABLE"
+      },
+      "oracle_output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "UNAVAILABLE"
+      },
+      "failure_signatures": [],
+      "provenance": {
+        "runner_version": "g3b-executable-runtime-v1",
+        "runner_commit_sha": "319a5fbfd6498a6cf276232cbb0c23634c941d30",
+        "tool_configuration": [
+          "non_holdout_fixture_reader"
+        ],
+        "holdout_access": false,
+        "oracle_feedback_exposed": false
+      },
+      "validity": "VALIDATION_ONLY",
+      "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY"
+    },
+    {
+      "experiment_id": "PRAETOR-VERIFY-001",
+      "arm_id": "random",
+      "regime": "G3-white-box",
+      "seed": 1,
+      "proposal_index": 0,
+      "fixture_id": "validate-0000",
+      "input_hash": "4d934ccda277dc4d2e5e4019515e1247f41e427b947ca82730940c42fdd4451d",
+      "configuration_hash": "e62f7e9b819adf3196f2563997944310e8d45355968b23d0acfa3178931deadf",
+      "runtime_id": "g3b-non-holdout-validation",
+      "output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "SEMANTICALLY_SUPPORTED"
+      },
+      "oracle_output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "SEMANTICALLY_SUPPORTED"
+      },
+      "failure_signatures": [],
+      "provenance": {
+        "runner_version": "g3b-executable-runtime-v1",
+        "runner_commit_sha": "319a5fbfd6498a6cf276232cbb0c23634c941d30",
+        "tool_configuration": [
+          "non_holdout_fixture_reader"
+        ],
+        "holdout_access": false,
+        "oracle_feedback_exposed": false
+      },
+      "validity": "VALIDATION_ONLY",
+      "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY"
+    },
+    {
+      "experiment_id": "PRAETOR-VERIFY-001",
+      "arm_id": "rule_based",
+      "regime": "G3-white-box",
+      "seed": 1,
+      "proposal_index": 0,
+      "fixture_id": "validate-0000",
+      "input_hash": "4d934ccda277dc4d2e5e4019515e1247f41e427b947ca82730940c42fdd4451d",
+      "configuration_hash": "2d37da1d465355b84608dc2eb9a41d24745c4494440adf8a765ed3602e8fed17",
+      "runtime_id": "g3b-non-holdout-validation",
+      "output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "SEMANTICALLY_SUPPORTED"
+      },
+      "oracle_output": {
+        "verifier": "SEMANTIC_JUDGE",
+        "disposition": "SEMANTICALLY_SUPPORTED"
+      },
+      "failure_signatures": [],
+      "provenance": {
+        "runner_version": "g3b-executable-runtime-v1",
+        "runner_commit_sha": "319a5fbfd6498a6cf276232cbb0c23634c941d30",
+        "tool_configuration": [
+          "non_holdout_fixture_reader"
+        ],
+        "holdout_access": false,
+        "oracle_feedback_exposed": false
+      },
+      "validity": "VALIDATION_ONLY",
+      "stopping_outcome": "CONTINUE_PERMITTED_VALIDATION_ONLY"
+    }
+  ]
+}

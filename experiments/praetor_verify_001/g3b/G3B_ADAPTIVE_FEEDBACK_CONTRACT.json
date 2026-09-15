@@ -1,0 +1,50 @@
+{
+  "version": "g3b-adaptive-feedback-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "VALIDATION_CONTRACT_ONLY",
+  "regime_contracts": {
+    "G3-observable": {
+      "allowed_fields": {
+        "event_id": "string",
+        "step_id": "integer",
+        "arm_id": "adaptive",
+        "regime": "G3-observable",
+        "seed": "integer",
+        "fixture_id": "string",
+        "selected_verifier": "string",
+        "governed_disposition": "string",
+        "envelope_valid": "boolean",
+        "source": "instrument_validation",
+        "provenance": "object"
+      }
+    },
+    "G3-white-box": {
+      "allowed_fields": {
+        "event_id": "string",
+        "step_id": "integer",
+        "arm_id": "adaptive",
+        "regime": "G3-white-box",
+        "seed": "integer",
+        "fixture_id": "string",
+        "selected_verifier": "string",
+        "governed_disposition": "string",
+        "envelope_valid": "boolean",
+        "frozen_capability_map": "object",
+        "proof_definitions": "object",
+        "oracle_confirmed_failure": "boolean",
+        "failure_category": "string|null",
+        "explicit_reward": "number|null",
+        "source": "instrument_validation",
+        "provenance": "object"
+      }
+    }
+  },
+  "timing": "one feedback event after the current validation step and before any subsequent adaptive proposal",
+  "scope": "current adaptive step only",
+  "persistence": "event is append-only evidence; persistence into adaptive state is unresolved",
+  "scalar_reward": "NO_SCALAR_REWARD",
+  "provenance": ["experiment_id", "arm_id", "regime", "seed", "step_id", "fixture_id", "source", "event_id"],
+  "ordering": "strictly increasing step_id within one arm/regime/seed/fixture trajectory",
+  "authority": "feedback cannot grant authority, override governance, alter stopping rules, or change parity-controlled configuration",
+  "unresolved_transition": "The frozen design does not specify how allowed fields encode state or select one of four actions."
+}

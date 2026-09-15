@@ -266,6 +266,29 @@ rules, bounded errors, security review, and adversarial test pass.
 - no claim of production readiness or model truth;
 - host-side quarantine enforcement is not wired automatically into every MCP client or model host;
 - runtime traces and audit events use local append-only JSONL and are not transactional incident storage.
+- Git history and hash references alone do not guarantee continued availability of historical authority bytes.
+
+### Artifact durability and hybrid shadow research
+
+Artifact durability is part of governance. A hash can prove identity; it cannot
+prove availability. The post-G3B research prototype therefore adds an
+immutable, content-addressed local evidence store with an independent local
+replica, hashable manifests, exact-byte recovery, integrity checks, and a
+fail-closed availability gate. It is a research prototype, not a production
+backup service or a complete durability guarantee. See
+[docs/ARTIFACT_DURABILITY_MODEL.md](docs/ARTIFACT_DURABILITY_MODEL.md). The
+implementation remains isolated under `experiments/post_g3b/` to preserve the
+historically frozen runtime tree.
+
+The selectively recovered hybrid evaluator is offline, shadow-only,
+non-authoritative, and absent from the MCP tool surface. It reuses the current
+LM Studio v6.1 semantic observation and trace contracts, while
+`evaluateAdvisoryPacket` remains the sole final evaluator for the recorded
+authority decision. See
+[docs/HYBRID_SHADOW_EVALUATION.md](docs/HYBRID_SHADOW_EVALUATION.md).
+
+G3B remains closed as **BLOCKED / INCONCLUSIVE**. These post-G3B mechanisms do
+not reopen, repair, reinterpret, or supersede that result.
 
 ## Future Work
 

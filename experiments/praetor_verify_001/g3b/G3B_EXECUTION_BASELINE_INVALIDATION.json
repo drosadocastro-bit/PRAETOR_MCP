@@ -1,0 +1,12 @@
+{
+  "version": "g3b-execution-baseline-invalidation-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "invalidated_baseline": "G3B_EXECUTION_BASELINE.json",
+  "invalidated_baseline_commit": "7b1fae2457d436341876ab7efa10f3670830db6d",
+  "reason": "The applicability artifact contained unsupported signature and date values. The human decision remains recorded, but no effective execution authority may be derived until a valid human signature and decision date are supplied.",
+  "corrected_applicability_artifact": "G3B_HUMAN_AUTHORIZATION_APPLICABILITY.json",
+  "corrected_applicability_state": "AUTHORIZATION_REMAINS_APPLICABLE_PENDING_SIGNATURE_AND_DATE_VALIDATION",
+  "holdout_access_status": "NOT_ACCESSED",
+  "execution_performed": false,
+  "comparative_observations": 0
+}

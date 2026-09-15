@@ -1,0 +1,22 @@
+{
+  "version": "g3b-human-authorization-applicability-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "reviewer": "Daniel Rosado Castro",
+  "referenced_original_authorization_artifact": "G3B_HUMAN_EXECUTION_AUTHORIZATION.json",
+  "referenced_original_authorization_sha256": "d8f3f528accf884fbbebb507dda09ffa2b2aee7b7062024d4a0a8c04d38534e0",
+  "referenced_authority_contract_v2": "G3B_EXECUTION_AUTHORITY_CONTRACT_V2.json",
+  "referenced_authority_activation_v2": "G3B_EXECUTION_AUTHORITY_ACTIVATION_V2.json",
+  "referenced_remediation_commit": "b7e988f156b2bacf51541fc5ecf3b06c3d11ebae",
+  "referenced_revalidation_commit": "97fbe092a8486268d0755145f437c99a7c5e98c7",
+  "decision": "AUTHORIZATION_REMAINS_APPLICABLE",
+  "reviewer_notes": "The remediation changed only the authority-chain and execution-control mechanism. It did not change the frozen G3B experiment, holdout, arms, metrics, comparative runtime, or experimental semantics.",
+  "signature": null,
+  "date": null,
+  "human_confirmation": true,
+  "confirmation_source": "EXPLICIT_USER_INSTRUCTION_CURRENT_SESSION",
+  "confirmation_timestamp": "2026-09-09T23:36:52.4223582Z",
+  "holdout_access_status": "NOT_ACCESSED",
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "authorization_scope_statement": "This decision does not create new experimental authorization; it confirms applicability of the already signed authorization to the corrected authority mechanism."
+}

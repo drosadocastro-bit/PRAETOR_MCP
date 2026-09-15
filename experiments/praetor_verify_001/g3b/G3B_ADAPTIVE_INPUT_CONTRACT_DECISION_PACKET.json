@@ -1,0 +1,162 @@
+{
+  "version": "g3b-adaptive-input-contract-decision-packet-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "APPROVED_HUMAN_ADAPTIVE_INPUT_CONTRACT_DECISION",
+  "materiality": "MATERIAL_NEW_SEMANTIC",
+  "selected_path": "ADAPTIVE_SPECIFIC_EVALUATOR_INPUT",
+  "recommended_path": "ADAPTIVE_SPECIFIC_EVALUATOR_INPUT",
+  "decision": "APPROVE",
+  "signature": "drosado",
+  "date": "09/10/2026 1634Z",
+  "prior_decision_state": {
+    "status": "AWAITING_HUMAN_ADAPTIVE_INPUT_CONTRACT_DECISION",
+    "selected_path": null,
+    "decision": null,
+    "signature": null,
+    "date": null
+  },
+  "approval_scope": "G3B adaptive evaluator input v1 only; implementation, candidate materialization, runner execution, revalidation, holdout access, and comparative G3B execution remain unauthorized",
+  "review_scope": "non-holdout synthetic evaluator evidence only; no schema or evaluator changes",
+  "source_commit": "7f7114f7f98e33268eab91d93fdbe026b525dfcc",
+  "source_basis": {
+    "runtime": {"path":"experiments/praetor_verify_001/g3b/runtime.ts","sha256":"0BAEAEC2ED60A8B4C011232E288D37C7C00747D642101E98EB2B8A005A719449"},
+    "evaluator": {"path":"experiments/praetor_verify_001/g3b/oracle.ts","sha256":"4E21CE3B0FEA22CCEF40868F2754E65284FEEB60FD9703F7E4092DC20A1C87E3"},
+    "failure_mapping": {"path":"experiments/praetor_verify_001/g3b/failure-mapping.ts","sha256":"0F81652F94658A51A5A42AC8410245DA73F15A0E9069006C168A6A1DB133EA28"},
+    "schema_and_domain": {"path":"experiments/praetor_verify_001/g3b/package.ts","sha256":"9721C3161F81AA770BCEDF405DE9281F549F7E5982BD3ABC986237B3226A25A0"},
+    "prior_necessity_review": {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_EVALUATOR_INPUT_NECESSITY_REVIEW.json","sha256":"7D74BC0B68F1110CFF91AAB38B61B29CC89BE4928B8F9C2967AAAA4179883E0E"},
+    "evidence_test": {"path":"test/g3b-adaptive-input-minimization-evidence.test.ts","sha256":"03F3ACAFBBFB8D548A0FF35FBFF52E87B2894F8810E64EFCA2AC462E3D27676F"}
+  },
+  "static_field_classifications": {
+    "always_semantic":["claim_family","provenance_complete","proof_available","proof_supports_claim","schema_valid","contradiction_score"],
+    "permission_branch_conditional":["requested_tool","requested_action","record_tool","record_action","authority_present","authority_valid","duplicate_lineage","tool_permission"],
+    "validation_only_or_boundary":["partition","synthetic","claim_universality"],
+    "currently_unused_by_evaluator":["source_id","review_present","proxy_checks_pass","semantic_confidence","historical_success","semantic_consensus","source_reputation","urgency"]
+  },
+  "recommended_path_rationale": "Metamorphic non-holdout evidence found no evaluator output influence for the eight omitted fields across universal, human, semantic, and permission branches. Path 2 remains a material schema/evaluator boundary decision and is therefore recommended for human approval only.",
+  "metamorphic_influence_results": {
+    "fixture_source":"randomCandidate(17, 0), used only as non-holdout synthetic evaluator fixtures",
+    "branches_tested":["universal","human","semantic","permission"],
+    "fields_tested":["source_id","review_present","proxy_checks_pass","semantic_confidence","historical_success","semantic_consensus","source_reputation","urgency"],
+    "valid_values_and_boundaries_tested": {
+      "source_id":["synthetic-a","synthetic-b"],
+      "review_present":[false,true],
+      "proxy_checks_pass":[false,true],
+      "semantic_confidence":[0,0.5,1],
+      "historical_success":[0,0.5,1],
+      "semantic_consensus":[0,10,20],
+      "source_reputation":["unspecified","high"],
+      "urgency":["normal","critical"]
+    },
+    "comparison_tuple":["evaluator branch","verifier selection","governed disposition","failure mapping","validation disposition","stopping behavior"],
+    "mutation_cases":76,
+    "results": {
+      "source_id":"NO_OUTPUT_INFLUENCE",
+      "review_present":"NO_OUTPUT_INFLUENCE",
+      "proxy_checks_pass":"NO_OUTPUT_INFLUENCE",
+      "semantic_confidence":"NO_OUTPUT_INFLUENCE",
+      "historical_success":"NO_OUTPUT_INFLUENCE",
+      "semantic_consensus":"NO_OUTPUT_INFLUENCE",
+      "source_reputation":"NO_OUTPUT_INFLUENCE",
+      "urgency":"NO_OUTPUT_INFLUENCE"
+    },
+    "failure_mapping_result":"All compared evaluator/oracle pairs produced identical empty failure mappings; unused-field mutations did not alter the mapping.",
+    "stopping_result":"All evidence cases retained validation-only continuation; no stopping behavior changed.",
+    "adaptive_payloads_created":false,
+    "comparative_execution":false
+  },
+  "required_field_countertests": {
+    "purpose":"Protect against falsely concluding that the evaluator ignores fields needed by active branches.",
+    "semantic_branch": {
+      "tested_fields":["claim_family","provenance_complete","proof_available","contradiction_score"],
+      "result":"FIELD_INFLUENCE_DETECTED",
+      "details":"Controlled valid perturbations changed branch/verifier/disposition for each tested field. proof_supports_claim and schema_valid are permission-specific and were covered there."
+    },
+    "permission_branch": {
+      "tested_fields":["requested_tool","record_tool","authority_present","authority_valid","duplicate_lineage","tool_permission"],
+      "result":"FIELD_INFLUENCE_DETECTED",
+      "details":"Each field had a valid alternate that changed the permission result. requested_action and record_action have only the single valid schema value review, so no valid alternate perturbation exists; they remain conditionally required by the evaluator comparison and unresolved for omission."
+    },
+    "non_permission_branches": {
+      "tested_fields":["requested_tool","record_tool","authority_present","authority_valid","duplicate_lineage","tool_permission"],
+      "result":"NO_OUTPUT_INFLUENCE",
+      "details":"Mutating permission-only fields did not alter universal, human, or semantic branch results."
+    }
+  },
+  "validation_only_field_analysis": {
+    "partition":{"required_before_evaluator_invocation":"schema contract only; no direct read in adjudicateG3B","fixed_or_derivable":"fixed literal G3B_STRUCTURED_CANDIDATE under current schema","necessary_for_semantic_evaluation":false,"necessary_at_input_boundary":"currently required by common schema","proposed_treatment":"retain pending human boundary design; do not remove"},
+    "synthetic":{"required_before_evaluator_invocation":"schema contract only; no direct read in adjudicateG3B","fixed_or_derivable":"fixed true under current schema","necessary_for_semantic_evaluation":false,"necessary_at_input_boundary":"currently required by common schema","proposed_treatment":"retain pending human boundary design; do not remove"},
+    "claim_universality":{"required_before_evaluator_invocation":"runtime cross-field validation; invalid mismatch fails closed before evaluator","fixed_or_derivable":"bounded/universal derived from claim_family under current runtime constructors","necessary_for_semantic_evaluation":false,"necessary_at_input_boundary":true,"proposed_treatment":"retain or explicitly redesign validation boundary by human decision"}
+  },
+  "proposed_minimal_adaptive_contract": {
+    "status":"PROPOSAL_ONLY_NOT_APPROVED",
+    "validation_envelope":["partition","synthetic","claim_universality"],
+    "always_semantic":["claim_family","provenance_complete","proof_available","proof_supports_claim","schema_valid","contradiction_score"],
+    "permission_branch_conditional":["requested_tool","requested_action","record_tool","record_action","authority_present","authority_valid","duplicate_lineage","tool_permission"],
+    "validation_boundary_fields":["partition","synthetic","claim_universality"],
+    "omitted_from_adaptive_evaluator_input_v1":["source_id","review_present","proxy_checks_pass","semantic_confidence","historical_success","semantic_consensus","source_reputation","urgency"],
+    "omitted_field_classification":"NOT_REQUIRED_BY_G3B_ADAPTIVE_EVALUATOR_CONTRACT_V1",
+    "historical_schema_meaning":"Preserved; no historical field is deleted or reinterpreted by this proposal.",
+    "final_inclusion_decision":"APPROVED_FOR_IMPLEMENTATION_DESIGN_ONLY",
+    "schema_changed":false,
+    "evaluator_changed":false
+  },
+  "required_human_decisions": [
+    {"id":"approve_path_2","question":"Approve or reject ADAPTIVE_SPECIFIC_EVALUATOR_INPUT (Path 2)?","proposed_resolution":"APPROVE","decision":"APPROVE"},
+    {"id":"approve_validation_envelope","question":"Approve partition, synthetic, and claim_universality as validation-only envelope fields?","proposed_resolution":"APPROVE","decision":"APPROVE"},
+    {"id":"approve_always_required_fields","question":"Approve the six always-required evaluator fields?","proposed_resolution":"APPROVE","decision":"APPROVE"},
+    {"id":"approve_conditional_permission_fields","question":"Approve the eight permission-branch conditional fields?","proposed_resolution":"APPROVE","decision":"APPROVE"},
+    {"id":"approve_omitted_fields","question":"Approve omission of the eight metamorphically non-influential fields from adaptive evaluator input v1?","proposed_resolution":"APPROVE","decision":"APPROVE"},
+    {"id":"approve_branch_dependent_requiredness","question":"Approve branch-dependent requiredness keyed by claim_family = permission?","proposed_resolution":"APPROVE","decision":"APPROVE"},
+    {"id":"confirm_baseline_contracts","question":"Confirm random and rule_based contracts remain unchanged?","proposed_resolution":"CONFIRM","decision":"CONFIRM"},
+    {"id":"confirm_materiality","question":"Confirm materiality remains MATERIAL_NEW_SEMANTIC?","proposed_resolution":"CONFIRM","decision":"CONFIRM"},
+    {"id":"confirm_full_non_holdout_revalidation","question":"Confirm full non-holdout revalidation is required after any approved implementation?","proposed_resolution":"CONFIRM","decision":"CONFIRM"},
+    {"id":"confirm_execution_reauthorization","question":"Confirm new execution reauthorization is required before any future execution?","proposed_resolution":"CONFIRM","decision":"CONFIRM"}
+  ],
+  "omitted_field_evidence": [
+    {"field":"source_id","omission_basis":"not read by evaluator/runtime/failure mapping; metamorphic NO_OUTPUT_INFLUENCE","schema_vs_semantics":"schema/provenance boundary only in current path","provenance_effect":"adaptive identity provenance remains separately unresolved","replay_effect":"no observed evaluator replay effect; contract replay implications require human design"},
+    {"field":"review_present","omission_basis":"not read by evaluator/runtime/failure mapping; metamorphic NO_OUTPUT_INFLUENCE","schema_vs_semantics":"schema-only in current path","provenance_effect":"no observed evaluator effect; provenance contract not redesigned","replay_effect":"no observed evaluator replay effect"},
+    {"field":"proxy_checks_pass","omission_basis":"not read by evaluator/runtime/failure mapping; metamorphic NO_OUTPUT_INFLUENCE","schema_vs_semantics":"schema-only in current path","provenance_effect":"no observed evaluator effect","replay_effect":"no observed evaluator replay effect"},
+    {"field":"semantic_confidence","omission_basis":"no confidence read/threshold; metamorphic NO_OUTPUT_INFLUENCE","schema_vs_semantics":"schema-only in current path","provenance_effect":"no observed evaluator effect","replay_effect":"no observed evaluator replay effect"},
+    {"field":"historical_success","omission_basis":"no historical-success branch; metamorphic NO_OUTPUT_INFLUENCE","schema_vs_semantics":"schema-only in current path","provenance_effect":"no observed evaluator effect","replay_effect":"no observed evaluator replay effect"},
+    {"field":"semantic_consensus","omission_basis":"no consensus branch; metamorphic NO_OUTPUT_INFLUENCE","schema_vs_semantics":"schema-only in current path","provenance_effect":"no observed evaluator effect","replay_effect":"no observed evaluator replay effect"},
+    {"field":"source_reputation","omission_basis":"no reputation branch; metamorphic NO_OUTPUT_INFLUENCE","schema_vs_semantics":"schema-only in current path","provenance_effect":"no observed evaluator effect","replay_effect":"no observed evaluator replay effect"},
+    {"field":"urgency","omission_basis":"no urgency branch; metamorphic NO_OUTPUT_INFLUENCE","schema_vs_semantics":"schema-only in current path","provenance_effect":"no observed evaluator effect","replay_effect":"no observed evaluator replay effect"}
+  ],
+  "omission_safety": {
+    "status":"EVIDENCE_SUPPORTS_REVIEW_OF_PATH_2",
+    "minimal_contract_justified":"APPROVED_FOR_IMPLEMENTATION_DESIGN_ONLY",
+    "reason":"Human approval accepts the proposed adaptive evaluator boundary. Omission remains limited to adaptive evaluator input v1; historical schemas and baseline arm contracts retain their existing meaning.",
+    "unresolved_influence":false,
+    "human_review_required":false
+  },
+  "random_rule_based_protection": {
+    "constructors_modified":false,
+    "schemas_modified":false,
+    "parity_scope":"existing random/rule_based behavior remains protected by existing tests and source hashes",
+    "path_2_cross_arm_requirement":"adaptive specialization must not modify either baseline arm"
+  },
+  "path_risks": {
+    "path_1_preserve_full_g3b_candidate_contract":"Requires sourcing eight evaluator-unused fields and preserves common-schema coupling; may add semantic payload burden without observed evaluator benefit.",
+    "path_2_adaptive_specific_evaluator_input":"Material schema/evaluator boundary change; must define validation, provenance, replay, parity, and full revalidation before approval.",
+    "path_3_shared_base_plus_arm_extensions":"Material type/evaluator refactor with migration and parity risk across all arms."
+  },
+  "materiality_follow_up": {
+    "approved_path_would_require":"implementation, non-holdout validation, complete G3B non-holdout revalidation, and new human execution reauthorization",
+    "this_packet_authorizes_implementation":false,
+    "this_packet_authorizes_holdout":false,
+    "this_packet_authorizes_comparative_analysis":false
+  },
+  "approved_future_gates": {
+    "full_non_holdout_revalidation_required": true,
+    "new_execution_reauthorization_required": true,
+    "holdout_execution_authorized": false,
+    "comparative_g3b_execution_authorized": false
+  },
+  "holdout_state": {
+    "holdout_access_status":"NOT_ACCESSED",
+    "execution_performed":false,
+    "comparative_observations":0,
+    "adaptive_end_to_end_runner_implemented":false
+  },
+  "stop_condition":"STOP_FOR_HUMAN_ADAPTIVE_INPUT_CONTRACT_DECISION"
+}

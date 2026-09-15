@@ -1,0 +1,13 @@
+{
+  "version": "g3b-execution-authority-supersession-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "supersedes_contract": "g3b-execution-authority-contract-v1",
+  "superseding_contract": "g3b-execution-authority-contract-v2",
+  "supersedes_activation": "g3b-execution-authority-activation-v1",
+  "superseding_activation": "g3b-execution-authority-activation-v2",
+  "reason": "Applicability review was previously pending while effective execution authority was true. Version 2 requires explicit applicability review before effective authority can be granted and removes self-referential commit provenance.",
+  "historical_interpretation": "Version 1 remains historical evidence of the state and defect discovered; this record does not claim that v1 never existed or was invalid historically.",
+  "holdout_access_status": "NOT_ACCESSED",
+  "execution_performed": false,
+  "comparative_observations": 0
+}

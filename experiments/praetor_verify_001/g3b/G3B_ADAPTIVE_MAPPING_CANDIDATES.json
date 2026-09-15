@@ -1,0 +1,48 @@
+{
+  "version": "g3b-adaptive-mapping-candidates-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "mapping_resolution": "INSUFFICIENT_DESIGN",
+  "holdout_access_status": "NOT_ACCESSED",
+  "comparative_observations": 0,
+  "candidates": [
+    {
+      "id":"direct_candidate_id",
+      "definition":"action names a candidate identity directly",
+      "source_support":"No frozen G3B artifact assigns candidate IDs to the four action slots.",
+      "unsupported_assumptions":["action IDs exist","candidate identity persists across steps"],
+      "deterministic":true,"replayable":true,"provenance_preserving":true,"parity_safe":true,"hidden_information_required":false,
+      "disposition":"INSUFFICIENT_DESIGN"
+    },
+    {
+      "id":"stable_candidate_index",
+      "definition":"action selects a candidate by position in a declared ordered candidate list",
+      "source_support":"g3b-partitions.json has file order, but G3B_ADAPTIVE_CANDIDATE_SPACE.json records that ordering is not semantically meaningful.",
+      "unsupported_assumptions":["file order is an authorized semantic order","candidate payload is complete"],
+      "deterministic":true,"replayable":true,"provenance_preserving":true,"parity_safe":false,"hidden_information_required":false,
+      "disposition":"REJECTED_UNAUTHORIZED_ORDERING"
+    },
+    {
+      "id":"symbolic_candidate_mutation",
+      "definition":"each action is a named deterministic mutation of a current candidate",
+      "source_support":"No G3B artifact enumerates four mutations or their parameters.",
+      "unsupported_assumptions":["mutation vocabulary","mutation parameters","candidate state persistence"],
+      "deterministic":false,"replayable":false,"provenance_preserving":"unknown","parity_safe":"unknown","hidden_information_required":false,
+      "disposition":"INSUFFICIENT_DESIGN"
+    },
+    {
+      "id":"state_dependent_selector",
+      "definition":"action selects a candidate using current adaptive state and a deterministic selector",
+      "source_support":"The config declares tabular values but no candidate selector or state transition.",
+      "unsupported_assumptions":["state-to-candidate selector","complete state schema","transition formula"],
+      "deterministic":"unknown","replayable":"unknown","provenance_preserving":"unknown","parity_safe":"unknown","hidden_information_required":false,
+      "disposition":"INSUFFICIENT_DESIGN"
+    }
+  ],
+  "eliminated_or_rejected_rules": [
+    {"rule":"oracle-derived mapping","disposition":"REJECTED","reason":"requires hidden oracle state or outcome-derived reward"},
+    {"rule":"performance-ranked mapping","disposition":"REJECTED","reason":"uses prohibited empirical performance evidence"},
+    {"rule":"holdout-specific mapping","disposition":"REJECTED","reason":"requires forbidden holdout knowledge"},
+    {"rule":"nondeterministic tie-break","disposition":"REJECTED","reason":"violates replay and frozen lowest_index tie-break"}
+  ],
+  "surviving_alternatives":"Multiple deterministic forms remain conceptually possible, but none is sufficiently specified or uniquely authorized by frozen evidence."
+}

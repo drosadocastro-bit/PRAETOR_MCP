@@ -1,0 +1,39 @@
+{
+  "version": "g3b-activation-artifact-validity-contract-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "activation_version": "g3b-execution-authority-activation-v2",
+  "contract_version": "g3b-execution-authority-contract-v2",
+  "purpose": "Derive activation_artifact_valid from explicit machine-verifiable subchecks.",
+  "derived_boolean": {
+    "name": "activation_artifact_valid",
+    "formula": "version_valid AND experiment_matches AND contract_matches AND frozen_references_match AND authorization_reference_matches AND supersession_lineage_valid AND historical_state_consistent AND authority_state_consistent AND holdout_state_consistent AND execution_state_consistent AND comparative_observation_count_consistent AND provenance_non_self_referential AND schema_valid",
+    "failure_behavior": "false; report every failed subcheck; never normalize contradictions"
+  },
+  "checks": [
+    {"id":"version_valid","requirement":"Supported activation version is exactly g3b-execution-authority-activation-v2."},
+    {"id":"experiment_matches","requirement":"Activation, contract, supersession, and referenced artifacts identify PRAETOR-VERIFY-001."},
+    {"id":"contract_matches","requirement":"The authority contract and supersession successor are g3b-execution-authority-contract-v2."},
+    {"id":"frozen_references_match","requirement":"The frozen design identity matches the frozen G3B design commit."},
+    {"id":"manifest_sha256_matches","requirement":"Activation manifest SHA-256 equals the actual manifest bytes and is well formed."},
+    {"id":"receipt_sha256_matches","requirement":"Activation receipt SHA-256 equals the actual receipt bytes and is well formed."},
+    {"id":"prevalidation_sha256_matches","requirement":"Activation prevalidation SHA-256 equals the actual prevalidation bytes and is well formed."},
+    {"id":"authorization_sha256_matches","requirement":"Activation authorization SHA-256 equals the actual authorization bytes and is well formed."},
+    {"id":"authorization_commit_matches","requirement":"The authorization commit recorded by the preserved authorization event matches the approved authorization identity."},
+    {"id":"supersession_lineage_valid","requirement":"v2 explicitly supersedes preserved v1, has no circular predecessor/successor, and has one declared successor."},
+    {"id":"append_only_statement_present","requirement":"Activation contains a non-empty append-only statement."},
+    {"id":"historical_state_preserved","requirement":"Historical authorization fields match manifest/receipt and remain false."},
+    {"id":"effective_authority_fields_consistent","requirement":"PENDING applicability implies effective authority false and authority-chain fields match referenced artifacts."},
+    {"id":"holdout_state_consistent","requirement":"Before authorized execution holdout is NOT_ACCESSED and unevaluated."},
+    {"id":"execution_state_consistent","requirement":"Execution has not been performed and effective authority remains false."},
+    {"id":"comparative_observation_count_consistent","requirement":"Comparative observations remain zero before execution."},
+    {"id":"provenance_non_self_referential","requirement":"Activation parent provenance is a valid commit-shaped identifier and is not the containing commit."},
+    {"id":"schema_valid","requirement":"Required activation fields have the expected object, string, boolean, integer, and reference shapes."}
+  ],
+  "required_negative_cases": ["wrong_activation_version","wrong_experiment_id","wrong_contract_version","manifest_hash_mismatch","receipt_hash_mismatch","prevalidation_hash_mismatch","authorization_hash_mismatch","invalid_authorization_commit","missing_supersession","circular_supersession","historical_state_rewrite","pending_with_effective_authority","reauthorization_with_effective_authority","inconsistent_holdout_access","execution_before_authorization","comparative_observations_before_execution","self_referential_commit_provenance","malformed_activation_schema"],
+  "authority_result_on_failure": "G3B_EXECUTION_BLOCKED",
+  "fail_closed": true,
+  "append_only": true,
+  "holdout_access_status": "NOT_ACCESSED",
+  "execution_performed": false,
+  "comparative_observations": 0
+}

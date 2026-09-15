@@ -1,0 +1,27 @@
+{
+  "version": "g3b-adaptive-execution-semantics-freeze-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "adaptive_execution_semantics": "UNRESOLVED",
+  "adaptive_feedback_semantics": "UNRESOLVED",
+  "candidate_space_contract": "g3b-adaptive-candidate-space-v1",
+  "action_contract": "g3b-adaptive-action-v1",
+  "state_contract": "g3b-adaptive-state-v1",
+  "transition_contract": "g3b-adaptive-state-transition-v1",
+  "mapping_function": "FAIL_CLOSED_ACTION_MAPPING_UNRESOLVED",
+  "transition_function": "FAIL_CLOSED_STATE_TRANSITION_UNRESOLVED",
+  "materiality": "MATERIAL_EXECUTION_SEMANTIC",
+  "reauthorization_required": true,
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "validation_status": "PASS_FAIL_CLOSED_BOUNDARY",
+  "validation_evidence": {
+    "focused_tests": "38 passed",
+    "typescript": "PASS",
+    "replay_and_feedback_evidence": "PASS_FROM_10c824c",
+    "mapping_and_transition": "REJECTED_UNRESOLVED"
+  },
+  "stop_boundary": "STOP_BEFORE_FULL_G3B_REVALIDATION_AND_HOLDOUT_EXECUTION",
+  "reason": "No frozen G3B source defines action-to-candidate mapping or the state transition formula."
+}

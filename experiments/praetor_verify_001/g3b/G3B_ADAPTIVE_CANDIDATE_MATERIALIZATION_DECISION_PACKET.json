@@ -1,0 +1,147 @@
+{
+  "version": "g3b-adaptive-candidate-materialization-decision-packet-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "AWAITING_HUMAN_CANDIDATE_MATERIALIZATION_DECISION",
+  "materiality": "MATERIAL_NEW_SEMANTIC",
+  "decision": null,
+  "signature": null,
+  "date": null,
+  "review_boundary": {
+    "purpose": "Define an explicit bridge from adaptive candidate identity to a complete executable G3BCandidate representation.",
+    "scope": "Non-holdout design review only; no candidate payloads are created and no runner is implemented.",
+    "holdout_access_status": "NOT_ACCESSED",
+    "execution_performed": false,
+    "comparative_observations": 0,
+    "adaptive_end_to_end_runner_implemented": false,
+    "effective_execution_authorized_for_new_basis": false,
+    "new_execution_reauthorization_required": true
+  },
+  "source_basis": {
+    "source_commit": "e116a6c7c37d57fe9d07cebfc4fd238a539a00cb",
+    "runtime": {"path":"experiments/praetor_verify_001/g3b/runtime.ts","sha256":"0BAEAEC2ED60A8B4C011232E288D37C7C00747D642101E98EB2B8A005A719449"},
+    "candidate_schema_and_sources": {"path":"experiments/praetor_verify_001/g3b/package.ts","sha256":"9721C3161F81AA770BCEDF405DE9281F549F7E5982BD3ABC986237B3226A25A0"},
+    "evaluator": {"path":"experiments/praetor_verify_001/g3b/oracle.ts","sha256":"4E21CE3B0FEA22CCEF40868F2754E65284FEEB60FD9703F7E4092DC20A1C87E3"},
+    "adaptive_candidate_space": {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_CANDIDATE_SPACE.json","sha256":"92E74D373E9196F7B8C24200A971075467BAB330BD02A30BEE1058609F83707B"},
+    "non_holdout_partition": {"path":"experiments/praetor_verify_001/g3b/g3b-partitions.json","sha256":"4A57C445E6F6F78147A1283F03BE248AF40BF31B3E89F64844C2A71B5904CAC7"},
+    "approved_adaptive_design": {"path":"experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_DESIGN_AMENDMENT.json","sha256":"55C02CEF2BA386EF212C50A2C12A6FDE6548C20546E70DE6C9594D7EC6DC22A6"}
+  },
+  "required_g3b_candidate_fields": [
+    {"field":"partition","type":"literal G3B_STRUCTURED_CANDIDATE","required":true,"current_source":"runtime.ts G3BCandidate type; package.ts candidateSchema","source_frozen":true,"non_holdout_source":true,"derivation_defined":true,"semantic_meaning_unresolved":false},
+    {"field":"synthetic","type":"literal true","required":true,"current_source":"runtime.ts G3BCandidate type; package.ts candidateSchema","source_frozen":true,"non_holdout_source":true,"derivation_defined":true,"semantic_meaning_unresolved":false},
+    {"field":"source_id","type":"string","required":true,"current_source":"randomCandidate/ruleBasedCandidate generate validation_<seed>_<proposalIndex>; adaptive identity has case_id only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"claim_family","type":"permission | semantic | human | universal","required":true,"current_source":"randomCandidate/ruleBasedCandidate; structural partition has logical_family metadata only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"claim_universality","type":"bounded | universal","required":true,"current_source":"Derived in randomCandidate/ruleBasedCandidate from claim_family","source_frozen":true,"non_holdout_source":true,"derivation_defined":true,"semantic_meaning_unresolved":false,"adaptive_binding":false},
+    {"field":"requested_tool","type":"synthetic_read | synthetic_inspect","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"requested_action","type":"literal review","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":true,"semantic_meaning_unresolved":false,"adaptive_binding":false},
+    {"field":"record_tool","type":"synthetic_read | synthetic_inspect","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"record_action","type":"literal review","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":true,"semantic_meaning_unresolved":false,"adaptive_binding":false},
+    {"field":"provenance_complete","type":"boolean","required":true,"current_source":"randomCandidate/ruleBasedCandidate only; partition records source and outcome_inspected metadata, not candidate provenance","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"authority_present","type":"boolean","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"authority_valid","type":"boolean","required":true,"current_source":"randomCandidate/ruleBasedCandidate only; constrained by authority_present","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"proof_available","type":"boolean","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"proof_supports_claim","type":"boolean","required":true,"current_source":"randomCandidate/ruleBasedCandidate only; constrained by proof_available","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"duplicate_lineage","type":"boolean","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"review_present","type":"boolean","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"schema_valid","type":"boolean","required":true,"current_source":"randomCandidate/ruleBasedCandidate sets true; schema defines the field","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"proxy_checks_pass","type":"boolean","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"semantic_confidence","type":"number 0..1","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"contradiction_score","type":"number 0..1","required":true,"current_source":"randomCandidate/ruleBasedCandidate; partition fingerprint input contains a structural contradiction_score but does not expose the complete candidate","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"historical_success","type":"number 0..1","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"semantic_consensus","type":"integer 0..20","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"tool_permission","type":"granted | denied | unknown","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"source_reputation","type":"unspecified | high","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true},
+    {"field":"urgency","type":"normal | critical","required":true,"current_source":"randomCandidate/ruleBasedCandidate only","source_frozen":true,"non_holdout_source":true,"derivation_defined":false,"semantic_meaning_unresolved":true}
+  ],
+  "existing_non_holdout_candidate_sources": {
+    "adaptive_candidate_space": {"path":"G3B_ADAPTIVE_CANDIDATE_SPACE.json","status":"PARTIAL_EXISTING_CANDIDATE","contains":["case_id","case_fingerprint","fixture binding","source","outcome_inspected"],"does_not_contain":"complete G3BCandidate payload"},
+    "instrument_validation_partition": {"path":"g3b-partitions.json","status":"PARTIAL_EXISTING_CANDIDATE","contains":["case_id","case_fingerprint","logical_family","source","outcome_inspected"],"does_not_contain":"complete G3BCandidate payload"},
+    "random_constructor": {"path":"runtime.ts","status":"EXACT_EXISTING_CANDIDATE","scope":"random arm proposal generation only","adaptive_identity_binding":false},
+    "rule_based_constructor": {"path":"runtime.ts","status":"EXACT_EXISTING_CANDIDATE","scope":"rule_based arm proposal generation only","adaptive_identity_binding":false},
+    "other_approved_non_holdout_sources": {"status":"NO_EXISTING_CANDIDATE","finding":"No complete candidate source keyed by the adaptive case identity was found in the approved non-holdout artifacts/code inspected."}
+  },
+  "candidate_identity_binding": {
+    "identity_fields":["case_id","case_fingerprint"],
+    "fixture_scope":"instrument_validation",
+    "one_to_one_mapping":"UNRESOLVED",
+    "exact_fingerprint_validation":"NOT_POSSIBLE_FOR_EXECUTABLE_CANDIDATE",
+    "provenance_bearing":"PARTIAL_ONLY",
+    "fuzzy_matching":false,
+    "index_inference":false,
+    "ordering_inference":false,
+    "runtime_synthesis":false,
+    "binding_status":"CANDIDATE_BINDING_UNRESOLVED",
+    "reason":"Each adaptive identity binds to a structural metadata record, but no complete executable candidate representation is present or referenced. The current fingerprint cannot validate an executable candidate payload."
+  },
+  "fingerprint_scope": {
+    "current_declared_scope":"SHA-256 structural fingerprint emitted by package.ts",
+    "actual_current_input":"canonical partial object containing partition, source_id, claim_family, and contradiction_score",
+    "binds_identity_only":false,
+    "binds_complete_candidate_payload":false,
+    "binds_source_artifact_reference":false,
+    "binds_fixture":false,
+    "binds_all_evaluator_relevant_fields":false,
+    "finding":"FINGERPRINT_SCOPE_INSUFFICIENT",
+    "prohibited_action":"Do not silently repurpose existing case_fingerprint values for a complete executable candidate representation.",
+    "required_human_definition":"Choose and freeze whether a replacement or extended fingerprint binds the complete candidate payload or a canonical immutable source representation. Existing fingerprints must remain historically interpreted."
+  },
+  "canonicalization_requirements": {
+    "required_for_future_executable_binding":true,
+    "field_ordering":"sorted object keys recursively; must be frozen by human decision",
+    "null_handling":"candidate schema currently has nullability none; any null policy must be explicit",
+    "arrays":"preserve declared array order; no unordered-set interpretation unless explicitly frozen",
+    "strings":"UTF-8 exact strings; no normalization unless explicitly frozen",
+    "numbers":"finite numeric representation with frozen serialization; no runtime-dependent formatting",
+    "excluded_metadata":["condition","regime","seed","proposal index","transport IDs"],
+    "current_runtime_canonicalizer":"package.ts canonical() sorts object keys and preserves array order, but current candidate fingerprints do not cover complete candidate fields",
+    "decision_status":"REQUIRES_HUMAN_DECISION"
+  },
+  "materialization_alternatives": {
+    "alternative_a_frozen_full_candidate_artifact": {
+      "status":"REVIEW_REQUIRED",
+      "definition":"Create a new frozen candidate-space artifact containing complete G3BCandidate objects plus identity and a fingerprint over the complete canonical representation.",
+      "advantages":["explicit","inspectable","replayable","no runtime synthesis"],
+      "risks":["larger artifact surface","requires defining every currently unresolved field","requires new fingerprint scope"],
+      "runner_behavior":"load exact object by candidate identity, validate complete-payload fingerprint, then evaluate"
+    },
+    "alternative_b_frozen_identity_to_source_reference_map": {
+      "status":"REVIEW_REQUIRED",
+      "definition":"Retain adaptive identity entries and add immutable references to already existing complete candidate sources; validate referenced source and complete-payload fingerprint before evaluation.",
+      "advantages":["minimal duplication","strong provenance if source is stable","replayable"],
+      "risks":["no qualifying complete adaptive source currently exists","depends on stable source identity and lifecycle","requires exact reference and fingerprint semantics"],
+      "runner_behavior":"resolve candidate_id to frozen source reference, load exact existing G3BCandidate, validate fingerprint, then evaluate"
+    },
+    "alternative_c_deterministic_constructor": {
+      "status":"REVIEW_REQUIRED",
+      "definition":"Freeze a deterministic materialize(case_id, frozen_sources) function only after every field derivation, source, constraint, and canonical fingerprint input is explicitly defined.",
+      "advantages":["small artifact surface","replayable if fully specified"],
+      "risks":["highest semantic design burden","easy to introduce hidden defaults or inference","must not derive from evaluator/oracle outcomes"],
+      "runner_behavior":"invoke only the frozen constructor, validate complete-payload fingerprint, then evaluate"
+    }
+  },
+  "forbidden_materialization_sources": {
+    "status":"DESIGN_REVIEW_RULE",
+    "forbidden":["holdout labels","expected outcomes","evaluator results","oracle-only truth","comparative arm results","adaptive feedback","reward","model-generated content","hidden defaults","performance rankings","post-hoc fixture interpretation"],
+    "violation_disposition":"FAIL_DESIGN_REVIEW"
+  },
+  "provenance_and_replay_implications": {
+    "required_identity":"case_id plus exact fingerprint plus fixture binding",
+    "required_materialization_evidence":"source artifact or constructor version/hash and complete candidate payload hash",
+    "required_replay":"same identity, source/version, canonical payload, evaluator input, and output across repeated runs",
+    "current_status":"INSUFFICIENT_FOR_ADAPTIVE_EXECUTION",
+    "authority_boundary":"Materialization must not mutate execution authority, governance configuration, other arms, other fixtures, seeds, regimes, or trajectories."
+  },
+  "recommendation": {
+    "recommended_alternative": null,
+    "basis":"Evidence establishes the gap but does not justify selecting A, B, or C. Software must not make this semantic choice.",
+    "human_decision_required":["select one materialization alternative or reject all","define complete candidate source for every adaptive identity","freeze identity binding and fingerprint scope","freeze canonicalization and provenance contract","approve follow-up implementation and full non-holdout revalidation"]
+  },
+  "required_follow_up_after_approval": {
+    "materiality":"MATERIAL_NEW_SEMANTIC",
+    "full_g3b_non_holdout_revalidation_required":true,
+    "new_execution_reauthorization_required":true,
+    "holdout_execution_authorized_by_this_packet":false,
+    "comparative_analysis_authorized_by_this_packet":false,
+    "runner_implementation_authorized_by_this_packet":false
+  },
+  "stop_condition":"STOP_FOR_HUMAN_CANDIDATE_MATERIALIZATION_DECISION"
+}

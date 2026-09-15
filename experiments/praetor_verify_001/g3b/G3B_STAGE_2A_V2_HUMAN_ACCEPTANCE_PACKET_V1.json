@@ -1,0 +1,72 @@
+{
+  "version":"G3B_STAGE_2A_V2_HUMAN_ACCEPTANCE_PACKET_V1",
+  "experiment_id":"PRAETOR-VERIFY-001",
+  "issue_id":"G3B-STAGE2-DEPENDENCY-HASH-001",
+  "fixture_id":"instrument_validation",
+  "status":"PENDING_HUMAN_ACCEPTANCE",
+  "review_scope":"Forward acceptance of V2 A1/A2 as a review basis only. Existing V1 artifacts and downstream Stage-2 artifacts remain preserved and unchanged.",
+  "artifacts":{
+    "current_authored_claims":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_AUTHORED_CLAIMS_V1.json","sha256":"1D322B00CB57AEA97760B4AE58877BD7996E82734A6082CAAC14242EE730B921"},
+    "v1_a1_classifications":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V1.json","sha256":"76436C4DDA3959EF690B62375D8CF88AF5A42ECBA9FBF85AE07DB6D8180FF4F2"},
+    "v2_a1_classifications":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_CLAIM_FAMILY_CLASSIFICATIONS_V2.json","sha256":"5AE743163C9D86E04E4C3F60094B23E6F347B28075EFA397FDCF867B298F86D7"},
+    "v1_a2_provenance":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_PROVENANCE_COMPLETENESS_V1.json","sha256":"19529ACA03550D7145CFEA21EE818A0823C2B677DBD075B987A55204C8C4607E"},
+    "v2_a2_provenance":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_PROVENANCE_COMPLETENESS_V2.json","sha256":"501A972EE1F2A213AB06293419737D6E537F9B8158703E110F0194425E5DEE09"},
+    "semantic_comparison":{"path":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_V1_V2_SEMANTIC_COMPARISON_V1.json","sha256":"C3D84C3E4174072B583053C62BFE2B7D980196B4D733D3C5E15970BD6EA66A3D"}
+  },
+  "semantic_comparison_result":{
+    "comparison_artifact":"experiments/praetor_verify_001/g3b/G3B_STAGE_2A_V1_V2_SEMANTIC_COMPARISON_V1.json",
+    "total_cases":32,
+    "identical_semantic_outcomes":32,
+    "semantic_changes":0,
+    "unresolved_cases":0,
+    "result":"IDENTICAL_SEMANTIC_OUTCOMES_WITH_METADATA_ONLY_DIFFERENCES"
+  },
+  "metadata_only_differences_summary":{
+    "case_count":32,
+    "differences":[
+      "V2 artifact versions identify the forward-remediation chain.",
+      "V2 A1 outer claim_artifact.sha256 binds to the exact current authored-claims bytes.",
+      "V2 A1 per-record claim_artifact_sha256 bindings point to the current authored-claims hash.",
+      "V2 A2 source_dependencies bind to the current authored-claims hash and the freshly generated V2 A1 hash.",
+      "V2 A2 per-record claim_artifact_sha256 bindings point to the current authored-claims hash.",
+      "V2 A1/A2 include explicit forward-review lineage and do not copy V1 output records."
+    ],
+    "semantic_fields_compared":["claim_family","provenance_result"],
+    "semantic_field_changes":0
+  },
+  "historical_v1_provenance":"UNDETERMINED. The stale authored-claims bytes and generator history are unavailable locally; the V1 outer dependency mismatch establishes stale metadata, not the historical source bytes used for generation.",
+  "non_retroactive_acceptance_statement":"Accepting V2 as a forward-review basis does not retroactively validate V1. V1 remains preserved with unresolved dependency provenance.",
+  "proposed_human_decision":{
+    "allowed_values":["ACCEPT_V2_AS_FORWARD_REVIEW_BASIS","REJECT_V2","DEFER"],
+    "selected":"ACCEPT_V2_AS_FORWARD_REVIEW_BASIS",
+    "reviewer":"drosado",
+    "rationale":null
+  },
+  "review_state":{
+    "human_review_status":"ACCEPTED_FOR_FORWARD_REVIEW_BASIS",
+    "signature":null,
+    "date":"09/11/2026 1712Z",
+    "stage_2_decision":null,
+    "stage_2_signature":null,
+    "stage_2_date":null
+  },
+  "authorization_flags":{
+    "implementation_authorized":false,
+    "payload_construction_authorized":false,
+    "evaluator_authorized":false,
+    "comparative_execution_authorized":false,
+    "holdout_access_authorized":false
+  },
+  "downstream_propagation":{
+    "performed":false,
+    "blocked_until_explicit_human_acceptance":true,
+    "excluded_until_acceptance":["G3B_STAGE_2A_PROOF_AVAILABILITY_V1.json","G3B_STAGE_2A_PROOF_SUPPORT_RELATIONS_V1.json","G3B_STAGE_2A_EVIDENCE_ASSERTION_VALIDATION_V1.json","G3B_STAGE_2A_FINITE_CONTRADICTION_LEDGER_V1.json","G3B_STAGE_2A_SOURCE_CONSTRUCTION_PACKET_V1.json","G3B_STAGE_2_SOURCE_INSTANTIATION_REVIEW.json","G3B_STAGE_2_HUMAN_SEMANTIC_REVIEW_SUMMARY_V1.json"]
+  },
+  "activity_exclusions":{
+    "payload_activity":false,
+    "runtime_activity":false,
+    "evaluator_activity":false,
+    "comparative_activity":false,
+    "holdout_activity":false
+  }
+}

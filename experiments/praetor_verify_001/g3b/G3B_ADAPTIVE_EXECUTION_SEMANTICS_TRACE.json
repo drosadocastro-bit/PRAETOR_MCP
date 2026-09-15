@@ -1,0 +1,56 @@
+{
+  "version": "g3b-adaptive-execution-semantics-trace-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "ADAPTIVE_EXECUTION_SEMANTICS_UNRESOLVED",
+  "entries": [
+    {
+      "semantic_rule": "Four integer action slots exist.",
+      "source_artifact": "g3b-adaptive-config.json",
+      "source_identifier": "actions",
+      "frozen_before_todo": true,
+      "interpretation_required": false,
+      "new_semantic_choice": false,
+      "materiality": "TRACEABLE_IMPLEMENTATION_DETAIL"
+    },
+    {
+      "semantic_rule": "An action identifies a concrete candidate or bounded mutation.",
+      "source_artifact": "none",
+      "source_identifier": "missing",
+      "frozen_before_todo": false,
+      "interpretation_required": true,
+      "new_semantic_choice": true,
+      "materiality": "MATERIAL_EXECUTION_SEMANTIC",
+      "status": "UNRESOLVED"
+    },
+    {
+      "semantic_rule": "Four tabular values update after permitted feedback.",
+      "source_artifact": "g3b-adaptive-config.json",
+      "source_identifier": "update",
+      "frozen_before_todo": true,
+      "interpretation_required": true,
+      "new_semantic_choice": true,
+      "materiality": "MATERIAL_EXECUTION_SEMANTIC",
+      "status": "UNRESOLVED"
+    },
+    {
+      "semantic_rule": "State transition formula and feedback encoding.",
+      "source_artifact": "none",
+      "source_identifier": "missing",
+      "frozen_before_todo": false,
+      "interpretation_required": true,
+      "new_semantic_choice": true,
+      "materiality": "MATERIAL_EXECUTION_SEMANTIC",
+      "status": "UNRESOLVED"
+    },
+    {
+      "semantic_rule": "G3A toy reward may be used as the G3B transition input.",
+      "source_artifact": "g3b-adaptive-config.json",
+      "source_identifier": "toy_reward_not_reused",
+      "frozen_before_todo": true,
+      "interpretation_required": false,
+      "new_semantic_choice": false,
+      "materiality": "PROHIBITED"
+    }
+  ],
+  "conclusion": "Both unresolved items directly control adaptive behavior. No executable semantics may be inferred from G3A toy behavior or from metadata-only partitions."
+}

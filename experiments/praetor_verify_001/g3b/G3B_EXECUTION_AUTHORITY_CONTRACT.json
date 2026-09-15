@@ -1,0 +1,44 @@
+{
+  "version": "g3b-execution-authority-contract-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "purpose": "Derive current effective execution authority without rewriting historical artifacts.",
+  "historical_evidence": {
+    "manifest": "G3B_PRE_EXECUTION_MANIFEST.json",
+    "receipt": "G3B_START-RECEIPT.json",
+    "immutable_fields": [
+      "g3b_execution_authorized",
+      "human_g3b_authorization_signed",
+      "execution_ready"
+    ],
+    "interpretation": "Historical values describe the state at artifact creation time and remain unchanged."
+  },
+  "later_authority_events": {
+    "authorization": "G3B_HUMAN_EXECUTION_AUTHORIZATION.json",
+    "activation": "G3B_EXECUTION_AUTHORITY_ACTIVATION.json",
+    "interpretation": "A later signed authorization may establish future effective authority but does not alter historical evidence."
+  },
+  "effective_state": {
+    "derived_by": "authority-chain-v1",
+    "required_conditions": [
+      "technical_prevalidation_pass",
+      "eligibility_is_for_human_execution_decision",
+      "authorization_status_approved_signed",
+      "authorization_decision_approve_for_execution",
+      "authorization_execution_authorized_true",
+      "signature_present",
+      "date_present",
+      "authorization_experiment_matches",
+      "frozen_artifact_hashes_match",
+      "repository_clean",
+      "holdout_not_accessed",
+      "execution_not_performed"
+    ],
+    "failure_behavior": "effective_execution_authorized=false",
+    "historical_values_are_not_rewritten": true
+  },
+  "integrity": {
+    "activation_artifact_is_append_only": true,
+    "hash_algorithm": "SHA-256",
+    "fail_closed": true
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "version": "g3b-adaptive-feedback-validation-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "adapter_version": "g3b-adaptive-feedback-adapter-v1",
+  "validation_scope": "instrument_validation_only",
+  "fixture_id": "validate-0000",
+  "holdout_access_status": "NOT_ACCESSED",
+  "holdout_evaluated": false,
+  "execution_performed": false,
+  "comparative_observations": 0,
+  "accepted_events": 3,
+  "feedback_timing": "PASS",
+  "provenance": "PASS",
+  "isolation": "PASS",
+  "replay": "PASS",
+  "negative_tests": {
+    "status": "PASS",
+    "results": [
+      {
+        "name": "hidden_ground_truth",
+        "result": "REJECTED"
+      },
+      {
+        "name": "expected_outcome",
+        "result": "REJECTED"
+      },
+      {
+        "name": "scalar_reward",
+        "result": "REJECTED"
+      },
+      {
+        "name": "wrong_experiment",
+        "result": "REJECTED"
+      },
+      {
+        "name": "stale_feedback",
+        "result": "REJECTED"
+      },
+      {
+        "name": "other_arm",
+        "result": "REJECTED"
+      },
+      {
+        "name": "other_fixture",
+        "result": "REJECTED"
+      },
+      {
+        "name": "future_step",
+        "result": "REJECTED"
+      },
+      {
+        "name": "malformed_schema",
+        "result": "REJECTED"
+      },
+      {
+        "name": "missing_provenance",
+        "result": "REJECTED"
+      },
+      {
+        "name": "duplicate_event",
+        "result": "REJECTED"
+      },
+      {
+        "name": "out_of_order",
+        "result": "REJECTED"
+      },
+      {
+        "name": "after_stopping",
+        "result": "REJECTED"
+      },
+      {
+        "name": "unauthorized_state_mutation",
+        "result": "REJECTED"
+      },
+      {
+        "name": "parity_mutation",
+        "result": "REJECTED"
+      }
+    ]
+  },
+  "state_transition": "UNRESOLVED_REAUTHORIZATION_REQUIRED",
+  "scalar_reward": "NO_SCALAR_REWARD",
+  "conclusion": "Allowed feedback validation passes, but G3B does not freeze the material state transition or action mapping.",
+  "replay_evidence": [
+    {
+      "event_hash": "0cf8ef6218fa91978e81eb1db0238babf32f8012ed23adfd745ed1de9867ef58",
+      "feedback": {
+        "experiment_id": "PRAETOR-VERIFY-001",
+        "event_id": "validation-event-0",
+        "step_id": 0,
+        "arm_id": "adaptive",
+        "regime": "G3-observable",
+        "seed": 0,
+        "fixture_id": "validate-0000",
+        "selected_verifier": "AGENT_K",
+        "governed_disposition": "NON_CERTIFIED",
+        "envelope_valid": true,
+        "source": "instrument_validation",
+        "provenance": {
+          "experiment_id": "PRAETOR-VERIFY-001",
+          "arm_id": "adaptive",
+          "regime": "G3-observable",
+          "seed": 0,
+          "step_id": 0,
+          "fixture_id": "validate-0000",
+          "source": "instrument_validation",
+          "event_id": "validation-event-0"
+        }
+      },
+      "same_as_replay": true
+    },
+    {
+      "event_hash": "797b4c45846b50dd0fac3fc0babfd71169f2ec693ab512b16f1858621e78e5b5",
+      "feedback": {
+        "experiment_id": "PRAETOR-VERIFY-001",
+        "event_id": "validation-event-1",
+        "step_id": 1,
+        "arm_id": "adaptive",
+        "regime": "G3-observable",
+        "seed": 0,
+        "fixture_id": "validate-0000",
+        "selected_verifier": "AGENT_K",
+        "governed_disposition": "NON_CERTIFIED",
+        "envelope_valid": true,
+        "source": "instrument_validation",
+        "provenance": {
+          "experiment_id": "PRAETOR-VERIFY-001",
+          "arm_id": "adaptive",
+          "regime": "G3-observable",
+          "seed": 0,
+          "step_id": 1,
+          "fixture_id": "validate-0000",
+          "source": "instrument_validation",
+          "event_id": "validation-event-1"
+        }
+      },
+      "same_as_replay": true
+    },
+    {
+      "event_hash": "6a7ca951253cee06badf6049b023df3b512c79bc6e96d917e6c22ed5774c7125",
+      "feedback": {
+        "experiment_id": "PRAETOR-VERIFY-001",
+        "event_id": "validation-event-2",
+        "step_id": 2,
+        "arm_id": "adaptive",
+        "regime": "G3-observable",
+        "seed": 0,
+        "fixture_id": "validate-0000",
+        "selected_verifier": "AGENT_K",
+        "governed_disposition": "NON_CERTIFIED",
+        "envelope_valid": true,
+        "source": "instrument_validation",
+        "provenance": {
+          "experiment_id": "PRAETOR-VERIFY-001",
+          "arm_id": "adaptive",
+          "regime": "G3-observable",
+          "seed": 0,
+          "step_id": 2,
+          "fixture_id": "validate-0000",
+          "source": "instrument_validation",
+          "event_id": "validation-event-2"
+        }
+      },
+      "same_as_replay": true
+    }
+  ]
+}

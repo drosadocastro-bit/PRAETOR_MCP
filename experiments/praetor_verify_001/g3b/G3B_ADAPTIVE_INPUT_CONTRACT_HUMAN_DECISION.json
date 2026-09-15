@@ -1,0 +1,88 @@
+{
+  "version": "g3b-adaptive-input-contract-human-decision-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "decision_packet_path": "experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_INPUT_CONTRACT_DECISION_PACKET.json",
+  "status": "APPROVED_HUMAN_ADAPTIVE_INPUT_CONTRACT_DECISION",
+  "selected_path": "ADAPTIVE_SPECIFIC_EVALUATOR_INPUT",
+  "decision": "APPROVE",
+  "approval_scope": "G3B adaptive evaluator input v1 only",
+  "validation_boundary": {
+    "fields": ["partition", "synthetic", "claim_universality"],
+    "semantic_authority": false,
+    "claim_universality_constraint": "deterministically constrained by claim_family under the existing validation rule"
+  },
+  "always_required_evaluator_fields": [
+    "claim_family",
+    "provenance_complete",
+    "proof_available",
+    "proof_supports_claim",
+    "schema_valid",
+    "contradiction_score"
+  ],
+  "conditional_permission_fields": {
+    "condition": "claim_family = permission",
+    "fields": [
+      "requested_tool",
+      "requested_action",
+      "record_tool",
+      "record_action",
+      "authority_present",
+      "authority_valid",
+      "duplicate_lineage",
+      "tool_permission"
+    ],
+    "non_permission_influence": "These fields must not acquire evaluator influence on non-permission branches."
+  },
+  "omitted_adaptive_evaluator_input_v1": {
+    "fields": [
+      "source_id",
+      "review_present",
+      "proxy_checks_pass",
+      "semantic_confidence",
+      "historical_success",
+      "semantic_consensus",
+      "source_reputation",
+      "urgency"
+    ],
+    "classification": "NOT_REQUIRED_BY_G3B_ADAPTIVE_EVALUATOR_CONTRACT_V1",
+    "scope": "adaptive evaluator input v1 only",
+    "historical_schema_treatment": "Do not delete or reinterpret historical schema meaning; do not remove from random or rule_based contracts.",
+    "universality_claim": "These fields are not claimed to be universally irrelevant."
+  },
+  "branch_dependent_requiredness": {
+    "activating_condition": "claim_family = permission",
+    "deterministic": true,
+    "other_activators": [],
+    "hidden_branch_classifier": false,
+    "model_inference": false,
+    "fallback_heuristic": false
+  },
+  "random_rule_based_contracts_unchanged": true,
+  "evidence_basis": {
+    "static_evaluator_trace": true,
+    "non_holdout_metamorphic_mutation_cases": 76,
+    "omitted_fields_result": "NO_OUTPUT_INFLUENCE for all eight omitted fields",
+    "positive_influence_countertests": true,
+    "permission_branch_specific_countertests": true,
+    "permission_only_fields_outside_permission_branch": "NO_OUTPUT_INFLUENCE",
+    "interpretation_boundary": "This is evaluator-input contract evidence, not comparative G3B performance evidence."
+  },
+  "materiality": "MATERIAL_NEW_SEMANTIC",
+  "full_non_holdout_revalidation_required": true,
+  "new_execution_reauthorization_required": true,
+  "holdout_state": {
+    "holdout_access_status": "NOT_ACCESSED",
+    "holdout_evaluated": false
+  },
+  "execution_state": {
+    "execution_performed": false,
+    "adaptive_schema_implemented": false,
+    "adaptive_candidate_payloads_created": false,
+    "adaptive_end_to_end_runner_implemented": false,
+    "effective_execution_authorized_for_new_basis": false
+  },
+  "comparative_observations": 0,
+  "signature": "drosado",
+  "date": "09/10/2026 1634Z",
+  "next_phase": "G3B ADAPTIVE INPUT CONTRACT IMPLEMENTATION DESIGN"
+}

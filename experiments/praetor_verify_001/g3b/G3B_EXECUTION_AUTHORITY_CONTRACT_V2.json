@@ -1,0 +1,42 @@
+{
+  "version": "g3b-execution-authority-contract-v2",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "supersedes": "g3b-execution-authority-contract-v1",
+  "layers": {
+    "historical_state": "Immutable evidence describing prior truth; frozen false values are never rewritten.",
+    "authority_chain_validity": "The signed authorization chain and integrity references are valid, independent of current applicability.",
+    "effective_execution_authority": "Execution is permitted only after all authority conditions, including explicit human applicability review, pass."
+  },
+  "applicability_review": {
+    "field": "authorization_applicability_review",
+    "allowed_values": ["PENDING", "AUTHORIZATION_REMAINS_APPLICABLE", "REAUTHORIZATION_REQUIRED"],
+    "pending_effective_authority": false,
+    "unknown_values_fail_closed": true,
+    "human_decision_required": true
+  },
+  "authority_chain_conditions": [
+    "experiment_id_matches",
+    "technical_prevalidation_pass",
+    "eligibility_is_for_human_execution_decision",
+    "authorization_status_approved_signed",
+    "authorization_decision_approve_for_execution",
+    "authorization_execution_authorized_true",
+    "signature_present",
+    "date_present",
+    "authorization_experiment_matches",
+    "frozen_artifact_hashes_match",
+    "repository_clean",
+    "holdout_not_accessed",
+    "execution_not_performed",
+    "activation_artifact_valid"
+  ],
+  "effective_authority_conditions": [
+    "authority_chain_valid",
+    "authorization_applicability_review_pass"
+  ],
+  "failure_behavior": "effective_execution_authorized=false",
+  "historical_values_are_not_rewritten": true,
+  "activation_artifact_is_append_only": true,
+  "hash_algorithm": "SHA-256",
+  "fail_closed": true
+}

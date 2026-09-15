@@ -1,0 +1,54 @@
+{
+  "version": "g3b-executable-runtime-manifest-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "runner_version": "g3b-executable-runtime-v1",
+  "status": "FROZEN_NON_HOLDOUT_VALIDATION_ONLY",
+  "execution_review_status": "REAUTHORIZATION_REQUIRED",
+  "holdout_access": "FORBIDDEN_IN_VALIDATION",
+  "arms": {
+    "random": "LCG32 uniform frozen field domains with constraint rejection",
+    "rule_based": "fixed cyclic eight-mutation schedule",
+    "adaptive": "BLOCKED: four action semantics are not specified"
+  },
+  "ordering": "regime order, then seed ascending, then proposal index ascending; no arm interleaving",
+  "evaluation": "independent oracle adjudication; invalid candidates are not failures; exact disposition mismatch maps through frozen taxonomy",
+  "replay": "same arm, regime, seed, proposal index and fixture must reproduce input/configuration hashes and oracle disposition",
+  "evidence": "append-only observation records; preserve valid, invalid and stopping events before aggregation",
+  "stopping_integration": {
+    "version": "g3b-stopping-v1",
+    "stop_on": [
+      "oracle_nondeterminism",
+      "hash_mismatch",
+      "holdout_contamination",
+      "forbidden_leakage",
+      "baseline_adaptation",
+      "budget_break",
+      "replay_failure",
+      "incomplete_provenance",
+      "design_change_after_observation"
+    ],
+    "preserve_partial_observations": true,
+    "silent_resume": false
+  },
+  "parity": [
+    "fixture identity",
+    "input hash",
+    "configuration hash",
+    "timeout",
+    "budget",
+    "retry policy",
+    "tools",
+    "runtime version"
+  ],
+  "oracle_isolation": {
+    "expected_outcome_not_exposed": true,
+    "previous_arm_state_not_exposed": true,
+    "comparative_summary_not_exposed": true
+  },
+  "newly_documented_decisions_requiring_human_review": [
+    "adaptive action-to-candidate mapping",
+    "whether validation oracle invocation is an acceptable proxy for the production evaluator path"
+  ],
+  "holdout_evaluated": false,
+  "g3b_comparative_observations": 0
+}

@@ -1,0 +1,73 @@
+{
+  "packet_id": "G3B_STAGE_2_HUMAN_DECISION_PACKET_V1",
+  "packet_version": 1,
+  "project": "PRAETOR",
+  "gate": "G3B",
+  "stage": 2,
+  "artifact_basis": {
+    "chain": "accepted V2-bound artifacts",
+    "forward_basis_acceptance": {
+      "selected": "ACCEPT_V2_AS_FORWARD_REVIEW_BASIS",
+      "reviewer": "drosado",
+      "date": "09/11/2026 1712Z",
+      "scope": "V2 A1/A2 accepted as the forward review basis only; this acceptance does not approve Stage 2."
+    },
+    "hash_algorithm": "SHA-256",
+    "artifact_hashes": {
+      "acceptance_packet": "4F9C7F3AD20ED590584FD3BED155ADDA693CDEE6B45F8F56956E220B0A7BFC43",
+      "source_packet": "15DBA417D797243EAECE15EAA816825656919C132B934ADD25179A98FF584136",
+      "instantiation_review": "E54B56AF35F53AA653A5BC32FFD6AADC5FCBF7DF21B560CD0A30234D28FD2BE2",
+      "semantic_summary": "DE3EE75746DCF0AAB272360A44BD5DA41C3F823CE4F182A42548DF2726809936"
+    },
+    "evidence_status": "State and artifact hashes supplied by the user from the referenced conversation; underlying artifacts have not been independently inspected or rehashed in this packet-generation task."
+  },
+  "semantic_state": {
+    "case_count": 32,
+    "semantic_change_count": 0,
+    "unresolved_case_count": 0,
+    "semantic_parity": "32/32 identical"
+  },
+  "historical_v1": {
+    "provenance": "UNDETERMINED",
+    "retroactively_validated": false,
+    "preservation_requirement": "Preserve all V1 artifacts unchanged. Acceptance of V2 and any Stage-2 decision do not retroactively validate V1 provenance."
+  },
+  "review_scope": {
+    "bounded_scope": "Approval of the Stage-2 semantic source basis only, bound to the accepted V2 artifact hashes listed in this packet.",
+    "approval_effect": "APPROVE_STAGE_2_SEMANTIC_SOURCE_BASIS records approval of this semantic source basis only.",
+    "authorization_boundary": "Stage-2 approval does not itself authorize implementation, payload construction, evaluator invocation, comparative execution, or holdout access.",
+    "separate_authorization_required": true
+  },
+  "human_decision": {
+    "allowed_decisions": [
+      "APPROVE_STAGE_2_SEMANTIC_SOURCE_BASIS",
+      "REJECT_STAGE_2_SEMANTIC_SOURCE_BASIS",
+      "DEFER"
+    ],
+    "selected": "APPROVE_STAGE_2_SEMANTIC_SOURCE_BASIS",
+    "reviewer": "drosado",
+    "rationale": "The accepted V2-bound Stage-2 semantic source basis is approved for the 32-case instrument_validation scope. The forward-remediation chain restores current dependency closure, preserves 32/32 semantic parity with zero semantic changes and zero unresolved cases, and maintains V1 historical provenance as UNDETERMINED without retroactive validation. This approval is limited to the Stage-2 semantic source basis and does not authorize implementation, payload construction, evaluator invocation, comparative execution, or holdout access.",
+    "signature": "drosado",
+    "date": "09/11/2026 1947Z"
+  },
+  "stage_2_status": {
+    "readiness": "STAGE_2_SEMANTIC_SOURCE_BASIS_APPROVED",
+    "approval_status": "APPROVED",
+    "approved": true
+  },
+  "authorizations": {
+    "implementation_authorized": false,
+    "payload_construction_authorized": false,
+    "evaluator_authorized": false,
+    "comparative_execution_authorized": false,
+    "holdout_access_authorized": false
+  },
+  "activity_constraints": {
+    "runtime_activity_permitted": false,
+    "payload_activity_permitted": false,
+    "evaluator_activity_permitted": false,
+    "comparative_activity_permitted": false,
+    "holdout_activity_permitted": false,
+    "task_scope": "Decision packet creation and JSON syntax validation only."
+  }
+}

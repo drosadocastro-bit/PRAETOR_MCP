@@ -1,0 +1,85 @@
+{
+  "version": "g3b-stage-1-human-approval-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "approval_record_role": "EXTERNAL_APPROVAL_RECORD_NOT_PACKET_CONTENT",
+  "packet": {
+    "path": "experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_FIELD_SOURCE_AND_ADAPTER_DECISION_PACKET.json",
+    "commit": "38cd74485c0cabb3fc7aef922d84880818a80389",
+    "sha256": "22C3B9B11FA326E81149E5954500311D05209E397E04B99212BA7E12B376E768"
+  },
+  "reviewer": "drosado",
+  "date": "09/11/2026 1235z",
+  "decision": "APPROVE",
+  "decision_basis": {
+    "packet_version": "g3b-adaptive-field-source-and-adapter-decision-packet-v3",
+    "canonical_decisions": 14,
+    "all_canonical_decisions": "APPROVE",
+    "claim_family_selection": "APPROVE_CANDIDATE_SPECIFIC_MAPPING_DESIGN",
+    "schema_valid_selection": "APPROVE_SEPARATE_EVIDENCE_OBJECT_DETERMINISTIC_VALIDATION_DERIVATION_DESIGN",
+    "schema_valid_human_resolution": {
+      "evidence_object_type": "/schema_valid_subject_decision/proposed_design/evidence_object_type",
+      "schema_design": "/schema_valid_subject_decision/proposed_design/schema_design",
+      "validator_semantics_design": "/schema_valid_subject_decision/proposed_design/validator_semantics_design",
+      "validator_configuration_design": "/schema_valid_subject_decision/proposed_design/validator_configuration_design",
+      "pass_fail_interpretation": "/schema_valid_subject_decision/proposed_design/pass_fail_interpretation",
+      "case_id_fixture_id_binding_design": "/schema_valid_subject_decision/proposed_design/case_id_fixture_id_binding_design"
+    },
+    "contradiction_score_policy": {
+      "identity": "G3B_FINITE_CONTRADICTION_FRACTION",
+      "version": "proposed-v1"
+    },
+    "contradiction_score_human_resolution": {
+      "scoring_semantics_definition": "/contradiction_score_source_decision/proposed_design/scoring_semantics_definition",
+      "admissible_scoring_evidence_object_type": "/contradiction_score_source_decision/proposed_design/admissible_scoring_evidence_object_type",
+      "scoring_instantiation_rules": "/contradiction_score_source_decision/proposed_design/scoring_instantiation_rules",
+      "case_id_fixture_id_binding_design": "/contradiction_score_source_decision/proposed_design/case_id_fixture_id_binding_design",
+      "independent_expected_value_and_digest_procedure": "/contradiction_score_source_decision/proposed_design/independent_expected_value_and_digest_procedure"
+    },
+    "adapter_selection": "C",
+    "adapter_scope": "Adaptive-only validated invocation boundary; design approval only, not adapter implementation authorization."
+  },
+  "authority_scope": {
+    "effective_stage_1_source_instantiation_authorized": true,
+    "scope": "NON_HOLDOUT_SYNTHETIC_SOURCE_INSTANTIATION_CONFORMING_TO_APPROVED_STAGE_1_DESIGN",
+    "fixture_id": "instrument_validation",
+    "case_ids": ["validate-0000", "validate-0001", "validate-0002", "validate-0003", "validate-0004", "validate-0005", "validate-0006", "validate-0007", "validate-0008", "validate-0009", "validate-0010", "validate-0011", "validate-0012", "validate-0013", "validate-0014", "validate-0015", "validate-0016", "validate-0017", "validate-0018", "validate-0019", "validate-0020", "validate-0021", "validate-0022", "validate-0023", "validate-0024", "validate-0025", "validate-0026", "validate-0027", "validate-0028", "validate-0029", "validate-0030", "validate-0031"],
+    "membership_basis": {
+      "path": "experiments/praetor_verify_001/g3b/g3b-partitions.json",
+      "version": "g3b-partitions-v1",
+      "commit": "a12c4ab2da5b79cdfdd77ea9213c29c7943a2428",
+      "sha256": "4A57C445E6F6F78147A1283F03BE248AF40BF31B3E89F64844C2A71B5904CAC7",
+      "partition": "instrument_validation",
+      "case_count": 32,
+      "byte_identity": "Historical and current bytes verified identical; no independent candidate-space enumeration claim."
+    }
+  },
+  "derived_authority_states": {
+    "stage_1_human_decision_present": true,
+    "stage_1_authority_chain_valid": true,
+    "effective_stage_1_source_instantiation_authorized": true,
+    "stage_2_human_decision_present": false,
+    "stage_2_authority_chain_valid": false,
+    "effective_stage_2_candidate_semantic_values_resolved": false,
+    "implementation_authorized": false,
+    "runtime_payload_construction_authorized": false,
+    "evaluator_invocation_authorized": false,
+    "full_g3b_revalidation_authorized": false,
+    "comparative_execution_authorized": false,
+    "holdout_access_authorized": false
+  },
+  "explicit_exclusions": [
+    "Instantiated semantic value acceptance",
+    "Runtime payload construction",
+    "Schema implementation",
+    "Adapter implementation",
+    "Payload emitter implementation",
+    "Runner implementation",
+    "Evaluator invocation",
+    "G3B revalidation",
+    "Comparative execution",
+    "Holdout access"
+  ],
+  "next_gate": "STAGE_2_HUMAN_SOURCE_INSTANTIATION_REVIEW",
+  "packet_sha256_is_external_only": true,
+  "approval_record_sha256_is_not_embedded_in_this_record": true
+}

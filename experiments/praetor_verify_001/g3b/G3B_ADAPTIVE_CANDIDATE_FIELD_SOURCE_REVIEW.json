@@ -1,0 +1,114 @@
+{
+  "version": "g3b-adaptive-candidate-field-source-review-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "PENDING_HUMAN_MATERIALIZATION_DECISION",
+  "overall_disposition": "HUMAN_DESIGN_REQUIRED",
+  "materiality": "MATERIAL_NEW_SEMANTIC",
+  "source_commit": "99b221d",
+  "review_scope": "approved non-holdout artifacts and code only",
+  "holdout_access_status": "NOT_ACCESSED",
+  "execution_performed": false,
+  "adaptive_end_to_end_runner_implemented": false,
+  "comparative_observations": 0,
+  "effective_execution_authorized_for_new_basis": false,
+  "field_source_matrix": [
+    {"field":"partition","type":"literal G3B_STRUCTURED_CANDIDATE","required":true,"exact_source":"runtime.ts G3BCandidate type; package.ts candidateSchema","source_value_or_rule":"fixed schema literal","source_frozen":true,"candidate_scoped":true,"fixture_scoped":false,"non_holdout":true,"derivation_already_defined":true,"semantic_ambiguity":false,"disposition":"EXACT_SOURCE_AVAILABLE","class":"STRUCTURAL_CONSTANT"},
+    {"field":"synthetic","type":"literal true","required":true,"exact_source":"runtime.ts G3BCandidate type; package.ts candidateSchema","source_value_or_rule":"fixed schema literal","source_frozen":true,"candidate_scoped":true,"fixture_scoped":false,"non_holdout":true,"derivation_already_defined":true,"semantic_ambiguity":false,"disposition":"EXACT_SOURCE_AVAILABLE","class":"STRUCTURAL_CONSTANT"},
+    {"field":"source_id","type":"string","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"random/rule_based constructors only; adaptive case_id is not a frozen source_id mapping","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"claim_family","type":"permission | semantic | human | universal","required":true,"exact_source":"none for complete adaptive candidate","source_value_or_rule":"partition logical_family metadata is not frozen as executable claim_family binding","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"claim_universality","type":"bounded | universal","required":true,"exact_source":"runtime.ts randomCandidate/ruleBasedCandidate","source_value_or_rule":"universal iff claim_family is universal; otherwise bounded","source_frozen":true,"candidate_scoped":true,"fixture_scoped":false,"non_holdout":true,"derivation_already_defined":true,"semantic_ambiguity":false,"disposition":"DETERMINISTIC_DERIVATION_ALREADY_DEFINED","class":"DETERMINISTIC_DERIVED","dependency":"claim_family remains unresolved for adaptive binding"},
+    {"field":"requested_tool","type":"synthetic_read | synthetic_inspect","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"random/rule_based constructors only","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"requested_action","type":"literal review","required":true,"exact_source":"runtime.ts randomCandidate/ruleBasedCandidate; package.ts schema","source_value_or_rule":"fixed literal review","source_frozen":true,"candidate_scoped":true,"fixture_scoped":false,"non_holdout":true,"derivation_already_defined":true,"semantic_ambiguity":false,"disposition":"EXACT_SOURCE_AVAILABLE","class":"STRUCTURAL_CONSTANT"},
+    {"field":"record_tool","type":"synthetic_read | synthetic_inspect","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"random/rule_based constructors only","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"record_action","type":"literal review","required":true,"exact_source":"runtime.ts randomCandidate/ruleBasedCandidate; package.ts schema","source_value_or_rule":"fixed literal review","source_frozen":true,"candidate_scoped":true,"fixture_scoped":false,"non_holdout":true,"derivation_already_defined":true,"semantic_ambiguity":false,"disposition":"EXACT_SOURCE_AVAILABLE","class":"STRUCTURAL_CONSTANT"},
+    {"field":"provenance_complete","type":"boolean","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"partition provenance metadata is not the candidate provenance field","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"authority_present","type":"boolean","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"authority_valid","type":"boolean","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"only constraint authority_valid implies authority_present is frozen","source_frozen":true,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"proof_available","type":"boolean","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"proof_supports_claim","type":"boolean","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"only constraint proof_supports_claim implies proof_available is frozen","source_frozen":true,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"duplicate_lineage","type":"boolean","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"review_present","type":"boolean","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"schema_valid","type":"boolean","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"random/rule_based constructors set true; no adaptive candidate source","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"proxy_checks_pass","type":"boolean","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"semantic_confidence","type":"number 0..1","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"contradiction_score","type":"number 0..1","required":true,"exact_source":"none for complete adaptive candidate","source_value_or_rule":"partial structural fingerprint input is not an executable candidate field source","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"historical_success","type":"number 0..1","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"semantic_consensus","type":"integer 0..20","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"tool_permission","type":"granted | denied | unknown","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"source_reputation","type":"unspecified | high","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"},
+    {"field":"urgency","type":"normal | critical","required":true,"exact_source":"none for adaptive identity","source_value_or_rule":"not derivable from identity or partition metadata","source_frozen":false,"candidate_scoped":true,"fixture_scoped":true,"non_holdout":true,"derivation_already_defined":false,"semantic_ambiguity":true,"disposition":"HUMAN_DESIGN_REQUIRED","class":"CANDIDATE_SPECIFIC_SEMANTIC"}
+  ],
+  "field_classification_summary": {
+    "structural_constants":["partition","synthetic","requested_action","record_action"],
+    "deterministic_derived_fields":["claim_universality"],
+    "candidate_specific_semantic_fields":["source_id","claim_family","requested_tool","record_tool","provenance_complete","authority_present","authority_valid","proof_available","proof_supports_claim","duplicate_lineage","review_present","schema_valid","proxy_checks_pass","semantic_confidence","contradiction_score","historical_success","semantic_consensus","tool_permission","source_reputation","urgency"],
+    "forbidden_shortcuts":["random arm values","rule_based arm values","arbitrary constants","safe defaults","evaluator outputs","oracle results","holdout values","adaptive feedback","performance-derived values","model-generated values","field-name inference"]
+  },
+  "candidate_coverage": {
+    "source_artifact":"G3B_ADAPTIVE_CANDIDATE_SPACE.json",
+    "fixture":"instrument_validation",
+    "identity_count":32,
+    "coverage_rule":"identity and structural metadata are present; complete executable candidate fields are absent",
+    "overall":"PARTIAL_SOURCE_COVERAGE",
+    "entries":[
+      {"case_id":"validate-0000","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0001","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0002","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0003","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0004","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0005","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0006","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0007","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0008","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0009","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0010","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0011","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0012","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0013","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0014","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0015","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0016","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0017","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0018","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0019","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0020","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0021","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0022","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0023","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0024","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0025","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0026","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0027","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0028","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0029","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0030","coverage":"PARTIAL_SOURCE_COVERAGE"},{"case_id":"validate-0031","coverage":"PARTIAL_SOURCE_COVERAGE"}
+    ]
+  },
+  "unresolved_field_analysis": {
+    "status":"HUMAN_DESIGN_REQUIRED",
+    "fields":"All fields with HUMAN_DESIGN_REQUIRED disposition require an explicit candidate-specific source or approved derivation. Their removal or redefinition would change the schema/evaluator contract and is itself a material design decision.",
+    "new_source_required":true,
+    "source_must_be":"frozen, candidate-scoped, fixture-scoped where applicable, non-holdout, provenance-bearing, exact, and independent of evaluator/oracle outcomes"
+  },
+  "alternative_feasibility": {
+    "alternative_a":"A_BLOCKED_BY_FIELD_SEMANTICS",
+    "alternative_a_basis":"A can become approvable only after every unresolved field receives an explicit frozen value/source and a complete-payload fingerprint scope is frozen.",
+    "alternative_b":"NO_QUALIFYING_COMPLETE_IMMUTABLE_SOURCE_EXISTS",
+    "alternative_b_basis":"No existing complete G3BCandidate source keyed by adaptive identity was found; random/rule_based constructors are arm-specific and cannot be reused.",
+    "alternative_c":"BLOCKED_BY_UNRESOLVED_FIELD_SOURCES",
+    "alternative_c_basis":"A constructor would require hidden defaults or new derivation rules for candidate-specific semantic fields.",
+    "selected_alternative":null,
+    "automatic_selection":false
+  },
+  "fingerprint_preparation": {
+    "existing_case_fingerprint":"PRESERVE_WITH_HISTORICAL_STRUCTURAL_MEANING",
+    "existing_case_fingerprint_scope":"partial structural canonical input emitted by package.ts; not a complete executable candidate binding",
+    "proposed_field":"candidate_payload_fingerprint",
+    "proposed_scope":"SHA-256 over the complete canonical executable G3BCandidate representation only",
+    "proposed_binding":"candidate_id plus fixture binding plus exact complete payload fingerprint",
+    "runtime_metadata_excluded":["condition","regime","seed","proposal_index","transport_ids"],
+    "implementation_status":"NOT_IMPLEMENTED",
+    "human_freeze_required":true
+  },
+  "canonicalization_review": {
+    "status":"SUFFICIENT_FOR_COMPLETE_PAYLOAD_PROPOSAL",
+    "canonicalizer":"package.ts canonical()",
+    "recursive_key_ordering":"object keys sorted recursively",
+    "string_encoding":"UTF-8 bytes for SHA-256 input",
+    "numeric_representation":"JSON.stringify finite numbers under schema bounds; must remain frozen for payload fingerprint use",
+    "null_policy":"schema nullability is none; null must be rejected for candidate payloads",
+    "arrays":"array order preserved; no set interpretation",
+    "excluded_metadata":["condition","regime","seed","proposal_index","transport_ids"],
+    "runtime_dependent_fields":"none permitted",
+    "canonicalization_gap":false,
+    "qualification":"This review confirms the canonicalizer mechanics only; it does not approve a payload source or fingerprint reinterpretation."
+  },
+  "provenance_and_isolation": {
+    "source_provenance":"currently partial identity/provenance only",
+    "required_future_provenance":["source artifact or constructor version/hash","candidate payload hash","case_id","case_fingerprint","fixture_id","outcome_inspected false"],
+    "must_not_mutate":["random arm state","rule_based arm state","other adaptive trajectory","other fixture","other seed","other regime","execution authority","governance configuration"],
+    "status":"PARTIAL_ONLY"
+  },
+  "validation_state": {
+    "candidate_schema_tests":"NOT_EXECUTED_IN_THIS_REVIEW_ARTIFACT",
+    "source_binding_tests":"REVIEW_ONLY_NO_BINDING_IMPLEMENTED",
+    "provenance_tests":"REVIEW_ONLY",
+    "fingerprint_preparation_tests":"REVIEW_ONLY",
+    "fixture_isolation":"NON_HOLDOUT_SCOPE_ONLY",
+    "holdout_access_status":"NOT_ACCESSED",
+    "execution_performed":false,
+    "comparative_observations":0,
+    "adaptive_end_to_end_runner_implemented":false
+  },
+  "stop_condition":"STOP_FOR_HUMAN_MATERIALIZATION_DECISION"
+}

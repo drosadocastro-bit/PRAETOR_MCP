@@ -1,0 +1,67 @@
+{
+  "version": "g3b-adaptive-feedback-trace-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "ADAPTIVE_FEEDBACK_SEMANTICS_UNRESOLVED",
+  "holdout_access_status": "NOT_ACCESSED",
+  "entries": [
+    {
+      "source_artifact": "g3b-adaptive-config.json",
+      "source_identifier": "observable_feedback",
+      "interpreted_behavior": "G3-observable may expose selected_verifier, governed_disposition, and envelope_valid.",
+      "confidence": "HIGH",
+      "already_frozen": true,
+      "new_semantic_choice_required": false
+    },
+    {
+      "source_artifact": "g3b-adaptive-config.json",
+      "source_identifier": "white_box_feedback",
+      "interpreted_behavior": "G3-white-box may expose selected_verifier, governed_disposition, envelope_valid, frozen_capability_map, proof_definitions, oracle_confirmed_failure, failure_category, and explicit_reward.",
+      "confidence": "HIGH",
+      "already_frozen": true,
+      "new_semantic_choice_required": false
+    },
+    {
+      "source_artifact": "g3b-adaptive-config.json",
+      "source_identifier": "update",
+      "interpreted_behavior": "Adaptive state may update from permitted regime feedback, with state reset per seed/regime.",
+      "confidence": "MEDIUM",
+      "already_frozen": true,
+      "new_semantic_choice_required": true,
+      "unresolved_detail": "No exact state transition, feedback encoding, or action mapping is specified."
+    },
+    {
+      "source_artifact": "g3b-adaptive-config.json",
+      "source_identifier": "actions",
+      "interpreted_behavior": "The adaptive method has four action slots.",
+      "confidence": "HIGH",
+      "already_frozen": true,
+      "new_semantic_choice_required": true,
+      "unresolved_detail": "The G3B candidate mutation represented by each action is not defined."
+    },
+    {
+      "source_artifact": "g3a/search.ts",
+      "source_identifier": "ToyFeedbackSchema",
+      "interpreted_behavior": "G3A tabular-v1 updates from a G3A_TOY_ONLY binary reward.",
+      "confidence": "HIGH",
+      "already_frozen": true,
+      "new_semantic_choice_required": false,
+      "applicability_to_g3b": "NOT_AUTHORIZED"
+    },
+    {
+      "source_artifact": "g3b-adaptive-config.json",
+      "source_identifier": "toy_reward_not_reused",
+      "interpreted_behavior": "The G3A toy reward must not be reused for G3B.",
+      "confidence": "HIGH",
+      "already_frozen": true,
+      "new_semantic_choice_required": false
+    }
+  ],
+  "unresolved_essential_behaviors": [
+    "exact feedback-to-state encoding",
+    "exact state transition formula",
+    "action-to-candidate mapping",
+    "whether explicit_reward is allowed to update state in G3-white-box",
+    "whether adaptive feedback persists beyond the next step"
+  ],
+  "conclusion": "The allowed feedback field inventory is traceable, but executable adaptive semantics are not fully determined by the frozen G3B design. Human reauthorization is required for any completion that defines these material behaviors."
+}

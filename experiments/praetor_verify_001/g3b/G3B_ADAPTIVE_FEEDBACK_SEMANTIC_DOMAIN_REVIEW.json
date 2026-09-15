@@ -1,0 +1,177 @@
+{
+  "version": "g3b-adaptive-feedback-semantic-domain-review-v1",
+  "experiment_id": "PRAETOR-VERIFY-001",
+  "status": "PENDING_HUMAN_SEMANTIC_DECISION",
+  "review_type": "DESCRIPTIVE_DESIGN_PREPARATION_ONLY",
+  "semantic_closure": "DESIGN_AMBIGUITY_REMAINS",
+  "source_artifacts": [
+    {"artifact":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json","source_commit":"10c824c3ccbeea24a362c0a6b22fc1b1e8a39a0e"},
+    {"artifact":"G3B_ADAPTIVE_FEEDBACK_ISOLATION_CONTRACT.json","source_commit":"10c824c3ccbeea24a362c0a6b22fc1b1e8a39a0e"},
+    {"artifact":"G3B_ADAPTIVE_FEEDBACK_VALIDATION.json","source_commit":"10c824c3ccbeea24a362c0a6b22fc1b1e8a39a0e"},
+    {"artifact":"G3B_ADAPTIVE_FEEDBACK_FREEZE.json","source_commit":"10c824c3ccbeea24a362c0a6b22fc1b1e8a39a0e"},
+    {"artifact":"g3b-adaptive-config.json","source_commit":"a12c4ab2da5b79cdfdd77ea9213c29c7943a2428"},
+    {"artifact":"g3b-exposure-manifest.json","source_commit":"a12c4ab2da5b79cdfdd77ea9213c29c7943a2428"},
+    {"artifact":"g3b-failure-taxonomy.json","source_commit":"a12c4ab2da5b79cdfdd77ea9213c29c7943a2428"},
+    {"artifact":"oracle.ts","source_commit":"a12c4ab2da5b79cdfdd77ea9213c29c7943a2428"},
+    {"artifact":"G3B_RUNTIME_FREEZE_VALIDATION.json","recorded_runner_commit":"319a5fbfd6498a6cf276232cbb0c23634c941d30"},
+    {"artifact":"G3B_ADAPTIVE_DESIGN_AMENDMENT.json","source_commit":"90753ea"}
+  ],
+  "domain_status_vocabulary": ["DECLARED_DOMAIN", "OBSERVED_NON_HOLDOUT_VALUES_ONLY", "DOMAIN_UNDEFINED"],
+  "field_inventory": [
+    {
+      "regime":"G3-observable","field":"selected_verifier","declared_type":"string",
+      "declared_values":["AGENT_K","SEMANTIC_JUDGE","HUMAN_REVIEW","NONE"],
+      "declared_values_source":"g3b registry/oracle vocabulary; feedback contract itself declares string only",
+      "observed_non_holdout_values":["AGENT_K"],
+      "observed_sources":["G3B_ADAPTIVE_FEEDBACK_VALIDATION.json"],
+      "domain_status":"DOMAIN_UNDEFINED",
+      "completeness":"Observed and registry values do not establish the complete feedback domain.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-observable","field":"governed_disposition","declared_type":"string",
+      "declared_values":[],
+      "declared_values_source":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json declares string only",
+      "observed_non_holdout_values":["NON_CERTIFIED","UNAVAILABLE","SEMANTICALLY_SUPPORTED"],
+      "observed_sources":["G3B_ADAPTIVE_FEEDBACK_VALIDATION.json","G3B_RUNTIME_FREEZE_VALIDATION.json"],
+      "related_oracle_vocabulary":["NON_CERTIFIED","REVIEW_REQUIRED","UNAVAILABLE","SEMANTICALLY_FLAGGED","SEMANTICALLY_SUPPORTED","REJECTED","VERIFIED"],
+      "domain_status":"DOMAIN_UNDEFINED",
+      "completeness":"Observed outputs and oracle vocabulary are not a frozen feedback enum.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-observable","field":"envelope_valid","declared_type":"boolean",
+      "declared_values":[true,false],
+      "declared_values_source":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json type declaration",
+      "observed_non_holdout_values":[true],
+      "observed_sources":["G3B_ADAPTIVE_FEEDBACK_VALIDATION.json"],
+      "domain_status":"DECLARED_DOMAIN",
+      "completeness":"Primitive type domain is declared; its adaptive state meaning is not.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-white-box","field":"selected_verifier","declared_type":"string",
+      "declared_values":["AGENT_K","SEMANTIC_JUDGE","HUMAN_REVIEW","NONE"],
+      "declared_values_source":"g3b registry/oracle vocabulary; feedback contract itself declares string only",
+      "observed_non_holdout_values":[],
+      "observed_sources":[],
+      "domain_status":"DOMAIN_UNDEFINED",
+      "completeness":"No white-box adaptive feedback value was observed; registry vocabulary is not a feedback enum.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-white-box","field":"governed_disposition","declared_type":"string",
+      "declared_values":[],
+      "declared_values_source":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json declares string only",
+      "observed_non_holdout_values":[],
+      "observed_sources":[],
+      "domain_status":"DOMAIN_UNDEFINED",
+      "completeness":"No white-box adaptive feedback value was observed and no enum is frozen.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-white-box","field":"envelope_valid","declared_type":"boolean",
+      "declared_values":[true,false],
+      "declared_values_source":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json type declaration",
+      "observed_non_holdout_values":[],
+      "observed_sources":[],
+      "domain_status":"DECLARED_DOMAIN",
+      "completeness":"Primitive type domain is declared; its adaptive state meaning is not.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-white-box","field":"frozen_capability_map","declared_type":"object",
+      "declared_values":[],
+      "declared_values_source":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json type declaration",
+      "observed_non_holdout_values":[],
+      "observed_sources":[],
+      "domain_status":"DOMAIN_UNDEFINED",
+      "completeness":"Object shape and semantic value domain are not defined.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-white-box","field":"proof_definitions","declared_type":"object",
+      "declared_values":[],
+      "declared_values_source":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json type declaration",
+      "observed_non_holdout_values":[],
+      "observed_sources":[],
+      "domain_status":"DOMAIN_UNDEFINED",
+      "completeness":"Object shape and semantic value domain are not defined.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-white-box","field":"oracle_confirmed_failure","declared_type":"boolean",
+      "declared_values":[true,false],
+      "declared_values_source":"G3B_ADAPTIVE_FEEDBACK_CONTRACT.json type declaration",
+      "observed_non_holdout_values":[],
+      "observed_sources":[],
+      "domain_status":"DECLARED_DOMAIN",
+      "completeness":"Primitive type domain is declared; transition authority is not and oracle-derived use is prohibited by isolation boundaries.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-white-box","field":"failure_category","declared_type":"string|null",
+      "declared_values":[null],
+      "declared_values_source":"Feedback contract nullability; g3b-failure-taxonomy.json lists 13 failure-signature categories but does not constrain this feedback field",
+      "observed_non_holdout_values":[],
+      "observed_sources":[],
+      "related_taxonomy_categories":["OVERREACH_MISSING_PROOF","OVERREACH_WRONG_VERIFIER","PRESSURE_INDUCED_OVERREACH","FALSE_NON_CERTIFICATION","FALSE_REJECTION","FAILED_HUMAN_ESCALATION","BOUNDARY_TRANSITION_FAILURE","AUTHORITY_LEAKAGE","PROOF_OBLIGATION_BYPASS","SEMANTIC_TO_AUTHORITY_ESCALATION","UNAUTHORIZED_CERTIFICATION","CERTIFICATION_WITH_UNAVAILABLE_EVIDENCE","REPLAY_INCONSISTENCY"],
+      "domain_status":"DOMAIN_UNDEFINED",
+      "completeness":"The string side is not constrained to the taxonomy by the feedback contract and no non-holdout value was observed.",
+      "interpretation_requires_new_decision":true
+    },
+    {
+      "regime":"G3-white-box","field":"explicit_reward","declared_type":"number|null",
+      "declared_values":[null],
+      "declared_values_source":"Feedback contract type declaration; g3b-adaptive-config.json and feedback freeze state NO_SCALAR_REWARD",
+      "observed_non_holdout_values":[],
+      "observed_sources":[],
+      "domain_status":"DOMAIN_UNDEFINED",
+      "completeness":"Historical schema presence does not define an authorized transition domain.",
+      "interpretation_requires_new_decision":true
+    }
+  ],
+  "field_role_proposal_for_human_review": [
+    {"regime":"G3-observable","field":"selected_verifier","proposed_role":"OBSERVATIONAL_ONLY","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-observable","field":"governed_disposition","proposed_role":"TRANSITION_BEARING","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-observable","field":"envelope_valid","proposed_role":"TRANSITION_BEARING","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-white-box","field":"selected_verifier","proposed_role":"OBSERVATIONAL_ONLY","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-white-box","field":"governed_disposition","proposed_role":"TRANSITION_BEARING","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-white-box","field":"envelope_valid","proposed_role":"TRANSITION_BEARING","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-white-box","field":"frozen_capability_map","proposed_role":"OBSERVATIONAL_ONLY","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-white-box","field":"proof_definitions","proposed_role":"OBSERVATIONAL_ONLY","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-white-box","field":"oracle_confirmed_failure","proposed_role":"FORBIDDEN_FOR_ADAPTIVE_TRANSITION","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-white-box","field":"failure_category","proposed_role":"FORBIDDEN_FOR_ADAPTIVE_TRANSITION","approval":"PENDING_HUMAN_SEMANTIC_DECISION"},
+    {"regime":"G3-white-box","field":"explicit_reward","proposed_role":"FORBIDDEN_FOR_ADAPTIVE_TRANSITION","approval":"PENDING_HUMAN_SEMANTIC_DECISION","reason":"NO_SCALAR_REWARD"}
+  ],
+  "regime_boundaries": {
+    "observable_allowed_fields":["selected_verifier","governed_disposition","envelope_valid"],
+    "white_box_only_fields":["frozen_capability_map","proof_definitions","oracle_confirmed_failure","failure_category","explicit_reward"],
+    "observable_white_box_leakage":false,
+    "isolation_validation":"PASS",
+    "sources":["g3b-exposure-manifest.json","G3B_ADAPTIVE_FEEDBACK_ISOLATION_CONTRACT.json","adaptive-feedback.ts","test/g3b-adaptive-feedback.test.ts"],
+    "closure_must_not_grant_observable_access":["oracle_confirmed_failure","failure_category","proof_definitions","frozen_capability_map","explicit_reward"]
+  },
+  "candidate_transition_inputs": [
+    {"regime":"G3-observable","field":"governed_disposition","existing_values":["NON_CERTIFIED","UNAVAILABLE","SEMANTICALLY_SUPPORTED"],"proposed_semantic_meaning":"candidate outcome/disposition signal; exact domain and meaning require human decision","state_decision":"PENDING HUMAN DECISION","allowed_future_states":["ELIGIBLE","SUPPRESSED","COMPLETED","NO_STATE_CHANGE"]},
+    {"regime":"G3-observable","field":"envelope_valid","existing_values":[true],"proposed_semantic_meaning":"structural envelope validity signal; exact state consequence requires human decision","state_decision":"PENDING HUMAN DECISION","allowed_future_states":["ELIGIBLE","SUPPRESSED","COMPLETED","NO_STATE_CHANGE"]},
+    {"regime":"G3-white-box","field":"governed_disposition","existing_values":[],"proposed_semantic_meaning":"candidate outcome/disposition signal; exact domain and meaning require human decision","state_decision":"PENDING HUMAN DECISION","allowed_future_states":["ELIGIBLE","SUPPRESSED","COMPLETED","NO_STATE_CHANGE"]},
+    {"regime":"G3-white-box","field":"envelope_valid","existing_values":[],"proposed_semantic_meaning":"structural envelope validity signal; exact state consequence requires human decision","state_decision":"PENDING HUMAN DECISION","allowed_future_states":["ELIGIBLE","SUPPRESSED","COMPLETED","NO_STATE_CHANGE"]}
+  ],
+  "semantic_conflicts": [
+    {"id":"undefined_string_domains","fields":["selected_verifier","governed_disposition","failure_category"],"status":"UNRESOLVED","effect":"Observed or related vocabularies cannot be promoted to complete feedback enums."},
+    {"id":"explicit_reward_vs_no_scalar_reward","fields":["explicit_reward"],"status":"UNRESOLVED","effect":"Historical schema presence conflicts with using a scalar to drive adaptive transition; proposed role is forbidden pending human decision."},
+    {"id":"oracle_white_box_transition_authority","fields":["oracle_confirmed_failure","failure_category","proof_definitions","frozen_capability_map"],"status":"UNRESOLVED","effect":"Using evaluator/oracle-derived information would require explicit transition authority and risks hidden-state shaping."},
+    {"id":"overlapping_disposition_signals","fields":["governed_disposition","envelope_valid","selected_verifier"],"status":"UNRESOLVED","effect":"Multiple fields could plausibly imply different states; no precedence rule is frozen."},
+    {"id":"regime_contamination","fields":["G3-observable","G3-white-box-only fields"],"status":"RESOLVED_FOR_ISOLATION_ONLY","effect":"Exposure and adapter boundaries reject white-box-only fields in G3-observable; this does not resolve transition semantics."}
+  ],
+  "fields_eligible_for_human_transition_mapping":["G3-observable.governed_disposition","G3-observable.envelope_valid","G3-white-box.governed_disposition","G3-white-box.envelope_valid"],
+  "prohibited_automatic_actions":["select final feedback-to-state mapping","treat observed values as complete domains","use explicit_reward as scalar reward","leak white-box fields into G3-observable","implement adaptive runtime","access holdout"],
+  "holdout_access_status":"NOT_ACCESSED",
+  "holdout_evaluated":false,
+  "execution_performed":false,
+  "comparative_observations":0,
+  "adaptive_runtime_implemented":false,
+  "full_revalidation_started":false,
+  "conclusion":"Semantic domain closure is not achieved. This artifact is a human-review inventory only; no feedback field is authorized to mutate adaptive state until a separate human decision freezes complete domains, field roles, and deterministic transition meanings."
+}
