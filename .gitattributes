@@ -12,5 +12,9 @@ experiments/praetor_verify_001/g3b/G3B_START-RECEIPT.json text eol=lf
 experiments/praetor_verify_001/g3b/G3B_RUNTIME_PREVALIDATION.json text eol=lf
 experiments/praetor_verify_001/g3b/G3B_HUMAN_EXECUTION_AUTHORIZATION.json text eol=lf
 
+# Post-G3B application baseline is a machine-readable LF-stable authority-neutral artifact.
+POST_G3B_APPLICATION_RUNTIME_BASELINE_V1.json text eol=lf
+scripts/verify-baselines.ts text eol=lf
+
 # This recovered historical intermediate is already stored as exact CRLF bytes.
 experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_INPUT_IMPLEMENTATION_DESIGN_REVIEW.json -text -diff

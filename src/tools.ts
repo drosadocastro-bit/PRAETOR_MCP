@@ -30,16 +30,41 @@ import type {
   SyntheticPriorCase,
   SyntheticSourceMetadata
 } from './types.js';
+import {
+  AnomalyContextOutputSchema,
+  boundedId,
+  boundedText,
+  DocumentExcerptOutputSchema,
+  EquipmentHistoryOutputSchema,
+  EvidenceBoundaryOutputSchema,
+  optionalBoundedText,
+  PriorCasesOutputSchema,
+  RecurringPatternsOutputSchema,
+  RecentAnomaliesOutputSchema,
+  SearchMaintenanceRecordsOutputSchema,
+  SourceMetadataOutputSchema,
+  SubmitAdvisoryPacketOutputSchema,
+  SupportingEvidenceOutputSchema,
+  ToolAnnotations
+} from './toolSchemas.js';
 
-function jsonResult(payload: unknown): CallToolResult {
+function jsonResult<T extends object>(payload: T): CallToolResult {
   return {
     content: [
       {
         type: 'text',
         text: JSON.stringify(payload, null, 2)
       }
-    ]
+    ],
+    structuredContent: payload as Record<string, unknown>
   };
+}
+
+function requireFound<T>(value: T | null, kind: string, identifier: string): T {
+  if (value === null) {
+    throw new PraetorError('not_found', `${kind} '${identifier}' was not found.`);
+  }
+  return value;
 }
 
 function maintenanceRecordToEvidence(record: SyntheticMaintenanceRecord): EvidenceItem {
@@ -228,6 +253,9 @@ export function buildAnomalyContext(args: { record_id?: string; equipment_id?: s
   prior_cases: SyntheticPriorCase[];
 } {
   const record = args.record_id ? findRecordById(args.record_id) : maintenanceRecords.find(entry => (args.equipment_id ? entry.equipment_id === args.equipment_id : true) && (args.anomaly_code ? entry.anomaly_code === args.anomaly_code : true));
+  if (!record) {
+    return { record: null, source: null, evidence: [], prior_cases: [] };
+  }
   const evidence = collectSupportingEvidence({ equipment_id: args.equipment_id ?? record?.equipment_id, anomaly_code: args.anomaly_code ?? record?.anomaly_code, finding: record?.technician_note });
 
   return {
@@ -244,16 +272,19 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
   server.registerTool(
     'search_maintenance_records',
     {
-      description: 'Search the synthetic maintenance dataset.',
-      inputSchema: z.object({
-        query: z.string().optional(),
-        equipment_id: z.string().optional(),
-        subsystem: z.string().optional(),
-        component: z.string().optional(),
-        anomaly_code: z.string().optional(),
+      title: 'Search maintenance records',
+      description: 'Search the local synthetic maintenance dataset. Results are advisory research data only.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({
+        query: optionalBoundedText(1000),
+        equipment_id: boundedId().optional(),
+        subsystem: boundedId().optional(),
+        component: boundedId().optional(),
+        anomaly_code: boundedId().optional(),
         severity: z.enum(['low', 'medium', 'high', 'critical']).optional(),
         limit: z.number().int().positive().max(25).optional()
-      })
+      }),
+      outputSchema: SearchMaintenanceRecordsOutputSchema
     },
     async input => safeTool(async () => {
       const records = await adapterCall('searchRecords', () => adapter.searchRecords(input), validateRecords);
@@ -264,11 +295,17 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
   server.registerTool(
     'get_equipment_history',
     {
-      description: 'Return the synthetic history for one equipment identifier.',
-      inputSchema: z.object({ equipment_id: z.string() })
+      title: 'Get equipment history',
+      description: 'Return the local synthetic history for one equipment identifier.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({ equipment_id: boundedId() }),
+      outputSchema: EquipmentHistoryOutputSchema
     },
     async ({ equipment_id }) => safeTool(async () => {
       const history = (await adapterCall('searchRecords', () => adapter.searchRecords({ equipment_id, limit: 100 }), validateRecords)).sort((left, right) => left.event_date.localeCompare(right.event_date)).slice(0, 100);
+      if (history.length === 0) {
+        throw new PraetorError('not_found', `Equipment '${equipment_id}' was not found.`);
+      }
       return jsonResult({ equipment_id, history });
     })
   );
@@ -276,12 +313,15 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
   server.registerTool(
     'get_recent_anomalies',
     {
-      description: 'Return the latest synthetic anomalies near the reference date.',
-      inputSchema: z.object({
-        equipment_id: z.string().optional(),
-        subsystem: z.string().optional(),
+      title: 'Get recent anomalies',
+      description: 'Return bounded local synthetic anomalies near the reference date.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({
+        equipment_id: boundedId().optional(),
+        subsystem: boundedId().optional(),
         days: z.number().int().positive().max(180).default(30)
-      })
+      }),
+      outputSchema: RecentAnomaliesOutputSchema
     },
     async ({ equipment_id, subsystem, days }) => safeTool(async () => jsonResult(await adapterCall('getRecentAnomalies', () => adapter.getRecentAnomalies({ equipment_id, subsystem, days }), validateRecentAnomalies)))
   );
@@ -289,8 +329,11 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
   server.registerTool(
     'get_recurring_patterns',
     {
-      description: 'Summarize recurring synthetic patterns for an equipment or component.',
-      inputSchema: z.object({ equipment_id: z.string().optional(), component: z.string().optional() })
+      title: 'Get recurring patterns',
+      description: 'Summarize bounded recurring patterns in the local synthetic dataset.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({ equipment_id: boundedId().optional(), component: boundedId().optional() }),
+      outputSchema: RecurringPatternsOutputSchema
     },
     async ({ equipment_id, component }) => safeTool(async () => jsonResult({ equipment_id, component, patterns: await adapterCall('getRecurringPatterns', () => adapter.getRecurringPatterns({ equipment_id, component }), validatePatterns) }))
   );
@@ -298,21 +341,27 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
   server.registerTool(
     'get_source_metadata',
     {
-      description: 'Return the synthetic source metadata for one source identifier.',
-      inputSchema: z.object({ source_id: z.string() })
+      title: 'Get source metadata',
+      description: 'Return provenance metadata for one local synthetic source identifier.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({ source_id: boundedId() }),
+      outputSchema: SourceMetadataOutputSchema
     },
-    async ({ source_id }) => safeTool(async () => jsonResult({ source: await adapterCall('getSourceMetadata', () => adapter.getSourceMetadata(source_id), validateSource) }))
+    async ({ source_id }) => safeTool(async () => jsonResult({ source: requireFound(await adapterCall('getSourceMetadata', () => adapter.getSourceMetadata(source_id), validateSource), 'Source', source_id) }))
   );
 
   server.registerTool(
     'retrieve_supporting_evidence',
     {
-      description: 'Collect synthetic supporting evidence for an equipment finding.',
-      inputSchema: z.object({
-        equipment_id: z.string().optional(),
-        anomaly_code: z.string().optional(),
-        finding: z.string().optional()
-      })
+      title: 'Retrieve supporting evidence',
+      description: 'Collect bounded local synthetic evidence for at least one supplied finding criterion.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({
+        equipment_id: boundedId().optional(),
+        anomaly_code: boundedId().optional(),
+        finding: optionalBoundedText(2000)
+      }).refine(input => Boolean(input.equipment_id || input.anomaly_code || input.finding?.trim()), { message: 'At least one evidence criterion is required.' }),
+      outputSchema: SupportingEvidenceOutputSchema
     },
     async input => safeTool(async () => jsonResult({ criteria: input, evidence: await adapterCall('getSupportingEvidence', () => adapter.getSupportingEvidence(input), validateEvidence) }))
   );
@@ -320,17 +369,25 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
   server.registerTool(
     'retrieve_document_excerpt',
     {
-      description: 'Return one synthetic document excerpt by source identifier or excerpt identifier.',
-      inputSchema: z.object({ source_id: z.string().optional(), excerpt_id: z.string().optional() })
+      title: 'Retrieve document excerpt',
+      description: 'Return one local synthetic document excerpt by source or excerpt identifier.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({ source_id: boundedId().optional(), excerpt_id: boundedId().optional() })
+        .refine(input => Boolean(input.source_id || input.excerpt_id), { message: 'source_id or excerpt_id is required.' }),
+      outputSchema: DocumentExcerptOutputSchema
     },
-    async ({ source_id, excerpt_id }) => safeTool(async () => jsonResult({ excerpt: await adapterCall('getDocumentExcerpt', () => adapter.getDocumentExcerpt(source_id, excerpt_id), validateExcerpt) }))
+    async ({ source_id, excerpt_id }) => safeTool(async () => jsonResult({ excerpt: requireFound(await adapterCall('getDocumentExcerpt', () => adapter.getDocumentExcerpt(source_id, excerpt_id), validateExcerpt), 'Document excerpt', excerpt_id ?? source_id ?? '<missing identifier>') }))
   );
 
   server.registerTool(
     'retrieve_prior_cases',
     {
-      description: 'Return prior synthetic cases that support the current advisory review.',
-      inputSchema: z.object({ equipment_id: z.string().optional(), anomaly_code: z.string().optional() })
+      title: 'Retrieve prior cases',
+      description: 'Return bounded local synthetic prior cases for at least one supplied identifier.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({ equipment_id: boundedId().optional(), anomaly_code: boundedId().optional() })
+        .refine(input => Boolean(input.equipment_id || input.anomaly_code), { message: 'equipment_id or anomaly_code is required.' }),
+      outputSchema: PriorCasesOutputSchema
     },
     async ({ equipment_id, anomaly_code }) => safeTool(async () => jsonResult({ cases: await adapterCall('getPriorCases', () => adapter.getPriorCases({ equipment_id, anomaly_code }), validatePriorCases) }))
   );
@@ -338,44 +395,51 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
   server.registerTool(
     'retrieve_anomaly_context',
     {
-      description: 'Return synthetic anomaly context for a record or equipment identifier.',
-      inputSchema: z.object({ record_id: z.string().optional(), equipment_id: z.string().optional(), anomaly_code: z.string().optional() })
+      title: 'Retrieve anomaly context',
+      description: 'Return bounded local synthetic context for one record, equipment, or anomaly identifier.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({ record_id: boundedId().optional(), equipment_id: boundedId().optional(), anomaly_code: boundedId().optional() })
+        .refine(input => Boolean(input.record_id || input.equipment_id || input.anomaly_code), { message: 'record_id, equipment_id, or anomaly_code is required.' }),
+      outputSchema: AnomalyContextOutputSchema
     },
     async input => safeTool(async () => {
       const record = input.record_id
         ? await adapterCall('getRecordById', () => adapter.getRecordById(input.record_id!), validateRecord)
         : (await adapterCall('searchRecords', () => adapter.searchRecords({ equipment_id: input.equipment_id, anomaly_code: input.anomaly_code, limit: 1 }), validateRecords))[0] ?? null;
+      const foundRecord = requireFound(record, 'Anomaly record', input.record_id ?? input.equipment_id ?? input.anomaly_code ?? '<missing identifier>');
       const evidence = await adapterCall('getSupportingEvidence', () => adapter.getSupportingEvidence({
-        equipment_id: input.equipment_id ?? record?.equipment_id,
-        anomaly_code: input.anomaly_code ?? record?.anomaly_code
+        equipment_id: input.equipment_id ?? foundRecord.equipment_id,
+        anomaly_code: input.anomaly_code ?? foundRecord.anomaly_code
       }), validateEvidence);
-      const source = record ? await adapterCall('getSourceMetadata', () => adapter.getSourceMetadata(record.source_id), validateSource) : null;
+      const source = await adapterCall('getSourceMetadata', () => adapter.getSourceMetadata(foundRecord.source_id), validateSource);
       const priorCases = await adapterCall('getPriorCases', () => adapter.getPriorCases({
-        equipment_id: record?.equipment_id,
-        anomaly_code: record?.anomaly_code
+        equipment_id: foundRecord.equipment_id,
+        anomaly_code: foundRecord.anomaly_code
       }), validatePriorCases);
-      return jsonResult({ record, source, evidence, prior_cases: priorCases });
+      return jsonResult({ record: foundRecord, source, evidence, prior_cases: priorCases });
     })
   );
 
   server.registerTool(
     'evaluate_evidence_boundary',
     {
-      description: 'Review whether a proposed answer separates chat claims, retrieved evidence, model inference, and actual audit events. The MCP host must supply the prompt and retrieved context explicitly; this tool does not inspect chat implicitly.',
-      inputSchema: z.object({
-        session_id: z.string().min(1).max(256),
-        user_prompt: z.string().min(1).max(8000),
+      title: 'Evaluate evidence boundary',
+      description: 'Review whether a proposed answer separates claims, retrieved evidence, model inference, and audit events. The host supplies all context explicitly; chat is never inspected implicitly.',
+      annotations: ToolAnnotations.readOnly,
+      inputSchema: z.strictObject({
+        session_id: boundedId(),
+        user_prompt: boundedText(8000),
         draft_answer: z.string().max(8000).optional(),
         domain: z.string().max(120).optional(),
-        retrieved_evidence: z.array(z.object({
-          id: z.string().min(1).max(120),
-          text: z.string().min(1).max(4000),
+        retrieved_evidence: z.array(z.strictObject({
+          id: boundedId(),
+          text: boundedText(4000),
           source_type: z.enum([SourceType.MCP_RETRIEVED, SourceType.TOOL_RETRIEVED, SourceType.CHAT_CLAIM, SourceType.MODEL_INFERENCE, SourceType.UNKNOWN]),
           source_id: z.string().max(120).optional(),
           source_domain: z.string().max(120).optional(),
           provenance: z.string().max(1000).optional()
         })).max(50).default([]),
-        comparison_handoff: z.object({
+        comparison_handoff: z.strictObject({
           handoff_type: z.literal('untrusted_comparison_analysis'),
           status: z.enum(['compared', 'refused']),
           confidence: z.number().finite().min(0).max(0.49),
@@ -387,32 +451,44 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
           flags: z.array(z.string().max(120)).max(16),
           summary: z.string().max(1000)
         }).optional()
-      })
+      }),
+      outputSchema: EvidenceBoundaryOutputSchema
     },
-    async input => safeTool(async () => jsonResult(await evidenceGate.evaluateAndAudit({
-      sessionId: input.session_id,
-      userPrompt: input.user_prompt,
-      draftAnswer: input.draft_answer,
-      domain: input.domain,
-      retrievedEvidence: input.retrieved_evidence.map(item => ({
-        id: item.id,
-        text: item.text,
-        sourceType: item.source_type,
-        sourceId: item.source_id,
-        sourceDomain: item.source_domain,
-        provenance: item.provenance
-      })),
-      toolCallsUsed: input.retrieved_evidence
-        .map(item => item.source_type)
-        .filter((sourceType, index, sourceTypes) => sourceTypes.indexOf(sourceType) === index)
-    })))
+    async input => safeTool(async () => {
+      const boundary = await evidenceGate.evaluateAndAudit({
+        sessionId: input.session_id,
+        userPrompt: input.user_prompt,
+        draftAnswer: input.draft_answer,
+        domain: input.domain,
+        retrievedEvidence: input.retrieved_evidence.map(item => ({
+          id: item.id,
+          text: item.text,
+          sourceType: item.source_type,
+          sourceId: item.source_id,
+          sourceDomain: item.source_domain,
+          provenance: item.provenance
+        })),
+        toolCallsUsed: input.retrieved_evidence
+          .map(item => item.source_type)
+          .filter((sourceType, index, sourceTypes) => sourceTypes.indexOf(sourceType) === index)
+      });
+      return jsonResult({
+        ...boundary,
+        comparison_handoff: input.comparison_handoff
+          ? { status: input.comparison_handoff.status, authoritative: false, used_for_authority: false }
+          : { status: 'not_supplied', authoritative: false, used_for_authority: false }
+      });
+    })
   );
 
   server.registerTool(
     'submit_review_advisory_packet',
     {
-      description: 'Persist a review-only synthetic advisory packet after deterministic governance checks pass.',
-      inputSchema: AdvisoryPacketSchema
+      title: 'Submit review advisory packet',
+      description: 'Persist a local synthetic review-only advisory packet after deterministic governance checks pass. This does not create operational authority.',
+      annotations: ToolAnnotations.write,
+      inputSchema: AdvisoryPacketSchema,
+      outputSchema: SubmitAdvisoryPacketOutputSchema
     },
     async input => safeTool(async () => {
       const validation = validateAdvisoryPacket(input);
@@ -432,6 +508,7 @@ export function registerPraetorTools(server: McpServer, adapter: DatasetAdapter 
         source_ids: packet.source_ids!,
         evidence_summary: packet.evidence_summary!,
         provenance: packet.provenance!,
+        confidence: assessment.capped_confidence,
         contradiction_status: contradictionStatus,
         circular_evidence_status: circularEvidenceStatus,
         integrity_verdict: assessment.verdict,

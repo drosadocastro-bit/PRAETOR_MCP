@@ -176,6 +176,11 @@ npm run dev
 
 The VS Code MCP configuration is in [.vscode/mcp.json](.vscode/mcp.json). Logs go to stderr because stdout is reserved for MCP protocol traffic.
 
+stdio is the default transport. An opt-in HTTP runtime is available through
+`npm run dev:http`, but it requires `PRAETOR_HTTP_KEY`, validates Host and Origin
+allowlists, uses `X-Praetor-Key` separately from platform `Authorization`, and
+keeps writes disabled by default. See [docs/HTTP_TRANSPORT.md](docs/HTTP_TRANSPORT.md).
+
 ## Validate It
 
 ```sh
@@ -183,7 +188,10 @@ npm run check
 npm test
 ```
 
-The test suite includes direct governance tests and a real stdio MCP smoke test that lists and calls every exposed tool. The append-only case list is in [test/adversarial-battery.test.ts](test/adversarial-battery.test.ts).
+The test suite includes direct governance tests and real stdio and HTTP smoke
+tests. Run `npm run test:historical` to verify preserved G2 bytes and the
+post-G3B application baseline separately. The append-only case list is in
+[test/adversarial-battery.test.ts](test/adversarial-battery.test.ts).
 
 ## Adversarial Validation
 

@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+.git
+.github
+.vscode
+data/*.ndjson
+experiments/hybrid_shadow/*.ndjson
+*.log
+*.tmp

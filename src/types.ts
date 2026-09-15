@@ -105,6 +105,13 @@ export interface EvidenceIndependence {
   dependency_risk: 'low' | 'medium' | 'high';
   notes: string;
   repeated_excerpt_count?: number;
+  circular_evidence_risk?: boolean;
+  edges?: Array<{
+    evidence_id: string;
+    source_id: string;
+    derived_from?: string;
+    upstream_assumption?: string;
+  }>;
 }
 
 export interface AdvisoryPacketDraft {

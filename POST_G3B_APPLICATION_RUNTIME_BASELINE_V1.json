@@ -1,0 +1,17 @@
+{
+  "baseline_commit": "cb131103bf20959fe2a30e173052d4407b524019",
+  "baseline_commit_short": "cb13110",
+  "canonical_src_tree_hash": "850312ba9f944e13c9bb01161e4bf10ce4d70bf421534f6429b92da2fe5db419",
+  "historical_g2_expected_tree_hash": "850312ba9f944e13c9bb01161e4bf10ce4d70bf421534f6429b92da2fe5db419",
+  "historical_g2_freeze_status": "PASS",
+  "historical_g2_verification": "The historical freeze remains immutable experiment evidence and is not recalculated by this baseline.",
+  "historical_source_archive": "Git commit cb131103bf20959fe2a30e173052d4407b524019:src",
+  "auxiliary_noncanonical_digest": "5d77d2ef5f475600de94a105664e98e3d6a6f06cf390d5d4d1a63cf270c51832",
+  "auxiliary_digest_classification": "AUXILIARY_NONCANONICAL_DIGEST",
+  "classification": "APPLICATION_RUNTIME_BASELINE",
+  "scope": "Current post-G3B application and runtime engineering only.",
+  "authority_effect": "NONE",
+  "research_effect": "NONE",
+  "evolution_rule": "Future application changes may change the current runtime hash without retroactively changing or invalidating the historical G2 result.",
+  "claim_boundary": "No new research claim, governance authorization, or production-readiness claim is created."
+}

@@ -55,11 +55,18 @@ export const EvidenceIndependenceSchema = z.strictObject({
   shared_source_ids: z.array(z.string().min(1).max(MAX_IDENTIFIER_LENGTH)).max(MAX_PACKET_LIST_ITEMS),
   dependency_risk: z.enum(['low', 'medium', 'high']),
   notes: z.string().min(1).max(MAX_TEXT_LENGTH),
-  repeated_excerpt_count: z.number().int().nonnegative().optional()
+  repeated_excerpt_count: z.number().int().nonnegative().optional(),
+  circular_evidence_risk: z.boolean().optional(),
+  edges: z.array(z.strictObject({
+    evidence_id: z.string().min(1).max(MAX_IDENTIFIER_LENGTH),
+    source_id: z.string().min(1).max(MAX_IDENTIFIER_LENGTH),
+    derived_from: z.string().min(1).max(MAX_IDENTIFIER_LENGTH).optional(),
+    upstream_assumption: z.string().min(1).max(MAX_TEXT_LENGTH).optional()
+  })).max(MAX_EVIDENCE_ITEMS).optional()
 });
 
 export const AdvisoryPacketSchema = z.strictObject({
-  packet_id: z.string().min(1).optional(),
+  packet_id: z.string().min(1).max(MAX_IDENTIFIER_LENGTH).optional(),
   advisory_id: z.string().min(1).max(MAX_IDENTIFIER_LENGTH),
   equipment_id: z.string().min(1).max(MAX_IDENTIFIER_LENGTH),
   subsystem: z.string().min(1).max(MAX_IDENTIFIER_LENGTH),
@@ -69,7 +76,7 @@ export const AdvisoryPacketSchema = z.strictObject({
   source_ids: z.array(z.string().min(1).max(MAX_IDENTIFIER_LENGTH)).min(1).max(MAX_PACKET_LIST_ITEMS),
   provenance: z.string().min(1).max(MAX_TEXT_LENGTH),
   supporting_evidence: z.array(EvidenceItemSchema).min(1).max(MAX_EVIDENCE_ITEMS),
-  confidence: z.number().min(0).max(1),
+  confidence: z.number().finite().min(0).max(1),
   uncertainty: z.array(z.string().min(1).max(MAX_TEXT_LENGTH)).max(MAX_PACKET_LIST_ITEMS),
   contradiction_status: z.enum(['present', 'not_detected']),
   circular_evidence_status: z.enum(['present', 'not_detected']),

@@ -5,6 +5,8 @@ export type ErrorCode =
   | 'adapter_error'
   | 'protocol66_input_error'
   | 'unavailable_adapter'
+  | 'not_found'
+  | 'configuration_error'
   | 'internal_error';
 
 export class PraetorError extends Error {
