@@ -75,6 +75,15 @@ jobs:
             -H 'x-praetor-key: ci-local-application-key-123456' \
             --data '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
           test "$(curl --silent --output /dev/null --write-out '%{http_code}' -X POST http://127.0.0.1:3000/mcp -H 'x-praetor-key: wrong-key' --data '{}')" = 401
+      - name: Container security boundary smoke
+        run: |
+          test "$(docker exec praetor-mcp-ci id -u)" != "0"
+          health_response="$(curl --fail --silent http://127.0.0.1:3000/healthz)"
+          grep -q '"writes_enabled":false' <<< "$health_response"
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' -X POST http://127.0.0.1:3000/mcp -H 'content-type: application/json' --data '{}')" = 401
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' -X POST http://127.0.0.1:3000/mcp -H 'authorization: Bearer platform-only' -H 'content-type: application/json' --data '{}')" = 401
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' -X POST http://127.0.0.1:3000/mcp -H 'authorization: Bearer platform-only' -H 'x-praetor-key: ci-local-application-key-123456' -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' --data '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}')" = 200
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' -X POST http://127.0.0.1:3000/mcp -H 'x-praetor-key: ci-local-application-key-123456' -H 'content-type: application/json' --data '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"submit_review_advisory_packet","arguments":{}}}')" = 403
       - name: Graceful container shutdown
         if: always()
         run: docker stop --time 5 praetor-mcp-ci
