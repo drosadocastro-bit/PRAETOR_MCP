@@ -1,5 +1,7 @@
 # PRAETOR-MCP
 
+[![CI passing](https://github.com/drosadocastro-bit/PRAETOR_MCP/actions/workflows/ci.yml/badge.svg?branch=codex%2Fpost-g3b-durability-shadow)](https://github.com/drosadocastro-bit/PRAETOR_MCP/actions/workflows/ci.yml?query=branch%3Acodex%2Fpost-g3b-durability-shadow)
+
 **Predictive Reliability Assessment and Evidence Traceability for Operational Readiness**
 
 PRAETOR-MCP is a local, synthetic, advisory-only MCP server for governed
