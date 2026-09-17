@@ -20,5 +20,5 @@ scripts/verify-baselines.ts text eol=lf
 experiments/praetor_verify_001/g3b/G3B_ADAPTIVE_INPUT_IMPLEMENTATION_DESIGN_REVIEW.json -text -diff
 
 # These historical source references are hashed from the preserved CRLF bytes.
-test/praetor-verify-001-g2.test.ts text eol=crlf
+test/praetor-verify-001*.test.ts text eol=crlf
 test/g3b-adaptive-input-minimization-evidence.test.ts text eol=crlf

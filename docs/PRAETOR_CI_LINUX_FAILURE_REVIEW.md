@@ -74,6 +74,8 @@ The relevant facts are exact:
 |---|---|---|---|---|
 | `test/g3b-adaptive-input-minimization-evidence.test.ts` | CRLF | `03f3acafbbfb8d548a0ff35fbff52e87b2894f8810e64efca2ac462e3d27676f` | LF | `d8f67d5d2bae45abdaeda78a6d778a4be4ed87433f7454850fb4b441c83e099e` |
 | `test/praetor-verify-001-g2.test.ts` | CRLF / frozen hash | `2adfb738624579282ca6a6b2016ca5a54827a13b83f1847e678f0ace7d29bab0` | LF | `3f0108dc722c2d6ab27ec67d3affc8e3b65bedac943493c14430bc7ea511308b` |
+| `test/praetor-verify-001.test.ts` | CRLF / frozen hash | `318928cb85e9a12169bfc2170adf5196967036db6714c5336b573ed0c8f77c4f` | LF | `2f56c511a0d371d0dc7fa347ff318850934f6f1c7a2db306a8bed4dd9eb42b74` |
+| `test/praetor-verify-001-g1.test.ts` | CRLF / frozen hash | `68bb7fe3d5290900b070dad3c9374c01713c3cfa3f7785476452dbe0848e0916` | LF | `5cd48c92b05c301cc6af914e2fc010b1881c3d231c19e14dbfe45f2c96e759e6` |
 
 The Windows worktree has `core.autocrlf=true` and checks these files out as CRLF. Its raw working-tree hashes therefore match the historical values and all `497` runtime tests pass on both Node versions.
 
@@ -125,9 +127,11 @@ Do not disable Ubuntu, mark it optional, skip tests, change historical hashes, o
 
 The smallest safe fix is to make the historical byte contract explicit and platform-independent. The preferred implementation is to verify the canonical historical bytes from Git/archive data rather than raw working-tree bytes. If the intended authority is specifically the preserved CRLF representation, an equally narrow first remediation is to add explicit `eol=crlf` rules for the two referenced test files in `.gitattributes` and then verify on both OS families.
 
-The fix must cover both paths:
+The fix must cover all four paths:
 
 - `test/praetor-verify-001-g2.test.ts` used by `verifyHistoricalG2Archive()`;
+- `test/praetor-verify-001.test.ts` used by `verifyHistoricalG2Archive()`;
+- `test/praetor-verify-001-g1.test.ts` used by `verifyHistoricalG2Archive()`;
 - `test/g3b-adaptive-input-minimization-evidence.test.ts` used by the G3B source-basis hash assertion.
 
 ## Required validation after the fix
