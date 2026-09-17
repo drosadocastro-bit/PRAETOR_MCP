@@ -139,6 +139,18 @@ describe('dataset adapter boundary', () => {
     expect(result.content[0]?.text).not.toContain('integrity_verdict');
   });
 
+  it('returns an explicit not_found result for a missing identifier', async () => {
+    const handlers = captureToolHandlers();
+    const missing = { ...customAdapter(), async getSourceMetadata() { return null; } } as unknown as DatasetAdapter;
+    registerPraetorTools({ registerTool: (name: string, config: unknown, handler: RegisteredHandler) => handlers.set(name, handler) } as unknown as McpServer, missing);
+
+    const result = await handlers.get('get_source_metadata')!({ source_id: 'SRC-MISSING' });
+    expect(JSON.parse(result.content[0]?.text ?? '{}').error).toEqual({
+      code: 'not_found',
+      detail: "Source 'SRC-MISSING' was not found."
+    });
+  });
+
   it('maps a typed storage failure to a stable storage error envelope', async () => {
     const handlers = captureToolHandlers();
     const storageFailure = new PraetorError('storage_error', 'filesystem path must remain private');

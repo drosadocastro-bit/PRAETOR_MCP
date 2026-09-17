@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "tsx src/index.ts",
+    "dev:http": "tsx src/http-index.ts",
     "demo": "tsx scripts/demo.ts",
     "study:reliability": "tsx scripts/reliability-study.ts",
     "study:horizon": "tsx scripts/horizon-study.ts",
@@ -15,11 +16,17 @@
     "pilot:live-horizon-v61": "tsx scripts/live-horizon-pilot-v6.1.ts",
     "prevalidate:g3b": "tsx scripts/g3b-runtime-prevalidation.ts",
     "freeze:g3b-runtime": "tsx scripts/g3b-runtime-freeze-validation.ts",
+    "verify:historical": "tsx scripts/verify-baselines.ts historical",
+    "verify:runtime-baseline": "tsx scripts/verify-baselines.ts runtime",
     "pilot:verify-001": "tsx scripts/praetor-verify-001.ts",
     "pilot:verify-001-g1": "tsx scripts/praetor-verify-001-g1.ts",
-    "test": "vitest run",
+    "test": "vitest run --config vitest.runtime.config.ts",
+    "test:historical": "tsx scripts/verify-baselines.ts all",
     "test:durability": "vitest run test/evidence-store/local-evidence-store.test.ts",
     "test:hybrid-shadow": "vitest run test/hybrid-shadow-evaluation.test.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/index.js",
+    "start:http": "node dist/http-index.js",
     "benchmark": "tsx scripts/benchmark.ts",
     "test:adversarial:report": "tsx scripts/generate-adversarial-report.ts",
     "check": "tsc -p tsconfig.json --noEmit"
@@ -33,6 +40,6 @@
     "@types/node": "^22.0.0",
     "tsx": "^4.0.0",
     "typescript": "^5.6.0",
-    "vitest": "^3.0.0"
+    "vitest": "^5.0.1"
   }
 }

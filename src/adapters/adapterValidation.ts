@@ -13,7 +13,7 @@ import type { PatternResult } from './DatasetAdapter.js';
 const MAX_ADAPTER_ITEMS = 100;
 const MAX_ADAPTER_TEXT = 5000;
 
-const MaintenanceRecordSchema = z.strictObject({
+export const MaintenanceRecordSchema = z.strictObject({
   record_id: z.string().min(1).max(256),
   equipment_id: z.string().min(1).max(256),
   subsystem: z.string().min(1).max(256),
@@ -32,7 +32,7 @@ const MaintenanceRecordSchema = z.strictObject({
   assessment: z.enum(['elevated', 'stable', 'normal', 'uncertain'])
 });
 
-const SourceMetadataSchema = z.strictObject({
+export const SourceMetadataSchema = z.strictObject({
   source_id: z.string().min(1).max(256),
   source_type: z.string().min(1).max(256),
   timestamp: z.string().datetime(),
@@ -42,7 +42,7 @@ const SourceMetadataSchema = z.strictObject({
   uncertainty_notes: z.array(z.string().max(MAX_ADAPTER_TEXT)).max(25)
 });
 
-const EvidenceSchema = z.strictObject({
+export const EvidenceSchema = z.strictObject({
   source_id: z.string().min(1).max(256),
   source_type: z.string().min(1).max(256),
   timestamp: z.string().datetime(),
@@ -57,7 +57,7 @@ const EvidenceSchema = z.strictObject({
   declared_paraphrase_group: z.string().min(1).max(256).optional()
 });
 
-const ExcerptSchema = z.strictObject({
+export const ExcerptSchema = z.strictObject({
   excerpt_id: z.string().min(1).max(256),
   source_id: z.string().min(1).max(256),
   source_type: z.string().min(1).max(256),
@@ -70,7 +70,7 @@ const ExcerptSchema = z.strictObject({
   independence_group: z.string().min(1).max(256)
 });
 
-const PriorCaseSchema = z.strictObject({
+export const PriorCaseSchema = z.strictObject({
   case_id: z.string().min(1).max(256),
   source_id: z.string().min(1).max(256),
   source_type: z.string().min(1).max(256),
@@ -84,7 +84,7 @@ const PriorCaseSchema = z.strictObject({
   independence_group: z.string().min(1).max(256)
 });
 
-const PatternSchema = z.strictObject({
+export const PatternSchema = z.strictObject({
   anomaly_code: z.string().min(1).max(256),
   equipment_id: z.string().min(1).max(256),
   component: z.string().min(1).max(256),
@@ -93,7 +93,7 @@ const PatternSchema = z.strictObject({
   average_confidence_hint: z.number().min(0).max(1)
 });
 
-const RecentAnomaliesSchema = z.strictObject({
+export const RecentAnomaliesSchema = z.strictObject({
   reference_date: z.string().datetime(),
   window_start: z.string().datetime(),
   anomalies: z.array(MaintenanceRecordSchema).max(MAX_ADAPTER_ITEMS)

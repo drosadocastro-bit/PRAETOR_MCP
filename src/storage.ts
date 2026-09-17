@@ -18,8 +18,12 @@ export function advisoryStorePath(projectRoot = process.cwd()): string {
 
 export async function appendAdvisoryPacket(record: AdvisoryPacketRecord, storePath = advisoryStorePath()): Promise<void> {
   try {
+    const validation = AdvisoryPacketRecordSchema.safeParse(record);
+    if (!validation.success) {
+      throw new StorageError('Advisory packet failed storage schema validation before append.');
+    }
     await mkdir(dirname(storePath), { recursive: true });
-    await appendFile(storePath, `${JSON.stringify(record)}\n`, 'utf8');
+    await appendFile(storePath, `${JSON.stringify(validation.data)}\n`, 'utf8');
   } catch (error) {
     throw new StorageError('Unable to append advisory packet storage.', { cause: error });
   }

@@ -30,6 +30,7 @@ describe('MCP stdio smoke test', () => {
     try {
       const tools = await client.listTools();
       expect(tools.tools.map(tool => tool.name).sort()).toEqual(expectedTools.sort());
+      expect(tools.tools.every(tool => tool.inputSchema && tool.outputSchema && tool.annotations)).toBe(true);
 
       const calls = [
         client.callTool({ name: 'search_maintenance_records', arguments: { equipment_id: 'PRA-401' } }),
@@ -44,6 +45,7 @@ describe('MCP stdio smoke test', () => {
       ];
       const results = await Promise.all(calls);
       expect(results.every(result => result.content.length > 0)).toBe(true);
+      expect(results[0]?.structuredContent).toMatchObject({ count: expect.any(Number) });
 
       const submission = await client.callTool({
         name: 'submit_review_advisory_packet',

@@ -6,7 +6,7 @@ const syntheticAdapter = new SyntheticDatasetAdapter();
 
 export function getActiveDatasetAdapter(): DatasetAdapter {
   const requested = process.env.PRAETOR_DATASET_ADAPTER?.trim().toLowerCase() ?? 'synthetic';
-  if (requested === 'synthetic') {
+  if (requested === 'synthetic' || requested === 'local') {
     return syntheticAdapter;
   }
   if (requested === 'external') {

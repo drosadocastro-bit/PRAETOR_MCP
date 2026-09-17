@@ -53,4 +53,13 @@ describe('tool helpers', () => {
     expect(context.evidence.length).toBeGreaterThan(0);
     expect(context.source?.source_id).toBe('SRC-403-A');
   });
+
+  it('does not attach unrelated evidence to a missing anomaly', () => {
+    expect(buildAnomalyContext({ record_id: 'REC-MISSING' })).toEqual({
+      record: null,
+      source: null,
+      evidence: [],
+      prior_cases: []
+    });
+  });
 });
